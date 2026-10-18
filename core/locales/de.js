@@ -117,7 +117,7 @@ export default {
   "how.faq2.q": "Ich habe meine Browserdaten gelöscht. Sind meine Einträge weg?",
   "how.faq2.a": "Ja, ausser du hast ein Backup exportiert. Importiere die Backup-Datei und gib den Lizenzschlüssel erneut ein.",
   "how.faq3.q": "Bekomme ich eine Rechnung oder eine Rückerstattung?",
-  "how.faq3.a": "Lemon Squeezy schickt zu jedem Kauf einen Beleg. Für Rückerstattungen schreib uns bitte: [Rückerstattungsregel ergänzen].",
+  "how.faq3.a": "Lemon Squeezy schickt zu jedem Kauf einen Beleg. Innerhalb von 14 Tagen nach dem Kauf erhältst du dein Geld ohne Begründung zurück. Schreib uns einfach: [Kontakt-E-Mail ergänzen].",
   "legal.imprint.title": "Impressum – Oneware",
   "legal.imprint.h1": "Impressum",
   "legal.imprint.p1": "Anbieter: [Name ergänzen]",

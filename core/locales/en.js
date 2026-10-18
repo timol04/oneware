@@ -117,7 +117,7 @@ export default {
   "how.faq2.q": "I cleared my browser data. Are my entries gone?",
   "how.faq2.a": "Yes, unless you exported a backup. Import the backup file and enter your license key again.",
   "how.faq3.q": "Can I get an invoice or a refund?",
-  "how.faq3.a": "Lemon Squeezy sends a receipt with every purchase. For refunds please contact us: [refund policy to be added].",
+  "how.faq3.a": "Lemon Squeezy sends a receipt with every purchase. You can get a refund within 14 days of purchase, no questions asked. Just e-mail us: [contact e-mail to be added].",
   "legal.imprint.title": "Imprint – Oneware",
   "legal.imprint.h1": "Imprint",
   "legal.imprint.p1": "Provider: [name to be added]",
