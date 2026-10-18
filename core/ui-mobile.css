@@ -1,0 +1,17 @@
+/* Mobile layout (viewport up to 720px). Imported by ui-components.css. Touch targets are at least 44px. */
+.ow-container { padding-left: 1rem; padding-right: 1rem; }
+.ow-topbar { padding-top: 1rem; }
+.ow-page-title { margin: 1.75rem 0 .5rem; font-size: 2.25rem; }
+.ow-card { padding: 1rem; }
+.ow-iconbtn { width: 2.75rem; height: 2.75rem; }
+.ow-btn { min-height: 2.75rem; }
+.ow-input, .ow-select, .ow-textarea { min-height: 2.75rem; }
+.ow-langselect select { min-height: 2.75rem; }
+.ow-row > .ow-input { flex-basis: 100%; }
+
+/* Dialog as bottom sheet */
+dialog.ow-dialog {
+  max-width: none; width: 100%; margin: auto 0 0; border-radius: 16px 16px 0 0; border-bottom: none;
+  padding: 1.25rem 1rem calc(1.25rem + env(safe-area-inset-bottom));
+}
+.ow-dialog__actions .ow-btn { flex: 1 1 auto; }

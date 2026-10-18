@@ -1,22 +1,19 @@
-.site-head { display: flex; justify-content: space-between; align-items: center; padding-top: clamp(1.25rem, 4vw, 2rem); font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem; }
-.hero { padding: clamp(3rem, 12vw, 7rem) 0 clamp(2rem, 6vw, 3.5rem); }
-.hero h1 { margin: 0 0 .35em; font-size: clamp(2.6rem, 9vw, 6rem); font-weight: 800; letter-spacing: -0.045em; line-height: .95; max-width: 14ch; }
-.hero p { margin: 0 0 1.25rem; max-width: 34rem; font-size: 1.2rem; color: var(--text-muted); }
+/* Hub styles shared by all devices; sizes live in hub-desktop.css / hub-mobile.css */
+@import url("hub-desktop.css") (min-width: 721px);
+@import url("hub-mobile.css") (max-width: 720px);
 
-/* Katalog: eine Zeile pro Tool */
-.catalog { list-style: none; margin: 0 0 4rem; padding: 0; border-top: 1px solid var(--text); }
+.site-head { display: flex; justify-content: space-between; align-items: center; font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem; }
+.hero h1 { margin: 0 0 .35em; font-weight: 800; letter-spacing: -0.045em; line-height: .95; }
+.hero p { margin: 0 0 1.25rem; color: var(--text-muted); }
+
+/* Catalog: one row per tool */
+.catalog { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
 .tool-row { border-bottom: 1px solid var(--border); }
-.tool-row a, .tool-row .tool-row__inner {
-  display: grid; grid-template-columns: 2.25rem 1fr auto; gap: .25rem 1rem; align-items: baseline;
-  padding: 1.15rem .25rem; color: inherit; text-decoration: none;
-}
+.tool-row a, .tool-row .tool-row__inner { display: grid; align-items: baseline; color: inherit; text-decoration: none; }
 .tool-row a:hover { background: var(--surface); }
 .tool-row a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.tool-row__icon { font-size: 1.4rem; }
-.tool-row__name { margin: 0; font-size: 1.4rem; }
-.tool-row__desc { grid-column: 2; margin: 0; color: var(--text-muted); }
-.tool-row__side { grid-column: 3; grid-row: 1 / span 2; text-align: right; display: flex; flex-direction: column; gap: .15rem; align-items: flex-end; }
+.tool-row__name { margin: 0; }
+.tool-row__desc { margin: 0; color: var(--text-muted); }
+.tool-row__side { display: flex; flex-direction: column; gap: .15rem; align-items: flex-end; text-align: right; }
 .tool-row__price { font-weight: 700; font-variant-numeric: tabular-nums; }
 .tool-row--soon .tool-row__name, .tool-row--soon .tool-row__icon { opacity: .55; }
-
-.site-foot { padding-bottom: 2rem; font-size: .9rem; }
