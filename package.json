@@ -1,0 +1,14 @@
+{
+  "name": "oneware",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Monorepo-Fundament für die Oneware Tool-Familie (client-seitig, ohne Backend)",
+  "scripts": {
+    "test": "node --test \"core/test/*.test.js\"",
+    "build-registry": "node scripts/build-tool-registry.js"
+  },
+  "devDependencies": {
+    "fake-indexeddb": "^6.2.6"
+  }
+}

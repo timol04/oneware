@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><title>Core UI-Test</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../ui-components.css"></head>
+<body><main class="ow-container" id="app">
+<h1>Core UI-Test</h1>
+<div class="ow-card"><h2 class="ow-card__title">Karte</h2>
+<div class="ow-field"><label class="ow-label">Feld</label><input class="ow-input"></div>
+<button class="ow-btn">Primär</button> <button class="ow-btn ow-btn--secondary">Sekundär</button>
+<p id="status"></p><p id="actions"></p></div>
+<button class="ow-btn" id="open">Lizenz-Dialog</button> <span id="result"></span>
+</main>
+<script type="module">
+import * as ui from '../ui-components.js';
+import { generateLicenseKey, isPremiumUnlocked } from '../license.js';
+const app = document.getElementById('app');
+ui.createPrivacyBanner({}, app);
+const s = document.getElementById('status');
+s.append(ui.createStatusBadge('green','OK'), ' ', ui.createStatusBadge('yellow','Bald'), ' ', ui.createStatusBadge('red','Überfällig'));
+ui.createUpgradeButton({ url: 'https://example.com/buy' }, document.getElementById('actions'));
+console.log('Beispiel-Schlüssel für "demo":', generateLicenseKey('demo'));
+window.generateLicenseKey = generateLicenseKey; window.isPremiumUnlocked = isPremiumUnlocked;
+document.getElementById('open').onclick = async () => {
+  const ok = await ui.showLicenseDialog({ toolSlug: 'demo', purchaseUrl: 'https://example.com/buy' });
+  document.getElementById('result').textContent = ok ? 'freigeschaltet' : 'abgebrochen';
+};
+</script></body></html>
