@@ -27,19 +27,29 @@
   --text: #16191d;
   --text-muted: #5d646b;
   --border: #cfd4d1;
-  --success: #0b8a4a;
-  --warning: #b45309;
-  --danger: #dc2626;
+  --success: #07793c;
+  --warning: #a84a08;
+  --danger: #c81e1e;
 
   /* Typography */
   --font-sans: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-size: 1.0625rem;
+  --font-size: var(--fs-body);
   --line-height: 1.55;
+
+  /* Spacing scale (4, 8, 12, 16, 24, 32, 48, 64, 96 px) */
+  --s-1: .25rem; --s-2: .5rem; --s-3: .75rem; --s-4: 1rem; --s-5: 1.5rem;
+  --s-6: 2rem; --s-7: 3rem; --s-8: 4rem; --s-9: 6rem;
+
+  /* Type scale (sizes for display/h1 are set per device in ui-desktop.css / ui-mobile.css) */
+  --fs-h2: 1.5rem; --fs-h3: 1.2rem; --fs-body: 1.0625rem; --fs-small: .9rem;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; /* license keys, numbers */
 
   /* Layout */
   --radius: 6px;
   --space: 1rem;
-  --measure: 62rem;
+  --measure-text: 38rem;   /* reading text */
+  --measure: 62rem;        /* catalog and tools */
+  --measure-wide: 76rem;   /* wide tools (two columns from 1100px) */
 }
 
 /* Dark theme: softer, less saturated colours */
@@ -150,3 +160,82 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-langselect { display: inline-flex; align-items: center; gap: .35rem; color: var(--text-muted); }
 .ow-langselect select { font: inherit; font-size: .9rem; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .35em .5em; }
 .ow-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---- Notices, toast, skip link ---- */
+.ow-skip { position: absolute; left: var(--s-2); top: -4rem; z-index: 100; padding: var(--s-2) var(--s-3); background: var(--text); color: var(--bg); border-radius: var(--radius); }
+.ow-skip:focus { top: var(--s-2); }
+.ow-notices { display: grid; gap: var(--s-2); }
+.ow-notice { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); padding: var(--s-3) var(--s-4); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius); background: var(--surface); font-size: var(--fs-small); }
+.ow-notice--warn { border-left-color: var(--warning); }
+.ow-notice p { margin: 0; flex: 1 1 16rem; }
+.ow-usage { margin: 0; font-size: var(--fs-small); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.ow-toast { position: fixed; left: 50%; bottom: calc(var(--s-5) + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 200; max-width: calc(100% - 2rem); padding: var(--s-3) var(--s-4); border-radius: var(--radius); background: var(--text); color: var(--bg); font-size: var(--fs-small); }
+.ow-btn--small { padding: .35em .8em; font-size: var(--fs-small); }
+.ow-btn--link { background: none; border-color: transparent; color: var(--accent); padding-left: 0; padding-right: 0; text-decoration: underline; text-underline-offset: .18em; }
+.ow-btn--link:hover { background: none; border-color: transparent; color: var(--accent); filter: brightness(.85); }
+.ow-key { font-family: var(--font-mono); letter-spacing: .04em; }
+
+/* ---- Site shell ---- */
+.ow-sitehead__in { display: flex; align-items: center; gap: var(--s-4); }
+.ow-wordmark { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.03em; color: var(--text); text-decoration: none; margin-right: auto; }
+.ow-sitenav { display: flex; gap: var(--s-4); }
+.ow-sitenav a { color: var(--text-muted); text-decoration: none; padding: var(--s-2) 0; }
+.ow-sitenav a:hover, .ow-sitenav a[aria-current="page"] { color: var(--text); }
+.ow-sitefoot { margin-top: var(--s-8); border-top: 1px solid var(--border); padding: var(--s-5) 0 var(--s-6); font-size: var(--fs-small); color: var(--text-muted); }
+.ow-sitefoot__in { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
+.ow-sitefoot a { color: var(--text-muted); }
+.ow-sitefoot a:hover { color: var(--text); }
+.ow-sitefoot__links { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); margin-right: auto; }
+
+/* ---- Tool shell ---- */
+.ow-toolhead { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--border); }
+.ow-toolhead__in { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-4); }
+.ow-toolhead__back { display: inline-flex; align-items: center; gap: var(--s-2); color: var(--text-muted); text-decoration: none; font-weight: 700; }
+.ow-toolhead__back:hover { color: var(--text); }
+.ow-toolhead__title { display: inline-flex; align-items: center; gap: var(--s-2); margin: 0; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; margin-right: auto; color: var(--accent); }
+.ow-toolhead__title span { color: var(--text); }
+.ow-toolstatus { display: inline-flex; align-items: center; gap: var(--s-3); font-size: var(--fs-small); }
+.ow-menuwrap { position: relative; }
+.ow-menu { position: absolute; right: 0; top: calc(100% + var(--s-2)); min-width: 15rem; padding: var(--s-2); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: 0 8px 24px rgb(0 0 0 / .18); z-index: 30; }
+.ow-menu[hidden], .ow-menu__backdrop[hidden] { display: none; }
+.ow-menu__item { display: flex; align-items: center; gap: var(--s-3); width: 100%; padding: var(--s-3); border: 0; border-radius: var(--radius); background: none; color: var(--text); font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
+.ow-menu__item:hover, .ow-menu__item:focus-visible { background: var(--bg); outline: none; }
+.ow-menu__item:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
+.ow-menu__item select { margin-left: auto; font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .25em .4em; }
+.ow-about { margin-top: var(--s-7); border-top: 1px solid var(--border); padding-top: var(--s-5); }
+.ow-about summary { cursor: pointer; font-size: var(--fs-h2); font-weight: 700; letter-spacing: -0.02em; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+.ow-about summary::-webkit-details-marker { display: none; }
+.ow-about summary .ow-icon { transition: transform .15s; }
+.ow-about[open] summary .ow-icon { transform: rotate(180deg); }
+.ow-about__text { max-width: var(--measure-text); }
+.ow-compare { display: grid; gap: var(--s-4) var(--s-6); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin: var(--s-4) 0; }
+.ow-compare h3 { margin: 0 0 var(--s-2); font-size: var(--fs-h3); }
+.ow-compare ul { margin: 0; padding-left: 1.2em; }
+.ow-compare--premium h3 { color: var(--accent); }
+
+/* ---- Layout helpers ---- */
+.ow-container--wide { max-width: var(--measure-wide); }
+.ow-prose { max-width: var(--measure-text); }
+.ow-prose h2 { margin: var(--s-7) 0 var(--s-3); font-size: var(--fs-h2); }
+.ow-prose p, .ow-prose li { margin: 0 0 var(--s-3); }
+.ow-prose details { border-bottom: 1px solid var(--border); padding: var(--s-3) 0; }
+.ow-prose summary { cursor: pointer; font-weight: 700; }
+@media (min-width: 1100px) { .ow-split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6); align-items: start; } }
+
+/* ---- Loading skeleton ---- */
+.ow-skeleton { height: 5rem; border-bottom: 1px solid var(--border); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text) 6%, transparent), transparent) 0 0 / 200% 100%; animation: ow-shimmer 1.4s linear infinite; }
+@keyframes ow-shimmer { to { background-position: -200% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+.ow-notices:empty { display: none; }
+.ow-usage:empty { display: none; }
+.ow-menu__backdrop { display: none; }
+.ow-sitehead__in, .ow-toolhead__in { padding-top: var(--s-3); padding-bottom: var(--s-3); }
+.ow-sitehead__bar .ow-langselect select { min-height: 0; }
+.ow-row > .ow-input { flex: 1 1 14rem; width: auto; }
+.ow-container--tool > .ow-notices { margin-bottom: var(--s-4); }
+.ow-container--tool > .ow-usage { margin-bottom: var(--s-3); }
+.ow-workspace { margin-bottom: var(--s-4); }
+.ow-workspace .ow-row { margin-bottom: var(--s-3); }

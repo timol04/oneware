@@ -3,7 +3,7 @@
  * All functions build DOM elements; text is never inserted as HTML.
  * Texts go through i18n (data-i18n) so they follow language changes.
  */
-import { unlockPremium } from './license.js';
+import { unlockPremium, licenseOwner, normalizeKey } from './license.js';
 import { createIcon } from './icons.js';
 import { t, availableLanguages, languageName, getLang, setLang, applyTranslations } from './i18n.js';
 import { getTheme, toggleTheme, initTheme } from './theme.js';
@@ -95,60 +95,118 @@ export function mountToolbar(container) {
   return bar;
 }
 
+/** Short confirmation message (role=status), disappears after 4 seconds. */
+export function showToast(text) {
+  document.querySelector('.ow-toast')?.remove();
+  const toast = el('div', 'ow-toast', text);
+  toast.setAttribute('role', 'status');
+  document.body.append(toast);
+  setTimeout(() => toast.remove(), 4000);
+}
+
+/** Formats input as XXXX-XXXX-XXXX-XXXX while typing. */
+function formatKey(value) {
+  return normalizeKey(value).slice(0, 16).match(/.{1,4}/g)?.join('-') ?? '';
+}
+
 /**
- * License key dialog. Returns Promise<boolean> (true = unlocked, false = cancelled).
- * `onUnlock` is called on success.
+ * License dialog with two ways: buy, or enter a key.
+ * Options: toolSlug, purchaseUrl, price, description (text), mode ('buy' | 'key'),
+ * otherSlugs (slugs of other tools, to give a precise "wrong tool" message), onUnlock.
+ * Returns Promise<boolean> (true = unlocked, false = closed).
  */
-export function showLicenseDialog({ toolSlug, purchaseUrl, onUnlock } = {}) {
+export function showLicenseDialog({ toolSlug, purchaseUrl, price, description, mode = 'buy', otherSlugs = [], onUnlock } = {}) {
   if (!toolSlug) throw new Error('toolSlug is required');
   return new Promise((resolve) => {
     const dialog = el('dialog', 'ow-dialog');
+    dialog.setAttribute('aria-labelledby', 'ow-license-title');
     const form = el('form');
     form.method = 'dialog';
 
-    const field = el('div', 'ow-field');
-    const label = i18nEl('label', 'ow-label', 'core.license.label');
-    const input = el('input', 'ow-input');
+    const head = el('div', 'ow-row');
+    head.style.justifyContent = 'space-between';
+    const heading = el('h2');
+    heading.id = 'ow-license-title';
+    heading.append(createIcon('key'), ' ', i18nEl('span', '', 'core.license.title'));
+    const close = el('button', 'ow-iconbtn');
+    close.type = 'button';
+    close.append(createIcon('x', { size: '1.1rem' }));
+    close.title = t('core.license.close');
+    close.setAttribute('aria-label', t('core.license.close'));
+    close.addEventListener('click', () => dialog.close());
+    head.append(heading, close);
+
+    const intro = description ? el('p', 'ow-muted', description) : null;
+
+    // buy section
+    let buy = null;
+    if (purchaseUrl) {
+      buy = el('div', 'ow-field');
+      const link = el('a', mode === 'buy' ? 'ow-btn' : 'ow-btn ow-btn--secondary', price ? t('core.license.buyFor', { price }) : t('core.license.buyShort'));
+      link.href = purchaseUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      buy.append(link);
+    }
+
+    // key section
+    const keySection = el('div', 'ow-field');
+    const label = i18nEl('label', 'ow-label', 'core.license.haveKey');
+    const input = el('input', 'ow-input ow-key');
     input.id = `ow-license-${toolSlug}`;
     input.placeholder = 'XXXX-XXXX-XXXX-XXXX';
     input.autocomplete = 'off';
+    input.autocapitalize = 'characters';
     input.spellcheck = false;
+    input.maxLength = 19;
+    input.setAttribute('aria-describedby', 'ow-license-msg');
     label.htmlFor = input.id;
-    const error = el('p', 'ow-error');
-    error.setAttribute('role', 'alert');
-    field.append(label, input, error);
-
-    const actions = el('div', 'ow-dialog__actions');
-    const cancel = i18nEl('button', 'ow-btn ow-btn--secondary', 'core.license.cancel');
-    cancel.type = 'button';
     const ok = i18nEl('button', 'ow-btn', 'core.license.unlock');
     ok.type = 'submit';
-    if (purchaseUrl) createUpgradeButton({ url: purchaseUrl, label: t('core.license.buy') }, actions).dataset.i18n = 'core.license.buy';
-    actions.append(cancel, ok);
+    const inputRow = el('div', 'ow-row');
+    input.style.flex = '1 1 12rem';
+    input.style.width = 'auto';
+    inputRow.append(input, ok);
+    const msg = el('p', 'ow-error');
+    msg.id = 'ow-license-msg';
+    msg.setAttribute('role', 'alert');
+    const help = i18nEl('p', 'ow-muted', 'core.license.help');
+    help.style.margin = '0';
+    help.style.fontSize = 'var(--fs-small)';
+    keySection.append(label, inputRow, msg, help);
 
-    const heading = el('h2');
-    heading.append(createIcon('key'), ' ', i18nEl('span', '', 'core.license.title'));
-    form.append(heading, field, actions);
+    const divider = el('p', 'ow-muted', t('core.license.or'));
+    divider.dataset.i18n = 'core.license.or';
+    divider.style.textAlign = 'center';
+    const parts = mode === 'key' ? [keySection, buy && divider, buy] : [buy, buy && divider, keySection];
+    form.append(head, ...(intro ? [intro] : []), ...parts.filter(Boolean));
     dialog.append(form);
 
     let result = false;
-    cancel.addEventListener('click', () => dialog.close());
+    input.addEventListener('input', () => {
+      const formatted = formatKey(input.value);
+      if (formatted !== input.value) input.value = formatted;
+      input.classList.remove('ow-input--error');
+      msg.textContent = '';
+    });
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       if (unlockPremium(toolSlug, input.value)) {
         result = true;
         dialog.close();
+        showToast(t('core.license.success'));
         onUnlock?.();
-      } else {
-        input.classList.add('ow-input--error');
-        error.textContent = t('core.license.invalid');
-        input.focus();
+        return;
       }
+      const owner = licenseOwner(input.value, otherSlugs.filter((x) => x !== toolSlug));
+      input.classList.add('ow-input--error');
+      msg.textContent = owner ? t('core.license.otherTool', { tool: owner }) : t('core.license.invalidHint');
+      input.focus();
     });
     dialog.addEventListener('close', () => { dialog.remove(); resolve(result); });
 
     document.body.append(dialog);
     dialog.showModal();
-    input.focus();
+    (mode === 'key' ? input : (dialog.querySelector('a.ow-btn') ?? input)).focus();
   });
 }

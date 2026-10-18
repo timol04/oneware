@@ -18,6 +18,10 @@ function apply(theme) {
   const doc = globalThis.document;
   if (!doc) return;
   doc.documentElement.setAttribute('data-theme', theme);
+  for (const m of doc.querySelectorAll('meta[name="theme-color"]')) {
+    m.removeAttribute('media');
+    m.content = theme === 'dark' ? '#121416' : '#eef0ee';
+  }
   doc.dispatchEvent(new CustomEvent('ow:themechange', { detail: { theme } }));
 }
 

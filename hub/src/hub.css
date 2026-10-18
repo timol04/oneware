@@ -1,19 +1,36 @@
-/* Hub styles shared by all devices; sizes live in hub-desktop.css / hub-mobile.css */
+/* Home page styles shared by all devices; sizes live in hub-desktop.css / hub-mobile.css */
 @import url("hub-desktop.css") (min-width: 721px);
 @import url("hub-mobile.css") (max-width: 720px);
 
-.site-head { display: flex; justify-content: space-between; align-items: center; font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem; }
 .hero h1 { margin: 0 0 .35em; font-weight: 800; letter-spacing: -0.045em; line-height: .95; }
-.hero p { margin: 0 0 1.25rem; color: var(--text-muted); }
+.hero p { margin: 0 0 var(--s-5); color: var(--text-muted); }
+.trust { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
+.trust li { display: inline-flex; align-items: center; gap: var(--s-2); }
+
+.section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-4); }
+.section-head h2 { margin: 0; font-size: var(--fs-h2); }
+.filter { display: flex; gap: var(--s-2); overflow-x: auto; max-width: 100%; }
+.filter[hidden] { display: none; }
+.filter button { flex: none; padding: .35em .9em; border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--text); font: inherit; font-size: var(--fs-small); cursor: pointer; }
+.filter button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.filter button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Catalog: one row per tool */
 .catalog { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--text); }
-.tool-row { border-bottom: 1px solid var(--border); }
+.tool-row { --accent: var(--accent-l); border-bottom: 1px solid var(--border); }
+[data-theme="dark"] .tool-row { --accent: var(--accent-d); }
 .tool-row a, .tool-row .tool-row__inner { display: grid; align-items: baseline; color: inherit; text-decoration: none; }
 .tool-row a:hover { background: var(--surface); }
 .tool-row a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.tool-row__icon { color: var(--accent); }
 .tool-row__name { margin: 0; }
 .tool-row__desc { margin: 0; color: var(--text-muted); }
 .tool-row__side { display: flex; flex-direction: column; gap: .15rem; align-items: flex-end; text-align: right; }
 .tool-row__price { font-weight: 700; font-variant-numeric: tabular-nums; }
-.tool-row--soon .tool-row__name, .tool-row--soon .tool-row__icon { opacity: .55; }
+.tool-row--soon .tool-row__name, .tool-row--soon .tool-row__icon, .tool-row--soon .tool-row__price { color: var(--text-muted); }
+.catalog__msg { padding: var(--s-4) 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
+
+.how__steps { list-style: none; margin: 0 0 var(--s-4); padding: 0; display: grid; gap: var(--s-4); }
+.how__steps li { display: grid; gap: var(--s-1); border-top: 1px solid var(--border); padding-top: var(--s-3); }
+.how__steps span { color: var(--text-muted); }
+.how h2 { font-size: var(--fs-h2); margin: 0 0 var(--s-4); }

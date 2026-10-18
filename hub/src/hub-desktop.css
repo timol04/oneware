@@ -1,11 +1,10 @@
-/* Hub, desktop layout */
-.site-head { padding-top: 2rem; }
-.hero { padding: clamp(3rem, 10vw, 7rem) 0 3.5rem; }
+/* Home, desktop layout */
+.hero { padding: clamp(3rem, 10vw, 6rem) 0 var(--s-7); }
 .hero h1 { font-size: clamp(3rem, 8vw, 6rem); max-width: 14ch; }
 .hero p { max-width: 34rem; font-size: 1.2rem; }
-.catalog { margin-bottom: 4rem; }
 .tool-row a, .tool-row .tool-row__inner { grid-template-columns: 2.25rem 1fr auto; gap: .25rem 1rem; padding: 1.15rem .25rem; }
 .tool-row__name { font-size: 1.4rem; }
 .tool-row__desc { grid-column: 2; }
 .tool-row__side { grid-column: 3; grid-row: 1 / span 2; }
-.site-foot { padding-bottom: 2rem; font-size: .9rem; }
+.how { margin-top: var(--s-8); }
+.how__steps { grid-template-columns: repeat(3, 1fr); gap: var(--s-6); }

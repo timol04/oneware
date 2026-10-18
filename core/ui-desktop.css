@@ -4,3 +4,7 @@
 .ow-page-title { margin: 3rem 0 .5rem; font-size: clamp(2.25rem, 5vw, 3.25rem); }
 .ow-card { padding: 1.5rem; }
 .ow-iconbtn { width: 2.25rem; height: 2.25rem; }
+
+.ow-hide-desktop { display: none; }
+.ow-prose h1, .ow-page-title { font-size: clamp(2.25rem, 5vw, 3.25rem); }
+.ow-container--tool { padding-top: var(--s-5); }

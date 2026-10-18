@@ -1,11 +1,11 @@
-/* Hub, mobile layout */
-.site-head { padding-top: 1rem; }
-.hero { padding: 2.5rem 0 2rem; }
+/* Home, mobile layout */
+.hero { padding: var(--s-7) 0 var(--s-6); }
 .hero h1 { font-size: clamp(2.5rem, 12vw, 3.5rem); }
 .hero p { font-size: 1.05rem; }
-.catalog { margin-bottom: 2.5rem; }
+.trust { flex-direction: column; }
 .tool-row a, .tool-row .tool-row__inner { grid-template-columns: 1.75rem 1fr auto; gap: .15rem .75rem; padding: 1rem 0; min-height: 3.5rem; }
 .tool-row__name { font-size: 1.2rem; }
 .tool-row__desc { grid-column: 2 / -1; font-size: .95rem; }
 .tool-row__side { grid-column: 3; grid-row: 1; }
-.site-foot { padding: 0 0 1.5rem; font-size: .9rem; }
+.filter button { min-height: 2.75rem; }
+.how { margin-top: var(--s-7); }

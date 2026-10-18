@@ -7,7 +7,7 @@
  *   <el data-i18n="key">                → textContent translated by applyTranslations()
  *   <el data-i18n-attr="placeholder:key;aria-label:key2">
  *
- * The chosen language is stored in localStorage ("ow_lang"). Changing it fires
+ * The chosen language is stored in localStorage ("ow_lang"); on the first visit the browser language is used if available, otherwise English. Changing it fires
  * the "ow:langchange" event on `document`; JS-rendered UI should re-render on it.
  */
 import { LOCALES } from './locales/index.js';
@@ -63,11 +63,21 @@ export function setLang(lang, { persist = true } = {}) {
   return true;
 }
 
-/** Applies the stored language (default: English). Called automatically on import. */
+/**
+ * Picks the language: ?lang=xx (and stores it) > stored choice > browser language (first visit) > English.
+ * Called automatically on import.
+ */
 export function initI18n() {
   let stored = null;
   try { stored = localStorage.getItem(STORAGE_KEY); } catch { /* storage unavailable */ }
-  if (stored && messages[stored]) setLang(stored, { persist: false });
+  let fromUrl = null;
+  try { fromUrl = new URLSearchParams(globalThis.location?.search).get('lang'); } catch { /* no URL */ }
+  const browser = (globalThis.navigator?.languages ?? [globalThis.navigator?.language]).filter(Boolean)
+    .map((l) => l.slice(0, 2).toLowerCase()).find((l) => messages[l]);
+
+  if (fromUrl && messages[fromUrl]) setLang(fromUrl);
+  else if (stored && messages[stored]) setLang(stored, { persist: false });
+  else if (browser && browser !== DEFAULT_LANG) setLang(browser, { persist: false });
   else if (globalThis.document) globalThis.document.documentElement.lang = DEFAULT_LANG;
 }
 initI18n();

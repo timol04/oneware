@@ -4,6 +4,7 @@
  */
 
 import { t } from './i18n.js';
+import { markExported } from './persistence.js';
 
 const DB_NAME = 'oneware';
 const EXPORT_VERSION = 1;
@@ -55,6 +56,8 @@ async function store(toolSlug, mode) {
   return db.transaction(toolSlug, mode).objectStore(toolSlug);
 }
 
+const changed = (toolSlug) => globalThis.document?.dispatchEvent(new CustomEvent('ow:datachange', { detail: { tool: toolSlug } }));
+
 const newId = () =>
   (globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`);
 
@@ -62,6 +65,7 @@ const newId = () =>
 export async function saveItem(toolSlug, item) {
   const stored = { ...item, id: item.id ?? newId() };
   await req((await store(toolSlug, 'readwrite')).add(stored));
+  changed(toolSlug);
   return stored;
 }
 
@@ -71,6 +75,7 @@ export async function getAllItems(toolSlug) {
 
 export async function deleteItem(toolSlug, id) {
   await req((await store(toolSlug, 'readwrite')).delete(id));
+  changed(toolSlug);
 }
 
 /** Overwrites the item with this id (id is kept). Throws if it does not exist. */
@@ -79,6 +84,7 @@ export async function updateItem(toolSlug, id, item) {
   if ((await req(s.get(id))) === undefined) throw new Error(t('core.storage.notFound', { id }));
   const updated = { ...item, id };
   await req(s.put(updated));
+  changed(toolSlug);
   return updated;
 }
 
@@ -104,6 +110,7 @@ export async function exportData(toolSlug) {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+  markExported(toolSlug);
   return payload;
 }
 
@@ -132,5 +139,6 @@ export async function importData(toolSlug, file, { replace = false } = {}) {
   const s = await store(toolSlug, 'readwrite');
   if (replace) await req(s.clear());
   for (const it of items) await req(s.put(it));
+  changed(toolSlug);
   return items.length;
 }

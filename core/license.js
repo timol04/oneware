@@ -86,13 +86,20 @@ export function unlockPremium(toolSlug, key) {
   if (!validateLicenseKey(key, toolSlug)) return false;
   try {
     localStorage.setItem(storageKey(toolSlug), normalizeKey(key));
+    globalThis.document?.dispatchEvent(new CustomEvent('ow:licensechange', { detail: { toolSlug } }));
     return true;
   } catch {
     return false;
   }
 }
 
+/** Returns the slug (from `slugs`) this key is valid for, or null. Used for "wrong tool" messages. */
+export function licenseOwner(key, slugs = []) {
+  return slugs.find((slug) => validateLicenseKey(key, slug)) ?? null;
+}
+
 /** Removes the unlock (e.g. for tests / support). */
 export function lockPremium(toolSlug) {
   try { localStorage.removeItem(storageKey(toolSlug)); } catch { /* ignore */ }
+  globalThis.document?.dispatchEvent(new CustomEvent('ow:licensechange', { detail: { toolSlug } }));
 }

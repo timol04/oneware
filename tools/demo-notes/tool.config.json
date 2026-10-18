@@ -12,6 +12,34 @@
   "status": "live",
   "icon": "note",
   "price": "CHF 3.-",
+  "order": 10,
+  "accent": {
+    "light": "#2433e8",
+    "dark": "#93a0ff"
+  },
   "hasPremium": true,
+  "stores": true,
+  "about": {
+    "en": "Quick notes, stored locally. A demo tool that shows how a tool looks inside the shared frame.",
+    "de": "Schnelle Notizen, lokal gespeichert. Ein Demo-Tool, das zeigt, wie ein Tool im gemeinsamen Rahmen aussieht."
+  },
+  "features": {
+    "free": [
+      {
+        "en": "Up to 3 entries",
+        "de": "Bis zu 3 Einträge"
+      },
+      {
+        "en": "Backup export and import",
+        "de": "Backup-Export und -Import"
+      }
+    ],
+    "premium": [
+      {
+        "en": "Unlimited entries",
+        "de": "Unbegrenzt viele Einträge"
+      }
+    ]
+  },
   "purchaseUrl": "https://example.com/lemon-squeezy-link"
 }

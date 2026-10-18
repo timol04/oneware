@@ -12,6 +12,34 @@
   "status": "live",
   "icon": "check",
   "price": "CHF 5.-",
+  "order": 30,
+  "accent": {
+    "light": "#07793c",
+    "dark": "#62b98a"
+  },
   "hasPremium": true,
+  "stores": true,
+  "about": {
+    "en": "Follow your habits over time. A demo tool that shows how a tool looks inside the shared frame.",
+    "de": "Gewohnheiten über die Zeit verfolgen. Ein Demo-Tool, das zeigt, wie ein Tool im gemeinsamen Rahmen aussieht."
+  },
+  "features": {
+    "free": [
+      {
+        "en": "Up to 3 entries",
+        "de": "Bis zu 3 Einträge"
+      },
+      {
+        "en": "Backup export and import",
+        "de": "Backup-Export und -Import"
+      }
+    ],
+    "premium": [
+      {
+        "en": "Unlimited entries",
+        "de": "Unbegrenzt viele Einträge"
+      }
+    ]
+  },
   "purchaseUrl": "https://example.com/lemon-squeezy-link"
 }

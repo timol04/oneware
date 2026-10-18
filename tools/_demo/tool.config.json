@@ -1,9 +1,6 @@
 {
   "slug": "_demo",
-  "name": {
-    "en": "Demo tool",
-    "de": "Demo-Tool"
-  },
+  "name": { "en": "Demo tool", "de": "Demo-Tool" },
   "shortDescription": {
     "en": "Shows license, storage and UI of the core library.",
     "de": "Zeigt Lizenz, Speicherung und UI der Core-Bibliothek."
@@ -12,6 +9,20 @@
   "status": "live",
   "icon": "flask",
   "price": "CHF 0.-",
+  "order": 1,
+  "accent": { "light": "#2433e8", "dark": "#93a0ff" },
   "hasPremium": true,
+  "stores": true,
+  "about": {
+    "en": "The template for new tools: license, storage, backup, language and theme come from the shared frame.",
+    "de": "Die Vorlage für neue Tools: Lizenz, Speicherung, Backup, Sprache und Design kommen aus dem gemeinsamen Rahmen."
+  },
+  "features": {
+    "free": [
+      { "en": "Up to 3 entries", "de": "Bis zu 3 Einträge" },
+      { "en": "Backup export and import", "de": "Backup-Export und -Import" }
+    ],
+    "premium": [{ "en": "Unlimited entries", "de": "Unbegrenzt viele Einträge" }]
+  },
   "purchaseUrl": "https://example.com/lemon-squeezy-link"
 }

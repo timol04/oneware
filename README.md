@@ -3,10 +3,17 @@
 Monorepo for a family of small, client-side web tools (no backend). Pay once, unlock with a license key.
 
 ```
-core/      shared library: license.js, storage.js, i18n.js, theme.js, icons.js, ui-components.css/js
-hub/       landing page, renders hub/tool-registry.json
-tools/     one folder per tool (tool.config.json + index.html + src/)
-scripts/   build-tool-registry.js
+index.html           home page (hero, tool catalog, how it works)
+how-it-works/        explainer page; legal/imprint/, legal/privacy/; 404.html
+core/                shared library
+  license.js storage.js persistence.js   license keys, IndexedDB, backup reminders
+  i18n.js locales/ theme.js icons.js     languages, themes, SVG icons
+  site-shell.js tool-shell.js            header/footer for pages and the frame around every tool
+  ui-components.css/js                   tokens, components, dialog, toast
+  ui-desktop.css ui-mobile.css           layout per device (imported by ui-components.css)
+hub/                 tool-registry.json (generated) and the home page scripts/styles
+tools/               one folder per tool (tool.config.json + index.html + src/)
+scripts/             build-tool-registry.js, generate-demo-tools.js
 ```
 
 ## Commands
@@ -14,59 +21,71 @@ scripts/   build-tool-registry.js
 | Command | Purpose |
 |---|---|
 | `npm install` | dev dependency for tests (fake-indexeddb) |
-| `npm test` | core tests |
+| `npm test` | core tests (license, storage, i18n, locale key parity, backup reminders) |
 | `npm run build-registry` | generates `hub/tool-registry.json` from all `tools/*/tool.config.json` |
 
 View locally: run `python3 -m http.server` in the repo root, then open `http://localhost:8000/`. ES modules need a server; `file://` does not work.
 
 ## Creating a new tool
 
-1. Create the folder `tools/[new-slug]/` (easiest: copy `tools/_demo/`).
+1. Create the folder `tools/[new-slug]/` (easiest: copy `tools/_demo/`, which is the template).
 2. Fill in `tool.config.json`:
    ```json
    {
      "slug": "sub-tracker",
-     "name": "Subscription tracker",
-     "shortDescription": "All your subscriptions at a glance, paid once.",
+     "name": { "en": "Subscription tracker", "de": "Abo-Tracker" },
+     "shortDescription": { "en": "All your subscriptions at a glance.", "de": "Alle Abos im Überblick." },
      "category": "tracker",
      "status": "live",
      "icon": "wallet",
      "price": "CHF 5.-",
+     "order": 10,
+     "accent": { "light": "#c2410c", "dark": "#f0a07a" },
      "hasPremium": true,
+     "stores": true,
+     "about": { "en": "Two sentences about what it does.", "de": "…" },
+     "features": {
+       "free": [{ "en": "Up to 5 subscriptions", "de": "Bis zu 5 Abos" }],
+       "premium": [{ "en": "Unlimited subscriptions", "de": "Unbegrenzt viele Abos" }]
+     },
      "purchaseUrl": "https://[lemon-squeezy-link]"
    }
    ```
-   - `slug` must equal the folder name. `status` is `live` or `coming-soon`. A `live` tool with `hasPremium` needs a valid `purchaseUrl`.
-   - `icon` is an **icon name** from `core/icons.js` (never an emoji). Available: `lock key star note wallet check bookmark flask download upload trash link sun moon globe`.
-   - `name`, `shortDescription` and `price` can be a plain string (English) or an object per language: `"name": { "en": "Subscription tracker", "de": "Abo-Tracker" }`. The `en` entry is required.
-3. Import the core modules (paths from `tools/[slug]/index.html`; from `tools/[slug]/src/` use `../../../core/...`):
-   ```html
-   <script src="../../core/theme-init.js"></script>
-   <link rel="stylesheet" href="../../core/ui-components.css">
-   ```
+   - Required: `slug name shortDescription category status icon price hasPremium`. `slug` must equal the folder name. `status` is `live` or `coming-soon`.
+   - `icon` is an **icon name** from `core/icons.js`, never an emoji.
+   - `name`, `shortDescription`, `price`, `about` and `features` entries are a plain string (English) or an object per language; `en` is required.
+   - Optional: `order` (sort order in the catalog), `accent` (colours for light/dark), `about` and `features` (shown under "About this tool"), `stores` (default `true`; set `false` if the tool saves no data, which removes backup menu items and reminders).
+   - A `live` tool with `hasPremium` needs a real `purchaseUrl`. The build fails on placeholders (allowed only for `"category": "demo"`).
+3. Build the page. `tools/_demo/index.html` shows the pattern: it only contains `<main id="main" class="ow-container ow-container--tool">` with your workspace; the header (back link, name, license status, menu), notices, "About this tool" and footer come from the **tool shell**:
    ```js
-   import { isPremiumUnlocked } from '../../../core/license.js';
-   import { saveItem, getAllItems } from '../../../core/storage.js';
-   import { createIcon } from '../../../core/icons.js';
-   import { registerMessages, t } from '../../../core/i18n.js';
-   import { mountToolbar, createPrivacyBanner, showLicenseDialog, createUpgradeButton } from '../../../core/ui-components.js';
+   import { mountToolShell } from '../../../core/tool-shell.js';
+   const shell = await mountToolShell({ slug: 'sub-tracker', config, main: document.getElementById('main'), onLicenseChange: render });
+   shell.setUsage('2 of 5 free entries used');   // quiet counter
+   shell.showLimit();                             // inline "free limit reached" notice with Unlock button
    ```
-   Call `mountToolbar(element)` once: it applies the theme and adds the theme toggle (and the language switcher).
-4. Build the tool logic. Always pass your own `slug` to `isPremiumUnlocked`, `unlockPremium` and all storage functions so tools do not overwrite each other.
+   Use `isPremiumUnlocked(slug)` for your own checks and `saveItem`, `getAllItems`, `updateItem`, `deleteItem` (all take the slug) for data. The shell handles license dialog, export/import, theme, language, backup reminder, storage warning and the `?purchased=1` return link.
+4. Texts: put them in `tools/[slug]/src/locales/en.js` and `de.js` and register them with `registerMessages` (see Languages below).
 5. Run `npm run build-registry`.
-6. Deploy. The tool appears in the hub automatically.
+6. Deploy. The tool appears in the catalog automatically.
 
-Folders starting with `_` (e.g. `_demo`) are not added to the registry (unless `INCLUDE_DEMO=1`).
+Folders starting with `_` (e.g. `_demo`) are not added to the registry (unless `INCLUDE_DEMO=1`). `node scripts/generate-demo-tools.js` recreates the `demo-*` tools from `_demo`.
+
+Wide tools: use `ow-container--wide` on `<main>` and put two panels in a `.ow-split` element (two columns from 1100 px).
+
+## License purchase flow
+
+In Lemon Squeezy, set each product's redirect after purchase to `https://[your-domain]/tools/[slug]/?purchased=1`. The tool then opens the license dialog on the "I already have a key" side. (Check in the Lemon Squeezy dashboard that this option exists for your plan; it has not been verified here.)
 
 ## Design rules
 
 - **No emojis, only icons.** Use `createIcon('name')` (inline SVG, colour follows `currentColor`). Add new icons to `core/icons.js`.
-- **Light and dark theme.** Default is the system preference (`prefers-color-scheme`); the user's choice is stored in `localStorage` (`ow_theme`). Include `core/theme-init.js` in `<head>` before the stylesheet to avoid a flash. Colours are CSS variables in `core/ui-components.css`; the light theme uses more saturated colours than the dark one. Per-tool accent: override both variants, e.g. `:root { --accent-l: #c2410c; --accent-d: #f0a07a; }`. Do not hard-code colours; use the variables.
+- **Two layouts.** Sizes, spacing and touch targets live in `core/ui-desktop.css` (above 720 px) and `core/ui-mobile.css`; shared colours and components in `ui-components.css`. Spacing uses the `--s-1 … --s-9` scale and type uses `--fs-*` variables; do not hard-code values. Pages set `viewport-fit=cover`; the body already respects the safe areas (notch).
+- **Light and dark theme.** Default is the system preference (`prefers-color-scheme`); the user's choice is stored in `localStorage` (`ow_theme`). Include `core/theme-init.js` in `<head>` before the stylesheet to avoid a flash. Colours are CSS variables in `core/ui-components.css`; the light theme uses more saturated colours than the dark one. Per-tool accent: override both variants, e.g. `:root { --accent-l: #c2410c; --accent-d: #f0a07a; }`. Do not hard-code colours; use the variables. Text colours meet WCAG AA contrast in both themes.
 - **Fonts** are self-hosted (`core/fonts/`), nothing is loaded from third parties.
 
 ## Languages (i18n)
 
-English is the default language. The chosen language is stored in `localStorage` (`ow_lang`); the language switcher appears automatically once more than one language is registered (currently English and German).
+English is the default language. The chosen language is stored in `localStorage` (`ow_lang`); the language switcher appears automatically once more than one language is registered (currently English and German). On the first visit the browser language is used if available; `?lang=de` in a URL sets the language.
 
 - Use `t('key', { param })` for all UI text; for static HTML use `data-i18n="key"` (text) or `data-i18n-attr="placeholder:key;aria-label:key2"`. Re-render JS-built UI on the `ow:langchange` event (`onLangChange(fn)`).
 - **Tool texts:** create `tools/[slug]/src/locales/en.js` and `de.js` (`export default { 'my.key': 'Text' }`) and register them with `registerMessages('en', en)`. Missing keys fall back to English, then to the key itself.
@@ -74,7 +93,7 @@ English is the default language. The chosen language is stored in `localStorage`
 
 ## Deployment (GitHub Pages)
 
-`.github/workflows/pages.yml` runs `npm run build-registry` on every push to `main` and then publishes the repo. One-time setup: repo → Settings → Pages → Source: **GitHub Actions**.
+`.github/workflows/pages.yml` runs `npm run build-registry` on every push to `main` (this also pre-renders the English catalog into `index.html` so it works without JavaScript) and then publishes the repo. The home page is `/`; the old `/hub/` address redirects there. `404.html` is served by GitHub Pages for unknown URLs. One-time setup: repo → Settings → Pages → Source: **GitHub Actions**.
 
 ## License keys
 

@@ -1,9 +1,10 @@
-import { createPrivacyBanner, createStatusBadge, mountToolbar } from '../../core/ui-components.js';
+import { mountSiteShell, siteUrl } from '../../core/site-shell.js';
+import { createStatusBadge } from '../../core/ui-components.js';
 import { createIcon } from '../../core/icons.js';
-import { t, localize, onLangChange } from '../../core/i18n.js';
+import { t, localize, onLangChange, applyTranslations } from '../../core/i18n.js';
 
-mountToolbar(document.getElementById('toolbar'));
-createPrivacyBanner({}, document.getElementById('privacy'));
+mountSiteShell({ active: 'tools' });
+for (const li of document.querySelectorAll('.trust [data-icon]')) li.prepend(createIcon(li.dataset.icon, { size: '1.2rem' }));
 
 function el(tag, className, text) {
   const n = document.createElement(tag);
@@ -15,34 +16,79 @@ function el(tag, className, text) {
 function renderRow(tool) {
   const live = tool.status === 'live';
   const row = el('li', `tool-row${live ? '' : ' tool-row--soon'}`);
+  row.dataset.category = tool.category;
+  if (tool.accent) { row.style.setProperty('--accent-l', tool.accent.light); row.style.setProperty('--accent-d', tool.accent.dark); }
   const inner = el(live ? 'a' : 'div', live ? '' : 'tool-row__inner');
-  if (live) inner.href = `../${tool.path}`;
+  if (live) inner.href = siteUrl(tool.path);
 
   const side = el('div', 'tool-row__side');
   side.append(el('span', 'tool-row__price', localize(tool.price)), createStatusBadge(live ? 'green' : 'yellow', t(live ? 'hub.live' : 'hub.soon')));
-
   const icon = el('span', 'tool-row__icon');
   icon.append(createIcon(tool.icon, { size: '1.4rem' }));
-  inner.append(icon, el('h2', 'tool-row__name', localize(tool.name)), side, el('p', 'tool-row__desc', localize(tool.shortDescription)));
+  inner.append(icon, el('h3', 'tool-row__name', localize(tool.name)), side, el('p', 'tool-row__desc', localize(tool.shortDescription)));
   row.append(inner);
   return row;
 }
 
-const container = document.getElementById('tools');
+const catalog = document.getElementById('catalog');
+const filterBox = document.getElementById('filter');
 let tools = null;
 let failed = false;
+let category = new URLSearchParams(location.search).get('category');
+
+const categoryLabel = (c) => {
+  const label = t(`category.${c}`);
+  return label === `category.${c}` ? c.charAt(0).toUpperCase() + c.slice(1) : label;
+};
+
+function renderFilter() {
+  const cats = [...new Set((tools ?? []).filter((x) => x.status === 'live').map((x) => x.category))];
+  filterBox.hidden = cats.length < 2;
+  if (cats.length < 2) { category = null; return; }
+  const mk = (value, label) => {
+    const b = el('button', '', label);
+    b.type = 'button';
+    b.setAttribute('aria-pressed', String((category ?? '') === value));
+    b.addEventListener('click', () => {
+      category = value || null;
+      const url = new URL(location.href);
+      category ? url.searchParams.set('category', category) : url.searchParams.delete('category');
+      history.replaceState(null, '', url);
+      render();
+    });
+    return b;
+  };
+  filterBox.setAttribute('aria-label', t('hub.tools'));
+  filterBox.replaceChildren(mk('', t('hub.filter.all')), ...cats.map((c) => mk(c, categoryLabel(c))));
+}
 
 function render() {
-  if (failed) container.replaceChildren(el('li', 'ow-error', t('hub.error')));
-  else if (tools) container.replaceChildren(...(tools.length ? tools.map(renderRow) : [el('li', 'ow-muted', t('hub.empty'))]));
+  if (failed) {
+    const retry = el('button', 'ow-btn ow-btn--secondary', t('hub.retry'));
+    retry.type = 'button';
+    retry.addEventListener('click', load);
+    const msg = el('li', 'catalog__msg');
+    msg.append(el('span', 'ow-error', t('hub.error')), retry);
+    catalog.replaceChildren(msg);
+    return;
+  }
+  if (!tools) return; // keep the pre-rendered list / skeleton until data arrives
+  renderFilter();
+  const shown = tools.filter((x) => !category || x.category === category || x.status !== 'live');
+  catalog.replaceChildren(...(shown.length ? shown.map(renderRow) : [el('li', 'catalog__msg ow-muted', t('hub.empty'))]));
 }
-onLangChange(render);
+onLangChange(() => { render(); });
 
-try {
-  const res = await fetch('tool-registry.json');
-  if (!res.ok) throw new Error(res.status);
-  tools = await res.json();
-} catch {
-  failed = true;
+async function load() {
+  failed = false;
+  try {
+    const res = await fetch(siteUrl('hub/tool-registry.json'));
+    if (!res.ok) throw new Error(res.status);
+    tools = await res.json();
+  } catch {
+    failed = true;
+  }
+  render();
 }
-render();
+await load();
+applyTranslations();

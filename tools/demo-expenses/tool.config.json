@@ -12,6 +12,34 @@
   "status": "live",
   "icon": "wallet",
   "price": "CHF 5.-",
+  "order": 20,
+  "accent": {
+    "light": "#d9480f",
+    "dark": "#f0a07a"
+  },
   "hasPremium": true,
+  "stores": true,
+  "about": {
+    "en": "Log expenses without an account. A demo tool that shows how a tool looks inside the shared frame.",
+    "de": "Ausgaben festhalten, ohne Konto. Ein Demo-Tool, das zeigt, wie ein Tool im gemeinsamen Rahmen aussieht."
+  },
+  "features": {
+    "free": [
+      {
+        "en": "Up to 3 entries",
+        "de": "Bis zu 3 Einträge"
+      },
+      {
+        "en": "Backup export and import",
+        "de": "Backup-Export und -Import"
+      }
+    ],
+    "premium": [
+      {
+        "en": "Unlimited entries",
+        "de": "Unbegrenzt viele Einträge"
+      }
+    ]
+  },
   "purchaseUrl": "https://example.com/lemon-squeezy-link"
 }
