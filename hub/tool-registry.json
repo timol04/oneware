@@ -1,50 +1,74 @@
 [
   {
-    "slug": "demo-ausgaben",
-    "name": "Demo: Ausgaben",
-    "shortDescription": "Ausgaben festhalten, ohne Konto.",
+    "slug": "demo-expenses",
+    "name": {
+      "en": "Demo: Expenses",
+      "de": "Demo: Ausgaben"
+    },
+    "shortDescription": {
+      "en": "Log expenses without an account.",
+      "de": "Ausgaben festhalten, ohne Konto."
+    },
     "category": "demo",
     "status": "live",
-    "icon": "💸",
+    "icon": "wallet",
     "price": "CHF 5.-",
     "hasPremium": true,
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
-    "path": "tools/demo-ausgaben/"
+    "path": "tools/demo-expenses/"
   },
   {
     "slug": "demo-habits",
-    "name": "Demo: Habit-Tracker",
-    "shortDescription": "Gewohnheiten über die Zeit verfolgen.",
+    "name": {
+      "en": "Demo: Habit tracker",
+      "de": "Demo: Habit-Tracker"
+    },
+    "shortDescription": {
+      "en": "Follow your habits over time.",
+      "de": "Gewohnheiten über die Zeit verfolgen."
+    },
     "category": "demo",
     "status": "live",
-    "icon": "✅",
+    "icon": "check",
     "price": "CHF 5.-",
     "hasPremium": true,
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
     "path": "tools/demo-habits/"
   },
   {
-    "slug": "demo-notizen",
-    "name": "Demo: Notizen",
-    "shortDescription": "Schnelle Notizen, lokal gespeichert.",
+    "slug": "demo-notes",
+    "name": {
+      "en": "Demo: Notes",
+      "de": "Demo: Notizen"
+    },
+    "shortDescription": {
+      "en": "Quick notes, stored locally.",
+      "de": "Schnelle Notizen, lokal gespeichert."
+    },
     "category": "demo",
     "status": "live",
-    "icon": "📝",
+    "icon": "note",
     "price": "CHF 3.-",
     "hasPremium": true,
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
-    "path": "tools/demo-notizen/"
+    "path": "tools/demo-notes/"
   },
   {
-    "slug": "demo-lesezeichen",
-    "name": "Demo: Lesezeichen",
-    "shortDescription": "Links sammeln und wiederfinden.",
+    "slug": "demo-bookmarks",
+    "name": {
+      "en": "Demo: Bookmarks",
+      "de": "Demo: Lesezeichen"
+    },
+    "shortDescription": {
+      "en": "Collect links and find them again.",
+      "de": "Links sammeln und wiederfinden."
+    },
     "category": "demo",
     "status": "coming-soon",
-    "icon": "🔖",
+    "icon": "bookmark",
     "price": "CHF 4.-",
     "hasPremium": true,
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
-    "path": "tools/demo-lesezeichen/"
+    "path": "tools/demo-bookmarks/"
   }
 ]

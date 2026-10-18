@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Demo tool</title>
+  <script src="../../core/theme-init.js"></script>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <style>:root { --accent-l: #d9480f; --accent-d: #f0a07a; }</style>
+</head>
+<body>
+  <main class="ow-container">
+    <nav class="ow-topbar"><a href="../../hub/">oneware</a><span class="ow-row"><span id="premium"></span><span id="toolbar"></span></span></nav>
+    <h1 class="ow-page-title" id="title">Demo tool</h1>
+    <div id="privacy"></div>
+    <section class="ow-card" style="margin-top:1.5rem">
+      <h2 class="ow-card__title" data-i18n="tool.heading">Notes</h2>
+      <p class="ow-muted" id="freeinfo"></p>
+      <form id="form" class="ow-row">
+        <input class="ow-input" id="text" data-i18n-attr="placeholder:tool.placeholder;aria-label:tool.placeholder" required style="flex:1;min-width:12rem;width:auto">
+        <button class="ow-btn" data-i18n="demo.add">Add</button>
+      </form>
+      <p class="ow-error" id="error"></p>
+      <ul id="list" class="ow-list"></ul>
+      <div id="actions" class="ow-row"></div>
+    </section>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

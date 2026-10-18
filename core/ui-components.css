@@ -1,7 +1,8 @@
 /*
- * ui-components.css – gemeinsames Design der Oneware-Tools.
- * Pro Tool anpassen, indem man Variablen nach dem Import überschreibt, z. B.:
- *   :root { --accent: #c2410c; }
+ * ui-components.css – shared design of the Oneware tools.
+ * Theme: <html data-theme="light|dark"> (set by theme-init.js / theme.js).
+ * Per-tool accent: override both variants after the import, e.g.
+ *   :root { --accent-l: #c2410c; --accent-d: #f0a07a; }
  */
 @font-face {
   font-family: "Bricolage Grotesque";
@@ -11,19 +12,22 @@
 }
 
 :root {
-  /* Farben */
-  --accent: #2f3fd4;           /* Ultramarin; pro Tool überschreibbar */
+  /* Light theme: more saturated colours */
+  color-scheme: light;
+  --accent-l: #2433e8;         /* per-tool override: set --accent-l and --accent-d */
+  --accent-d: #93a0ff;
+  --accent: var(--accent-l);
   --accent-ink: #ffffff;
-  --bg: #eef0ee;               /* kühles Papier */
+  --bg: #eef0ee;               /* cool paper */
   --surface: #fbfbfa;
   --text: #16191d;
   --text-muted: #5d646b;
   --border: #cfd4d1;
-  --success: #1f7a4d;
-  --warning: #b7791f;
-  --danger: #b4281e;
+  --success: #0b8a4a;
+  --warning: #b45309;
+  --danger: #dc2626;
 
-  /* Typografie */
+  /* Typography */
   --font-sans: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-size: 1.0625rem;
   --line-height: 1.55;
@@ -32,6 +36,21 @@
   --radius: 6px;
   --space: 1rem;
   --measure: 62rem;
+}
+
+/* Dark theme: softer, less saturated colours */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --accent: var(--accent-d);
+  --accent-ink: #0f1226;
+  --bg: #121416;
+  --surface: #1a1d20;
+  --text: #e8eae9;
+  --text-muted: #9aa1a7;
+  --border: #2d3237;
+  --success: #62b98a;
+  --warning: #d6a85a;
+  --danger: #e58179;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -52,12 +71,12 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-container { max-width: var(--measure); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
 .ow-muted { color: var(--text-muted); }
 
-/* Buttons: Tinte als Standard, Akzent nur beim Fokus */
+/* Buttons: ink by default, accent on hover/focus */
 .ow-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .4em;
   padding: .6em 1.15em; border: 1px solid var(--text); border-radius: var(--radius);
   font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
-  background: var(--text); color: var(--surface);
+  background: var(--text); color: var(--bg);
 }
 .ow-btn:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .ow-btn:focus-visible, .ow-input:focus-visible, .ow-select:focus-visible, .ow-textarea:focus-visible {
@@ -69,7 +88,7 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-btn--danger { background: var(--danger); border-color: var(--danger); }
 .ow-btn--danger:hover { background: var(--danger); border-color: var(--danger); filter: brightness(.9); }
 
-/* Formularfelder */
+/* Form fields */
 .ow-field { display: flex; flex-direction: column; gap: .3em; margin-bottom: var(--space); }
 .ow-label { font-weight: 600; font-size: .9rem; }
 .ow-input, .ow-select, .ow-textarea {
@@ -79,18 +98,18 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-input--error { border-color: var(--danger); }
 .ow-error { color: var(--danger); font-size: .9rem; min-height: 1.4em; margin: 0; }
 
-/* Abschnitt: Linie statt Kasten */
+/* Section panel */
 .ow-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: clamp(1rem, 3vw, 1.5rem); }
 .ow-card__title { margin: 0 0 .3em; font-size: 1.35rem; }
 
-/* Ampel-Status: Punkt + Text */
+/* Traffic-light status: dot + text */
 .ow-status { display: inline-flex; align-items: center; gap: .45em; font-size: .9rem; font-weight: 600; color: var(--_c); }
 .ow-status::before { content: ""; width: .55em; height: .55em; border-radius: 50%; background: var(--_c); }
 .ow-status--green  { --_c: var(--success); }
 .ow-status--yellow { --_c: var(--warning); }
 .ow-status--red    { --_c: var(--danger); }
 
-/* Datenschutz-Hinweis: eine ruhige Zeile */
+/* Privacy note: one quiet line */
 .ow-banner { display: flex; align-items: baseline; gap: .5em; font-size: .95rem; color: var(--text-muted); }
 
 /* Dialog */
@@ -98,11 +117,11 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
   border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; max-width: 31rem;
   width: calc(100% - 2rem); color: var(--text); background: var(--surface);
 }
-.ow-dialog::backdrop { background: rgb(22 25 29 / 0.45); }
+.ow-dialog::backdrop { background: rgb(0 0 0 / 0.5); }
 .ow-dialog h2 { margin: 0 0 .75em; font-size: 1.35rem; }
 .ow-dialog__actions { display: flex; flex-wrap: wrap; gap: .5em; justify-content: flex-end; margin-top: var(--space); }
 
-/* Seitenrahmen für Tools */
+/* Page frame for tools */
 .ow-topbar { display: flex; justify-content: space-between; align-items: baseline; padding: 1.25rem 0 0; font-size: .95rem; }
 .ow-topbar a { color: var(--text-muted); }
 .ow-page-title { margin: 3rem 0 .5rem; font-size: clamp(2rem, 6vw, 3.25rem); font-weight: 800; letter-spacing: -0.04em; }
@@ -110,3 +129,18 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-list__item { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--border); }
 .ow-row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
 .ow-dialog__actions > a { margin-right: auto; }
+.ow-icon { flex: none; vertical-align: -0.15em; }
+.ow-page-title .ow-icon { margin-right: .25em; vertical-align: -0.08em; }
+
+/* Toolbar (theme toggle, language switcher) */
+.ow-toolbar { display: inline-flex; align-items: center; gap: .5rem; }
+.ow-iconbtn {
+  display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem;
+  padding: 0; border: 1px solid var(--border); border-radius: var(--radius);
+  background: transparent; color: var(--text); cursor: pointer;
+}
+.ow-iconbtn:hover { border-color: var(--text); }
+.ow-iconbtn:focus-visible, .ow-langselect select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ow-langselect { display: inline-flex; align-items: center; gap: .35rem; color: var(--text-muted); }
+.ow-langselect select { font: inherit; font-size: .9rem; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: .35em .5em; }
+.ow-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

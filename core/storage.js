@@ -1,7 +1,9 @@
 /**
- * storage.js – IndexedDB-Wrapper. Eine gemeinsame Datenbank ("oneware"),
- * pro Tool ein eigener Object Store (Name = toolSlug), Primärschlüssel `id`.
+ * storage.js – IndexedDB wrapper. One shared database ("oneware"),
+ * one object store per tool (name = toolSlug), primary key `id`.
  */
+
+import { t } from './i18n.js';
 
 const DB_NAME = 'oneware';
 const EXPORT_VERSION = 1;
@@ -28,14 +30,14 @@ function openDb(version) {
       resolve(r.result);
     };
     r.onerror = () => reject(r.error);
-    r.onblocked = () => reject(new Error('IndexedDB-Upgrade blockiert (anderer Tab offen?)'));
+    r.onblocked = () => reject(new Error(t('core.storage.blocked')));
   });
 }
 
 let pendingStore = null;
 
 async function getDb(toolSlug) {
-  if (!toolSlug || typeof toolSlug !== 'string') throw new Error('toolSlug fehlt');
+  if (!toolSlug || typeof toolSlug !== 'string') throw new Error('toolSlug is required');
   if (!dbPromise) dbPromise = openDb();
   let db = await dbPromise;
   if (!db.objectStoreNames.contains(toolSlug)) {
@@ -56,7 +58,7 @@ async function store(toolSlug, mode) {
 const newId = () =>
   (globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`);
 
-/** Speichert ein Item (fügt `id` hinzu, falls fehlend). Gibt das gespeicherte Item zurück. */
+/** Saves an item (adds `id` if missing). Returns the stored item. */
 export async function saveItem(toolSlug, item) {
   const stored = { ...item, id: item.id ?? newId() };
   await req((await store(toolSlug, 'readwrite')).add(stored));
@@ -71,16 +73,16 @@ export async function deleteItem(toolSlug, id) {
   await req((await store(toolSlug, 'readwrite')).delete(id));
 }
 
-/** Überschreibt das Item mit dieser id (die id bleibt erhalten). Fehler, wenn es nicht existiert. */
+/** Overwrites the item with this id (id is kept). Throws if it does not exist. */
 export async function updateItem(toolSlug, id, item) {
   const s = await store(toolSlug, 'readwrite');
-  if ((await req(s.get(id))) === undefined) throw new Error(`Item ${id} nicht gefunden`);
+  if ((await req(s.get(id))) === undefined) throw new Error(t('core.storage.notFound', { id }));
   const updated = { ...item, id };
   await req(s.put(updated));
   return updated;
 }
 
-/** Export als Objekt (testbar, ohne Download). */
+/** Export as an object (testable, no download). */
 export async function buildExport(toolSlug) {
   return {
     tool: toolSlug,
@@ -90,7 +92,7 @@ export async function buildExport(toolSlug) {
   };
 }
 
-/** Lädt `<toolSlug>-export-YYYY-MM-DD.json` herunter. */
+/** Downloads `<toolSlug>-export-YYYY-MM-DD.json`. */
 export async function exportData(toolSlug) {
   const payload = await buildExport(toolSlug);
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -106,25 +108,25 @@ export async function exportData(toolSlug) {
 }
 
 /**
- * Importiert eine Export-Datei (File/Blob oder bereits geparstes Objekt).
- * Prüft Format und `tool`-Feld; bestehende Items mit gleicher id werden überschrieben.
- * Mit { replace: true } wird der Store vorher geleert. Gibt die Anzahl importierter Items zurück.
+ * Imports an export file (File/Blob or an already parsed object).
+ * Validates the format and the `tool` field; existing items with the same id are overwritten.
+ * With { replace: true } the store is cleared first. Returns the number of imported items.
  */
 export async function importData(toolSlug, file, { replace = false } = {}) {
   let parsed = file;
   if (typeof file?.text === 'function') {
     try { parsed = JSON.parse(await file.text()); }
-    catch { throw new Error('Datei ist kein gültiges JSON'); }
+    catch { throw new Error(t('core.storage.invalidJson')); }
   }
   if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.data)
       || typeof parsed.tool !== 'string' || typeof parsed.version !== 'number') {
-    throw new Error('Ungültiges Exportformat');
+    throw new Error(t('core.storage.invalidFormat'));
   }
   if (parsed.tool !== toolSlug) {
-    throw new Error(`Export gehört zu "${parsed.tool}", nicht zu "${toolSlug}"`);
+    throw new Error(t('core.storage.wrongTool', { found: parsed.tool, expected: toolSlug }));
   }
   if (parsed.version > EXPORT_VERSION) {
-    throw new Error(`Exportversion ${parsed.version} wird nicht unterstützt`);
+    throw new Error(t('core.storage.unsupportedVersion', { version: parsed.version }));
   }
   const items = parsed.data.map((it) => ({ ...it, id: it?.id ?? newId() }));
   const s = await store(toolSlug, 'readwrite');

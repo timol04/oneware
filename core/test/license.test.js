@@ -10,7 +10,7 @@ globalThis.localStorage = {
 };
 beforeEach(() => mem.clear());
 
-test('generierte Schlüssel sind gültig und haben das Format XXXX-XXXX-XXXX-XXXX', () => {
+test('generated keys are valid and match the format XXXX-XXXX-XXXX-XXXX', () => {
   for (let i = 0; i < 50; i++) {
     const key = generateLicenseKey('abo-tracker');
     assert.match(key, /^([0-9A-Z]{4}-){3}[0-9A-Z]{4}$/);
@@ -18,28 +18,28 @@ test('generierte Schlüssel sind gültig und haben das Format XXXX-XXXX-XXXX-XXX
   }
 });
 
-test('ungültige Eingaben werden abgelehnt', () => {
+test('invalid input is rejected', () => {
   const key = generateLicenseKey('t');
   const bad = key.slice(0, -1) + (key.endsWith('0') ? '1' : '0');
   assert.equal(validateLicenseKey(bad, 't'), false);
   for (const v of ['', 'abc', null, undefined, 42, 'AAAA-AAAA-AAAA']) assert.equal(validateLicenseKey(v), false);
 });
 
-test('Schlüssel ist toolspezifisch', () => {
+test('key is tool specific', () => {
   const key = generateLicenseKey('qr-code');
   assert.equal(validateLicenseKey(key, 'qr-code'), true);
   assert.equal(validateLicenseKey(key, 'abo-tracker'), false);
 });
 
-test('Eingabe wird normalisiert (Kleinschreibung, Leerzeichen)', () => {
+test('input is normalized (lower case, spaces)', () => {
   const key = generateLicenseKey('t');
   assert.equal(validateLicenseKey(` ${key.toLowerCase().replaceAll('-', ' ')} `, 't'), true);
 });
 
-test('unlockPremium speichert pro Tool getrennt', () => {
+test('unlockPremium stores per tool', () => {
   const a = generateLicenseKey('tool-a');
   assert.equal(isPremiumUnlocked('tool-a'), false);
-  assert.equal(unlockPremium('tool-a', 'falsch'), false);
+  assert.equal(unlockPremium('tool-a', 'wrong'), false);
   assert.equal(unlockPremium('tool-a', a), true);
   assert.equal(isPremiumUnlocked('tool-a'), true);
   assert.equal(isPremiumUnlocked('tool-b'), false);
@@ -48,7 +48,7 @@ test('unlockPremium speichert pro Tool getrennt', () => {
   assert.equal(isPremiumUnlocked('tool-a'), false);
 });
 
-test('manipulierter localStorage-Wert schaltet nicht frei', () => {
+test('tampered localStorage value does not unlock', () => {
   mem.set('premium_tool-a', 'ABCD-ABCD-ABCD-ABCD');
   assert.equal(isPremiumUnlocked('tool-a'), false);
 });

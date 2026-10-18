@@ -1,27 +1,29 @@
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8"><title>Core UI-Test</title>
+<html lang="en"><head><meta charset="utf-8"><title>Core UI test</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="../theme-init.js"></script>
 <link rel="stylesheet" href="../ui-components.css"></head>
 <body><main class="ow-container" id="app">
-<h1>Core UI-Test</h1>
-<div class="ow-card"><h2 class="ow-card__title">Karte</h2>
-<div class="ow-field"><label class="ow-label">Feld</label><input class="ow-input"></div>
-<button class="ow-btn">Primär</button> <button class="ow-btn ow-btn--secondary">Sekundär</button>
-<p id="status"></p><p id="actions"></p></div>
-<button class="ow-btn" id="open">Lizenz-Dialog</button> <span id="result"></span>
+<nav class="ow-topbar"><span>Core UI test</span><span id="toolbar"></span></nav>
+<h1 class="ow-page-title">Components</h1>
+<div class="ow-card"><h2 class="ow-card__title">Card</h2>
+<div class="ow-field"><label class="ow-label">Field</label><input class="ow-input"></div>
+<div class="ow-row"><button class="ow-btn">Primary</button> <button class="ow-btn ow-btn--secondary">Secondary</button> <button class="ow-btn ow-btn--danger">Danger</button></div>
+<p id="status" class="ow-row"></p><p id="actions"></p></div>
+<p><button class="ow-btn" id="open">License dialog</button> <span id="result"></span></p>
 </main>
 <script type="module">
 import * as ui from '../ui-components.js';
 import { generateLicenseKey, isPremiumUnlocked } from '../license.js';
-const app = document.getElementById('app');
-ui.createPrivacyBanner({}, app);
+ui.mountToolbar(document.getElementById('toolbar'));
+ui.createPrivacyBanner({}, document.getElementById('app'));
 const s = document.getElementById('status');
-s.append(ui.createStatusBadge('green','OK'), ' ', ui.createStatusBadge('yellow','Bald'), ' ', ui.createStatusBadge('red','Überfällig'));
+s.append(ui.createStatusBadge('green'), ui.createStatusBadge('yellow'), ui.createStatusBadge('red'));
 ui.createUpgradeButton({ url: 'https://example.com/buy' }, document.getElementById('actions'));
-console.log('Beispiel-Schlüssel für "demo":', generateLicenseKey('demo'));
+console.log('Example key for "demo":', generateLicenseKey('demo'));
 window.generateLicenseKey = generateLicenseKey; window.isPremiumUnlocked = isPremiumUnlocked;
 document.getElementById('open').onclick = async () => {
   const ok = await ui.showLicenseDialog({ toolSlug: 'demo', purchaseUrl: 'https://example.com/buy' });
-  document.getElementById('result').textContent = ok ? 'freigeschaltet' : 'abgebrochen';
+  document.getElementById('result').textContent = ok ? 'unlocked' : 'cancelled';
 };
 </script></body></html>

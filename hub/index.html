@@ -1,25 +1,28 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Oneware – kleine Tools, einmal zahlen</title>
+  <title data-i18n="hub.title">Oneware – small tools, pay once</title>
+  <script src="../core/theme-init.js"></script>
   <link rel="stylesheet" href="../core/ui-components.css">
   <link rel="stylesheet" href="src/hub.css">
 </head>
 <body>
   <div class="ow-container">
-    <header class="site-head">oneware</header>
+    <header class="site-head"><span>oneware</span><span id="toolbar"></span></header>
     <section class="hero">
-      <h1>Einmal zahlen. Für immer nutzen.</h1>
-      <p>Kleine Werkzeuge, die lokal in deinem Browser laufen. Kein Abo, kein Konto, keine Cloud.</p>
+      <h1 data-i18n="hub.headline">Pay once. Use forever.</h1>
+      <p data-i18n="hub.subline">Small tools that run locally in your browser. No subscription, no account, no cloud.</p>
       <div id="privacy"></div>
     </section>
     <main>
-      <ul id="tools" class="catalog" aria-live="polite"><li class="ow-muted">Lade Tools …</li></ul>
+      <ul id="tools" class="catalog" aria-live="polite"><li class="ow-muted" data-i18n="hub.loading">Loading tools…</li></ul>
     </main>
     <footer class="site-foot ow-muted">
-      Entwicklung: <a href="../tools/_demo/">Demo-Tool</a> · <a href="../core/test/ui-demo.html">UI-Komponenten</a>
+      <span data-i18n="hub.dev">Development</span>:
+      <a href="../tools/_demo/" data-i18n="hub.demoTool">Demo tool</a> ·
+      <a href="../core/test/ui-demo.html" data-i18n="hub.uiComponents">UI components</a>
     </footer>
   </div>
   <script type="module" src="src/hub.js"></script>

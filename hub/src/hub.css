@@ -1,4 +1,4 @@
-.site-head { padding-top: clamp(1.25rem, 4vw, 2rem); font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem; }
+.site-head { display: flex; justify-content: space-between; align-items: center; padding-top: clamp(1.25rem, 4vw, 2rem); font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem; }
 .hero { padding: clamp(3rem, 12vw, 7rem) 0 clamp(2rem, 6vw, 3.5rem); }
 .hero h1 { margin: 0 0 .35em; font-size: clamp(2.6rem, 9vw, 6rem); font-weight: 800; letter-spacing: -0.045em; line-height: .95; max-width: 14ch; }
 .hero p { margin: 0 0 1.25rem; max-width: 34rem; font-size: 1.2rem; color: var(--text-muted); }

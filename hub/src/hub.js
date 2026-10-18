@@ -1,5 +1,8 @@
-import { createPrivacyBanner, createStatusBadge } from '../../core/ui-components.js';
+import { createPrivacyBanner, createStatusBadge, mountToolbar } from '../../core/ui-components.js';
+import { createIcon } from '../../core/icons.js';
+import { t, localize, onLangChange } from '../../core/i18n.js';
 
+mountToolbar(document.getElementById('toolbar'));
 createPrivacyBanner({}, document.getElementById('privacy'));
 
 function el(tag, className, text) {
@@ -16,21 +19,30 @@ function renderRow(tool) {
   if (live) inner.href = `../${tool.path}`;
 
   const side = el('div', 'tool-row__side');
-  side.append(el('span', 'tool-row__price', tool.price), createStatusBadge(live ? 'green' : 'yellow', live ? 'Live' : 'Kommt bald'));
+  side.append(el('span', 'tool-row__price', localize(tool.price)), createStatusBadge(live ? 'green' : 'yellow', t(live ? 'hub.live' : 'hub.soon')));
 
-  inner.append(el('span', 'tool-row__icon', tool.icon), el('h2', 'tool-row__name', tool.name), side, el('p', 'tool-row__desc', tool.shortDescription));
+  const icon = el('span', 'tool-row__icon');
+  icon.append(createIcon(tool.icon, { size: '1.4rem' }));
+  inner.append(icon, el('h2', 'tool-row__name', localize(tool.name)), side, el('p', 'tool-row__desc', localize(tool.shortDescription)));
   row.append(inner);
   return row;
 }
 
 const container = document.getElementById('tools');
+let tools = null;
+let failed = false;
+
+function render() {
+  if (failed) container.replaceChildren(el('li', 'ow-error', t('hub.error')));
+  else if (tools) container.replaceChildren(...(tools.length ? tools.map(renderRow) : [el('li', 'ow-muted', t('hub.empty'))]));
+}
+onLangChange(render);
+
 try {
   const res = await fetch('tool-registry.json');
   if (!res.ok) throw new Error(res.status);
-  const tools = await res.json();
-  container.replaceChildren(...(tools.length
-    ? tools.map(renderRow)
-    : [el('li', 'ow-muted', 'Noch keine Tools veröffentlicht – bald mehr.')]));
+  tools = await res.json();
 } catch {
-  container.replaceChildren(el('li', 'ow-error', 'Tool-Liste konnte nicht geladen werden.'));
+  failed = true;
 }
+render();

@@ -1,74 +1,93 @@
 # Oneware
 
-Monorepo für eine Familie kleiner, client-seitiger Web-Tools (kein Backend). Einmal zahlen, Freischaltung per Lizenzschlüssel.
+Monorepo for a family of small, client-side web tools (no backend). Pay once, unlock with a license key.
 
 ```
-core/      gemeinsame Bibliothek (license.js, storage.js, ui-components.css/js)
-hub/       Landingpage, liest hub/tool-registry.json
-tools/     ein Ordner pro Tool (tool.config.json + index.html + src/)
+core/      shared library: license.js, storage.js, i18n.js, theme.js, icons.js, ui-components.css/js
+hub/       landing page, renders hub/tool-registry.json
+tools/     one folder per tool (tool.config.json + index.html + src/)
 scripts/   build-tool-registry.js
 ```
 
-## Befehle
+## Commands
 
-| Befehl | Zweck |
+| Command | Purpose |
 |---|---|
-| `npm install` | Dev-Abhängigkeit für Tests (fake-indexeddb) |
-| `npm test` | Core-Tests |
-| `npm run build-registry` | erzeugt `hub/tool-registry.json` aus allen `tools/*/tool.config.json` |
+| `npm install` | dev dependency for tests (fake-indexeddb) |
+| `npm test` | core tests |
+| `npm run build-registry` | generates `hub/tool-registry.json` from all `tools/*/tool.config.json` |
 
-Lokal ansehen: `python3 -m http.server` im Repo-Root, dann `http://localhost:8000/`. (ES-Module brauchen einen Server, `file://` geht nicht.)
+View locally: run `python3 -m http.server` in the repo root, then open `http://localhost:8000/`. ES modules need a server; `file://` does not work.
 
-## Neues Tool anlegen
+## Creating a new tool
 
-1. Ordner `tools/[neuer-slug]/` anlegen (am einfachsten `tools/_demo/` kopieren).
-2. `tool.config.json` ausfüllen:
+1. Create the folder `tools/[new-slug]/` (easiest: copy `tools/_demo/`).
+2. Fill in `tool.config.json`:
    ```json
    {
-     "slug": "abo-tracker",
-     "name": "Abo-Tracker",
-     "shortDescription": "Alle Abos im Überblick, einmalig bezahlt.",
+     "slug": "sub-tracker",
+     "name": "Subscription tracker",
+     "shortDescription": "All your subscriptions at a glance, paid once.",
      "category": "tracker",
      "status": "live",
-     "icon": "📋",
+     "icon": "wallet",
      "price": "CHF 5.-",
      "hasPremium": true,
      "purchaseUrl": "https://[lemon-squeezy-link]"
    }
    ```
-   `slug` muss dem Ordnernamen entsprechen. `status`: `live` oder `coming-soon`. Bei `live` + `hasPremium` ist `purchaseUrl` Pflicht.
-3. Core-Module importieren (von `tools/[slug]/src/` aus):
+   - `slug` must equal the folder name. `status` is `live` or `coming-soon`. A `live` tool with `hasPremium` needs a valid `purchaseUrl`.
+   - `icon` is an **icon name** from `core/icons.js` (never an emoji). Available: `lock key star note wallet check bookmark flask download upload trash link sun moon globe`.
+   - `name`, `shortDescription` and `price` can be a plain string (English) or an object per language: `"name": { "en": "Subscription tracker", "de": "Abo-Tracker" }`. The `en` entry is required.
+3. Import the core modules (paths from `tools/[slug]/index.html`; from `tools/[slug]/src/` use `../../../core/...`):
    ```html
+   <script src="../../core/theme-init.js"></script>
    <link rel="stylesheet" href="../../core/ui-components.css">
    ```
    ```js
    import { isPremiumUnlocked } from '../../../core/license.js';
    import { saveItem, getAllItems } from '../../../core/storage.js';
-   import { createPrivacyBanner, showLicenseDialog, createUpgradeButton } from '../../../core/ui-components.js';
+   import { createIcon } from '../../../core/icons.js';
+   import { registerMessages, t } from '../../../core/i18n.js';
+   import { mountToolbar, createPrivacyBanner, showLicenseDialog, createUpgradeButton } from '../../../core/ui-components.js';
    ```
-   (Aus `tools/[slug]/index.html` heraus lautet der Pfad `../../core/...`.) Akzentfarbe pro Tool: `:root { --accent: #7c3aed; }` nach dem CSS-Import.
-4. Tool-Logik bauen. Immer den eigenen `slug` an `isPremiumUnlocked`, `unlockPremium` und alle Storage-Funktionen übergeben, damit sich Tools nicht überschreiben.
-5. `npm run build-registry` ausführen.
-6. Deployen. Das Tool erscheint automatisch im Hub.
+   Call `mountToolbar(element)` once: it applies the theme and adds the theme toggle (and the language switcher).
+4. Build the tool logic. Always pass your own `slug` to `isPremiumUnlocked`, `unlockPremium` and all storage functions so tools do not overwrite each other.
+5. Run `npm run build-registry`.
+6. Deploy. The tool appears in the hub automatically.
 
-Ordner mit `_` am Anfang (z. B. `_demo`) werden nicht in die Registry aufgenommen (Ausnahme: `INCLUDE_DEMO=1`).
+Folders starting with `_` (e.g. `_demo`) are not added to the registry (unless `INCLUDE_DEMO=1`).
+
+## Design rules
+
+- **No emojis, only icons.** Use `createIcon('name')` (inline SVG, colour follows `currentColor`). Add new icons to `core/icons.js`.
+- **Light and dark theme.** Default is the system preference (`prefers-color-scheme`); the user's choice is stored in `localStorage` (`ow_theme`). Include `core/theme-init.js` in `<head>` before the stylesheet to avoid a flash. Colours are CSS variables in `core/ui-components.css`; the light theme uses more saturated colours than the dark one. Per-tool accent: override both variants, e.g. `:root { --accent-l: #c2410c; --accent-d: #f0a07a; }`. Do not hard-code colours; use the variables.
+- **Fonts** are self-hosted (`core/fonts/`), nothing is loaded from third parties.
+
+## Languages (i18n)
+
+English is the default language. The chosen language is stored in `localStorage` (`ow_lang`); the language switcher appears automatically once more than one language is registered (currently English and German).
+
+- Use `t('key', { param })` for all UI text; for static HTML use `data-i18n="key"` (text) or `data-i18n-attr="placeholder:key;aria-label:key2"`. Re-render JS-built UI on the `ow:langchange` event (`onLangChange(fn)`).
+- **Tool texts:** create `tools/[slug]/src/locales/en.js` and `de.js` (`export default { 'my.key': 'Text' }`) and register them with `registerMessages('en', en)`. Missing keys fall back to English, then to the key itself.
+- **Add a language to the core:** copy `core/locales/en.js` to `core/locales/<code>.js`, translate it (including `'lang.name'`), and add one import and one entry in `core/locales/index.js`. Then add a `locales/<code>.js` file to each tool (optional, English is the fallback) and translations in `tool.config.json` if wanted.
 
 ## Deployment (GitHub Pages)
 
-`.github/workflows/pages.yml` führt bei jedem Push auf `main` zuerst `npm run build-registry` aus und veröffentlicht dann das Repo. Einmalig nötig: Repo → Settings → Pages → Source: **GitHub Actions**.
+`.github/workflows/pages.yml` runs `npm run build-registry` on every push to `main` and then publishes the repo. One-time setup: repo → Settings → Pages → Source: **GitHub Actions**.
 
-## Lizenzschlüssel
+## License keys
 
-Format `XXXX-XXXX-XXXX-XXXX`: 12 Zeichen Nutzlast + 4 Zeichen Prüfsumme (FNV-1a, abhängig vom Tool-Slug). Eigene Schlüssel erzeugen:
+Format `XXXX-XXXX-XXXX-XXXX`: 12 payload characters + 4 checksum characters (FNV-1a, depends on the tool slug). Generate your own keys:
 
 ```
-node -e "import('./core/license.js').then(m => console.log(m.generateLicenseKey('abo-tracker')))"
+node -e "import('./core/license.js').then(m => console.log(m.generateLicenseKey('sub-tracker')))"
 ```
 
-Die Prüfung läuft im Browser und ist kein Kopierschutz, sie fängt nur Tippfehler ab. Lemon Squeezy muss dafür mit eigenen Schlüsseln (statt der Standard-UUIDs) befüllt werden, oder man nutzt dessen Lizenz-API (Online-Call).
+Validation runs in the browser and is not copy protection; it only catches typos. For Lemon Squeezy, fill the license keys with your own generated keys (instead of the default UUIDs), or use its license API (needs an online call).
 
-## Export-Format
+## Export format
 
 ```json
-{ "tool": "abo-tracker", "version": 1, "exportedAt": "ISO-Datum", "data": [] }
+{ "tool": "sub-tracker", "version": 1, "exportedAt": "ISO date", "data": [] }
 ```

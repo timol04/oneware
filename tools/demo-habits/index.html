@@ -1,23 +1,24 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Demo: Habit-Tracker</title>
+  <title>Demo tool</title>
+  <script src="../../core/theme-init.js"></script>
   <link rel="stylesheet" href="../../core/ui-components.css">
-  <style>:root { --accent: #1f7a4d; }</style>
+  <style>:root { --accent-l: #0b8a4a; --accent-d: #62b98a; }</style>
 </head>
 <body>
   <main class="ow-container">
-    <nav class="ow-topbar"><a href="../../hub/">oneware</a><span id="premium"></span></nav>
-    <h1 class="ow-page-title">✅ Demo: Habit-Tracker</h1>
+    <nav class="ow-topbar"><a href="../../hub/">oneware</a><span class="ow-row"><span id="premium"></span><span id="toolbar"></span></span></nav>
+    <h1 class="ow-page-title" id="title">Demo tool</h1>
     <div id="privacy"></div>
     <section class="ow-card" style="margin-top:1.5rem">
-      <h2 class="ow-card__title">Gewohnheiten</h2>
-      <p class="ow-muted">Gratis: bis zu 3 Einträge. Premium: unbegrenzt.</p>
+      <h2 class="ow-card__title" data-i18n="tool.heading">Notes</h2>
+      <p class="ow-muted" id="freeinfo"></p>
       <form id="form" class="ow-row">
-        <input class="ow-input" id="text" placeholder="Neue Gewohnheit" required aria-label="Neue Gewohnheit" style="flex:1;min-width:12rem;width:auto">
-        <button class="ow-btn">Hinzufügen</button>
+        <input class="ow-input" id="text" data-i18n-attr="placeholder:tool.placeholder;aria-label:tool.placeholder" required style="flex:1;min-width:12rem;width:auto">
+        <button class="ow-btn" data-i18n="demo.add">Add</button>
       </form>
       <p class="ow-error" id="error"></p>
       <ul id="list" class="ow-list"></ul>

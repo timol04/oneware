@@ -1,0 +1,17 @@
+{
+  "slug": "demo-notes",
+  "name": {
+    "en": "Demo: Notes",
+    "de": "Demo: Notizen"
+  },
+  "shortDescription": {
+    "en": "Quick notes, stored locally.",
+    "de": "Schnelle Notizen, lokal gespeichert."
+  },
+  "category": "demo",
+  "status": "live",
+  "icon": "note",
+  "price": "CHF 3.-",
+  "hasPremium": true,
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}

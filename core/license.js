@@ -1,21 +1,21 @@
 /**
- * license.js – lokale Lizenzschlüssel-Prüfung und Premium-Status.
+ * license.js – local license key validation and premium status.
  *
- * Schlüsselformat:  XXXX-XXXX-XXXX-XXXX   (16 Zeichen, Alphabet Crockford-Base32)
- *   - Zeichen 1–12: Nutzlast (frei wählbar / zufällig)
- *   - Zeichen 13–16: Prüfsumme = 20 Bit eines FNV-1a-32-Hashes über
- *       "<SALT>|<toolSlug>|<Nutzlast>"
- *     Ist beim Prüfen ein toolSlug angegeben, gilt der Schlüssel nur für dieses Tool.
+ * Key format:  XXXX-XXXX-XXXX-XXXX   (16 characters, Crockford base32 alphabet)
+ *   - characters 1–12: payload (free choice / random)
+ *   - characters 13–16: checksum = 20 bits of an FNV-1a 32-bit hash over
+ *       "<SALT>|<toolSlug>|<payload>"
+ *     If a toolSlug is passed when validating, the key is only valid for that tool.
  *
- * ACHTUNG: Client-seitige Prüfung ist KEIN Kopierschutz. Sie filtert Tippfehler und
- * Zufallstreffer, ein entschlossener Nutzer kann sie umgehen. Das ist für ein
- * Einmalzahlungs-Produkt ohne Backend bewusst akzeptiert.
+ * NOTE: client-side validation is NOT copy protection. It filters typos and random
+ * guesses; a determined user can bypass it. This is an accepted trade-off for a
+ * one-time-payment product without a backend.
  */
 
-const ALPHABET = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'; // ohne I, L, O, U
+const ALPHABET = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'; // without I, L, O, U
 const PAYLOAD_LEN = 12;
 const CHECK_LEN = 4;
-const SALT = 'oneware-v1'; // bei Bedarf ändern → alle bisherigen Schlüssel werden ungültig
+const SALT = 'oneware-v1'; // change if needed → all existing keys become invalid
 
 const storageKey = (toolSlug) => `premium_${toolSlug}`;
 
@@ -38,7 +38,7 @@ function checksum(payload, toolSlug = '') {
   return out;
 }
 
-/** Normalisiert Eingaben: Grossschreibung, Leerzeichen weg, O→0, I/L→1 (Crockford). */
+/** Normalizes input: upper case, strips spaces/dashes, O→0, I/L→1 (Crockford). */
 export function normalizeKey(key) {
   if (typeof key !== 'string') return '';
   return key
@@ -48,7 +48,7 @@ export function normalizeKey(key) {
     .replace(/[IL]/g, '1');
 }
 
-/** true/false. Mit toolSlug wird zusätzlich geprüft, dass der Schlüssel zu diesem Tool gehört. */
+/** true/false. With toolSlug, also checks that the key belongs to that tool. */
 export function validateLicenseKey(key, toolSlug = '') {
   const k = normalizeKey(key);
   if (k.length !== PAYLOAD_LEN + CHECK_LEN) return false;
@@ -57,32 +57,32 @@ export function validateLicenseKey(key, toolSlug = '') {
   return checksum(payload, toolSlug) === k.slice(PAYLOAD_LEN);
 }
 
-/** Erzeugt einen gültigen Schlüssel (für dich als Verkäufer; nicht im Tool ausliefern). */
+/** Generates a valid key (for you as the seller; do not ship this call inside a tool). */
 export function generateLicenseKey(toolSlug = '', payload) {
   if (payload === undefined) {
     const bytes = crypto.getRandomValues(new Uint8Array(PAYLOAD_LEN));
     payload = Array.from(bytes, (b) => ALPHABET[b & 31]).join('');
   }
   payload = normalizeKey(payload);
-  if (payload.length !== PAYLOAD_LEN) throw new Error(`Nutzlast muss ${PAYLOAD_LEN} Zeichen haben`);
+  if (payload.length !== PAYLOAD_LEN) throw new Error(`payload must be ${PAYLOAD_LEN} characters`);
   const full = payload + checksum(payload, toolSlug);
   return full.match(/.{4}/g).join('-');
 }
 
-/** Liest den Status aus localStorage (pro Tool getrennt). */
+/** Reads the status from localStorage (separate per tool). */
 export function isPremiumUnlocked(toolSlug) {
-  if (!toolSlug) throw new Error('toolSlug fehlt');
+  if (!toolSlug) throw new Error('toolSlug is required');
   try {
     const stored = localStorage.getItem(storageKey(toolSlug));
     return stored !== null && validateLicenseKey(stored, toolSlug);
   } catch {
-    return false; // localStorage gesperrt (z. B. Privatmodus)
+    return false; // localStorage blocked (e.g. private mode)
   }
 }
 
-/** Validiert den Schlüssel und speichert ihn unter `premium_${toolSlug}`. Gibt true/false zurück. */
+/** Validates the key and stores it under `premium_${toolSlug}`. Returns true/false. */
 export function unlockPremium(toolSlug, key) {
-  if (!toolSlug) throw new Error('toolSlug fehlt');
+  if (!toolSlug) throw new Error('toolSlug is required');
   if (!validateLicenseKey(key, toolSlug)) return false;
   try {
     localStorage.setItem(storageKey(toolSlug), normalizeKey(key));
@@ -92,7 +92,7 @@ export function unlockPremium(toolSlug, key) {
   }
 }
 
-/** Entfernt die Freischaltung (z. B. für Tests / Support). */
+/** Removes the unlock (e.g. for tests / support). */
 export function lockPremium(toolSlug) {
-  try { localStorage.removeItem(storageKey(toolSlug)); } catch { /* ignorieren */ }
+  try { localStorage.removeItem(storageKey(toolSlug)); } catch { /* ignore */ }
 }

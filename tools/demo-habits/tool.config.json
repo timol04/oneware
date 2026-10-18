@@ -1,10 +1,16 @@
 {
   "slug": "demo-habits",
-  "name": "Demo: Habit-Tracker",
-  "shortDescription": "Gewohnheiten über die Zeit verfolgen.",
+  "name": {
+    "en": "Demo: Habit tracker",
+    "de": "Demo: Habit-Tracker"
+  },
+  "shortDescription": {
+    "en": "Follow your habits over time.",
+    "de": "Gewohnheiten über die Zeit verfolgen."
+  },
   "category": "demo",
   "status": "live",
-  "icon": "✅",
+  "icon": "check",
   "price": "CHF 5.-",
   "hasPremium": true,
   "purchaseUrl": "https://example.com/lemon-squeezy-link"

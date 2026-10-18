@@ -1,0 +1,17 @@
+{
+  "slug": "demo-bookmarks",
+  "name": {
+    "en": "Demo: Bookmarks",
+    "de": "Demo: Lesezeichen"
+  },
+  "shortDescription": {
+    "en": "Collect links and find them again.",
+    "de": "Links sammeln und wiederfinden."
+  },
+  "category": "demo",
+  "status": "coming-soon",
+  "icon": "bookmark",
+  "price": "CHF 4.-",
+  "hasPremium": true,
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}

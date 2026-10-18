@@ -1,0 +1,17 @@
+{
+  "slug": "demo-expenses",
+  "name": {
+    "en": "Demo: Expenses",
+    "de": "Demo: Ausgaben"
+  },
+  "shortDescription": {
+    "en": "Log expenses without an account.",
+    "de": "Ausgaben festhalten, ohne Konto."
+  },
+  "category": "demo",
+  "status": "live",
+  "icon": "wallet",
+  "price": "CHF 5.-",
+  "hasPremium": true,
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}
