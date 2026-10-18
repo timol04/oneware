@@ -9,22 +9,18 @@ function el(tag, className, text) {
   return n;
 }
 
-function renderCard(tool) {
+function renderRow(tool) {
   const live = tool.status === 'live';
-  const card = el('article', `ow-card tool-card${live ? '' : ' tool-card--soon'}`);
-  const title = el('h2', 'ow-card__title', tool.name);
-  card.append(el('div', 'tool-card__icon', tool.icon), title, el('p', 'ow-muted', tool.shortDescription));
+  const row = el('li', `tool-row${live ? '' : ' tool-row--soon'}`);
+  const inner = el(live ? 'a' : 'div', live ? '' : 'tool-row__inner');
+  if (live) inner.href = `../${tool.path}`;
 
-  const meta = el('div', 'tool-card__meta');
-  meta.append(createStatusBadge(live ? 'green' : 'yellow', live ? 'Live' : 'Kommt bald'), el('strong', '', tool.price));
-  card.append(meta);
+  const side = el('div', 'tool-row__side');
+  side.append(el('span', 'tool-row__price', tool.price), createStatusBadge(live ? 'green' : 'yellow', live ? 'Live' : 'Kommt bald'));
 
-  if (live) {
-    const link = el('a', 'ow-btn', 'Öffnen');
-    link.href = `../${tool.path}`;
-    card.append(link);
-  }
-  return card;
+  inner.append(el('span', 'tool-row__icon', tool.icon), el('h2', 'tool-row__name', tool.name), side, el('p', 'tool-row__desc', tool.shortDescription));
+  row.append(inner);
+  return row;
 }
 
 const container = document.getElementById('tools');
@@ -33,8 +29,8 @@ try {
   if (!res.ok) throw new Error(res.status);
   const tools = await res.json();
   container.replaceChildren(...(tools.length
-    ? tools.map(renderCard)
-    : [el('p', 'ow-muted', 'Noch keine Tools veröffentlicht – bald mehr.')]));
+    ? tools.map(renderRow)
+    : [el('li', 'ow-muted', 'Noch keine Tools veröffentlicht – bald mehr.')]));
 } catch {
-  container.replaceChildren(el('p', 'ow-error', 'Tool-Liste konnte nicht geladen werden.'));
+  container.replaceChildren(el('li', 'ow-error', 'Tool-Liste konnte nicht geladen werden.'));
 }

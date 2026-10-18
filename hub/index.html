@@ -8,19 +8,20 @@
   <link rel="stylesheet" href="src/hub.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="ow-container">
-      <h1>Einmal zahlen, für immer nutzen.</h1>
+  <div class="ow-container">
+    <header class="site-head">oneware</header>
+    <section class="hero">
+      <h1>Einmal zahlen. Für immer nutzen.</h1>
       <p>Kleine Werkzeuge, die lokal in deinem Browser laufen. Kein Abo, kein Konto, keine Cloud.</p>
       <div id="privacy"></div>
-    </div>
-  </header>
-  <main class="ow-container">
-    <section id="tools" class="grid" aria-live="polite"><p class="ow-muted">Lade Tools …</p></section>
-  </main>
-  <footer class="ow-container ow-muted">
-    <small>Entwickler: <a href="../tools/_demo/">Demo-Tool</a> · <a href="../core/test/ui-demo.html">UI-Komponenten</a></small>
-  </footer>
+    </section>
+    <main>
+      <ul id="tools" class="catalog" aria-live="polite"><li class="ow-muted">Lade Tools …</li></ul>
+    </main>
+    <footer class="site-foot ow-muted">
+      Entwicklung: <a href="../tools/_demo/">Demo-Tool</a> · <a href="../core/test/ui-demo.html">UI-Komponenten</a>
+    </footer>
+  </div>
   <script type="module" src="src/hub.js"></script>
 </body>
 </html>

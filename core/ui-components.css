@@ -1,32 +1,37 @@
 /*
  * ui-components.css – gemeinsames Design der Oneware-Tools.
  * Pro Tool anpassen, indem man Variablen nach dem Import überschreibt, z. B.:
- *   :root { --accent: #7c3aed; }
+ *   :root { --accent: #c2410c; }
  */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("fonts/bricolage-grotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
 :root {
   /* Farben */
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-contrast: #ffffff;
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --text: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --success: #16a34a;
-  --warning: #f59e0b;
-  --danger: #dc2626;
+  --accent: #2f3fd4;           /* Ultramarin; pro Tool überschreibbar */
+  --accent-ink: #ffffff;
+  --bg: #eef0ee;               /* kühles Papier */
+  --surface: #fbfbfa;
+  --text: #16191d;
+  --text-muted: #5d646b;
+  --border: #cfd4d1;
+  --success: #1f7a4d;
+  --warning: #b7791f;
+  --danger: #b4281e;
 
   /* Typografie */
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-size: 16px;
-  --line-height: 1.5;
+  --font-sans: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-size: 1.0625rem;
+  --line-height: 1.55;
 
   /* Layout */
-  --radius: 10px;
+  --radius: 6px;
   --space: 1rem;
-  --shadow: 0 1px 3px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.05);
+  --measure: 62rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -38,70 +43,70 @@ body {
   line-height: var(--line-height);
   color: var(--text);
   background: var(--bg);
+  -webkit-font-smoothing: antialiased;
 }
 
-.ow-container { max-width: 960px; margin: 0 auto; padding: var(--space); }
+h1, h2, h3 { line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; }
+a { color: var(--accent); text-underline-offset: 0.18em; }
+
+.ow-container { max-width: var(--measure); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
 .ow-muted { color: var(--text-muted); }
 
-/* Buttons */
+/* Buttons: Tinte als Standard, Akzent nur beim Fokus */
 .ow-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .4em;
-  padding: .55em 1.1em; border: 1px solid transparent; border-radius: var(--radius);
+  padding: .6em 1.15em; border: 1px solid var(--text); border-radius: var(--radius);
   font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
-  background: var(--accent); color: var(--accent-contrast);
-  transition: background .15s;
+  background: var(--text); color: var(--surface);
 }
-.ow-btn:hover { background: var(--accent-hover); }
-.ow-btn:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent); outline-offset: 2px; }
-.ow-btn:disabled { opacity: .5; cursor: not-allowed; }
-.ow-btn--secondary { background: var(--surface); color: var(--text); border-color: var(--border); }
-.ow-btn--secondary:hover { background: var(--bg); }
-.ow-btn--danger { background: var(--danger); }
-.ow-btn--danger:hover { background: color-mix(in srgb, var(--danger) 85%, black); }
+.ow-btn:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.ow-btn:focus-visible, .ow-input:focus-visible, .ow-select:focus-visible, .ow-textarea:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+.ow-btn:disabled { opacity: .45; cursor: not-allowed; }
+.ow-btn--secondary { background: transparent; color: var(--text); border-color: var(--border); }
+.ow-btn--secondary:hover { background: var(--surface); border-color: var(--text); color: var(--text); }
+.ow-btn--danger { background: var(--danger); border-color: var(--danger); }
+.ow-btn--danger:hover { background: var(--danger); border-color: var(--danger); filter: brightness(.9); }
 
 /* Formularfelder */
 .ow-field { display: flex; flex-direction: column; gap: .3em; margin-bottom: var(--space); }
-.ow-label { font-weight: 600; font-size: .9em; }
+.ow-label { font-weight: 600; font-size: .9rem; }
 .ow-input, .ow-select, .ow-textarea {
-  width: 100%; padding: .55em .75em; font: inherit; color: var(--text);
+  width: 100%; padding: .6em .75em; font: inherit; color: var(--text);
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-}
-.ow-input:focus, .ow-select:focus, .ow-textarea:focus {
-  outline: 3px solid color-mix(in srgb, var(--accent) 30%, transparent); border-color: var(--accent);
 }
 .ow-input--error { border-color: var(--danger); }
-.ow-error { color: var(--danger); font-size: .875em; min-height: 1.3em; margin: 0; }
+.ow-error { color: var(--danger); font-size: .9rem; min-height: 1.4em; margin: 0; }
 
-/* Karten */
-.ow-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: var(--space);
-}
-.ow-card__title { margin: 0 0 .25em; font-size: 1.15em; }
+/* Abschnitt: Linie statt Kasten */
+.ow-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: clamp(1rem, 3vw, 1.5rem); }
+.ow-card__title { margin: 0 0 .3em; font-size: 1.35rem; }
 
-/* Ampel-Status */
-.ow-status {
-  display: inline-flex; align-items: center; gap: .45em;
-  padding: .15em .7em; border-radius: 999px; font-size: .85em; font-weight: 600;
-  background: color-mix(in srgb, var(--_c) 14%, transparent); color: var(--_c);
-}
-.ow-status::before { content: ""; width: .6em; height: .6em; border-radius: 50%; background: var(--_c); }
+/* Ampel-Status: Punkt + Text */
+.ow-status { display: inline-flex; align-items: center; gap: .45em; font-size: .9rem; font-weight: 600; color: var(--_c); }
+.ow-status::before { content: ""; width: .55em; height: .55em; border-radius: 50%; background: var(--_c); }
 .ow-status--green  { --_c: var(--success); }
 .ow-status--yellow { --_c: var(--warning); }
 .ow-status--red    { --_c: var(--danger); }
 
-/* Datenschutz-Banner */
-.ow-banner {
-  display: flex; align-items: center; gap: .6em; padding: .6em .9em; font-size: .9em;
-  border-radius: var(--radius); background: color-mix(in srgb, var(--success) 10%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--success) 30%, var(--border));
-}
+/* Datenschutz-Hinweis: eine ruhige Zeile */
+.ow-banner { display: flex; align-items: baseline; gap: .5em; font-size: .95rem; color: var(--text-muted); }
 
 /* Dialog */
 .ow-dialog {
-  border: none; border-radius: var(--radius); padding: 1.5rem; max-width: 420px; width: calc(100% - 2rem);
-  box-shadow: 0 10px 40px rgb(0 0 0 / 0.25); color: var(--text); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; max-width: 31rem;
+  width: calc(100% - 2rem); color: var(--text); background: var(--surface);
 }
-.ow-dialog::backdrop { background: rgb(15 23 42 / 0.5); }
-.ow-dialog h2 { margin: 0 0 .5em; font-size: 1.25em; }
-.ow-dialog__actions { display: flex; gap: .5em; justify-content: flex-end; margin-top: var(--space); }
+.ow-dialog::backdrop { background: rgb(22 25 29 / 0.45); }
+.ow-dialog h2 { margin: 0 0 .75em; font-size: 1.35rem; }
+.ow-dialog__actions { display: flex; flex-wrap: wrap; gap: .5em; justify-content: flex-end; margin-top: var(--space); }
+
+/* Seitenrahmen für Tools */
+.ow-topbar { display: flex; justify-content: space-between; align-items: baseline; padding: 1.25rem 0 0; font-size: .95rem; }
+.ow-topbar a { color: var(--text-muted); }
+.ow-page-title { margin: 3rem 0 .5rem; font-size: clamp(2rem, 6vw, 3.25rem); font-weight: 800; letter-spacing: -0.04em; }
+.ow-list { list-style: none; margin: 1rem 0; padding: 0; border-top: 1px solid var(--border); }
+.ow-list__item { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--border); }
+.ow-row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.ow-dialog__actions > a { margin-right: auto; }

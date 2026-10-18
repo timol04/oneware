@@ -5,22 +5,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Demo: Habit-Tracker</title>
   <link rel="stylesheet" href="../../core/ui-components.css">
+  <style>:root { --accent: #1f7a4d; }</style>
 </head>
 <body>
   <main class="ow-container">
-    <p><a href="../../hub/">← Hub</a></p>
-    <h1>✅ Demo: Habit-Tracker</h1>
+    <nav class="ow-topbar"><a href="../../hub/">oneware</a><span id="premium"></span></nav>
+    <h1 class="ow-page-title">✅ Demo: Habit-Tracker</h1>
     <div id="privacy"></div>
-    <section class="ow-card" style="margin-top:1rem">
-      <h2 class="ow-card__title">Gewohnheiten <span id="premium"></span></h2>
+    <section class="ow-card" style="margin-top:1.5rem">
+      <h2 class="ow-card__title">Gewohnheiten</h2>
       <p class="ow-muted">Gratis: bis zu 3 Einträge. Premium: unbegrenzt.</p>
-      <form id="form" class="ow-field" style="flex-direction:row">
-        <input class="ow-input" id="text" placeholder="Neue Gewohnheit" required aria-label="Neue Gewohnheit">
+      <form id="form" class="ow-row">
+        <input class="ow-input" id="text" placeholder="Neue Gewohnheit" required aria-label="Neue Gewohnheit" style="flex:1;min-width:12rem;width:auto">
         <button class="ow-btn">Hinzufügen</button>
       </form>
       <p class="ow-error" id="error"></p>
-      <ul id="list"></ul>
-      <p id="actions"></p>
+      <ul id="list" class="ow-list"></ul>
+      <div id="actions" class="ow-row"></div>
     </section>
   </main>
   <script type="module" src="src/app.js"></script>

@@ -1,8 +1,22 @@
-.hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 2rem 0; }
-.hero h1 { margin: 0 0 .25em; font-size: clamp(1.6rem, 4vw, 2.4rem); }
-.hero p { margin: 0 0 1rem; color: var(--text-muted); }
-.grid { display: grid; gap: var(--space); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin: 2rem 0; }
-.tool-card { display: flex; flex-direction: column; gap: .5rem; }
-.tool-card__icon { font-size: 2rem; line-height: 1; }
-.tool-card__meta { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: .5rem; }
-.tool-card--soon { opacity: .75; }
+.site-head { padding-top: clamp(1.25rem, 4vw, 2rem); font-weight: 800; letter-spacing: -0.03em; font-size: 1.15rem; }
+.hero { padding: clamp(3rem, 12vw, 7rem) 0 clamp(2rem, 6vw, 3.5rem); }
+.hero h1 { margin: 0 0 .35em; font-size: clamp(2.6rem, 9vw, 6rem); font-weight: 800; letter-spacing: -0.045em; line-height: .95; max-width: 14ch; }
+.hero p { margin: 0 0 1.25rem; max-width: 34rem; font-size: 1.2rem; color: var(--text-muted); }
+
+/* Katalog: eine Zeile pro Tool */
+.catalog { list-style: none; margin: 0 0 4rem; padding: 0; border-top: 1px solid var(--text); }
+.tool-row { border-bottom: 1px solid var(--border); }
+.tool-row a, .tool-row .tool-row__inner {
+  display: grid; grid-template-columns: 2.25rem 1fr auto; gap: .25rem 1rem; align-items: baseline;
+  padding: 1.15rem .25rem; color: inherit; text-decoration: none;
+}
+.tool-row a:hover { background: var(--surface); }
+.tool-row a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.tool-row__icon { font-size: 1.4rem; }
+.tool-row__name { margin: 0; font-size: 1.4rem; }
+.tool-row__desc { grid-column: 2; margin: 0; color: var(--text-muted); }
+.tool-row__side { grid-column: 3; grid-row: 1 / span 2; text-align: right; display: flex; flex-direction: column; gap: .15rem; align-items: flex-end; }
+.tool-row__price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.tool-row--soon .tool-row__name, .tool-row--soon .tool-row__icon { opacity: .55; }
+
+.site-foot { padding-bottom: 2rem; font-size: .9rem; }

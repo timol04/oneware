@@ -24,7 +24,10 @@ async function render() {
   const items = await getAllItems(SLUG);
   $('list').replaceChildren(...items.map((it) => {
     const li = document.createElement('li');
-    li.append(it.text + ' ', button('✕', async () => { await deleteItem(SLUG, it.id); render(); }));
+    li.className = 'ow-list__item';
+    const text = document.createElement('span');
+    text.textContent = it.text;
+    li.append(text, button('Löschen', async () => { await deleteItem(SLUG, it.id); render(); }));
     return li;
   }));
 
@@ -37,9 +40,9 @@ async function render() {
     catch (e) { $('error').textContent = e.message; }
     render();
   });
-  actions.append(' ', button('Import', () => file.click()), file);
+  actions.append(button('Import', () => file.click()), file);
   if (!premium) {
-    actions.append(' ', button('🔑 Lizenzschlüssel', () => showLicenseDialog({ toolSlug: SLUG, purchaseUrl: config.purchaseUrl, onUnlock: render })), ' ');
+    actions.append(button('Lizenzschlüssel eingeben', () => showLicenseDialog({ toolSlug: SLUG, purchaseUrl: config.purchaseUrl, onUnlock: render })));
     createUpgradeButton({ url: config.purchaseUrl }, actions);
   }
 }
