@@ -12,7 +12,7 @@
 import { t, localize, availableLanguages, languageName, getLang, setLang, applyTranslations } from './i18n.js';
 import { initTheme, getTheme, toggleTheme } from './theme.js';
 import { createIcon } from './icons.js';
-import { isPremiumUnlocked } from './license.js';
+import { isPremiumUnlocked, revalidateLicense } from './license.js';
 import { createStatusBadge, showLicenseDialog, showToast } from './ui-components.js';
 import { siteUrl, createSiteFooter } from './site-shell.js';
 import { getAllItems, exportData, importData } from './storage.js';
@@ -51,7 +51,7 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
   } catch { /* offline or missing */ }
 
   const openLicense = (mode = 'buy') => showLicenseDialog({
-    toolSlug: slug, purchaseUrl: config.purchaseUrl, price, mode, otherSlugs,
+    toolSlug: slug, purchaseUrl: config.purchaseUrl, price, mode, otherSlugs, productId: config.lemonSqueezy?.productId,
     description: localize(config.about) || undefined,
     onUnlock: () => { render(); onLicenseChange?.(); },
   });
@@ -276,6 +276,8 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
     if (hasPremium && !isPremiumUnlocked(slug)) setTimeout(() => openLicense('key'), 0);
   }
 
+  document.addEventListener('ow:licensechange', (e) => { if (e.detail?.toolSlug === slug) { render(); onLicenseChange?.(); } });
+  revalidateLicense(slug).then((state) => { if (state === 'revoked') showToast(t('core.license.disabled')); }).catch(() => {});
   document.addEventListener('ow:langchange', () => { render(); checkData(); applyTranslations(); });
   document.addEventListener('ow:themechange', () => { if (!menu.hidden) buildMenu(); });
   render();

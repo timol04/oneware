@@ -48,14 +48,15 @@ View locally: run `python3 -m http.server` in the repo root, then open `http://l
        "free": [{ "en": "Up to 5 subscriptions", "de": "Bis zu 5 Abos" }],
        "premium": [{ "en": "Unlimited subscriptions", "de": "Unbegrenzt viele Abos" }]
      },
-     "purchaseUrl": "https://[lemon-squeezy-link]"
+     "purchaseUrl": "https://[lemon-squeezy-link]",
+     "lemonSqueezy": { "productId": 123456 }
    }
    ```
    - Required: `slug name shortDescription category status icon price hasPremium`. `slug` must equal the folder name. `status` is `live` or `coming-soon`.
    - `icon` is an **icon name** from `core/icons.js`, never an emoji.
    - `name`, `shortDescription`, `price`, `about` and `features` entries are a plain string (English) or an object per language; `en` is required.
    - Optional: `order` (sort order in the catalog), `accent` (colours for light/dark), `about` and `features` (shown under "About this tool"), `stores` (default `true`; set `false` if the tool saves no data, which removes backup menu items and reminders).
-   - A `live` tool with `hasPremium` needs a real `purchaseUrl`. The build fails on placeholders (allowed only for `"category": "demo"`).
+   - A `live` tool with `hasPremium` needs a real `purchaseUrl` and `lemonSqueezy.productId`. The build fails on placeholders (allowed only for `"category": "demo"`).
 3. Build the page. `tools/_demo/index.html` shows the pattern: it only contains `<main id="main" class="ow-container ow-container--tool">` with your workspace; the header (back link, name, license status, menu), notices, "About this tool" and footer come from the **tool shell**:
    ```js
    import { mountToolShell } from '../../../core/tool-shell.js';
@@ -97,13 +98,17 @@ English is the default language. The chosen language is stored in `localStorage`
 
 ## License keys
 
-Format `XXXX-XXXX-XXXX-XXXX`: 12 payload characters + 4 checksum characters (FNV-1a, depends on the tool slug). Generate your own keys:
+Two modes, chosen per tool:
 
-```
-node -e "import('./core/license.js').then(m => console.log(m.generateLicenseKey('sub-tracker')))"
-```
-
-Validation runs in the browser and is not copy protection; it only catches typos. For Lemon Squeezy, fill the license keys with your own generated keys (instead of the default UUIDs), or use its license API (needs an online call).
+- **Online (real tools): Lemon Squeezy license API.** Set `"lemonSqueezy": { "productId": 123456 }` in `tool.config.json`. When a customer enters the key, the tool activates it once at `api.lemonsqueezy.com` (public endpoint, no API key needed in the page), checks that the key belongs to this product, and stores the result in the browser. From then on the tool works offline. Once every 30 days, when online, the status is re-checked; a refunded or disabled license is locked again. Offline or server errors never lock a tool.
+  - In Lemon Squeezy, turn on license keys for the product and set the **activation limit** (e.g. 3 devices). The dialog shows a clear message when the limit is reached.
+  - The build requires `lemonSqueezy.productId` for every live premium tool (demo tools excepted).
+  - Not verified in this repo: that the license endpoints answer browser requests (CORS) and the exact error texts. Test one real purchase (Lemon Squeezy test mode) before launch.
+- **Offline (demo tools, tests): checksum keys** `XXXX-XXXX-XXXX-XXXX`. Generate one with
+  ```
+  node -e "import('./core/license.js').then(m => console.log(m.generateLicenseKey('demo-notes')))"
+  ```
+  This check runs in the browser and is not copy protection.
 
 ## Export format
 

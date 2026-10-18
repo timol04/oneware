@@ -141,4 +141,9 @@ export default {
   "notfound.h1": "This page does not exist",
   "notfound.p": "The link may be outdated. Here are all tools:",
   "notfound.link": "All tools",
+  "core.license.checking": "Checking your key…",
+  "core.license.network": "Could not reach the license server. Check your connection and try again.",
+  "core.license.limit": "This key is already used on the maximum number of devices.",
+  "core.license.disabled": "This license is no longer active.",
+  "core.license.wrongProduct": "This key belongs to a different tool.",
 };

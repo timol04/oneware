@@ -3,7 +3,7 @@
  * All functions build DOM elements; text is never inserted as HTML.
  * Texts go through i18n (data-i18n) so they follow language changes.
  */
-import { unlockPremium, licenseOwner, normalizeKey } from './license.js';
+import { unlockPremium, unlockPremiumOnline, licenseOwner, normalizeKey } from './license.js';
 import { createIcon } from './icons.js';
 import { t, availableLanguages, languageName, getLang, setLang, applyTranslations } from './i18n.js';
 import { getTheme, toggleTheme, initTheme } from './theme.js';
@@ -112,10 +112,12 @@ function formatKey(value) {
 /**
  * License dialog with two ways: buy, or enter a key.
  * Options: toolSlug, purchaseUrl, price, description (text), mode ('buy' | 'key'),
- * otherSlugs (slugs of other tools, to give a precise "wrong tool" message), onUnlock.
+ * productId (Lemon Squeezy product id: keys are activated online once), otherSlugs (offline mode only,
+ * to give a precise "wrong tool" message), onUnlock.
  * Returns Promise<boolean> (true = unlocked, false = closed).
  */
-export function showLicenseDialog({ toolSlug, purchaseUrl, price, description, mode = 'buy', otherSlugs = [], onUnlock } = {}) {
+export function showLicenseDialog({ toolSlug, purchaseUrl, price, description, mode = 'buy', otherSlugs = [], productId, onUnlock } = {}) {
+  const online = productId != null; // Lemon Squeezy license API; otherwise offline checksum keys
   if (!toolSlug) throw new Error('toolSlug is required');
   return new Promise((resolve) => {
     const dialog = el('dialog', 'ow-dialog');
@@ -154,11 +156,11 @@ export function showLicenseDialog({ toolSlug, purchaseUrl, price, description, m
     const label = i18nEl('label', 'ow-label', 'core.license.haveKey');
     const input = el('input', 'ow-input ow-key');
     input.id = `ow-license-${toolSlug}`;
-    input.placeholder = 'XXXX-XXXX-XXXX-XXXX';
+    input.placeholder = online ? 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX' : 'XXXX-XXXX-XXXX-XXXX';
     input.autocomplete = 'off';
     input.autocapitalize = 'characters';
     input.spellcheck = false;
-    input.maxLength = 19;
+    if (!online) input.maxLength = 19;
     input.setAttribute('aria-describedby', 'ow-license-msg');
     label.htmlFor = input.id;
     const ok = i18nEl('button', 'ow-btn', 'core.license.unlock');
@@ -184,24 +186,40 @@ export function showLicenseDialog({ toolSlug, purchaseUrl, price, description, m
 
     let result = false;
     input.addEventListener('input', () => {
-      const formatted = formatKey(input.value);
-      if (formatted !== input.value) input.value = formatted;
+      if (!online) {
+        const formatted = formatKey(input.value);
+        if (formatted !== input.value) input.value = formatted;
+      }
       input.classList.remove('ow-input--error');
       msg.textContent = '';
     });
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (unlockPremium(toolSlug, input.value)) {
-        result = true;
-        dialog.close();
-        showToast(t('core.license.success'));
-        onUnlock?.();
-        return;
-      }
-      const owner = licenseOwner(input.value, otherSlugs.filter((x) => x !== toolSlug));
+    const succeed = () => {
+      result = true;
+      dialog.close();
+      showToast(t('core.license.success'));
+      onUnlock?.();
+    };
+    const fail = (text) => {
       input.classList.add('ow-input--error');
-      msg.textContent = owner ? t('core.license.otherTool', { tool: owner }) : t('core.license.invalidHint');
+      msg.textContent = text;
       input.focus();
+    };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!online) {
+        if (unlockPremium(toolSlug, input.value)) return succeed();
+        const owner = licenseOwner(input.value, otherSlugs.filter((x) => x !== toolSlug));
+        return fail(owner ? t('core.license.otherTool', { tool: owner }) : t('core.license.invalidHint'));
+      }
+      ok.disabled = true;
+      msg.textContent = '';
+      help.textContent = t('core.license.checking');
+      const res = await unlockPremiumOnline(toolSlug, input.value, { productId });
+      ok.disabled = false;
+      help.textContent = t('core.license.help');
+      if (res.ok) return succeed();
+      const keyByReason = { limit: 'core.license.limit', disabled: 'core.license.disabled', wrongProduct: 'core.license.wrongProduct', network: 'core.license.network' };
+      fail(t(keyByReason[res.reason] ?? 'core.license.invalidHint'));
     });
     dialog.addEventListener('close', () => { dialog.remove(); resolve(result); });
 

@@ -7,7 +7,7 @@
  *
  * tool.config.json fields
  *   required: slug name shortDescription category status icon price hasPremium
- *   optional: purchaseUrl order accent{light,dark} about features{free[],premium[]} stores
+ *   optional: purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores
  *   name / shortDescription / price / about / features entries: string (English) or { en, de, ... }
  */
 import { readdir, readFile, writeFile } from 'node:fs/promises';
@@ -57,6 +57,11 @@ for (const entry of await readdir(toolsDir, { withFileTypes: true })) {
   }
   if (cfg.accent && !(hex.test(cfg.accent.light) && hex.test(cfg.accent.dark))) fail('accent needs { "light": "#rrggbb", "dark": "#rrggbb" }');
   for (const k of ['free', 'premium']) if (cfg.features?.[k] && !Array.isArray(cfg.features[k])) fail(`features.${k} must be an array`);
+  if (cfg.lemonSqueezy && !Number.isInteger(cfg.lemonSqueezy.productId)) fail('lemonSqueezy.productId must be a number');
+  if (cfg.hasPremium && cfg.status === 'live' && !cfg.lemonSqueezy?.productId) {
+    if (cfg.category === 'demo') warnings.push(`${entry.name}: no lemonSqueezy.productId (demo tools use offline keys)`);
+    else fail('hasPremium requires lemonSqueezy.productId (online license check)');
+  }
   if (cfg.hasPremium && cfg.status === 'live') {
     if (!/^https?:\/\//.test(cfg.purchaseUrl || '')) fail('hasPremium requires a valid purchaseUrl');
     else if (isPlaceholderUrl(cfg.purchaseUrl)) {

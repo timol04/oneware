@@ -141,4 +141,9 @@ export default {
   "notfound.h1": "Diese Seite gibt es nicht",
   "notfound.p": "Der Link ist vielleicht veraltet. Hier sind alle Tools:",
   "notfound.link": "Alle Tools",
+  "core.license.checking": "Schlüssel wird geprüft …",
+  "core.license.network": "Der Lizenzserver ist nicht erreichbar. Prüfe deine Verbindung und versuche es erneut.",
+  "core.license.limit": "Dieser Schlüssel wird bereits auf der maximalen Anzahl Geräte genutzt.",
+  "core.license.disabled": "Diese Lizenz ist nicht mehr aktiv.",
+  "core.license.wrongProduct": "Dieser Schlüssel gehört zu einem anderen Tool.",
 };
