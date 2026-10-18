@@ -2,6 +2,7 @@ import { mountSiteShell, siteUrl } from '../../core/site-shell.js';
 import { createStatusBadge } from '../../core/ui-components.js';
 import { createIcon } from '../../core/icons.js';
 import { previewHtml } from './preview.js';
+import { cloudBrowserLine } from '../../core/cloud-ui.js';
 import { t, localize, onLangChange, applyTranslations } from '../../core/i18n.js';
 
 mountSiteShell({ active: 'tools' });
@@ -97,5 +98,8 @@ async function load() {
   }
   render();
 }
+const showBrowserLine = () => { const n = document.getElementById('cloud-check'); if (n) n.textContent = `${t('cloud.browsers.yes')} ${t('cloud.browsers.no')} ${cloudBrowserLine()}`; };
+onLangChange(showBrowserLine);
+showBrowserLine();
 await load();
 applyTranslations();

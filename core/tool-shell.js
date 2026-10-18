@@ -16,6 +16,8 @@ import { isPremiumUnlocked, revalidateLicense } from './license.js';
 import { createStatusBadge, showLicenseDialog, showToast } from './ui-components.js';
 import { siteUrl, createSiteFooter } from './site-shell.js';
 import { getAllItems, exportData, importData } from './storage.js';
+import { showCloudDialog } from './cloud-ui.js';
+import { getCloudLink, syncCloud } from './cloud.js';
 import { backupReminderDue, dismissBackupReminder, storageProblem, requestPersistence } from './persistence.js';
 
 function el(tag, className, text) {
@@ -136,6 +138,7 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
     if (stores) {
       items.push(item('download', t('shell.menu.export'), async () => { await exportData(slug); showToast(t('shell.exported')); removeNotice('backup'); }));
       items.push(item('upload', t('shell.menu.import'), () => fileInput.click()));
+      items.push(item('cloud', t('cloud.menu'), () => showCloudDialog({ toolSlug: slug, onChange: onLicenseChange })));
     }
     const dark = getTheme() === 'dark';
     const themeItem = item(dark ? 'sun' : 'moon', t(dark ? 'core.theme.toLight' : 'core.theme.toDark'), null);
@@ -266,6 +269,25 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
       checkData();
     });
     checkData();
+  }
+
+  // ---- cloud folder: keep the linked backup current ----
+  if (stores) {
+    const askAccess = async () => { if ((await syncCloud(slug, { interactive: true })) === 'ok') removeNotice('cloud'); };
+    const cloudSync = async () => {
+      try {
+        if ((await syncCloud(slug)) === 'needs-access') {
+          addNotice('cloud', t('cloud.needsAccess'), { action: { label: t('cloud.reconnect'), onClick: () => askAccess().catch(() => {}) } });
+        } else removeNotice('cloud');
+      } catch { /* folder gone or blocked; the dialog shows details */ }
+    };
+    let timer;
+    document.addEventListener('ow:datachange', (e) => {
+      if (e.detail?.tool !== slug) return;
+      clearTimeout(timer);
+      timer = setTimeout(async () => { if (await getCloudLink(slug)) cloudSync(); }, 1500);
+    });
+    getCloudLink(slug).then((link) => { if (link) cloudSync(); }).catch(() => {});
   }
 
   // ---- purchase return link ----

@@ -110,6 +110,10 @@ Two modes, chosen per tool:
   ```
   This check runs in the browser and is not copy protection.
 
+## Cloud folder (optional, client-side)
+
+`core/cloud.js` and `core/cloud-ui.js` let users link a tool to a folder that their own cloud app syncs (iCloud Drive, Dropbox, OneDrive, Google Drive). The tool shell menu shows "Connect to cloud"; after linking, a backup file `oneware-<slug>.json` is written after every change and can be restored. It uses the File System Access API (`showDirectoryPicker`), so it works in desktop Chrome, Edge, Opera and Brave only; other browsers see a notice and keep the manual export/import. There is no server and no live sync between devices (planned, not built). The permission has to be re-granted by the user in a later session (a notice offers a button).
+
 ## Export format
 
 ```json
