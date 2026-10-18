@@ -1,10 +1,7 @@
 /* Home, desktop layout */
-.hero { padding: clamp(3rem, 10vw, 6rem) 0 var(--s-7); }
-.hero h1 { font-size: clamp(3rem, 8vw, 6rem); max-width: 14ch; }
-.hero p { max-width: 34rem; font-size: 1.2rem; }
-.tool-row a, .tool-row .tool-row__inner { grid-template-columns: 2.25rem 1fr auto; gap: .25rem 1rem; padding: 1.15rem .25rem; }
-.tool-row__name { font-size: 1.4rem; }
-.tool-row__desc { grid-column: 2; }
-.tool-row__side { grid-column: 3; grid-row: 1 / span 2; }
-.how { margin-top: var(--s-8); }
-.how__steps { grid-template-columns: repeat(3, 1fr); gap: var(--s-6); }
+.hero { padding: clamp(3.5rem, 9vw, 6.5rem) 0 var(--s-8); }
+.hero h1 { font-size: clamp(3.25rem, 7.5vw, 5.75rem); max-width: 16ch; }
+.hero__lead { max-width: 36rem; font-size: 1.25rem; }
+ul.benefits { grid-template-columns: repeat(3, 1fr); margin-bottom: var(--s-9); }
+.how { margin-top: var(--s-9); }
+.how__steps { grid-template-columns: repeat(3, 1fr); }

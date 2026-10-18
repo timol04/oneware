@@ -11,6 +11,7 @@
   "category": "demo",
   "status": "live",
   "icon": "note",
+  "preview": "list",
   "price": "CHF 3.-",
   "order": 10,
   "accent": {

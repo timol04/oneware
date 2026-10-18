@@ -11,6 +11,7 @@
   "category": "demo",
   "status": "live",
   "icon": "check",
+  "preview": "habits",
   "price": "CHF 5.-",
   "order": 30,
   "accent": {

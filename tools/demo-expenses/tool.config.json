@@ -11,6 +11,7 @@
   "category": "demo",
   "status": "live",
   "icon": "wallet",
+  "preview": "ledger",
   "price": "CHF 5.-",
   "order": 20,
   "accent": {

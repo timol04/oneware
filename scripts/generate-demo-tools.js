@@ -11,16 +11,16 @@ const feat = {
   premium: [{ en: 'Unlimited entries', de: 'Unbegrenzt viele Einträge' }],
 };
 const tools = [
-  { slug: 'demo-notes', icon: 'note', price: 'CHF 3.-', order: 10, accent: { light: '#2433e8', dark: '#93a0ff' },
+  { slug: 'demo-notes', preview: 'list', icon: 'note', price: 'CHF 3.-', order: 10, accent: { light: '#2433e8', dark: '#93a0ff' },
     name: { en: 'Demo: Notes', de: 'Demo: Notizen' }, desc: { en: 'Quick notes, stored locally.', de: 'Schnelle Notizen, lokal gespeichert.' },
     en: { heading: 'Notes', ph: 'New note' }, de: { heading: 'Notizen', ph: 'Neue Notiz' } },
-  { slug: 'demo-expenses', icon: 'wallet', price: 'CHF 5.-', order: 20, accent: { light: '#d9480f', dark: '#f0a07a' },
+  { slug: 'demo-expenses', preview: 'ledger', icon: 'wallet', price: 'CHF 5.-', order: 20, accent: { light: '#d9480f', dark: '#f0a07a' },
     name: { en: 'Demo: Expenses', de: 'Demo: Ausgaben' }, desc: { en: 'Log expenses without an account.', de: 'Ausgaben festhalten, ohne Konto.' },
     en: { heading: 'Expenses', ph: 'Expense (e.g. coffee 4.50)' }, de: { heading: 'Ausgaben', ph: 'Ausgabe (z. B. Kaffee 4.50)' } },
-  { slug: 'demo-habits', icon: 'check', price: 'CHF 5.-', order: 30, accent: { light: '#07793c', dark: '#62b98a' },
+  { slug: 'demo-habits', preview: 'habits', icon: 'check', price: 'CHF 5.-', order: 30, accent: { light: '#07793c', dark: '#62b98a' },
     name: { en: 'Demo: Habit tracker', de: 'Demo: Habit-Tracker' }, desc: { en: 'Follow your habits over time.', de: 'Gewohnheiten über die Zeit verfolgen.' },
     en: { heading: 'Habits', ph: 'New habit' }, de: { heading: 'Gewohnheiten', ph: 'Neue Gewohnheit' } },
-  { slug: 'demo-bookmarks', icon: 'bookmark', price: 'CHF 4.-', order: 40, accent: { light: '#9333ea', dark: '#c4a0f5' },
+  { slug: 'demo-bookmarks', preview: 'links', icon: 'bookmark', price: 'CHF 4.-', order: 40, accent: { light: '#9333ea', dark: '#c4a0f5' },
     name: { en: 'Demo: Bookmarks', de: 'Demo: Lesezeichen' }, desc: { en: 'Collect links and find them again.', de: 'Links sammeln und wiederfinden.' },
     en: { heading: 'Bookmarks', ph: 'New link' }, de: { heading: 'Lesezeichen', ph: 'Neuer Link' }, soon: true },
 ];
@@ -45,7 +45,7 @@ for (const t of tools) {
   }
   await writeFile(`${dir}/tool.config.json`, JSON.stringify({
     slug: t.slug, name: t.name, shortDescription: t.desc, category: 'demo', status: t.soon ? 'coming-soon' : 'live',
-    icon: t.icon, price: t.price, order: t.order, accent: t.accent, hasPremium: true, stores: true,
+    icon: t.icon, preview: t.preview, price: t.price, order: t.order, accent: t.accent, hasPremium: true, stores: true,
     about: { en: `${t.desc.en} A demo tool that shows how a tool looks inside the shared frame.`, de: `${t.desc.de} Ein Demo-Tool, das zeigt, wie ein Tool im gemeinsamen Rahmen aussieht.` },
     features: feat, purchaseUrl: 'https://example.com/lemon-squeezy-link',
   }, null, 2) + '\n');

@@ -1,10 +1,11 @@
 import { mountSiteShell, siteUrl } from '../../core/site-shell.js';
 import { createStatusBadge } from '../../core/ui-components.js';
 import { createIcon } from '../../core/icons.js';
+import { previewHtml } from './preview.js';
 import { t, localize, onLangChange, applyTranslations } from '../../core/i18n.js';
 
 mountSiteShell({ active: 'tools' });
-for (const li of document.querySelectorAll('.trust [data-icon]')) li.prepend(createIcon(li.dataset.icon, { size: '1.2rem' }));
+for (const n of document.querySelectorAll('[data-icon]')) n.prepend(createIcon(n.dataset.icon, { size: n.dataset.iconSize || '1.25rem' }));
 
 function el(tag, className, text) {
   const n = document.createElement(tag);
@@ -15,18 +16,24 @@ function el(tag, className, text) {
 
 function renderRow(tool) {
   const live = tool.status === 'live';
-  const row = el('li', `tool-row${live ? '' : ' tool-row--soon'}`);
+  const row = el('li', `tool-card${live ? '' : ' tool-card--soon'}`);
   row.dataset.category = tool.category;
   if (tool.accent) { row.style.setProperty('--accent-l', tool.accent.light); row.style.setProperty('--accent-d', tool.accent.dark); }
-  const inner = el(live ? 'a' : 'div', live ? '' : 'tool-row__inner');
-  if (live) inner.href = siteUrl(tool.path);
+  const link = el(live ? 'a' : 'div', 'tool-card__link');
+  if (live) link.href = siteUrl(tool.path);
 
-  const side = el('div', 'tool-row__side');
-  side.append(el('span', 'tool-row__price', localize(tool.price)), createStatusBadge(live ? 'green' : 'yellow', t(live ? 'hub.live' : 'hub.soon')));
-  const icon = el('span', 'tool-row__icon');
+  const preview = el('span', 'tool-card__preview');
+  preview.innerHTML = previewHtml(tool.preview); // static markup from preview.js, no user data
+  const icon = el('span', 'tool-card__icon');
   icon.append(createIcon(tool.icon, { size: '1.4rem' }));
-  inner.append(icon, el('h3', 'tool-row__name', localize(tool.name)), side, el('p', 'tool-row__desc', localize(tool.shortDescription)));
-  row.append(inner);
+  const top = el('span', 'tool-card__top');
+  top.append(icon, el('h3', 'tool-card__name', localize(tool.name)));
+  const meta = el('span', 'tool-card__meta');
+  meta.append(el('span', 'tool-card__price', localize(tool.price)), createStatusBadge(live ? 'green' : 'yellow', t(live ? 'hub.live' : 'hub.soon')));
+  const body = el('span', 'tool-card__body');
+  body.append(top, el('p', 'tool-card__desc', localize(tool.shortDescription)), meta);
+  link.append(preview, body);
+  row.append(link);
   return row;
 }
 

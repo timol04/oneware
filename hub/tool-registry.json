@@ -12,6 +12,7 @@
     "category": "demo",
     "status": "live",
     "icon": "note",
+    "preview": "list",
     "price": "CHF 3.-",
     "order": 10,
     "accent": {
@@ -58,6 +59,7 @@
     "category": "demo",
     "status": "live",
     "icon": "wallet",
+    "preview": "ledger",
     "price": "CHF 5.-",
     "order": 20,
     "accent": {
@@ -104,6 +106,7 @@
     "category": "demo",
     "status": "live",
     "icon": "check",
+    "preview": "habits",
     "price": "CHF 5.-",
     "order": 30,
     "accent": {
@@ -150,6 +153,7 @@
     "category": "demo",
     "status": "coming-soon",
     "icon": "bookmark",
+    "preview": "links",
     "price": "CHF 4.-",
     "order": 40,
     "accent": {

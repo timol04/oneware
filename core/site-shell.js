@@ -28,23 +28,36 @@ const isDev = () => ['localhost', '127.0.0.1'].includes(location.hostname) || ne
 export function createSiteFooter() {
   const footer = el('footer', 'ow-sitefoot');
   const inner = el('div', 'ow-container ow-sitefoot__in');
-  const links = el('nav', 'ow-sitefoot__links');
-  links.setAttribute('aria-label', 'Footer');
-  links.append(
-    link(siteUrl('#tools'), 'shell.footer.tools'),
-    link(siteUrl('how-it-works/'), 'shell.footer.how'),
-    link(siteUrl('legal/imprint/'), 'shell.footer.imprint'),
-    link(siteUrl('legal/privacy/'), 'shell.footer.privacy'),
-  );
+
+  const brand = el('div', 'ow-sitefoot__brand');
+  const mark = el('a', 'ow-wordmark');
+  mark.href = siteUrl();
+  mark.textContent = 'oneware';
+  brand.append(mark, el('p', '', 'shell.footer.tagline'));
+
+  const column = (headingKey, ...links) => {
+    const nav = el('nav', 'ow-sitefoot__col');
+    nav.setAttribute('aria-labelledby', headingKey.replace(/\./g, '-'));
+    const h = el('h2', '', headingKey);
+    h.id = headingKey.replace(/\./g, '-');
+    nav.append(h, ...links);
+    return nav;
+  };
+  const product = column('shell.footer.product', link(siteUrl('#tools'), 'shell.footer.tools'), link(siteUrl('how-it-works/'), 'shell.footer.how'));
+  const legal = column('shell.footer.legal', link(siteUrl('legal/imprint/'), 'shell.footer.imprint'), link(siteUrl('legal/privacy/'), 'shell.footer.privacy'), link(siteUrl('legal/imprint/'), 'shell.footer.contact'));
   if (isDev()) {
     const demo = el('a'); demo.href = siteUrl('tools/_demo/'); demo.textContent = 'Demo tool (dev)';
     const ui = el('a'); ui.href = siteUrl('core/test/ui-demo.html'); ui.textContent = 'UI components (dev)';
-    links.append(demo, ui);
+    product.append(demo, ui);
   }
-  inner.append(links);
+
+  const base = el('div', 'ow-sitefoot__base');
+  base.append(el('p', 'ow-sitefoot__license', 'shell.footer.license'));
   const sw = createLanguageSwitcher();
-  if (sw) inner.append(sw);
-  inner.append(el('span', '', 'shell.footer.copy'));
+  if (sw) base.append(sw);
+  base.append(el('span', '', 'shell.footer.copy'));
+
+  inner.append(brand, product, legal, base);
   footer.append(inner);
   return footer;
 }

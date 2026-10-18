@@ -8,3 +8,5 @@
 .ow-hide-desktop { display: none; }
 .ow-prose h1, .ow-page-title { font-size: clamp(2.25rem, 5vw, 3.25rem); }
 .ow-container--tool { padding-top: var(--s-5); }
+
+.ow-sitefoot .ow-sitefoot__in { grid-template-columns: minmax(0, 1.8fr) repeat(2, minmax(8rem, 1fr)); }
