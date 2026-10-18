@@ -70,3 +70,11 @@ a.tool-card__link:focus-visible { outline: 2px solid var(--accent); outline-offs
 .how__steps li::before { content: counter(step); display: grid; place-items: center; width: 1.9rem; height: 1.9rem; margin-bottom: var(--s-2); border-radius: 50%; background: var(--text); color: var(--bg); font-size: var(--fs-small); font-weight: 700; }
 .how__steps span { color: var(--text-muted); font-size: var(--fs-small); }
 .how h2 { font-size: var(--fs-h2); margin: 0 0 var(--s-5); }
+
+/* Vision and data panels */
+.pillars { display: grid; gap: var(--s-4); margin-top: var(--s-9); }
+.pillar { padding: var(--s-5); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
+.pillar h2 { margin: 0 0 var(--s-4); font-size: var(--fs-h2); }
+.pillar__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4); }
+.pillar__list li { display: grid; gap: var(--s-1); justify-items: start; }
+.pillar__list p { margin: 0; color: var(--text-muted); font-size: var(--fs-small); line-height: 1.5; }

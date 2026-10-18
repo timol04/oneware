@@ -9,3 +9,4 @@ ul.benefits { margin-bottom: var(--s-8); gap: var(--s-3); }
 .filter button { min-height: 2.75rem; }
 .tool-card__preview { height: 9rem; }
 .how { margin-top: var(--s-8); }
+section.pillars { margin-top: var(--s-8); }

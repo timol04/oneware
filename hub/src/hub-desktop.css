@@ -5,3 +5,4 @@
 ul.benefits { grid-template-columns: repeat(3, 1fr); margin-bottom: var(--s-9); }
 .how { margin-top: var(--s-9); }
 .how__steps { grid-template-columns: repeat(3, 1fr); }
+section.pillars { grid-template-columns: repeat(2, 1fr); }
