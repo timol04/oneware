@@ -1,0 +1,11 @@
+{
+  "slug": "demo-ausgaben",
+  "name": "Demo: Ausgaben",
+  "shortDescription": "Ausgaben festhalten, ohne Konto.",
+  "category": "demo",
+  "status": "live",
+  "icon": "💸",
+  "price": "CHF 5.-",
+  "hasPremium": true,
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}

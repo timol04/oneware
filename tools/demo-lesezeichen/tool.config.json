@@ -1,0 +1,11 @@
+{
+  "slug": "demo-lesezeichen",
+  "name": "Demo: Lesezeichen",
+  "shortDescription": "Links sammeln und wiederfinden.",
+  "category": "demo",
+  "status": "coming-soon",
+  "icon": "🔖",
+  "price": "CHF 4.-",
+  "hasPremium": true,
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}
