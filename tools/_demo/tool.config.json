@@ -1,0 +1,11 @@
+{
+  "slug": "_demo",
+  "name": "Demo-Tool",
+  "shortDescription": "Zeigt Lizenz, Speicherung und UI der Core-Bibliothek.",
+  "category": "demo",
+  "status": "live",
+  "icon": "🧪",
+  "price": "CHF 0.-",
+  "hasPremium": true,
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}
