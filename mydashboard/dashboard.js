@@ -15,9 +15,27 @@ for (const n of document.querySelectorAll('[data-icon]')) n.prepend(createIcon(n
 
 const toolsList = document.getElementById('dash-tools');
 const dataList = document.getElementById('dash-data');
+const editBtn = document.getElementById('dash-edit');
+const hint = document.getElementById('dash-hint');
+editBtn.addEventListener('click', () => { editing = !editing; render(); });
 let tools = null;
 let rows = [];
 let failed = false;
+let editing = false;
+
+// Which tools are on the dashboard: null = never customised (all), otherwise a list of slugs.
+const KEY = 'ow_dashboard';
+let selected = null;
+try { const v = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(v)) selected = v; } catch { /* storage blocked or invalid */ }
+const isOn = (slug) => selected === null || selected.includes(slug);
+function setOn(slug, on) {
+  const all = tools.map((x) => x.slug);
+  const next = new Set(selected ?? all);
+  on ? next.add(slug) : next.delete(slug);
+  selected = all.filter((x) => next.has(x));
+  try { localStorage.setItem(KEY, JSON.stringify(selected)); } catch { /* keep in memory */ }
+  render();
+}
 
 function el(tag, className, text) {
   const n = document.createElement(tag);
@@ -61,10 +79,11 @@ function head(tool, ...extra) {
 }
 
 function toolRow({ tool, live, count, premium }) {
-  const li = el('li', `tool-card${live ? '' : ' tool-card--soon'}`);
+  const on = isOn(tool.slug);
+  const li = el('li', `tool-card${live ? '' : ' tool-card--soon'}${editing && !on ? ' tool-card--off' : ''}`);
   setup(li, tool);
-  const link = el(live ? 'a' : 'div', 'tool-card__link');
-  if (live) link.href = siteUrl(tool.path);
+  const link = el(live && !editing ? 'a' : 'div', 'tool-card__link');
+  if (live && !editing) link.href = siteUrl(tool.path);
   const preview = el('span', 'tool-card__preview');
   preview.innerHTML = previewHtml(tool.preview); // static markup from preview.js, no user data
   const icon = el('span', 'tool-card__icon');
@@ -79,7 +98,11 @@ function toolRow({ tool, live, count, premium }) {
   }
   const body = el('span', 'tool-card__body');
   body.append(top, el('p', 'tool-card__desc', localize(tool.shortDescription)), meta);
-  if (live) body.append(el('span', 'ow-btn ow-btn--secondary dash__cta', t(tool.hasPremium && !premium ? 'dash.unlock' : 'dash.open')));
+  if (editing) {
+    const b = button(t(on ? 'dash.remove' : 'dash.add'), () => setOn(tool.slug, !on), on ? 'ow-btn ow-btn--secondary dash__cta' : 'ow-btn dash__cta');
+    b.setAttribute('aria-pressed', String(on));
+    body.append(b);
+  } else if (live) body.append(el('span', 'ow-btn ow-btn--secondary dash__cta', t(tool.hasPremium && !premium ? 'dash.unlock' : 'dash.open')));
   link.append(preview, body);
   li.append(link);
   return li;
@@ -117,7 +140,13 @@ function dataRow({ tool, count, cloud, backup }) {
 function render() {
   if (failed) { toolsList.replaceChildren(el('p', 'ow-error', t('dash.error'))); return; }
   if (!rows.length) { toolsList.replaceChildren(el('p', 'ow-muted', t('dash.empty'))); return; }
-  toolsList.replaceChildren(...groupTools(rows.map((r) => ({ ...r.tool, row: r }))).map(({ kind, items }) => {
+  const visible = rows.filter((r) => editing || isOn(r.tool.slug));
+  editBtn.textContent = t(editing ? 'dash.done' : 'dash.customize');
+  editBtn.setAttribute('aria-pressed', String(editing));
+  hint.hidden = !editing;
+  hint.textContent = t('dash.customizeHint');
+  if (!visible.length) { toolsList.replaceChildren(el('p', 'ow-muted', t('dash.emptySelection'))); renderData(); return; }
+  toolsList.replaceChildren(...groupTools(visible.map((r) => ({ ...r.tool, row: r }))).map(({ kind, items }) => {
     const section = el('section', 'group');
     const head = el('div', 'group__head');
     head.append(el('h3', 'group__title', t(`hub.group.${kind}`)), el('p', 'group__desc', t(`hub.group.${kind}.desc`)));
@@ -126,7 +155,10 @@ function render() {
     section.append(head, ul);
     return section;
   }));
-  dataList.replaceChildren(...rows.filter((r) => r.live && r.tool.stores !== false).map(dataRow));
+  renderData();
+}
+function renderData() {
+  dataList.replaceChildren(...rows.filter((r) => r.live && r.tool.stores !== false && isOn(r.tool.slug)).map(dataRow));
 }
 
 onLangChange(render);

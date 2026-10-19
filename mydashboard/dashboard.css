@@ -19,3 +19,7 @@
 .dash__row { align-content: start; }
 .dash__cta { margin-top: var(--s-3); justify-content: center; text-align: center; }
 .tool-card__meta:empty { display: none; }
+.dash__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-2); }
+.dash__bar h2 { margin: 0; }
+.dash__hint { margin: 0 0 var(--s-4); font-size: var(--fs-small); }
+.tool-card--off .tool-card__preview, .tool-card--off .tool-card__top, .tool-card--off .tool-card__desc, .tool-card--off .tool-card__meta { opacity: .5; }
