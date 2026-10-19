@@ -18,7 +18,7 @@ for (const n of document.querySelectorAll('[data-icon]')) n.prepend(createIcon(n
 const toolsList = document.getElementById('dash-tools');
 const dataList = document.getElementById('dash-data');
 const editBtn = document.getElementById('dash-edit');
-const dataSection = document.getElementById('dash-data').closest('section');
+const dataSection = document.getElementById('dash-data').closest('aside');
 const searchBar = document.getElementById('dash-searchbar');
 const searchInput = document.getElementById('dash-search');
 searchInput.addEventListener('input', () => { query = searchInput.value.trim().toLowerCase(); render(); });
@@ -253,6 +253,11 @@ function render() {
 function renderData() {
   dataList.replaceChildren(...rows.filter((r) => r.live && r.tool.stores !== false && isOn(r.tool.slug)).map(dataRow));
 }
+
+const wide = window.matchMedia('(min-width: 1000px)');
+const dataDetails = document.querySelector('.dash__details');
+dataDetails.open = wide.matches;
+wide.addEventListener('change', () => { dataDetails.open = wide.matches; });
 
 onLangChange(() => { loadFeed().then(render); });
 try {

@@ -20,6 +20,8 @@
     <h1 class="ow-page-title" data-i18n="dash.h1">My Dashboard</h1>
     <p class="ow-muted dash__intro" data-i18n="dash.intro">Your tools, all in one place. Read from your browser, stored on your device.</p>
     <p class="dash__trust"><span data-icon="lock" data-icon-size="1rem"></span><span data-i18n="dash.trust">Stored locally · No account · No subscription</span></p>
+    <div class="dash__layout">
+    <div class="dash__main">
     <section id="dash-today-section" aria-labelledby="dash-today-h" class="dash__section" hidden>
       <h2 id="dash-today-h" data-i18n="dash.today">Today</h2>
       <ul id="dash-today" class="today" aria-live="polite"></ul>
@@ -30,13 +32,17 @@
       <div id="dash-searchbar" class="dash__search" hidden><span data-icon="search" data-icon-size="1.1rem"></span><input id="dash-search" type="search" class="ow-input" data-i18n-attr="placeholder:dash.search;aria-label:dash.search" placeholder="Search your tools" autocomplete="off"></div>
       <div id="dash-tools" class="groups" aria-live="polite"></div>
     </section>
-    <section aria-labelledby="dash-data-h" class="dash__section dash__section--data">
+    </div>
+    <aside class="dash__aside" aria-labelledby="dash-data-h">
+    <section class="dash__section dash__section--data">
       <details class="dash__details">
         <summary><h2 id="dash-data-h" data-i18n="dash.data">Data and backup</h2><span class="dash__chev" data-icon="chevron-down" data-icon-size="1.1rem"></span></summary>
         <p class="ow-muted" data-i18n="dash.dataIntro">Back up, restore or link each tool to your own cloud folder.</p>
         <ul id="dash-data" class="dash"></ul>
       </details>
     </section>
+    </aside>
+    </div>
   </main>
   <script type="module" src="dashboard.js"></script>
 </body>

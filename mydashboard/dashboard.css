@@ -73,7 +73,7 @@
 .dash__empty-help { max-width: 28rem; }
 .dash__empty { min-height: 0; padding: var(--s-8) var(--s-5); }
 .today__empty { padding: var(--s-3) var(--s-4); font-size: var(--fs-small); text-align: left; }
-.dash__section--data { margin-top: var(--s-8); padding-top: var(--s-5); border-top: 1px solid var(--border); }
+.dash__section--data { margin: 0; }
 .dash__details > summary { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); cursor: pointer; list-style: none; }
 .dash__details > summary::-webkit-details-marker { display: none; }
 .dash__details > summary h2 { margin: 0; font-size: var(--fs-h3); color: var(--text-muted); }
@@ -82,3 +82,19 @@
 .dash__chev { display: inline-flex; color: var(--text-muted); transition: transform var(--dur); }
 .dash__details[open] .dash__chev { transform: rotate(180deg); }
 .dash__details > p, .dash__details > ul { margin-top: var(--s-4); }
+
+/* Two columns on desktop: your work on the left, a calm data rail on the right */
+.dash__layout { display: block; }
+.dash__aside { margin-top: var(--s-6); padding: var(--s-5); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
+.dash__aside[hidden] { display: none; }
+.dash__aside .dash { grid-template-columns: 1fr; gap: 0; }
+.dash__aside .dash__row { padding: var(--s-4) 0; border: 0; border-top: 1px solid var(--border); border-radius: 0; background: transparent; box-shadow: none; }
+.dash__aside .dash__row:first-child { border-top: 0; padding-top: var(--s-2); }
+.dash__aside .dash__row:last-child { padding-bottom: 0; }
+.dash__aside .dash__details > p { margin-bottom: 0; }
+@media (min-width: 1000px) {
+  .dash__layout { display: grid; grid-template-columns: minmax(0, 1fr) 21rem; gap: var(--s-7); align-items: start; }
+  .dash__aside { position: sticky; top: var(--s-5); margin-top: 0; }
+  .dash__main .today { grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
+}
+.dash__aside .dash__details > p { font-size: var(--fs-small); }
