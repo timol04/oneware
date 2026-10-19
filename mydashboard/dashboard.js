@@ -6,6 +6,7 @@ import { isPremiumUnlocked } from '../core/license.js';
 import { getAllItems, exportData, importData } from '../core/storage.js';
 import { getLastExport, BACKUP_INTERVAL_DAYS } from '../core/persistence.js';
 import { getCloudLink } from '../core/cloud.js';
+import { previewHtml } from '../hub/src/preview.js';
 import { showCloudDialog } from '../core/cloud-ui.js';
 
 mountSiteShell();
@@ -59,20 +60,27 @@ function head(tool, ...extra) {
 }
 
 function toolRow({ tool, live, count, premium }) {
-  const li = el('li', `dash__row${live ? '' : ' dash__row--soon'}`);
+  const li = el('li', `tool-card${live ? '' : ' tool-card--soon'}`);
   setup(li, tool);
-  const meta = el('div', 'dash__meta');
+  const link = el(live ? 'a' : 'div', 'tool-card__link');
+  if (live) link.href = siteUrl(tool.path);
+  const preview = el('span', 'tool-card__preview');
+  preview.innerHTML = previewHtml(tool.preview); // static markup from preview.js, no user data
+  const icon = el('span', 'tool-card__icon');
+  icon.append(createIcon(tool.icon, { size: '1.4rem' }));
+  const top = el('span', 'tool-card__top');
+  top.append(icon, el('h3', 'tool-card__name', localize(tool.name)));
+  const meta = el('span', 'tool-card__meta');
   if (!live) meta.append(createStatusBadge('yellow', t('dash.soon')));
   else {
-    if (tool.hasPremium) meta.append(createStatusBadge(premium ? 'green' : 'yellow', t(premium ? 'dash.premium' : 'dash.free')));
-    if (tool.stores !== false) meta.append(el('span', 'ow-muted', count === 1 ? t('dash.entriesOne') : t('dash.entries', { count })));
+    meta.append(el('span', 'ow-muted', tool.stores !== false ? (count === 1 ? t('dash.entriesOne') : t('dash.entries', { count })) : ''));
+    meta.append(tool.hasPremium ? createStatusBadge(premium ? 'green' : 'yellow', t(premium ? 'dash.premium' : 'dash.free')) : '');
   }
-  li.append(head(tool, el('p', 'dash__desc', localize(tool.shortDescription))), meta);
-  if (live) {
-    const open = el('a', 'ow-btn ow-btn--secondary', t(tool.hasPremium && !premium ? 'dash.unlock' : 'dash.open'));
-    open.href = siteUrl(tool.path);
-    li.append(open);
-  }
+  const body = el('span', 'tool-card__body');
+  body.append(top, el('p', 'tool-card__desc', localize(tool.shortDescription)), meta);
+  if (live) body.append(el('span', 'ow-btn ow-btn--secondary dash__cta', t(tool.hasPremium && !premium ? 'dash.unlock' : 'dash.open')));
+  link.append(preview, body);
+  li.append(link);
   return li;
 }
 

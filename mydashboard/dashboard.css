@@ -5,8 +5,8 @@
 .dash__section h2 { margin: 0 0 var(--s-2); font-size: var(--fs-h2); }
 .dash__section > p { margin: 0 0 var(--s-4); font-size: var(--fs-small); }
 .dash__section > ul { margin-top: var(--s-4); }
-.dash { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
-.dash__row { --accent: var(--accent-l); display: grid; gap: var(--s-3) var(--s-4); align-items: center; padding: var(--s-4) var(--s-5); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
+.dash { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); }
+.dash__row { --accent: var(--accent-l); display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-5); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
 [data-theme="dark"] .dash__row { --accent: var(--accent-d); }
 .dash__row--soon { opacity: .7; }
 .dash__head { display: flex; align-items: center; gap: var(--s-3); min-width: 0; }
@@ -14,7 +14,8 @@
 .dash__text { min-width: 0; }
 .dash__name { margin: 0; font-size: var(--fs-h3); }
 .dash__desc { margin: 0; color: var(--text-muted); font-size: var(--fs-small); }
-.dash__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); font-size: var(--fs-small); }
-.dash__actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
-@media (min-width: 721px) { .dash__row { grid-template-columns: minmax(14rem, 1.2fr) 1fr auto; } }
-@media (max-width: 720px) { .dash__row .ow-btn { justify-content: center; text-align: center; } .dash__actions .ow-btn { flex: 1 1 auto; } }
+.dash__meta { flex: 1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); font-size: var(--fs-small); }
+.dash__actions { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: auto; }
+.dash__row { align-content: start; }
+.dash__cta { margin-top: var(--s-3); justify-content: center; text-align: center; }
+.tool-card__meta:empty { display: none; }
