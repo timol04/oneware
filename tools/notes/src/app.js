@@ -4,6 +4,7 @@ import { registerMessages, t, getLang, applyTranslations, onLangChange } from '.
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import { renderMarkdown } from './markdown.js';
+import { applyFormat } from './format.js';
 import { COLORS, FREE_LIMIT, newNote, displayTitle, snippet, normalizeTag, tagCounts, visibleNotes, atLimit } from './notes.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
@@ -13,6 +14,8 @@ registerMessages('de', de);
 
 const SLUG = 'notes';
 const SAVE_DELAY = 400;
+const TOOLBAR = [['bold', 'bold'], ['italic', 'italic'], ['heading', 'heading'], ['ul', 'list'], ['ol', 'list-ordered'], ['quote', 'quote'], ['code', 'code'], ['link', 'link']];
+const FLOATING = ['bold', 'italic', 'heading', 'code', 'link'];
 const config = await (await fetch('tool.config.json')).json();
 const $ = (id) => document.getElementById(id);
 
@@ -183,12 +186,92 @@ function renderModes() {
   );
   const preview = mode === 'preview';
   $('body').hidden = preview;
+  $('fmt').hidden = preview;
+  hideFloat();
   $('preview').hidden = !preview;
   if (preview) {
     const note = selected();
     $('preview').innerHTML = note?.body.trim() ? renderMarkdown(note.body) : `<p class="ow-muted">${t('nt.noPreview')}</p>`;
   }
 }
+
+// --- Formatting toolbar and selection bar ---
+function formatButtons(kinds) {
+  return kinds.map((kind) => {
+    const icon = TOOLBAR.find(([k]) => k === kind)[1];
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'nt-fmt__btn';
+    b.dataset.format = kind;
+    b.title = t(`nt.fmt.${kind}`);
+    b.setAttribute('aria-label', t(`nt.fmt.${kind}`));
+    b.append(createIcon(icon, { size: '1.1rem' }));
+    return b;
+  });
+}
+
+function renderFormatBars() {
+  $('fmt').replaceChildren(...formatButtons(TOOLBAR.map(([k]) => k)));
+  $('float').replaceChildren(...formatButtons(FLOATING));
+}
+
+function format(kind) {
+  const note = selected();
+  const area = $('body');
+  if (!note || mode !== 'edit') return;
+  const r = applyFormat(area.value, area.selectionStart, area.selectionEnd, kind);
+  area.value = r.text;
+  area.focus();
+  area.setSelectionRange(r.start, r.end);
+  note.body = r.text;
+  touch(note);
+  updateFloat();
+}
+
+/** Pixel position of a character in the textarea, measured with a hidden copy of it. */
+function caretPosition(area, index) {
+  const style = getComputedStyle(area);
+  const mirror = document.createElement('div');
+  for (const prop of ['boxSizing', 'width', 'fontFamily', 'fontSize', 'fontWeight', 'lineHeight', 'letterSpacing', 'padding', 'border', 'tabSize']) mirror.style[prop] = style[prop];
+  Object.assign(mirror.style, { position: 'absolute', visibility: 'hidden', whiteSpace: 'pre-wrap', overflowWrap: 'break-word', top: '0', left: '0' });
+  mirror.textContent = area.value.slice(0, index);
+  const marker = document.createElement('span');
+  marker.textContent = area.value.slice(index) || '.';
+  mirror.append(marker);
+  document.body.append(mirror);
+  const pos = { x: marker.offsetLeft, y: marker.offsetTop, h: parseFloat(style.lineHeight) || 24 };
+  mirror.remove();
+  return pos;
+}
+
+function hideFloat() { $('float').hidden = true; }
+
+function updateFloat() {
+  const area = $('body');
+  const bar = $('float');
+  if (mode !== 'edit' || document.activeElement !== area || area.selectionStart === area.selectionEnd) { hideFloat(); return; }
+  bar.hidden = false;
+  const { x, y, h } = caretPosition(area, area.selectionStart);
+  const top = y - area.scrollTop;
+  const above = top - bar.offsetHeight - 6;
+  bar.style.top = `${above >= 0 ? above : top + h + 6}px`;
+  bar.style.left = `${Math.max(0, Math.min(x, area.clientWidth - bar.offsetWidth))}px`;
+}
+
+document.addEventListener('mousedown', (e) => { if (e.target.closest('#fmt, #float')) e.preventDefault(); });
+for (const id of ['fmt', 'float']) {
+  $(id).addEventListener('click', (e) => {
+    const b = e.target.closest('[data-format]');
+    if (b) format(b.dataset.format);
+  });
+}
+for (const ev of ['select', 'keyup', 'mouseup', 'input', 'blur', 'scroll']) $('body').addEventListener(ev, () => setTimeout(updateFloat));
+document.addEventListener('selectionchange', () => { if (document.activeElement === $('body')) updateFloat(); });
+$('body').addEventListener('keydown', (e) => {
+  if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
+  const kind = { b: 'bold', i: 'italic', k: 'link' }[e.key.toLowerCase()];
+  if (kind) { e.preventDefault(); format(kind); }
+});
 
 function renderMeta(note) {
   $('meta').textContent = t('nt.updated', { date: dateFmt().format(note.updated) });
@@ -212,6 +295,7 @@ function renderEditor() {
 
 function render() {
   applyTranslations();
+  renderFormatBars();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('nt.new')}`);
   shell.setUsage(premium() ? '' : t('nt.usage', { count: notes.length, limit: FREE_LIMIT }));
   renderViews();

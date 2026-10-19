@@ -5,6 +5,13 @@
  * Importable without a DOM (the build script uses `ICON_NAMES`).
  */
 export const ICONS = {
+  bold: '<path d="M7 5h6a3.5 3.5 0 0 1 0 7H7zM7 12h7a3.5 3.5 0 0 1 0 7H7z"/>',
+  italic: '<path d="M14 5h-4M14 19h-4M15 5l-6 14"/>',
+  heading: '<path d="M6 5v14M18 5v14M6 12h12"/>',
+  list: '<path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>',
+  'list-ordered': '<path d="M10 6h10M10 12h10M10 18h10M4 5.5 5.5 4.5V9M4 14.5h3L4 18h3"/>',
+  quote: '<path d="M5 7h5v6a4 4 0 0 1-4 4M14 7h5v6a4 4 0 0 1-4 4"/>',
+  code: '<path d="m8 8-4 4 4 4M16 8l4 4-4 4"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
   search: '<circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/>',
   pin: '<path d="M9 4h6l-1 6 3 3H7l3-3z"/><path d="M12 13v7"/>',
