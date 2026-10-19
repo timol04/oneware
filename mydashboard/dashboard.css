@@ -109,3 +109,4 @@
 .dash__data { display: grid; gap: var(--s-4); }
 .dash__aside .dash__cloud { margin: var(--s-2) 0 0; padding: var(--s-4) 0 0; border-bottom: 0; border-top: 1px solid var(--border); }
 .dash__aside .dash__section > p { font-size: var(--fs-small); }
+.dash__cloud-btn:disabled { opacity: .5; cursor: not-allowed; }

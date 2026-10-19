@@ -196,7 +196,7 @@ function render() {
   editBtn.setAttribute('aria-pressed', String(editing));
   hint.hidden = !editing;
   hint.textContent = t('dash.customizeHint');
-  dataSection.hidden = !chosen.length;
+  dataSection.hidden = false;
   if (!visible.length && chosen.length) {
     toolsList.replaceChildren(el('p', 'ow-muted dash__nomatch', t('dash.noMatch', { query: searchInput.value.trim() })));
     renderData();
@@ -255,7 +255,11 @@ function renderData() {
 
   const support = getCloudSupport();
   const cloud = el('div', 'dash__cloud');
-  if (!support.supported) cloud.append(el('p', 'ow-muted dash__cloud-note', t('cloud.all.unsupported', { browser: support.browser.name })));
+  if (!support.supported) {
+    const off = button(t('cloud.all.connect'), () => {}, 'ow-btn dash__cloud-btn');
+    off.disabled = true;
+    cloud.append(off, el('p', 'ow-muted dash__cloud-note', t('cloud.all.unsupported', { browser: support.browser.name })));
+  }
   else if (!shared) {
     cloud.append(el('p', 'ow-muted dash__cloud-note', t('cloud.all.help')));
     cloud.append(button(t('cloud.all.connect'), async () => {
