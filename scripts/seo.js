@@ -69,7 +69,7 @@ export function sitemapXml(tools) {
 
 // ---- prerendering: plain HTML for visitors and bots that do not run JavaScript ----
 
-const NAV = [['', 'Oneware'], ['#tools', 'Tools'], ['how-it-works/', 'How it works'], ['legal/privacy/', 'Privacy'], ['legal/terms/', 'Terms'], ['legal/licenses/', 'Third-party licenses'], ['legal/imprint/', 'Imprint']];
+const NAV = [['', 'Oneware'], ['#tools', 'Tools'], ['how-it-works/', 'How it works'], ['legal/privacy/', 'Privacy'], ['legal/terms/', 'Terms'], ['legal/licenses/', 'Third-party licenses'], ['legal/imprint/', 'About']];
 
 /** Plain links to the main pages, shown only when JavaScript is off (the site shell is mounted by JS). `rel` is the path back to the site root, ending in a slash. */
 export function noscriptNav(rel) {
