@@ -28,7 +28,9 @@ export function getCloudSupport(win = globalThis) {
   const browser = detectBrowser(ua);
   const mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
   const api = typeof win.showDirectoryPicker === 'function' && win.isSecureContext !== false;
-  return { supported: api && !mobile && browser.version >= (MIN_VERSIONS[browser.name] ?? 0), browser, mobile };
+  // Brave looks like Chrome but ships with the File System Access API switched off.
+  const braveOff = !!win.navigator?.brave && !api && !mobile;
+  return { supported: api && !mobile && browser.version >= (MIN_VERSIONS[browser.name] ?? 0), browser: braveOff ? { name: 'Brave', version: browser.version } : browser, mobile, braveOff };
 }
 
 const fileName = (slug) => `oneware-${slug}.json`;

@@ -258,7 +258,7 @@ function renderData() {
   if (!support.supported) {
     const off = button(t('cloud.all.connect'), () => {}, 'ow-btn dash__cloud-btn');
     off.disabled = true;
-    cloud.append(off, el('p', 'ow-muted dash__cloud-note', t('cloud.all.unsupported', { browser: support.browser.name })));
+    cloud.append(off, el('p', 'ow-muted dash__cloud-note', support.braveOff ? t('cloud.all.brave') : t('cloud.all.unsupported', { browser: support.browser.name })));
   }
   else if (!shared) {
     cloud.append(el('p', 'ow-muted dash__cloud-note', t('cloud.all.help')));
