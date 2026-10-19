@@ -19,6 +19,10 @@ const toolsList = document.getElementById('dash-tools');
 const dataList = document.getElementById('dash-data');
 const editBtn = document.getElementById('dash-edit');
 const dataSection = document.getElementById('dash-data').closest('section');
+const searchBar = document.getElementById('dash-searchbar');
+const searchInput = document.getElementById('dash-search');
+searchInput.addEventListener('input', () => { query = searchInput.value.trim().toLowerCase(); render(); });
+let query = '';
 const hint = document.getElementById('dash-hint');
 editBtn.addEventListener('click', () => { editing = !editing; render(); });
 let tools = null;
@@ -151,7 +155,7 @@ function head(tool, ...extra) {
 
 function toolRow({ tool, live, count, premium }) {
   const on = isOn(tool.slug);
-  const li = el('li', `tool-card${live ? '' : ' tool-card--soon'}${editing && !on ? ' tool-card--off' : ''}`);
+  const li = el('li', `tool-card${live ? '' : ' tool-card--soon'}${editing ? '' : ' tool-card--compact'}${editing && !on ? ' tool-card--off' : ''}`);
   setup(li, tool);
   const link = el(live && !editing ? 'a' : 'div', 'tool-card__link');
   if (live && !editing) link.href = siteUrl(tool.path);
@@ -173,8 +177,9 @@ function toolRow({ tool, live, count, premium }) {
     const b = button(t(on ? 'dash.remove' : 'dash.add'), () => setOn(tool.slug, !on), on ? 'ow-btn ow-btn--secondary dash__cta' : 'ow-btn dash__cta');
     b.setAttribute('aria-pressed', String(on));
     body.append(b);
-  } else if (live) body.append(el('span', 'ow-btn ow-btn--secondary dash__cta', t(licensing.enabled && tool.hasPremium && !premium ? 'dash.unlock' : 'dash.open')));
-  link.append(preview, body);
+  } else if (live && licensing.enabled && tool.hasPremium && !premium) body.append(el('span', 'ow-btn ow-btn--secondary dash__cta', t('dash.unlock')));
+  if (editing) link.append(preview);
+  link.append(body);
   li.append(link);
   return li;
 }
@@ -212,16 +217,24 @@ function render() {
   renderToday();
   if (failed) { toolsList.replaceChildren(el('p', 'ow-error', t('dash.error'))); return; }
   if (!rows.length) { toolsList.replaceChildren(el('p', 'ow-muted', t('dash.empty'))); return; }
-  const visible = rows.filter((r) => editing || isOn(r.tool.slug));
+  const chosen = rows.filter((r) => editing || isOn(r.tool.slug));
+  const matches = (r) => !query || `${localize(r.tool.name)} ${localize(r.tool.shortDescription)}`.toLowerCase().includes(query);
+  const visible = editing ? chosen : chosen.filter(matches);
+  searchBar.hidden = editing || chosen.length < 2;
   editBtn.replaceChildren(createIcon(editing ? 'check' : 'grid', { size: '1.1rem' }), t(editing ? 'dash.done' : 'dash.customize'));
   editBtn.hidden = false;
   editBtn.setAttribute('aria-pressed', String(editing));
   hint.hidden = !editing;
   hint.textContent = t('dash.customizeHint');
-  dataSection.hidden = !visible.length;
+  dataSection.hidden = !chosen.length;
+  if (!visible.length && chosen.length) {
+    toolsList.replaceChildren(el('p', 'ow-muted dash__nomatch', t('dash.noMatch', { query: searchInput.value.trim() })));
+    renderData();
+    return;
+  }
   if (!visible.length) {
     const empty = el('div', 'dash__empty');
-    empty.append(el('p', '', t('dash.emptySelection')), button(t('dash.start'), () => { editing = true; render(); }, 'ow-btn'));
+    empty.append(el('p', 'dash__empty-title', t('dash.emptySelection')), el('p', 'dash__empty-help', t('dash.emptyHelp')), button(t('dash.start'), () => { editing = true; render(); }, 'ow-btn'));
     toolsList.replaceChildren(empty);
     renderData();
     return;

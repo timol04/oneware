@@ -27,12 +27,15 @@
     <section aria-labelledby="dash-tools-h" class="dash__section">
       <div class="dash__bar"><h2 id="dash-tools-h" data-i18n="dash.tools">Your tools</h2><button type="button" id="dash-edit" class="ow-btn" hidden></button></div>
       <p id="dash-hint" class="ow-muted dash__hint" hidden></p>
+      <div id="dash-searchbar" class="dash__search" hidden><span data-icon="search" data-icon-size="1.1rem"></span><input id="dash-search" type="search" class="ow-input" data-i18n-attr="placeholder:dash.search;aria-label:dash.search" placeholder="Search your tools" autocomplete="off"></div>
       <div id="dash-tools" class="groups" aria-live="polite"></div>
     </section>
-    <section aria-labelledby="dash-data-h" class="dash__section">
-      <h2 id="dash-data-h" data-i18n="dash.data">Data and backup</h2>
-      <p class="ow-muted" data-i18n="dash.dataIntro">Back up, restore or link each tool to your own cloud folder.</p>
-      <ul id="dash-data" class="dash"></ul>
+    <section aria-labelledby="dash-data-h" class="dash__section dash__section--data">
+      <details class="dash__details">
+        <summary><h2 id="dash-data-h" data-i18n="dash.data">Data and backup</h2><span class="dash__chev" data-icon="chevron-down" data-icon-size="1.1rem"></span></summary>
+        <p class="ow-muted" data-i18n="dash.dataIntro">Back up, restore or link each tool to your own cloud folder.</p>
+        <ul id="dash-data" class="dash"></ul>
+      </details>
     </section>
   </main>
   <script type="module" src="dashboard.js"></script>
