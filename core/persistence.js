@@ -14,6 +14,8 @@ function write(key, value) {
   try { localStorage.setItem(key, String(value)); } catch { /* storage unavailable */ }
 }
 
+/** Timestamp of the last manual backup export, or null. */
+export const getLastExport = (slug) => read(lastKey(slug));
 export const markExported = (slug, now = Date.now()) => write(lastKey(slug), now);
 export const dismissBackupReminder = (slug, now = Date.now()) => write(dismissKey(slug), now);
 

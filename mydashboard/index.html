@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title data-i18n="dash.title">My Dashboard – Oneware</title>
+  <meta name="description" content="Your Oneware tools on this device: license, entries and backups at a glance.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="../core/favicon.svg">
+  <script src="../core/theme-init.js"></script>
+  <link rel="preload" href="../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../core/ui-components.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <main id="main" class="ow-container">
+    <h1 class="ow-page-title" data-i18n="dash.h1">My Dashboard</h1>
+    <p class="ow-muted dash__intro" data-i18n="dash.intro">Your tools on this device. Everything here is read from your browser, nothing is sent anywhere.</p>
+    <ul id="dash" class="dash" aria-live="polite"></ul>
+  </main>
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

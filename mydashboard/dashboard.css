@@ -1,0 +1,13 @@
+/* My Dashboard: one card per live tool */
+.dash__intro { max-width: var(--measure-text); margin: 0 0 var(--s-6); }
+.dash { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4); }
+.dash__row { --accent: var(--accent-l); display: grid; gap: var(--s-4); align-items: center; padding: var(--s-5); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-sm); }
+[data-theme="dark"] .dash__row { --accent: var(--accent-d); }
+.dash__head { display: flex; align-items: center; gap: var(--s-3); }
+.dash__icon { display: inline-flex; color: var(--accent); }
+.dash__name { margin: 0; margin-right: auto; font-size: var(--fs-h3); }
+.dash__facts { display: grid; gap: var(--s-3); grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; }
+.dash__fact dt { color: var(--text-muted); font-size: var(--fs-small); }
+.dash__fact dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+@media (min-width: 721px) { .dash__row { grid-template-columns: minmax(14rem, 1fr) 2fr auto; } }
+@media (max-width: 720px) { .dash__facts { grid-template-columns: 1fr 1fr; } .dash__row .ow-btn { justify-content: center; text-align: center; } }
