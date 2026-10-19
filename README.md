@@ -130,6 +130,6 @@ Two modes, chosen per tool:
 
 ## QR Pro Studio
 
-`tools/qr-pro-studio/` is a utility with a two-column page (content and style on the left, live preview and export on the right). Content types and their payload formats are in `src/content.js` (tested in `test/`). Free: all content types and PNG; Premium: colors, dot shapes, logo, sticker shapes and caption, SVG, PDF, large PNG, sticker sheet, CSV batch. The page stays `coming-soon` until a real `purchaseUrl` and `lemonSqueezy.productId` are set; it is reachable at `/mydashboard/qr-pro-studio/` meanwhile.
+`tools/qr-pro-studio/` is a utility with a two-column page (content and style on the left, live preview and export on the right). Content types and their payload formats are in `src/content.js` (tested in `test/`). Free: all content types, dot shapes, solid colors and PNG; Premium: gradients, logo, sticker shapes and caption, SVG, PDF, large PNG, sticker sheet, CSV batch. The page stays `coming-soon` until a real `purchaseUrl` and `lemonSqueezy.productId` are set; it is reachable at `/mydashboard/qr-pro-studio/` meanwhile.
 
 `vendor/` holds browser bundles (esbuild, ES modules) of `qr-code-styling` 1.9.2, `qrcode-generator` 2.0.4, `jsqr` 1.4.0, `jszip` 3.10.2 and `jspdf` 4.2.1, because the repo has no build step. Their licenses (MIT, jsQR Apache-2.0) apply; to update one, install it in a scratch folder and rebundle with `esbuild <entry> --bundle --format=esm --minify`.

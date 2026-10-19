@@ -2,7 +2,7 @@ export default {
   'qr.content': 'Inhalt',
   'qr.type': 'Art des Inhalts',
   'qr.style': 'Gestaltung',
-  'usage.free': 'Gratis: alle Inhaltsarten und PNG. Gestaltung und weitere Formate sind Premium.',
+  'usage.free': 'Gratis: alle Inhaltsarten, Punktformen, einfarbige Farben und PNG. Verläufe, Logo, Sticker und weitere Formate sind Premium.',
 
   'type.url': 'Link',
   'type.text': 'Text',

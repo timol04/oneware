@@ -186,6 +186,10 @@
           "de": "Alle Inhaltsarten: Link, Text, WLAN, Kontakt, E-Mail, Telefon, SMS, Standort, Termin, App"
         },
         {
+          "en": "Dot shapes and solid colors",
+          "de": "Punktformen und einfarbige Farben"
+        },
+        {
           "en": "Live preview with scan test",
           "de": "Live-Vorschau mit Scan-Test"
         },
@@ -196,8 +200,8 @@
       ],
       "premium": [
         {
-          "en": "Colors, gradients and dot shapes",
-          "de": "Farben, Verläufe und Punktformen"
+          "en": "Gradients",
+          "de": "Farbverläufe"
         },
         {
           "en": "Logo in the center or as the code shape",

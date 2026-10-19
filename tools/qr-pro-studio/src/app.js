@@ -39,7 +39,7 @@ let landed = false;
 
 const isPremium = () => shell.isPremium();
 // Locked styling never reaches the preview or the export.
-const activeStyle = () => (isPremium() ? { ...style } : {});
+const activeStyle = () => (isPremium() ? { ...style } : { dots: style.dots, color: Array.isArray(style.color) ? '#000000' : style.color });
 const has = (key) => t(key) !== key;
 
 /** Returns true (and opens the license dialog) when the feature is locked. */
@@ -143,6 +143,7 @@ function renderStyleControls() {
     b.className = 'qr-swatch';
     b.style.setProperty('--swatch', Array.isArray(s.color) ? `linear-gradient(135deg, ${s.color[0]}, ${s.color[1]})` : s.color);
     b.dataset.i = i;
+    if (Array.isArray(s.color)) b.dataset.gradient = '';
     b.setAttribute('aria-label', t(`sw.${s.id}`));
     b.setAttribute('aria-pressed', String(JSON.stringify(style.color) === JSON.stringify(s.color)));
     return b;
@@ -156,15 +157,17 @@ function renderStyleControls() {
 
 $('dot-styles').addEventListener('click', (e) => {
   const b = e.target.closest('.qr-chip');
-  if (!b || (b.dataset.dots !== 'rounded' && gated())) return;
+  if (!b) return;
   style.dots = b.dataset.dots;
   press($('dot-styles'), b);
   refresh();
 });
 $('swatches').addEventListener('click', (e) => {
   const b = e.target.closest('.qr-swatch');
-  if (!b || gated()) return;
-  style.color = SWATCHES[Number(b.dataset.i)].color;
+  if (!b) return;
+  const swatch = SWATCHES[Number(b.dataset.i)];
+  if (Array.isArray(swatch.color) && gated()) return;
+  style.color = swatch.color;
   $('swatches').querySelectorAll('.qr-swatch').forEach((s) => s.setAttribute('aria-pressed', String(s === b)));
   refresh();
 });
@@ -345,12 +348,12 @@ function syncLocks() {
   document.querySelectorAll('[data-premium]').forEach((row) => row.classList.toggle('is-locked', !premium));
   // Premium markers (visible in the free launch phase too; see core/premium.js)
   document.querySelectorAll('[data-premium] .qr-row__label').forEach((l) => markPremium(l, SLUG, { compact: true }));
-  document.querySelectorAll('.qr-chip[data-dots]:not([data-dots="rounded"]), .qr-chip[data-format]:not([data-format="png"])').forEach((c) => markPremium(c, SLUG, { compact: true }));
+  document.querySelectorAll('.qr-chip[data-format]:not([data-format="png"])').forEach((c) => markPremium(c, SLUG, { compact: true }));
   markPremium($('csv-btn'), SLUG, { compact: true });
   document.querySelectorAll('.qr-chip[data-format], #csv-btn').forEach((b) => {
     b.classList.toggle('is-locked', !premium && !FREE_FORMATS.includes(b.dataset.format ?? ''));
   });
-  document.querySelectorAll('.qr-chip[data-dots]').forEach((b) => b.classList.toggle('is-locked', !premium && b.dataset.dots !== 'rounded'));
+  document.querySelectorAll('.qr-swatch[data-gradient]').forEach((b) => b.classList.toggle('is-locked', !premium));
   shell.setUsage(premium ? '' : t('usage.free'));
 }
 function onLicense() {

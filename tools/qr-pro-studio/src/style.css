@@ -82,3 +82,8 @@
 .qr-stage { background: color-mix(in srgb, var(--accent) 14%, var(--bg)); }
 .ow-input:focus-visible, .ow-textarea:focus-visible, .ow-select:focus-visible { border-color: var(--accent); }
 .qr-lock { display: none !important; } /* replaced by the shared Premium badge */
+
+/* Gradient swatches are Premium: a small accent dot marks them */
+.qr-swatch { position: relative; }
+.qr-swatch[data-gradient]::after { content: ""; position: absolute; right: -2px; top: -2px; width: .55rem; height: .55rem; border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); }
+.qr-swatch.is-locked { opacity: .8; }
