@@ -221,6 +221,73 @@
     "path": "mydashboard/qr-pro-studio/"
   },
   {
+    "slug": "abo-tracker",
+    "name": {
+      "en": "Subscription tracker",
+      "de": "Abo-Tracker"
+    },
+    "shortDescription": {
+      "en": "All your subscriptions and what they cost.",
+      "de": "Alle Abos und was sie kosten."
+    },
+    "category": "tracker",
+    "kind": "app",
+    "status": "live",
+    "icon": "repeat",
+    "preview": "ledger",
+    "price": {
+      "en": "Price to follow",
+      "de": "Preis folgt"
+    },
+    "order": 60,
+    "accent": {
+      "light": "#047857",
+      "dark": "#4cc9a0"
+    },
+    "hasPremium": true,
+    "stores": true,
+    "about": {
+      "en": "Keep track of every subscription: what it costs per month and year, when the next charge is due and what you have paused or cancelled. Everything stays in your browser.",
+      "de": "Behalte jedes Abo im Blick: was es pro Monat und Jahr kostet, wann die nächste Abbuchung fällig ist und was du pausiert oder gekündigt hast. Alles bleibt in deinem Browser."
+    },
+    "features": {
+      "free": [
+        {
+          "en": "Unlimited subscriptions",
+          "de": "Unbegrenzt viele Abos"
+        },
+        {
+          "en": "Monthly and yearly totals, next charges, categories",
+          "de": "Monats- und Jahressummen, nächste Abbuchungen, Kategorien"
+        },
+        {
+          "en": "Pause and cancel with history",
+          "de": "Pausieren und Kündigen mit Verlauf"
+        },
+        {
+          "en": "Backup export and import",
+          "de": "Backup-Export und -Import"
+        }
+      ],
+      "premium": [
+        {
+          "en": "Spending per month over the last year",
+          "de": "Ausgaben pro Monat im letzten Jahr"
+        },
+        {
+          "en": "Cost split by category",
+          "de": "Kosten nach Kategorie"
+        },
+        {
+          "en": "Price history per subscription",
+          "de": "Preisverlauf pro Abo"
+        }
+      ]
+    },
+    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "path": "mydashboard/abo-tracker/"
+  },
+  {
     "slug": "demo-bookmarks",
     "name": {
       "en": "Demo: Bookmarks",

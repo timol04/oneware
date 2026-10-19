@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>Subscription tracker – oneware</title>
+  <meta name="description" content="Track every subscription: monthly and yearly cost, next charges, price history. Stored in your browser, no account.">
+  <meta property="og:title" content="Subscription tracker – oneware">
+  <meta property="og:description" content="Track every subscription: monthly and yearly cost, next charges, price history. Stored in your browser, no account.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div class="ab">
+      <section class="ow-card ow-workspace ab-sum" aria-labelledby="h-sum">
+        <div class="ab-sum__bar">
+          <h2 id="h-sum" class="ab-sum__title" data-i18n="ab.summary">Overview</h2>
+          <label class="ab-cur">
+            <span class="ow-sr-only" data-i18n="ab.currency">Currency</span>
+            <select id="currency" class="ow-select"></select>
+          </label>
+          <button type="button" id="add" class="ow-btn"></button>
+        </div>
+        <dl class="ab-stats" id="stats"></dl>
+        <p id="due" class="ab-due ow-muted"></p>
+      </section>
+
+      <div class="ab-grid">
+        <section class="ow-card ow-workspace ab-listcard" aria-labelledby="h-list">
+          <h2 class="ow-sr-only" id="h-list" data-i18n="ab.list">Subscriptions</h2>
+          <div id="views" class="ab-chips" role="group" data-i18n-attr="aria-label:ab.views"></div>
+          <ul id="list" class="ab-list"></ul>
+          <p id="empty" class="ab-empty ow-muted" hidden></p>
+        </section>
+
+        <section class="ow-card ow-workspace ab-analysis" id="analysis" aria-labelledby="h-analysis">
+          <h2 id="h-analysis" class="ab-h" data-i18n="ab.analysis">Analysis</h2>
+          <div id="analysis-body"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <dialog id="sheet" class="ow-dialog ab-sheet" aria-labelledby="sheet-title">
+    <form id="form" novalidate>
+      <div class="ab-sheet__head">
+        <h2 id="sheet-title"></h2>
+        <button type="button" id="close" class="ow-iconbtn"></button>
+      </div>
+      <div class="ow-field">
+        <label class="ow-label" for="f-name" data-i18n="ab.form.name">Name</label>
+        <input id="f-name" class="ow-input" maxlength="60" autocomplete="off" data-i18n-attr="placeholder:ab.form.namePh">
+        <span class="ow-error" id="e-name" hidden></span>
+      </div>
+      <div class="ab-two">
+        <div class="ow-field">
+          <label class="ow-label" for="f-price" data-i18n="ab.form.price">Price</label>
+          <input id="f-price" class="ow-input" inputmode="decimal" autocomplete="off">
+          <span class="ow-error" id="e-price" hidden></span>
+        </div>
+        <div class="ow-field">
+          <label class="ow-label" for="f-cycle" data-i18n="ab.form.cycle">Billed</label>
+          <select id="f-cycle" class="ow-select"></select>
+        </div>
+      </div>
+      <p id="price-hint" class="ab-hint ow-muted" data-i18n="ab.form.priceHint" hidden></p>
+      <div class="ab-two">
+        <div class="ow-field">
+          <label class="ow-label" for="f-start" data-i18n="ab.form.start">First charge</label>
+          <input id="f-start" class="ow-input" type="date">
+          <span class="ow-error" id="e-start" hidden></span>
+        </div>
+        <div class="ow-field">
+          <label class="ow-label" for="f-cat" data-i18n="ab.form.category">Category</label>
+          <select id="f-cat" class="ow-select"></select>
+        </div>
+      </div>
+      <p class="ab-hint ow-muted" data-i18n="ab.form.startHint"></p>
+      <div class="ow-field">
+        <label class="ow-label" for="f-note" data-i18n="ab.form.note">Note</label>
+        <textarea id="f-note" class="ow-textarea" rows="2" maxlength="300" data-i18n-attr="placeholder:ab.form.notePh"></textarea>
+      </div>
+      <div id="state-actions" class="ab-state" hidden>
+        <button type="button" id="toggle-pause" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+        <button type="button" id="cancel-sub" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+      </div>
+      <div class="ow-dialog__actions">
+        <button type="button" id="delete" class="ow-btn ow-btn--secondary ab-delete" hidden></button>
+        <button type="submit" class="ow-btn" data-i18n="ab.form.save">Save</button>
+      </div>
+    </form>
+  </dialog>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
