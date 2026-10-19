@@ -80,11 +80,9 @@ async function refresh() { await collect(); await loadFeed(); render(); }
 
 function todayRow(entry) {
   const li = el('li', `today__row today__row--${entry.state}`);
-  setup(li, entry.tool);
   const body = el('span', 'today__body');
   body.append(el('span', 'today__title', entry.title));
-  const sub = [entry.detail, localize(entry.tool.name)].filter(Boolean).join(' · ');
-  body.append(el('span', 'today__detail', sub));
+  if (entry.detail) body.append(el('span', 'today__detail', entry.detail));
   let lead;
   if (entry.checkable) {
     lead = el('button', 'today__check');
@@ -92,31 +90,50 @@ function todayRow(entry) {
     lead.setAttribute('role', 'checkbox');
     lead.setAttribute('aria-checked', String(entry.state === 'done'));
     lead.setAttribute('aria-label', `${t('dash.todayCheck')}: ${entry.title}`);
-    lead.append(createIcon('check', { size: '1.1rem' }));
+    lead.append(createIcon('check', { size: '.95rem' }));
     lead.addEventListener('click', async () => {
       lead.disabled = true;
       try { await toggleToday(entry, { today: isoToday(), base: BASE }); } catch { showToast(t('dash.todayFailed')); }
       await refresh();
     });
   } else {
-    lead = el('span', 'today__icon');
-    lead.append(createIcon(entry.tool.icon, { size: '1.1rem' }));
+    lead = el('span', 'today__dot');
+    lead.setAttribute('aria-hidden', 'true');
   }
   li.append(lead, body);
-  if (!entry.checkable || entry.state !== 'done') {
-    const open = el('a', 'today__open');
-    open.href = siteUrl(entry.tool.path);
-    open.setAttribute('aria-label', `${t('dash.open')}: ${localize(entry.tool.name)}`);
-    open.append(createIcon('chevron-down', { size: '1.1rem' }));
-    li.append(open);
-  }
   return li;
+}
+function todayCard(tool, entries) {
+  const card = el('li', 'today__card');
+  setup(card, tool);
+  const checkable = entries.filter((e) => e.checkable);
+  const done = checkable.filter((e) => e.state === 'done').length;
+  const head = el('div', 'today__head');
+  const icon = el('span', 'today__icon');
+  icon.append(createIcon(tool.icon, { size: '1.15rem' }));
+  const open = el('a', 'today__name', localize(tool.name));
+  open.href = siteUrl(tool.path);
+  head.append(icon, open);
+  if (checkable.length) head.append(el('span', 'today__count', `${done}/${checkable.length}`));
+  card.append(head);
+  if (checkable.length) {
+    const bar = el('span', 'today__bar');
+    const fill = el('span', 'today__fill');
+    fill.style.width = `${Math.round((done / checkable.length) * 100)}%`;
+    bar.append(fill);
+    card.append(bar);
+  }
+  const rows = el('ul', 'today__rows');
+  rows.append(...entries.map(todayRow));
+  card.append(rows);
+  return card;
 }
 function renderToday() {
   const sources = tools ? tools.filter((x) => x.today && x.status === 'live' && isOn(x.slug)) : [];
   todaySection.hidden = editing || !sources.length;
   if (todaySection.hidden) return;
-  todayList.replaceChildren(...(feed.length ? feed.map(todayRow) : [el('li', 'today__empty', t('dash.todayEmpty'))]));
+  const cards = sources.map((tool) => [tool, feed.filter((e) => e.tool.slug === tool.slug)]).filter(([, entries]) => entries.length);
+  todayList.replaceChildren(...(cards.length ? cards.map(([tool, entries]) => todayCard(tool, entries)) : [el('li', 'today__empty', t('dash.todayEmpty'))]));
 }
 
 function setup(li, tool) {
