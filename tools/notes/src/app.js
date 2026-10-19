@@ -383,7 +383,7 @@ function render() {
 // --- Actions ---
 async function select(id) {
   await flush();
-  selectedId = id;
+  selectedId = id === selectedId ? null : id;
   renderList();
   renderEditor();
 }
