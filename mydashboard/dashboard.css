@@ -98,3 +98,7 @@
   .dash__main .today { grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
 }
 .dash__aside .dash__details > p { font-size: var(--fs-small); }
+
+/* Use the full desktop width on this page (header, content and footer stay aligned) */
+.ow-container { max-width: 96rem; }
+@media (min-width: 1500px) { .dash__layout { grid-template-columns: minmax(0, 1fr) 24rem; } }
