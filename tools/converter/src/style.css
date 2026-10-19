@@ -1,0 +1,69 @@
+/* Document converter: layout and controls on top of the shared tokens (core/ui-components.css). */
+:root[data-theme="dark"] { --accent-ink: #1a1105; }
+
+[hidden] { display: none !important; }
+.cv { display: flex; flex-direction: column; gap: var(--s-5); }
+.cv__controls, .cv__output { display: grid; gap: var(--s-5); align-content: start; }
+.cv__panel { padding: var(--s-5); border-top: 3px solid var(--accent); }
+@media (min-width: 1100px) {
+  .cv { display: grid; }
+  .cv__output { position: sticky; top: var(--s-5); }
+}
+.cv .ow-card__title { display: flex; align-items: center; gap: var(--s-2); }
+.cv .ow-card__title::before { content: ""; width: .3rem; height: 1.1em; border-radius: 2px; background: var(--accent); }
+
+/* Drop zone */
+.cv-drop {
+  display: grid; justify-items: center; gap: var(--s-2); text-align: center; cursor: pointer;
+  padding: var(--s-6) var(--s-4); border: 1.5px dashed var(--border); border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg));
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.cv-drop:hover, .cv-drop.is-over, .cv-drop:focus-within { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+.cv-drop__icon { color: var(--accent); display: inline-flex; }
+.cv-privacy { margin: var(--s-3) 0 0; }
+#drop-note { margin: var(--s-3) 0 0; }
+
+/* File list */
+.cv-list { list-style: none; margin: var(--s-4) 0 0; padding: 0; border-top: 1px solid var(--border); }
+.cv-list:empty { display: none; }
+.cv-file { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: var(--s-3); padding: var(--s-2) 0; border-bottom: 1px solid var(--border); }
+.cv-file__name { word-break: break-word; min-width: 0; }
+.cv-file__meta { font-size: var(--fs-small); color: var(--text-muted); white-space: nowrap; }
+.cv-file .ow-btn { padding: .2em .5em; }
+
+/* Targets and options */
+.cv-empty { margin: 0; }
+.cv-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.cv-chip {
+  padding: .4em .85em; border: 1px solid var(--border); border-radius: var(--radius);
+  background: transparent; color: var(--text); font: inherit; font-size: var(--fs-small); cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.cv-chip:hover { border-color: var(--accent); color: var(--accent); }
+.cv-chip[aria-checked="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.cv-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cv-options { display: grid; gap: var(--s-3); margin-top: var(--s-4); padding-top: var(--s-4); border-top: 1px solid var(--border); }
+.cv-options input[type="range"] { width: 100%; accent-color: var(--accent); }
+.cv-options output { color: var(--text-muted); font-weight: 400; margin-left: var(--s-1); }
+.cv-check { display: flex; align-items: center; gap: var(--s-2); font-size: var(--fs-small); flex-wrap: wrap; }
+.cv-check input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
+.cv-check .ow-premium { margin-left: var(--s-1); }
+.ow-input:focus-visible, .ow-select:focus-visible { border-color: var(--accent); }
+
+/* Result */
+.cv-go .ow-btn { flex: 1 1 12rem; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.cv-go .ow-btn:hover:not(:disabled) { filter: brightness(1.12); }
+#progress { margin: var(--s-3) 0 0; min-height: 1.4em; }
+#results { margin-top: var(--s-3); }
+.cv-out { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
+.cv-out li { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: var(--s-3); padding: var(--s-2) 0; border-bottom: 1px solid var(--border); }
+.cv-out .name { word-break: break-word; min-width: 0; }
+.cv-out .size { font-size: var(--fs-small); color: var(--text-muted); white-space: nowrap; }
+.cv-out li.is-error { grid-template-columns: 1fr; color: var(--danger); font-size: var(--fs-small); }
+.cv-zip { margin-top: var(--s-3); width: 100%; }
+#notes { display: grid; gap: var(--s-2); margin-top: var(--s-3); }
+#notes:empty { display: none; }
+#notes p { margin: 0; }
+
+.cv-limits { margin: 0; padding-left: 1.1rem; display: grid; gap: var(--s-2); font-size: var(--fs-small); color: var(--text-muted); }

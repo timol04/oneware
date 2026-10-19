@@ -134,6 +134,21 @@ Two modes, chosen per tool:
 
 `vendor/` holds browser bundles (esbuild, ES modules) of `qr-code-styling` 1.9.2, `qrcode-generator` 2.0.4, `jsqr` 1.4.0, `jszip` 3.10.2 and `jspdf` 4.2.1, because the repo has no build step. Their licenses (MIT, jsQR Apache-2.0) apply; to update one, install it in a scratch folder and rebundle with `esbuild <entry> --bundle --format=esm --minify`.
 
+## Document Converter
+
+`tools/converter/` is a utility (stores nothing) that converts files in the browser, with no upload. Conversions go through one small text model (`src/blocks.js`: headings, paragraphs with bold/italic, list items, tables), so they keep text and simple structure, not the page layout.
+
+| From | To |
+|---|---|
+| PNG, JPG, WebP, GIF, BMP | PNG, JPG, WebP, PDF (several pictures into one PDF) |
+| TXT, Markdown | PDF, Word, HTML, TXT / Markdown |
+| Word (.docx) | TXT, Markdown, HTML, PDF |
+| PDF | TXT, Markdown, Word (text only), PNG / JPG (one per page, ZIP) |
+
+Limits: Word to PDF is a clean simple page, not Word's own layout; scanned PDFs have no text and there is no OCR; PDFs written here use the built-in Helvetica (Western European characters only, others become "?" and the user is told); Excel, PowerPoint, .doc and .pages are not supported. Free: one file at a time; Premium (`src/config.js`): several files at once with ZIP, and several pictures in one PDF.
+
+`vendor/` holds `jszip` 3.10.2, `jspdf` 4.2.1 (both from QR Pro Studio) and `pdfjs-dist` 6.4.299 (legacy build, `pdf.mjs` and `pdf.worker.mjs`; Apache-2.0), because the repo has no build step.
+
 ## Today feed on My Dashboard
 
 The dashboard shows a "Today" list for the tools the user put on it. A tool joins with `"today": true` in `tool.config.json` and a `src/today.js` exporting `todayEntries({ items, today, lang })` (entries with `id`, `title`, `detail`, `state`: `overdue | due | soon | done`, `checkable`) and, for checkable entries, `toggleEntry({ items, id, today })` returning the changed stored item. See `core/today.js`.

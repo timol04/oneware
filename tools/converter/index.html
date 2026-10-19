@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>Document Converter – oneware</title>
+  <meta name="description" content="Convert PDF, Word, text, Markdown and images into other formats. Everything runs in your browser; your files are never uploaded.">
+  <meta property="og:title" content="Document Converter – oneware">
+  <meta property="og:description" content="Convert PDF, Word, text, Markdown and images into other formats. Everything runs in your browser; your files are never uploaded.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div class="ow-split cv">
+      <div class="cv__controls">
+        <section class="ow-card ow-workspace cv__panel" aria-labelledby="h-files">
+          <h2 class="ow-card__title" id="h-files" data-i18n="cv.files">Files</h2>
+          <label id="drop" class="cv-drop" for="file">
+            <span id="drop-icon" class="cv-drop__icon" aria-hidden="true"></span>
+            <strong data-i18n="drop.title">Drop files here</strong>
+            <span class="ow-muted" data-i18n="drop.sub">PDF, Word, text, Markdown or images, or click to choose</span>
+          </label>
+          <input type="file" id="file" multiple hidden accept=".pdf,.docx,.txt,.md,.markdown,.png,.jpg,.jpeg,.webp,.gif,.bmp">
+          <p id="privacy" class="ow-usage cv-privacy"></p>
+          <p id="drop-note" class="ow-status ow-status--yellow" role="status" hidden></p>
+          <ul id="list" class="cv-list"></ul>
+        </section>
+
+        <section class="ow-card ow-workspace cv__panel" aria-labelledby="h-to">
+          <h2 class="ow-card__title" id="h-to" data-i18n="cv.to">Convert to</h2>
+          <p id="to-empty" class="ow-muted cv-empty" data-i18n="to.empty">Add a file first.</p>
+          <div id="targets" class="cv-chips" role="radiogroup" data-i18n-attr="aria-label:cv.to"></div>
+          <div id="options" class="cv-options" hidden>
+            <div class="ow-field" id="opt-quality"><label class="ow-label" for="quality"><span data-i18n="opt.quality">Quality</span> <output id="quality-out"></output></label><input id="quality" type="range" min="50" max="100" step="1" value="92"></div>
+            <div class="ow-field" id="opt-scale"><label class="ow-label" for="scale" data-i18n="opt.scale">Resolution</label>
+              <select id="scale" class="ow-select"><option value="1">72 dpi</option><option value="2" selected>144 dpi</option><option value="3">216 dpi</option></select></div>
+            <div class="ow-field" id="opt-page"><label class="ow-label" for="page" data-i18n="opt.page">PDF page size</label>
+              <select id="page" class="ow-select"><option value="fit" data-i18n="opt.pageFit">Same as the picture</option><option value="a4" data-i18n="opt.pageA4">A4, picture centred</option></select></div>
+            <label class="cv-check" id="opt-merge"><input id="merge" type="checkbox" checked><span data-i18n="opt.merge">Combine all pictures into one PDF</span><span id="merge-badge"></span></label>
+          </div>
+        </section>
+      </div>
+
+      <div class="cv__output">
+        <section class="ow-card ow-workspace cv__panel" aria-labelledby="h-result">
+          <h2 class="ow-card__title" id="h-result" data-i18n="cv.result">Result</h2>
+          <div class="ow-row cv-go">
+            <button type="button" id="go" class="ow-btn" disabled data-i18n="go.convert">Convert</button>
+          </div>
+          <p id="progress" class="ow-usage" role="status" aria-live="polite"></p>
+          <div id="results" aria-live="polite"></div>
+          <div id="notes"></div>
+        </section>
+
+        <section class="ow-card ow-workspace cv__panel" aria-labelledby="h-limits">
+          <h2 class="ow-card__title" id="h-limits" data-i18n="cv.limits">What to expect</h2>
+          <ul class="cv-limits" id="limits"></ul>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
