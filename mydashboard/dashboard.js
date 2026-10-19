@@ -10,6 +10,7 @@ import { licensing } from '../core/site-config.js';
 import { previewHtml } from '../hub/src/preview.js';
 import { groupTools } from '../hub/src/groups.js';
 import { showCloudDialog } from '../core/cloud-ui.js';
+import { collectToday, toggleToday } from '../core/today.js';
 
 mountSiteShell();
 for (const n of document.querySelectorAll('[data-icon]')) n.prepend(createIcon(n.dataset.icon, { size: n.dataset.iconSize || '1.25rem' }));
@@ -24,6 +25,11 @@ let tools = null;
 let rows = [];
 let failed = false;
 let editing = false;
+let feed = [];
+const BASE = new URL(siteUrl('mydashboard/'), location.href).href;
+const todayList = document.getElementById('dash-today');
+const todaySection = document.getElementById('dash-today-section');
+const isoToday = () => { const d = new Date(); const p = (n) => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`; };
 
 // Which tools are on the dashboard: a list of slugs, empty until the user adds some.
 const KEY = 'ow_dashboard';
@@ -37,6 +43,7 @@ function setOn(slug, on) {
   selected = all.filter((x) => next.has(x));
   try { localStorage.setItem(KEY, JSON.stringify(selected)); } catch { /* keep in memory */ }
   render();
+  loadFeed().then(render);
 }
 
 function el(tag, className, text) {
@@ -65,7 +72,52 @@ async function collect() {
     return { tool, live, count, cloud, premium: isPremiumUnlocked(tool.slug), backup: getLastExport(tool.slug) };
   }));
 }
-async function refresh() { await collect(); render(); }
+async function loadFeed() {
+  const sources = tools.filter((x) => x.today && x.status === 'live' && isOn(x.slug));
+  feed = await collectToday(sources, { today: isoToday(), lang: getLang(), base: BASE });
+}
+async function refresh() { await collect(); await loadFeed(); render(); }
+
+function todayRow(entry) {
+  const li = el('li', `today__row today__row--${entry.state}`);
+  setup(li, entry.tool);
+  const body = el('span', 'today__body');
+  body.append(el('span', 'today__title', entry.title));
+  const sub = [entry.detail, localize(entry.tool.name)].filter(Boolean).join(' · ');
+  body.append(el('span', 'today__detail', sub));
+  let lead;
+  if (entry.checkable) {
+    lead = el('button', 'today__check');
+    lead.type = 'button';
+    lead.setAttribute('role', 'checkbox');
+    lead.setAttribute('aria-checked', String(entry.state === 'done'));
+    lead.setAttribute('aria-label', `${t('dash.todayCheck')}: ${entry.title}`);
+    lead.append(createIcon('check', { size: '1.1rem' }));
+    lead.addEventListener('click', async () => {
+      lead.disabled = true;
+      try { await toggleToday(entry, { today: isoToday(), base: BASE }); } catch { showToast(t('dash.todayFailed')); }
+      await refresh();
+    });
+  } else {
+    lead = el('span', 'today__icon');
+    lead.append(createIcon(entry.tool.icon, { size: '1.1rem' }));
+  }
+  li.append(lead, body);
+  if (!entry.checkable || entry.state !== 'done') {
+    const open = el('a', 'today__open');
+    open.href = siteUrl(entry.tool.path);
+    open.setAttribute('aria-label', `${t('dash.open')}: ${localize(entry.tool.name)}`);
+    open.append(createIcon('chevron-down', { size: '1.1rem' }));
+    li.append(open);
+  }
+  return li;
+}
+function renderToday() {
+  const sources = tools ? tools.filter((x) => x.today && x.status === 'live' && isOn(x.slug)) : [];
+  todaySection.hidden = editing || !sources.length;
+  if (todaySection.hidden) return;
+  todayList.replaceChildren(...(feed.length ? feed.map(todayRow) : [el('li', 'today__empty', t('dash.todayEmpty'))]));
+}
 
 function setup(li, tool) {
   if (tool.accent) { li.style.setProperty('--accent-l', tool.accent.light); li.style.setProperty('--accent-d', tool.accent.dark); }
@@ -140,6 +192,7 @@ function dataRow({ tool, count, cloud, backup }) {
 }
 
 function render() {
+  renderToday();
   if (failed) { toolsList.replaceChildren(el('p', 'ow-error', t('dash.error'))); return; }
   if (!rows.length) { toolsList.replaceChildren(el('p', 'ow-muted', t('dash.empty'))); return; }
   const visible = rows.filter((r) => editing || isOn(r.tool.slug));
@@ -171,13 +224,15 @@ function renderData() {
   dataList.replaceChildren(...rows.filter((r) => r.live && r.tool.stores !== false && isOn(r.tool.slug)).map(dataRow));
 }
 
-onLangChange(render);
+onLangChange(() => { loadFeed().then(render); });
 try {
   const res = await fetch(siteUrl('hub/tool-registry.json'));
   if (!res.ok) throw new Error(res.status);
   tools = await res.json();
   await collect();
+  await loadFeed();
 } catch { failed = true; }
 render();
 applyTranslations();
 document.addEventListener('ow:datachange', () => { if (tools) refresh(); });
+document.addEventListener('visibilitychange', () => { if (tools && !document.hidden) refresh(); });

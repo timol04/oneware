@@ -24,6 +24,7 @@
   },
   "hasPremium": true,
   "stores": true,
+  "today": true,
   "about": {
     "en": "Keep several checklists, break tasks into sub-items, set due dates and let recurring tasks come back on their own. Everything stays in your browser.",
     "de": "Mehrere Checklisten führen, Aufgaben in Unterpunkte gliedern, Fälligkeiten setzen und wiederkehrende Aufgaben von selbst zurückkehren lassen. Alles bleibt in deinem Browser."

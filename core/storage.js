@@ -31,13 +31,23 @@ function openDb(version) {
       resolve(r.result);
     };
     r.onerror = () => reject(r.error);
-    r.onblocked = () => reject(new Error(t('core.storage.blocked')));
+    // Blocked is only a notice: our own closing connection may still be finishing a transaction. Give up after a while.
+    r.onblocked = () => setTimeout(() => reject(new Error(t('core.storage.blocked'))), 4000);
   });
 }
 
 let pendingStore = null;
 
-async function getDb(toolSlug) {
+// Opening, upgrading and starting a transaction must not overlap: parallel first-time calls for different tools
+// would close each other's connection.
+let queue = Promise.resolve();
+function serial(task) {
+  const run = queue.then(task);
+  queue = run.catch(() => {});
+  return run;
+}
+
+async function openFor(toolSlug) {
   if (!toolSlug || typeof toolSlug !== 'string') throw new Error('toolSlug is required');
   if (!dbPromise) dbPromise = openDb();
   let db = await dbPromise;
@@ -51,9 +61,8 @@ async function getDb(toolSlug) {
   return db;
 }
 
-async function store(toolSlug, mode) {
-  const db = await getDb(toolSlug);
-  return db.transaction(toolSlug, mode).objectStore(toolSlug);
+function store(toolSlug, mode) {
+  return serial(async () => (await openFor(toolSlug)).transaction(toolSlug, mode).objectStore(toolSlug));
 }
 
 const changed = (toolSlug) => globalThis.document?.dispatchEvent(new CustomEvent('ow:datachange', { detail: { tool: toolSlug } }));

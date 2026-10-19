@@ -84,6 +84,7 @@
     },
     "hasPremium": true,
     "stores": true,
+    "today": true,
     "about": {
       "en": "Keep several checklists, break tasks into sub-items, set due dates and let recurring tasks come back on their own. Everything stays in your browser.",
       "de": "Mehrere Checklisten führen, Aufgaben in Unterpunkte gliedern, Fälligkeiten setzen und wiederkehrende Aufgaben von selbst zurückkehren lassen. Alles bleibt in deinem Browser."
@@ -237,6 +238,7 @@
     },
     "hasPremium": true,
     "stores": true,
+    "today": true,
     "about": {
       "en": "Track daily habits and weekly goals, keep your streaks, see a calendar of every day and add a note when something is worth remembering. Everything stays in your browser.",
       "de": "Tägliche Gewohnheiten und Wochenziele verfolgen, Serien halten, jeden Tag im Kalender sehen und eine Notiz festhalten, wenn etwas erwähnenswert ist. Alles bleibt in deinem Browser."
@@ -368,6 +370,7 @@
     },
     "hasPremium": true,
     "stores": true,
+    "today": true,
     "about": {
       "en": "Keep track of every subscription: what it costs per month and year, when the next charge is due and what you have paused or cancelled. Everything stays in your browser.",
       "de": "Behalte jedes Abo im Blick: was es pro Monat und Jahr kostet, wann die nächste Abbuchung fällig ist und was du pausiert oder gekündigt hast. Alles bleibt in deinem Browser."

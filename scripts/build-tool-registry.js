@@ -9,7 +9,7 @@
  *
  * tool.config.json fields
  *   required: slug name shortDescription category status icon price hasPremium
- *   optional: kind(app|utility, default app) preview(list|ledger|habits|links) purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores
+ *   optional: kind(app|utility, default app) preview(list|ledger|habits|links) purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores today
  *   name / shortDescription / price / about / features entries: string (English) or { en, de, ... }
  */
 import { readdir, readFile, writeFile, cp, rm } from 'node:fs/promises';
