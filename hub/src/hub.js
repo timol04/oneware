@@ -1,6 +1,7 @@
 import { mountSiteShell, siteUrl } from '../../core/site-shell.js';
 import { createStatusBadge } from '../../core/ui-components.js';
 import { createIcon } from '../../core/icons.js';
+import { licensing } from '../../core/site-config.js';
 import { previewHtml } from './preview.js';
 import { groupTools } from './groups.js';
 import { cloudBrowserLine } from '../../core/cloud-ui.js';
@@ -31,7 +32,7 @@ function renderRow(tool) {
   const top = el('span', 'tool-card__top');
   top.append(icon, el('h3', 'tool-card__name', localize(tool.name)));
   const meta = el('span', 'tool-card__meta');
-  meta.append(el('span', 'tool-card__price', localize(tool.price)), createStatusBadge(live ? 'green' : 'yellow', t(live ? 'hub.live' : 'hub.soon')));
+  meta.append(el('span', 'tool-card__price', licensing.enabled ? localize(tool.price) : live ? t('hub.freeNow') : ''), createStatusBadge(live ? 'green' : 'yellow', t(live ? 'hub.live' : 'hub.soon')));
   const body = el('span', 'tool-card__body');
   body.append(top, el('p', 'tool-card__desc', localize(tool.shortDescription)), meta);
   link.append(preview, body);

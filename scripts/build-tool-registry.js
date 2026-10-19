@@ -19,6 +19,7 @@ import path from 'node:path';
 import { ICONS, ICON_NAMES } from '../core/icons.js';
 import { LOCALES } from '../core/locales/index.js';
 import { previewHtml, PREVIEW_KINDS } from '../hub/src/preview.js';
+import { licensing } from '../core/site-config.js';
 import { KINDS, groupTools } from '../hub/src/groups.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -65,11 +66,11 @@ for (const entry of await readdir(toolsDir, { withFileTypes: true })) {
   if (cfg.accent && !(hex.test(cfg.accent.light) && hex.test(cfg.accent.dark))) fail('accent needs { "light": "#rrggbb", "dark": "#rrggbb" }');
   for (const k of ['free', 'premium']) if (cfg.features?.[k] && !Array.isArray(cfg.features[k])) fail(`features.${k} must be an array`);
   if (cfg.lemonSqueezy && !Number.isInteger(cfg.lemonSqueezy.productId)) fail('lemonSqueezy.productId must be a number');
-  if (cfg.hasPremium && cfg.status === 'live' && !cfg.lemonSqueezy?.productId) {
+  if (licensing.enabled && cfg.hasPremium && cfg.status === 'live' && !cfg.lemonSqueezy?.productId) {
     if (cfg.category === 'demo') warnings.push(`${entry.name}: no lemonSqueezy.productId (demo tools use offline keys)`);
     else fail('hasPremium requires lemonSqueezy.productId (online license check)');
   }
-  if (cfg.hasPremium && cfg.status === 'live') {
+  if (licensing.enabled && cfg.hasPremium && cfg.status === 'live') {
     if (!/^https?:\/\//.test(cfg.purchaseUrl || '')) fail('hasPremium requires a valid purchaseUrl');
     else if (isPlaceholderUrl(cfg.purchaseUrl)) {
       if (cfg.category === 'demo') warnings.push(`${entry.name}: purchaseUrl is still a placeholder (allowed for demo tools)`);
@@ -117,7 +118,7 @@ function row(tool) {
     + '<span class="tool-card__body">'
     + `<span class="tool-card__top"><span class="tool-card__icon">${icon(tool.icon)}</span><h3 class="tool-card__name">${esc(text(tool.name))}</h3></span>`
     + `<p class="tool-card__desc">${esc(text(tool.shortDescription))}</p>`
-    + `<span class="tool-card__meta"><span class="tool-card__price">${esc(text(tool.price))}</span>`
+    + `<span class="tool-card__meta"><span class="tool-card__price">${esc(licensing.enabled ? text(tool.price) : live ? en['hub.freeNow'] : '')}</span>`
     + `<span class="ow-status ow-status--${live ? 'green' : 'yellow'}">${esc(live ? en['hub.live'] : en['hub.soon'])}</span></span></span>`;
   return `        <li class="tool-card${live ? '' : ' tool-card--soon'}" data-category="${esc(tool.category)}"${style}>`
     + (live ? `<a class="tool-card__link" href="${esc(tool.path)}">${inner}</a>` : `<div class="tool-card__link">${inner}</div>`) + '</li>';

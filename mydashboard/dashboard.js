@@ -6,6 +6,7 @@ import { isPremiumUnlocked } from '../core/license.js';
 import { getAllItems, exportData, importData } from '../core/storage.js';
 import { getLastExport, BACKUP_INTERVAL_DAYS } from '../core/persistence.js';
 import { getCloudLink } from '../core/cloud.js';
+import { licensing } from '../core/site-config.js';
 import { previewHtml } from '../hub/src/preview.js';
 import { groupTools } from '../hub/src/groups.js';
 import { showCloudDialog } from '../core/cloud-ui.js';
@@ -95,7 +96,7 @@ function toolRow({ tool, live, count, premium }) {
   if (!live) meta.append(createStatusBadge('yellow', t('dash.soon')));
   else {
     meta.append(el('span', 'ow-muted', tool.stores !== false ? (count === 1 ? t('dash.entriesOne') : t('dash.entries', { count })) : ''));
-    meta.append(tool.hasPremium ? createStatusBadge(premium ? 'green' : 'yellow', t(premium ? 'dash.premium' : 'dash.free')) : '');
+    meta.append(tool.hasPremium && licensing.enabled ? createStatusBadge(premium ? 'green' : 'yellow', t(premium ? 'dash.premium' : 'dash.free')) : '');
   }
   const body = el('span', 'tool-card__body');
   body.append(top, el('p', 'tool-card__desc', localize(tool.shortDescription)), meta);
@@ -103,7 +104,7 @@ function toolRow({ tool, live, count, premium }) {
     const b = button(t(on ? 'dash.remove' : 'dash.add'), () => setOn(tool.slug, !on), on ? 'ow-btn ow-btn--secondary dash__cta' : 'ow-btn dash__cta');
     b.setAttribute('aria-pressed', String(on));
     body.append(b);
-  } else if (live) body.append(el('span', 'ow-btn ow-btn--secondary dash__cta', t(tool.hasPremium && !premium ? 'dash.unlock' : 'dash.open')));
+  } else if (live) body.append(el('span', 'ow-btn ow-btn--secondary dash__cta', t(licensing.enabled && tool.hasPremium && !premium ? 'dash.unlock' : 'dash.open')));
   link.append(preview, body);
   li.append(link);
   return li;

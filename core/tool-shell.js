@@ -12,6 +12,7 @@
 import { t, localize, availableLanguages, languageName, getLang, setLang, applyTranslations } from './i18n.js';
 import { initTheme, getTheme, toggleTheme } from './theme.js';
 import { createIcon } from './icons.js';
+import { licensing } from './site-config.js';
 import { isPremiumUnlocked, revalidateLicense } from './license.js';
 import { createStatusBadge, showLicenseDialog, showToast } from './ui-components.js';
 import { siteUrl, createSiteFooter } from './site-shell.js';
@@ -40,7 +41,7 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
     document.documentElement.style.setProperty('--accent-l', config.accent.light);
     document.documentElement.style.setProperty('--accent-d', config.accent.dark);
   }
-  const hasPremium = !!config.hasPremium;
+  const hasPremium = !!config.hasPremium && licensing.enabled; // no license UI during the free launch phase
   const stores = config.stores !== false;
   const price = localize(config.price);
   const name = localize(config.name);
@@ -225,11 +226,13 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
     const body = el('div', 'ow-about__text');
     const text = localize(config.about);
     if (text) body.append(el('p', '', text));
-    const free = (config.features?.free ?? []).map(localize);
-    const prem = (config.features?.premium ?? []).map(localize);
+    let free = (config.features?.free ?? []).map(localize);
+    let prem = (config.features?.premium ?? []).map(localize);
+    const freeLaunch = !licensing.enabled && !!config.hasPremium;
+    if (freeLaunch) { free = [...free, ...prem]; prem = []; }
     if (free.length || prem.length) {
       const cmp = el('div', 'ow-compare');
-      for (const [label, list, cls] of [[t('shell.about.free'), free, ''], [t('shell.about.premium'), prem, ' ow-compare--premium']]) {
+      for (const [label, list, cls] of [[t(freeLaunch ? 'shell.about.included' : 'shell.about.free'), free, ''], [t('shell.about.premium'), prem, ' ow-compare--premium']]) {
         if (!list.length) continue;
         const col = el('div', cls.trim());
         const h = el('h3', '', label);

@@ -1,7 +1,9 @@
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
+import { licensing } from '../site-config.js';
 import { validateLicenseKey, generateLicenseKey, isPremiumUnlocked, unlockPremium, lockPremium } from '../license.js';
 
+licensing.enabled = true; // tests cover the key-based mode; the free mode has its own test below
 const mem = new Map();
 globalThis.localStorage = {
   getItem: (k) => (mem.has(k) ? mem.get(k) : null),
@@ -95,4 +97,10 @@ test('revalidation: fresh and offline never lock, revoked locks', async () => {
   assert.equal(await revalidateLicense('tool-x', { now: later, fetchImpl: reply({ valid: true }) }), 'ok');
   assert.equal(await revalidateLicense('tool-x', { now: later + 40 * 86400000, fetchImpl: reply({ valid: false, license_key: { status: 'disabled' } }) }), 'revoked');
   assert.equal(isPremiumUnlocked('tool-x'), false);
+});
+
+test('premium is open for everyone while licensing is switched off', () => {
+  licensing.enabled = false;
+  try { assert.equal(isPremiumUnlocked('abo-tracker'), true); } finally { licensing.enabled = true; }
+  assert.equal(isPremiumUnlocked('abo-tracker'), false);
 });

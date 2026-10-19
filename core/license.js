@@ -12,6 +12,8 @@
  * one-time-payment product without a backend.
  */
 
+import { licensing } from './site-config.js';
+
 const ALPHABET = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'; // without I, L, O, U
 const PAYLOAD_LEN = 12;
 const CHECK_LEN = 4;
@@ -69,9 +71,10 @@ export function generateLicenseKey(toolSlug = '', payload) {
   return full.match(/.{4}/g).join('-');
 }
 
-/** Reads the status from localStorage (separate per tool). */
+/** Reads the status from localStorage (separate per tool). Always true while licensing is switched off (core/site-config.js). */
 export function isPremiumUnlocked(toolSlug) {
   if (!toolSlug) throw new Error('toolSlug is required');
+  if (!licensing.enabled) return true;
   try {
     const stored = localStorage.getItem(storageKey(toolSlug));
     if (stored === null) return false;
@@ -174,6 +177,7 @@ export async function unlockPremiumOnline(toolSlug, key, { productId, fetchImpl 
  * Returns 'skip' | 'fresh' | 'offline' | 'ok' | 'revoked'.
  */
 export async function revalidateLicense(toolSlug, { fetchImpl = globalThis.fetch, now = Date.now() } = {}) {
+  if (!licensing.enabled) return 'skip';
   const rec = readRecord(toolSlug);
   if (!rec) return 'skip';
   if (now - (rec.checkedAt ?? 0) < REVALIDATE_DAYS * 86400000) return 'fresh';

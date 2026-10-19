@@ -73,6 +73,10 @@ Folders starting with `_` (e.g. `_demo`) are not added to the registry (unless `
 
 Wide tools: use `ow-container--wide` on `<main>` and put two panels in a `.ow-split` element (two columns from 1100 px).
 
+## Free launch phase vs license keys (one switch)
+
+`core/site-config.js` holds `licensing.enabled`. While it is `false` (current state, Lemon Squeezy not connected yet), every premium feature is free in every tool: `isPremiumUnlocked()` returns true, the license dialog, unlock buttons, prices and premium badges are hidden, and the build does not require `purchaseUrl` or `lemonSqueezy.productId`. When Lemon Squeezy is connected, set each live tool's `purchaseUrl` and `lemonSqueezy.productId` and change that one value to `true`; premium is then unlocked only by license key. After flipping, run `npm run build-registry` (it validates the purchase fields) and publish.
+
 ## License purchase flow
 
 In Lemon Squeezy, set each product's redirect after purchase to `https://[your-domain]/mydashboard/[slug]/?purchased=1`. The tool then opens the license dialog on the "I already have a key" side. (Check in the Lemon Squeezy dashboard that this option exists for your plan; it has not been verified here.)
