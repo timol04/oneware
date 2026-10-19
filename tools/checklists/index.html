@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>Checklists – oneware</title>
+  <meta name="description" content="Checklists with sub-items, due dates and repeating tasks. Stored in your browser, no account.">
+  <meta property="og:title" content="Checklists – oneware">
+  <meta property="og:description" content="Checklists with sub-items, due dates and repeating tasks. Stored in your browser, no account.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div id="app" class="ow-split cl">
+      <section class="ow-card ow-workspace cl__side" aria-labelledby="h-list">
+        <h2 class="ow-sr-only" id="h-list" data-i18n="cl.list">Checklists</h2>
+        <div class="cl-top">
+          <label class="cl-search">
+            <span class="ow-sr-only" data-i18n="cl.search">Search checklists</span>
+            <input id="search" class="ow-input" type="search" autocomplete="off" data-i18n-attr="placeholder:cl.search">
+          </label>
+          <button type="button" id="new" class="ow-btn"></button>
+        </div>
+        <div id="views" class="cl-chips" role="group" data-i18n-attr="aria-label:cl.views"></div>
+        <ul id="list" class="cl-list"></ul>
+        <p id="empty" class="cl-empty ow-muted" hidden></p>
+      </section>
+
+      <section class="ow-card ow-workspace cl__editor" id="editor" aria-labelledby="h-editor">
+        <h2 class="ow-sr-only" id="h-editor" data-i18n="cl.editor">Checklist</h2>
+        <p id="placeholder" class="cl-empty ow-muted" data-i18n="cl.pick">Pick a checklist or create a new one.</p>
+        <div id="form" hidden>
+          <div class="cl-bar">
+            <button type="button" id="back" class="ow-btn ow-btn--secondary ow-btn--small cl-back"></button>
+            <div class="cl-bar__tools">
+              <button type="button" id="pin" class="ow-iconbtn cl-tool" aria-pressed="false"></button>
+              <button type="button" id="archive" class="ow-iconbtn cl-tool"></button>
+              <button type="button" id="delete" class="ow-iconbtn cl-tool"></button>
+            </div>
+          </div>
+          <input id="title" class="cl-title" maxlength="120" autocomplete="off" data-i18n-attr="placeholder:cl.titlePh;aria-label:cl.titlePh">
+          <div class="cl-progress">
+            <div class="cl-meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="meter"><i id="meter-fill"></i></div>
+            <span id="progress-text" class="cl-progress__text"></span>
+          </div>
+          <ul id="items" class="cl-items"></ul>
+          <form id="add" class="cl-add" autocomplete="off">
+            <label class="cl-add__field">
+              <span class="ow-sr-only" data-i18n="cl.addItem">Add an item</span>
+              <input id="add-input" class="ow-input" maxlength="200" data-i18n-attr="placeholder:cl.addItem">
+            </label>
+            <button type="submit" class="ow-btn" id="add-btn"></button>
+          </form>
+          <div class="cl-foot">
+            <p id="meta" class="ow-usage"></p>
+            <button type="button" id="clear" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

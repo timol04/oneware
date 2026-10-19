@@ -59,6 +59,65 @@
     "path": "mydashboard/notes/"
   },
   {
+    "slug": "checklists",
+    "name": {
+      "en": "Checklists",
+      "de": "Checklisten"
+    },
+    "shortDescription": {
+      "en": "Checklists with sub-items, due dates and repeats.",
+      "de": "Checklisten mit Unterpunkten, Fälligkeiten und Wiederholungen."
+    },
+    "category": "productivity",
+    "kind": "app",
+    "status": "live",
+    "icon": "check-circle",
+    "preview": "list",
+    "price": {
+      "en": "Price to follow",
+      "de": "Preis folgt"
+    },
+    "order": 20,
+    "accent": {
+      "light": "#4f46e5",
+      "dark": "#a5a0f5"
+    },
+    "hasPremium": true,
+    "stores": true,
+    "about": {
+      "en": "Keep several checklists, break tasks into sub-items, set due dates and let recurring tasks come back on their own. Everything stays in your browser.",
+      "de": "Mehrere Checklisten führen, Aufgaben in Unterpunkte gliedern, Fälligkeiten setzen und wiederkehrende Aufgaben von selbst zurückkehren lassen. Alles bleibt in deinem Browser."
+    },
+    "features": {
+      "free": [
+        {
+          "en": "Up to 10 checklists with all features",
+          "de": "Bis zu 10 Checklisten mit allen Funktionen"
+        },
+        {
+          "en": "Sub-items, due dates and repeating tasks",
+          "de": "Unterpunkte, Fälligkeiten und wiederkehrende Aufgaben"
+        },
+        {
+          "en": "Progress, search, pinning and archive",
+          "de": "Fortschritt, Suche, Anpinnen und Archiv"
+        },
+        {
+          "en": "Backup export and import",
+          "de": "Backup-Export und -Import"
+        }
+      ],
+      "premium": [
+        {
+          "en": "Unlimited checklists",
+          "de": "Unbegrenzt viele Checklisten"
+        }
+      ]
+    },
+    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "path": "mydashboard/checklists/"
+  },
+  {
     "slug": "demo-expenses",
     "name": {
       "en": "Demo: Expenses",
