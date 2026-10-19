@@ -479,6 +479,69 @@
     "path": "mydashboard/verifyxr/"
   },
   {
+    "slug": "converter",
+    "name": {
+      "en": "Document Converter",
+      "de": "Dokumenten-Umwandler"
+    },
+    "shortDescription": {
+      "en": "Convert PDF, Word, text and images into other formats.",
+      "de": "PDF, Word, Text und Bilder in andere Formate umwandeln."
+    },
+    "category": "utility",
+    "kind": "utility",
+    "status": "live",
+    "icon": "repeat",
+    "preview": "list",
+    "price": {
+      "en": "Price to follow",
+      "de": "Preis folgt"
+    },
+    "order": 70,
+    "accent": {
+      "light": "#8a5a1c",
+      "dark": "#cf9b55"
+    },
+    "hasPremium": true,
+    "stores": false,
+    "about": {
+      "en": "Turn files into other formats: images into PNG, JPG, WebP or PDF; Word, text and Markdown into PDF, Word, HTML or text; PDF into text, Word or images. Everything runs in your browser; your files are never uploaded. Conversions keep text and simple structure (headings, bold, italic, lists, tables), not the exact page layout.",
+      "de": "Dateien in andere Formate umwandeln: Bilder in PNG, JPG, WebP oder PDF; Word, Text und Markdown in PDF, Word, HTML oder Text; PDF in Text, Word oder Bilder. Alles läuft in deinem Browser; deine Dateien werden nie hochgeladen. Übernommen werden Text und einfache Struktur (Überschriften, fett, kursiv, Listen, Tabellen), nicht das genaue Seitenlayout."
+    },
+    "features": {
+      "free": [
+        {
+          "en": "Images to PNG, JPG, WebP and PDF",
+          "de": "Bilder in PNG, JPG, WebP und PDF"
+        },
+        {
+          "en": "Word, text and Markdown to PDF, Word, HTML and text",
+          "de": "Word, Text und Markdown in PDF, Word, HTML und Text"
+        },
+        {
+          "en": "PDF to text, Word and images",
+          "de": "PDF in Text, Word und Bilder"
+        },
+        {
+          "en": "Clear notes about what a conversion cannot keep",
+          "de": "Klare Hinweise, was eine Umwandlung nicht übernehmen kann"
+        }
+      ],
+      "premium": [
+        {
+          "en": "Convert many files at once and download them as one ZIP",
+          "de": "Viele Dateien auf einmal umwandeln und als ZIP laden"
+        },
+        {
+          "en": "Combine several pictures into one PDF",
+          "de": "Mehrere Bilder zu einem PDF zusammenfügen"
+        }
+      ]
+    },
+    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "path": "mydashboard/converter/"
+  },
+  {
     "slug": "readlist",
     "name": {
       "en": "Reading list",
