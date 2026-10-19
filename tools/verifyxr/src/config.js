@@ -7,6 +7,7 @@ export const PREMIUM_FEATURES = {
   batch: true,     // several files at once
   profiles: false, // saving own requirement profiles
   pdf: false,      // report as PDF (print dialog)
+  fix: true,       // corrected copy of the document (font, size, spacing, margins)
 };
 
 // Report lists are cut at this many findings per criterion.

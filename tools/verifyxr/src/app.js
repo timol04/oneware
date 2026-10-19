@@ -7,6 +7,7 @@ import { PREMIUM_FEATURES, MAX_BYTES } from './config.js';
 import { parseDocx } from './docx.js';
 import { checkDocument } from './checker.js';
 import { checkApa } from './apa.js';
+import { fixDocx } from './fixer.js';
 import { PRESETS, PRESET_IDS, DEFAULT_PRESET } from './presets.js';
 import { listProfiles, saveProfile, deleteProfile, getProfile } from './profiles.js';
 import { reportHtml, batchHtml, esc, tx } from './report.js';
@@ -116,7 +117,8 @@ async function readEntry(file) {
   if (!/\.docx$/i.test(file.name)) return { name: file.name, error: 'err.notDocx' };
   if (file.size > MAX_BYTES) return { name: file.name, error: 'err.tooBig' };
   try {
-    return { name: file.name, doc: await parseDocx(await file.arrayBuffer()) };
+    const buffer = await file.arrayBuffer();
+    return { name: file.name, buffer, doc: await parseDocx(buffer) };
   } catch {
     return { name: file.name, error: 'err.unreadable' };
   }
@@ -138,10 +140,14 @@ async function handleFiles(fileList) {
 }
 
 // ---------- Report ----------
+const FIXABLE = ['font', 'size', 'spacing', 'margins'];
+
 function compute(entry) {
   if (entry.error) return entry;
   const apa = PREMIUM_FEATURES.apa && !isPremium() ? null : checkApa(entry.doc);
-  return { ...entry, result: checkDocument(entry.doc, readRules()), apa };
+  const result = checkDocument(entry.doc, readRules());
+  const fixable = result.criteria.some((c) => FIXABLE.includes(c.id) && (c.status === 'warn' || c.status === 'fail'));
+  return { ...entry, result, apa, fixable };
 }
 
 function render() {
@@ -150,7 +156,7 @@ function render() {
   $('empty').hidden = has;
   $('actions').hidden = !has || entries.every((e) => e.error);
   if (!has) { box.innerHTML = ''; return; }
-  const computed = entries.map(compute);
+  const computed = entries.map((e, i) => ({ ...compute(e), index: i }));
   const apaLocked = !!PREMIUM_FEATURES.apa && !isPremium();
   const opts = { apaLocked, apaBadge: apaLocked || PREMIUM_FEATURES.apa ? '<span data-badge-slot></span>' : '' };
   box.innerHTML = computed.length === 1 ? reportHtml(computed[0], opts) : batchHtml(computed, opts);
@@ -159,10 +165,41 @@ function render() {
     slot.remove();
     markPremium(host, SLUG, { compact: false });
   });
+  box.querySelectorAll('[data-fix]').forEach((b) => {
+    if (PREMIUM_FEATURES.fix) markPremium(b.parentElement.querySelector('p'), SLUG);
+    b.addEventListener('click', () => fix(entries[Number(b.dataset.fix)], b));
+  });
   box.querySelectorAll('[data-unlock]').forEach((b) => b.addEventListener('click', () => shell.openLicense('buy')));
   const printBtn = $('print');
   printBtn.classList.toggle('is-locked', !!locked('pdf'));
   if (PREMIUM_FEATURES.pdf) markPremium(printBtn, SLUG, { compact: true });
+}
+
+// ---------- Fix ----------
+function download(bytes, name) {
+  const url = URL.createObjectURL(new Blob([bytes], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }));
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
+async function fix(entry, button) {
+  if (!entry?.buffer) return;
+  if (locked('fix')) { shell.openLicense('buy'); return; }
+  button.disabled = true;
+  try {
+    const { bytes, stats } = await fixDocx(entry.buffer, readRules());
+    download(bytes, `${entry.name.replace(/\.docx$/i, '')}-fixed.docx`);
+    showToast(t('fix.done', { n: tx(stats.paragraphs) }));
+  } catch {
+    showToast(t('fix.failed'));
+  } finally {
+    button.disabled = false;
+  }
 }
 
 // ---------- Premium state ----------

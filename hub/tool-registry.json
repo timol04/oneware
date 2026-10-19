@@ -418,8 +418,8 @@
     "slug": "verifyxr",
     "name": "VerifyXR",
     "shortDescription": {
-      "en": "Check a thesis document against its format requirements.",
-      "de": "Abschlussarbeit auf Formatvorgaben und Zitierweise prüfen."
+      "en": "Verify a thesis document against its format requirements and fix it.",
+      "de": "Abschlussarbeit auf Formatvorgaben prüfen und das Format beheben."
     },
     "category": "study",
     "kind": "utility",
@@ -438,8 +438,8 @@
     "hasPremium": true,
     "stores": false,
     "about": {
-      "en": "Check a Word document against your thesis requirements before you hand it in: font, size, line spacing, margins, word and page count, and APA 7 citations against the reference list. Everything runs in your browser; your file is never uploaded.",
-      "de": "Ein Word-Dokument vor der Abgabe gegen die Vorgaben deiner Arbeit prüfen: Schrift, Grösse, Zeilenabstand, Ränder, Wort- und Seitenzahl sowie APA-7-Zitate gegen das Literaturverzeichnis. Alles läuft in deinem Browser; deine Datei wird nie hochgeladen."
+      "en": "Check a Word document against your thesis requirements before you hand it in: font, size, line spacing, margins, word and page count, and APA 7 citations against the reference list. Then fix the formatting in a corrected copy. Everything runs in your browser; your file is never uploaded.",
+      "de": "Ein Word-Dokument vor der Abgabe gegen die Vorgaben deiner Arbeit prüfen: Schrift, Grösse, Zeilenabstand, Ränder, Wort- und Seitenzahl sowie APA-7-Zitate gegen das Literaturverzeichnis. Danach das Format in einer korrigierten Kopie beheben. Alles läuft in deinem Browser; deine Datei wird nie hochgeladen."
     },
     "features": {
       "free": [
@@ -464,6 +464,10 @@
         {
           "en": "APA 7: citations against the reference list, DOI, italics and title case",
           "de": "APA 7: Zitate gegen das Literaturverzeichnis, DOI, Kursivschrift und Titelschreibweise"
+        },
+        {
+          "en": "Fix the formatting in a corrected copy of your document",
+          "de": "Format in einer korrigierten Kopie deines Dokuments beheben"
         },
         {
           "en": "Check several files at once",

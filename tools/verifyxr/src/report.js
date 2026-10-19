@@ -79,6 +79,7 @@ export function reportHtml(entry, { apaLocked, apaBadge = '' }) {
     <p class="vx-meta">${esc(pagesLine)}</p>
     <div class="vx-tiles">${tile('ok', counts.ok, t('rep.passed'))}${tile('warn', counts.warn, t('rep.hinted'))}${tile('fail', counts.fail, t('rep.failed'))}</div>
     <p class="vx-verdict">${esc(counts.fail + counts.warn === 0 ? t('rep.allGood') : t('rep.verdict', { errors: tn('rep.errors', errors), hints: tn('rep.hints', hints) }))}</p>
+    ${entry.fixable ? `<div class="vx-fixbar"><p>${esc(t('fix.text'))}</p><button type="button" class="ow-btn" data-fix="${entry.index}">${esc(t('fix.button'))}</button></div>` : ''}
     <h3 class="vx-group">${esc(t('rep.groupFormat'))}</h3>
     <ul class="vx-list">${result.criteria.map(criterionHtml).join('')}</ul>
     ${apa ? `<h3 class="vx-group">${esc(t('rep.groupApa'))}${apaBadge}</h3><ul class="vx-list">${apa.map(criterionHtml).join('')}</ul>`

@@ -105,9 +105,16 @@
 .vx-actions .ow-btn { flex: 1 1 12rem; }
 #print:hover { border-color: var(--accent); color: var(--accent); }
 
+/* Fix bar */
+.vx-fixbar { display: flex; align-items: center; gap: var(--s-4); flex-wrap: wrap; padding: var(--s-4); margin-bottom: var(--s-4); border: 1px solid var(--accent); border-radius: var(--radius); background: color-mix(in srgb, var(--accent) 8%, var(--bg)); }
+.vx-fixbar p { flex: 1 1 14rem; margin: 0; font-size: var(--fs-small); }
+.vx-fixbar .ow-premium { margin-left: var(--s-2); vertical-align: middle; }
+.vx-fixbar .ow-btn { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.vx-fixbar .ow-btn:hover:not(:disabled) { filter: brightness(1.12); }
+
 /* Print: only the report */
 @media print {
-  .ow-toolhead, .ow-skip, .ow-notices, .ow-usage, .ow-sitefoot, .ow-about, .vx__controls, .vx-actions, .vx-locked { display: none !important; }
+  .ow-toolhead, .ow-skip, .ow-notices, .ow-usage, .ow-sitefoot, .ow-about, .vx__controls, .vx-actions, .vx-locked, .vx-fixbar { display: none !important; }
   .vx { display: block; }
   .vx__output { position: static; }
   .vx__panel, .ow-card { border: 0; padding: 0; box-shadow: none; }

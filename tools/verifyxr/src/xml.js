@@ -1,5 +1,6 @@
 // Minimal XML reader for OOXML parts. Runs in the browser and in Node (no DOMParser needed).
-// Node: { name, attrs, kids } for elements, { name: '#text', text } for text (kept only inside w:t).
+// Node: { name, attrs, kids } for elements, { name: '#text', text } for text. Whitespace-only text is
+// kept only inside text elements (w:t, w:delText, w:instrText, a:t); elsewhere it is indentation.
 const ENTITIES = { lt: '<', gt: '>', amp: '&', quot: '"', apos: "'" };
 const decode = (s) => s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => {
   if (e[0] === '#') {
@@ -9,6 +10,7 @@ const decode = (s) => s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => {
   return ENTITIES[e] ?? m;
 });
 
+const TEXT_ELEMENT = /(^|:)(t|delText|instrText)$/;
 const TOKEN = /<!--[\s\S]*?-->|<\?[\s\S]*?\?>|<!\[CDATA\[([\s\S]*?)\]\]>|<(\/?)([^\s/>]+)((?:\s+[^\s=/>]+\s*=\s*(?:"[^"]*"|'[^']*'))*)\s*(\/?)>|([^<]+)/g;
 const ATTR = /([^\s=/>]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
 
@@ -27,8 +29,8 @@ export function parseXml(source) {
       const node = { name, attrs, kids: [] };
       top.kids.push(node);
       if (!selfClosing) stack.push(node);
-    } else if (text !== undefined && (top.name === 'w:t' || text.trim() !== '')) {
-      if (top.name === 'w:t' || top.name === 'w:instrText') top.kids.push({ name: '#text', text: decode(text) });
+    } else if (text !== undefined && (TEXT_ELEMENT.test(top.name) || text.trim() !== '')) {
+      top.kids.push({ name: '#text', text: decode(text) });
     }
   }
   return root.kids;
