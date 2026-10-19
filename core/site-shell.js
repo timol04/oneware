@@ -44,7 +44,7 @@ export function createSiteFooter() {
     return nav;
   };
   const product = column('shell.footer.product', link(siteUrl('#tools'), 'shell.footer.tools'), link(siteUrl('how-it-works/'), 'shell.footer.how'));
-  const legal = column('shell.footer.legal', link(siteUrl('legal/imprint/'), 'shell.footer.imprint'), link(siteUrl('legal/privacy/'), 'shell.footer.privacy'), link(siteUrl('legal/imprint/'), 'shell.footer.contact'));
+  const legal = column('shell.footer.legal', link(siteUrl('legal/imprint/'), 'shell.footer.imprint'), link(siteUrl('legal/privacy/'), 'shell.footer.privacy'), link(siteUrl('legal/terms/'), 'shell.footer.terms'), link(siteUrl('legal/licenses/'), 'shell.footer.licenses'), link('mailto:oneware.contact@gmail.com', 'shell.footer.contact'));
   if (isDev()) {
     const demo = el('a'); demo.href = siteUrl('tools/_demo/'); demo.textContent = 'Demo tool (dev)';
     const ui = el('a'); ui.href = siteUrl('core/test/ui-demo.html'); ui.textContent = 'UI components (dev)';

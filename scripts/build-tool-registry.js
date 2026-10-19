@@ -119,7 +119,7 @@ await writeFile(path.join(root, 'sitemap.xml'), sitemapXml(tools));
 
 // ---- static pages: English texts and a no-JS link list written into the HTML (the JS shell takes over in the browser) ----
 const NAV_MARK = /<!-- nav:start -->[\s\S]*?<!-- nav:end -->\n?/;
-for (const [file, rel] of [['index.html', './'], ['how-it-works/index.html', '../'], ['legal/privacy/index.html', '../../'], ['legal/imprint/index.html', '../../'], ['404.html', '/']]) {
+for (const [file, rel] of [['index.html', './'], ['how-it-works/index.html', '../'], ['legal/privacy/index.html', '../../'], ['legal/terms/index.html', '../../'], ['legal/licenses/index.html', '../../'], ['legal/imprint/index.html', '../../'], ['404.html', '/']]) {
   const page = path.join(root, file);
   const before = await readFile(page, 'utf8');
   let out = fillI18n(before, LOCALES.en).replace(NAV_MARK, '');
