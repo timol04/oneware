@@ -114,7 +114,7 @@ export function lockPremium(toolSlug) {
 
 // ---- Lemon Squeezy license API (public endpoints, no API key needed) ----
 // A key is activated once online; afterwards the status is stored locally and works offline.
-// The activation limit (e.g. 3 devices) is configured per product in the Lemon Squeezy dashboard.
+// The activation limit (2 devices, as stated in the terms) is configured per product in the Lemon Squeezy dashboard.
 const LS_API = 'https://api.lemonsqueezy.com/v1/licenses';
 const REVALIDATE_DAYS = 30;
 
