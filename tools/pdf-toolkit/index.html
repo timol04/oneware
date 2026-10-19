@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>PDF Toolkit – oneware</title>
+  <meta name="description" content="Merge, split, rotate, reorder and compress PDFs. Everything runs in your browser; your files are never uploaded.">
+  <meta property="og:title" content="PDF Toolkit – oneware">
+  <meta property="og:description" content="Merge, split, rotate, reorder and compress PDFs. Everything runs in your browser; your files are never uploaded.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div class="ow-split pt">
+      <div class="pt__controls">
+        <section class="ow-card ow-workspace pt__panel" aria-labelledby="h-files">
+          <h2 class="ow-card__title" id="h-files" data-i18n="pt.files">PDF files</h2>
+          <label id="drop" class="pt-drop" for="file">
+            <span id="drop-icon" class="pt-drop__icon" aria-hidden="true"></span>
+            <strong data-i18n="drop.title">Drop PDF files here</strong>
+            <span class="ow-muted" data-i18n="drop.sub">or click to choose. Add several to combine them.</span>
+          </label>
+          <input type="file" id="file" multiple hidden accept=".pdf,application/pdf">
+          <p id="privacy" class="ow-usage pt-privacy"></p>
+          <p id="drop-note" class="ow-status ow-status--yellow" role="status" hidden></p>
+          <ul id="list" class="pt-list"></ul>
+        </section>
+
+        <section class="ow-card ow-workspace pt__panel" aria-labelledby="h-task">
+          <h2 class="ow-card__title" id="h-task" data-i18n="pt.task">What do you want to do?</h2>
+          <div id="modes" class="pt-chips" role="radiogroup" data-i18n-attr="aria-label:pt.task"></div>
+          <p id="mode-hint" class="ow-muted pt-hint"></p>
+
+          <div id="opt-organise" class="pt-options" hidden>
+            <label class="pt-check" id="row-selected"><input id="only-selected" type="checkbox"><span id="only-selected-label"></span></label>
+          </div>
+
+          <div id="opt-split" class="pt-options" hidden>
+            <div class="ow-field"><label class="ow-label" for="split-by" data-i18n="split.by">Split</label>
+              <select id="split-by" class="ow-select"><option value="ranges" data-i18n="split.ranges">By page ranges</option><option value="every" data-i18n="split.every">Every N pages</option></select></div>
+            <div class="ow-field" id="row-ranges"><label class="ow-label" for="ranges" data-i18n="split.rangesLabel">Page ranges</label>
+              <input id="ranges" class="ow-input" type="text" inputmode="text" autocomplete="off" placeholder="1-3, 4-6, 7-">
+              <p class="ow-muted pt-field-hint" data-i18n="split.rangesHint">Each part, separated by commas, becomes its own file. Pages are numbered as shown on the right.</p></div>
+            <div class="ow-field" id="row-every"><label class="ow-label" for="every" data-i18n="split.everyLabel">Pages per file</label>
+              <input id="every" class="ow-input" type="number" min="1" step="1" value="1"></div>
+          </div>
+
+          <div id="opt-compress" class="pt-options" hidden>
+            <div class="ow-field"><label class="ow-label" for="level" data-i18n="cmp.level">Method</label>
+              <select id="level" class="ow-select">
+                <option value="lossless" data-i18n="cmp.lossless">Lossless: repack, keeps text and quality</option>
+                <option value="balanced" data-i18n="cmp.balanced">Balanced: pages as pictures, 150 dpi</option>
+                <option value="strong" data-i18n="cmp.strong">Strong: pages as pictures, 110 dpi</option>
+              </select></div>
+            <p id="cmp-warn" class="ow-status ow-status--yellow" hidden></p>
+          </div>
+
+          <div class="ow-row pt-go">
+            <button type="button" id="go" class="ow-btn" disabled data-i18n="go.organise">Create PDF</button>
+          </div>
+          <p id="progress" class="ow-usage" role="status" aria-live="polite"></p>
+          <div id="results" aria-live="polite"></div>
+          <div id="notes"></div>
+        </section>
+      </div>
+
+      <div class="pt__output">
+        <section class="ow-card ow-workspace pt__panel" id="pages-card" aria-labelledby="h-pages">
+          <h2 class="ow-card__title" id="h-pages" data-i18n="pt.pages">Pages</h2>
+          <p id="pages-empty" class="ow-muted pt-empty" data-i18n="pages.empty">Add a PDF to see its pages.</p>
+          <div id="pages-tools" class="ow-row pt-tools" hidden>
+            <button type="button" class="ow-btn ow-btn--secondary ow-btn--small" id="sel-all" data-i18n="tools.all">Select all</button>
+            <button type="button" class="ow-btn ow-btn--secondary ow-btn--small" id="sel-none" data-i18n="tools.none">Select none</button>
+            <button type="button" class="ow-btn ow-btn--secondary ow-btn--small" id="rot-sel" data-i18n="tools.rotate">Rotate selected</button>
+            <button type="button" class="ow-btn ow-btn--secondary ow-btn--small" id="del-sel" data-i18n="tools.delete">Delete selected</button>
+            <button type="button" class="ow-btn ow-btn--link ow-btn--small" id="reset" data-i18n="tools.reset">Reset</button>
+          </div>
+          <p id="pages-count" class="ow-usage" aria-live="polite"></p>
+          <ol id="grid" class="pt-grid"></ol>
+        </section>
+
+        <section class="ow-card ow-workspace pt__panel" aria-labelledby="h-limits">
+          <h2 class="ow-card__title" id="h-limits" data-i18n="pt.limits">What to expect</h2>
+          <ul class="pt-limits" id="limits"></ul>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

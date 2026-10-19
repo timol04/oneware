@@ -1,0 +1,62 @@
+{
+  "slug": "pdf-toolkit",
+  "name": {
+    "en": "PDF Toolkit",
+    "de": "PDF-Werkzeug"
+  },
+  "shortDescription": {
+    "en": "Merge, split, rotate, reorder and compress PDFs.",
+    "de": "PDFs zusammenfügen, teilen, drehen, umsortieren und komprimieren."
+  },
+  "category": "utility",
+  "kind": "utility",
+  "status": "live",
+  "icon": "pages",
+  "preview": "pages",
+  "price": {
+    "en": "Price to follow",
+    "de": "Preis folgt"
+  },
+  "order": 80,
+  "accent": {
+    "light": "#9a3b3b",
+    "dark": "#d98585"
+  },
+  "hasPremium": true,
+  "stores": false,
+  "about": {
+    "en": "Work on PDF files without uploading them: combine several PDFs, pull out or delete pages, rotate and reorder them with a page preview, split a PDF into parts and make a file smaller. Everything runs in your browser; your files never leave your device.",
+    "de": "PDF-Dateien bearbeiten, ohne sie hochzuladen: mehrere PDFs zusammenfügen, Seiten herausziehen oder löschen, mit Seitenvorschau drehen und umsortieren, ein PDF in Teile aufteilen und Dateien verkleinern. Alles läuft in deinem Browser; deine Dateien verlassen dein Gerät nie."
+  },
+  "features": {
+    "free": [
+      {
+        "en": "Combine several PDFs into one",
+        "de": "Mehrere PDFs zu einem zusammenfügen"
+      },
+      {
+        "en": "Page preview: rotate, delete and reorder pages",
+        "de": "Seitenvorschau: Seiten drehen, löschen und umsortieren"
+      },
+      {
+        "en": "Extract selected pages or a page range as a new PDF",
+        "de": "Ausgewählte Seiten oder einen Seitenbereich als neues PDF herausziehen"
+      },
+      {
+        "en": "Clear notes about what each step keeps or changes",
+        "de": "Klare Hinweise, was ein Schritt übernimmt oder verändert"
+      }
+    ],
+    "premium": [
+      {
+        "en": "Compress: lossless repacking and strong compression for scans and photo PDFs",
+        "de": "Komprimieren: verlustfreies Neu-Verpacken und starke Komprimierung für Scans und Foto-PDFs"
+      },
+      {
+        "en": "Split into several files at once (by ranges or every N pages) and download them as one ZIP",
+        "de": "In mehrere Dateien auf einmal teilen (nach Bereichen oder alle N Seiten) und als ZIP laden"
+      }
+    ]
+  },
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}

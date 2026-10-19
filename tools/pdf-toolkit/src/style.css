@@ -1,0 +1,88 @@
+/* PDF toolkit: layout and controls on top of the shared tokens (core/ui-components.css). */
+:root[data-theme="dark"] { --accent-ink: #1f0c0c; }
+
+[hidden] { display: none !important; }
+.pt { display: flex; flex-direction: column; gap: var(--s-5); }
+.pt__controls, .pt__output { display: grid; gap: var(--s-5); align-content: start; min-width: 0; }
+.pt__panel { padding: var(--s-5); border-top: 3px solid var(--accent); min-width: 0; }
+@media (min-width: 1100px) {
+  .pt { display: grid; }
+  .pt__controls { position: sticky; top: var(--s-5); }
+}
+.pt .ow-card__title { display: flex; align-items: center; gap: var(--s-2); }
+.pt .ow-card__title::before { content: ""; width: .3rem; height: 1.1em; border-radius: 2px; background: var(--accent); }
+
+/* Drop zone */
+.pt-drop {
+  display: grid; justify-items: center; gap: var(--s-2); text-align: center; cursor: pointer;
+  padding: var(--s-6) var(--s-4); border: 1.5px dashed var(--border); border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg));
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.pt-drop:hover, .pt-drop.is-over, .pt-drop:focus-within { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+.pt-drop__icon { color: var(--accent); display: inline-flex; }
+.pt-privacy { margin: var(--s-3) 0 0; }
+#drop-note { margin: var(--s-3) 0 0; }
+
+/* File list */
+.pt-list { list-style: none; margin: var(--s-4) 0 0; padding: 0; border-top: 1px solid var(--border); }
+.pt-list:empty { display: none; }
+.pt-file { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: var(--s-3); padding: var(--s-2) 0; border-bottom: 1px solid var(--border); }
+.pt-file__name { word-break: break-word; min-width: 0; }
+.pt-file__meta { font-size: var(--fs-small); color: var(--text-muted); white-space: nowrap; }
+.pt-file .ow-btn { padding: .2em .5em; }
+
+/* Mode and options */
+.pt-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.pt-chip {
+  padding: .4em .85em; border: 1px solid var(--border); border-radius: var(--radius);
+  background: transparent; color: var(--text); font: inherit; font-size: var(--fs-small); cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.pt-chip:hover { border-color: var(--accent); color: var(--accent); }
+.pt-chip[aria-checked="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.pt-chip[aria-checked="true"] .ow-premium { color: inherit; border-color: currentColor; background: transparent; }
+.pt-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pt-hint { margin: var(--s-3) 0 0; font-size: var(--fs-small); }
+.pt-options { display: grid; gap: var(--s-3); margin-top: var(--s-4); padding-top: var(--s-4); border-top: 1px solid var(--border); }
+.pt-options .ow-field { margin-bottom: 0; }
+.pt-field-hint { margin: .3em 0 0; font-size: var(--fs-small); }
+.pt-check { display: flex; align-items: center; gap: var(--s-2); font-size: var(--fs-small); }
+.pt-check input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
+.ow-input:focus-visible, .ow-select:focus-visible { border-color: var(--accent); }
+
+/* Result */
+.pt-go { margin-top: var(--s-4); }
+.pt-go .ow-btn { flex: 1 1 12rem; background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.pt-go .ow-btn:hover:not(:disabled) { filter: brightness(1.12); }
+#progress { margin: var(--s-3) 0 0; min-height: 1.4em; }
+#results { margin-top: var(--s-3); }
+.pt-out { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
+.pt-out li { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: var(--s-3); padding: var(--s-2) 0; border-bottom: 1px solid var(--border); }
+.pt-out .name { word-break: break-word; min-width: 0; }
+.pt-out .size { font-size: var(--fs-small); color: var(--text-muted); text-align: right; }
+.pt-out li.is-error { grid-template-columns: 1fr; color: var(--danger); font-size: var(--fs-small); }
+.pt-zip { margin-top: var(--s-3); width: 100%; }
+#notes { display: grid; gap: var(--s-2); margin-top: var(--s-3); }
+#notes:empty { display: none; }
+#notes p { margin: 0; }
+
+/* Pages */
+.pt-empty { margin: 0; }
+.pt-tools { margin-bottom: var(--s-3); }
+#pages-count { margin: 0 0 var(--s-3); }
+.pt-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: var(--s-3); }
+.pt-page { position: relative; display: grid; gap: var(--s-2); padding: var(--s-2); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); cursor: grab; }
+.pt-page.is-selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.pt-page.is-dragging { opacity: .45; }
+.pt-page.is-target { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.pt-page__sel { position: absolute; top: var(--s-2); left: var(--s-2); z-index: 1; display: inline-flex; padding: .2rem; border-radius: 4px; background: var(--surface); }
+.pt-page__sel input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); cursor: pointer; }
+.pt-page__thumb { display: grid; place-items: center; height: 10.5rem; overflow: hidden; border-radius: 4px; background: color-mix(in srgb, var(--text) 5%, var(--bg)); }
+.pt-page__thumb canvas { display: block; background: #fff; box-shadow: var(--shadow-sm); transition: transform var(--dur) var(--ease); }
+.pt-page__meta { display: flex; justify-content: space-between; gap: var(--s-2); font-size: var(--fs-small); color: var(--text-muted); min-width: 0; }
+.pt-page__meta span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pt-page__acts { display: flex; justify-content: space-between; }
+.pt-act:disabled { opacity: .35; cursor: default; }
+
+.pt-limits { margin: 0; padding-left: 1.1rem; display: grid; gap: var(--s-2); font-size: var(--fs-small); color: var(--text-muted); }

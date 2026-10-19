@@ -88,3 +88,7 @@ a.tool-card__link:focus-visible { outline: 2px solid var(--accent); outline-offs
 .pv-qr { display: grid; grid-template-columns: repeat(7, .5rem); gap: 2px; }
 .pv-q { width: .5rem; height: .5rem; border-radius: 2px; background: transparent; }
 .pv-q.is-on { background: var(--accent); }
+.pv-pageswrap { display: flex; justify-content: center; gap: var(--s-2); padding: .5rem 0; border-top: 1px solid var(--border); }
+.pv-page { display: flex; flex-direction: column; gap: 4px; width: 2.2rem; height: 3rem; padding: .35rem; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); }
+.pv-page.is-on { border-color: var(--accent); }
+.pv-page .pv-bar { height: .3rem; }
