@@ -79,14 +79,13 @@
 .nt-tagbox .nt-chips { margin: 0; }
 .nt-taginput { flex: 1; min-width: 9rem; padding: .3em .2em; border: 0; background: transparent; color: var(--text); font: inherit; font-size: var(--fs-small); }
 .nt-taginput:focus-visible { outline: none; }
-.nt-body {
-  width: 100%; min-height: 20rem; padding: var(--s-4); resize: vertical; border: 1px solid var(--border); border-radius: var(--radius);
-  background: var(--bg); color: var(--text); font-family: var(--font-mono); font-size: .95rem; line-height: 1.6;
-}
+.nt-body { min-height: 20rem; line-height: 1.6; outline: none; }
 .nt-body:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+.nt-body:empty::before { content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; }
 
 /* Markdown preview */
-.nt-md { min-height: 20rem; padding: var(--s-4); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); overflow-wrap: anywhere; }
+/* Rendered text (the editor itself) */
+.nt-md { padding: var(--s-4); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); overflow-wrap: anywhere; }
 .nt-md > :first-child { margin-top: 0; }
 .nt-md h1, .nt-md h2, .nt-md h3 { margin: 1.2em 0 .4em; letter-spacing: -0.02em; }
 .nt-md h1 { font-size: 1.5rem; } .nt-md h2 { font-size: 1.25rem; } .nt-md h3 { font-size: 1.1rem; }
@@ -107,6 +106,7 @@
   transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 .nt-fmt__btn:hover { border-color: var(--accent); color: var(--accent); }
+.nt-fmt__btn[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 16%, transparent); border-color: var(--accent); color: var(--accent); }
 .nt-fmt__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .nt-bodywrap { position: relative; }
 .nt-float {

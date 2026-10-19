@@ -53,13 +53,11 @@
             <input id="tag-input" class="nt-taginput" maxlength="24" autocomplete="off" list="tag-suggestions" data-i18n-attr="placeholder:nt.tagPh;aria-label:nt.tagPh">
             <datalist id="tag-suggestions"></datalist>
           </div>
-          <div id="modes" class="nt-chips" role="group" data-i18n-attr="aria-label:nt.mode"></div>
           <div id="fmt" class="nt-fmt" role="toolbar" data-i18n-attr="aria-label:nt.fmt"></div>
           <div class="nt-bodywrap">
-            <textarea id="body" class="nt-body" spellcheck="true" data-i18n-attr="placeholder:nt.bodyPh;aria-label:nt.bodyLabel"></textarea>
+            <div id="body" class="nt-body nt-md" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" data-i18n-attr="data-placeholder:nt.bodyPh;aria-label:nt.bodyLabel"></div>
             <div id="float" class="nt-float" role="toolbar" data-i18n-attr="aria-label:nt.fmt" hidden></div>
           </div>
-          <div id="preview" class="nt-md" hidden></div>
           <p id="meta" class="ow-usage"></p>
         </div>
       </section>

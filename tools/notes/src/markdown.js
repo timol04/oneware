@@ -7,6 +7,8 @@ const escapeHtml = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&l
 function inline(text) {
   const codes = [];
   let out = text.replace(/`([^`\n]+)`/g, (_, c) => `\u0000${codes.push(`<code>${c}</code>`) - 1}\u0000`);
+  // backslash escapes (written by the editor for literal marks): \* \_ \# and so on
+  out = out.replace(/\\(&gt;|[\\`*_[\]#\-+.!()])/g, (_, c) => `\u0000${codes.push(c) - 1}\u0000`);
   out = out
     .replace(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
     .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
