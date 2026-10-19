@@ -1,16 +1,20 @@
 import { mountSiteShell, siteUrl } from '../core/site-shell.js';
-import { createStatusBadge } from '../core/ui-components.js';
+import { createStatusBadge, showToast } from '../core/ui-components.js';
 import { createIcon } from '../core/icons.js';
 import { t, localize, onLangChange, applyTranslations, getLang } from '../core/i18n.js';
 import { isPremiumUnlocked } from '../core/license.js';
-import { getAllItems } from '../core/storage.js';
-import { getLastExport } from '../core/persistence.js';
+import { getAllItems, exportData, importData } from '../core/storage.js';
+import { getLastExport, BACKUP_INTERVAL_DAYS } from '../core/persistence.js';
 import { getCloudLink } from '../core/cloud.js';
+import { showCloudDialog } from '../core/cloud-ui.js';
 
 mountSiteShell();
+for (const n of document.querySelectorAll('[data-icon]')) n.prepend(createIcon(n.dataset.icon, { size: n.dataset.iconSize || '1.25rem' }));
 
-const list = document.getElementById('dash');
-let rows = null;
+const toolsList = document.getElementById('dash-tools');
+const dataList = document.getElementById('dash-data');
+let tools = null;
+let rows = [];
 let failed = false;
 
 function el(tag, className, text) {
@@ -19,55 +23,102 @@ function el(tag, className, text) {
   if (text !== undefined) n.textContent = text;
   return n;
 }
-const fact = (label, value) => {
-  const d = el('div', 'dash__fact');
-  d.append(el('dt', '', label), el('dd', '', value));
-  return d;
-};
-const when = (ms) => (ms ? new Date(ms).toLocaleDateString(getLang()) : t('dash.never'));
+function button(label, onClick, className = 'ow-btn ow-btn--secondary ow-btn--small') {
+  const b = el('button', className, label);
+  b.type = 'button';
+  b.addEventListener('click', onClick);
+  return b;
+}
+const days = (ms) => (Date.now() - ms) / 86400000;
 
-async function collect(tools) {
-  return Promise.all(tools.filter((x) => x.status === 'live').map(async (tool) => {
+async function collect() {
+  rows = await Promise.all(tools.map(async (tool) => {
+    const live = tool.status === 'live';
     let count = 0;
     let cloud = null;
-    if (tool.stores !== false) {
+    if (live && tool.stores !== false) {
       try { count = (await getAllItems(tool.slug)).length; } catch { /* storage blocked */ }
       try { cloud = await getCloudLink(tool.slug); } catch { /* no IndexedDB */ }
     }
-    return { tool, count, cloud, premium: isPremiumUnlocked(tool.slug), backup: getLastExport(tool.slug) };
+    return { tool, live, count, cloud, premium: isPremiumUnlocked(tool.slug), backup: getLastExport(tool.slug) };
   }));
+}
+async function refresh() { await collect(); render(); }
+
+function setup(li, tool) {
+  if (tool.accent) { li.style.setProperty('--accent-l', tool.accent.light); li.style.setProperty('--accent-d', tool.accent.dark); }
+}
+function head(tool, ...extra) {
+  const h = el('div', 'dash__head');
+  const icon = el('span', 'dash__icon');
+  icon.append(createIcon(tool.icon, { size: '1.4rem' }));
+  const text = el('div', 'dash__text');
+  text.append(el('h3', 'dash__name', localize(tool.name)), ...extra);
+  h.append(icon, text);
+  return h;
+}
+
+function toolRow({ tool, live, count, premium }) {
+  const li = el('li', `dash__row${live ? '' : ' dash__row--soon'}`);
+  setup(li, tool);
+  const meta = el('div', 'dash__meta');
+  if (!live) meta.append(createStatusBadge('yellow', t('dash.soon')));
+  else {
+    if (tool.hasPremium) meta.append(createStatusBadge(premium ? 'green' : 'yellow', t(premium ? 'dash.premium' : 'dash.free')));
+    if (tool.stores !== false) meta.append(el('span', 'ow-muted', count === 1 ? t('dash.entriesOne') : t('dash.entries', { count })));
+  }
+  li.append(head(tool, el('p', 'dash__desc', localize(tool.shortDescription))), meta);
+  if (live) {
+    const open = el('a', 'ow-btn ow-btn--secondary', t(tool.hasPremium && !premium ? 'dash.unlock' : 'dash.open'));
+    open.href = siteUrl(tool.path);
+    li.append(open);
+  }
+  return li;
+}
+
+function dataRow({ tool, count, cloud, backup }) {
+  const li = el('li', 'dash__row');
+  setup(li, tool);
+  const stale = count > 0 && (!backup || days(backup) > BACKUP_INTERVAL_DAYS);
+  const status = el('div', 'dash__meta');
+  if (!count) status.append(el('span', 'ow-muted', t('dash.noData')));
+  else {
+    status.append(el('span', '', backup ? t('dash.lastBackup', { date: new Date(backup).toLocaleDateString(getLang()) }) : t('dash.neverBackup')));
+    if (stale) status.append(createStatusBadge('yellow', t('dash.stale')));
+  }
+  const file = el('input');
+  file.type = 'file'; file.accept = 'application/json'; file.hidden = true;
+  file.addEventListener('change', async () => {
+    const f = file.files[0]; file.value = '';
+    if (!f) return;
+    try { showToast(t('shell.imported', { count: await importData(tool.slug, f) })); refresh(); }
+    catch (e) { showToast(t('shell.importFailed', { reason: e.message })); }
+  });
+  const actions = el('div', 'dash__actions');
+  actions.append(
+    button(t('dash.export'), async () => { await exportData(tool.slug); showToast(t('shell.exported')); refresh(); }),
+    button(t('dash.import'), () => file.click()),
+    button(cloud ? t('dash.cloudManage', { name: cloud.name }) : t('cloud.menu'), () => showCloudDialog({ toolSlug: tool.slug, onChange: refresh }).then(() => {}), 'ow-btn ow-btn--secondary ow-btn--small'),
+    file,
+  );
+  li.append(head(tool), status, actions);
+  return li;
 }
 
 function render() {
-  if (failed) { list.replaceChildren(Object.assign(el('li', 'ow-error', t('dash.error')))); return; }
-  if (!rows) return;
-  if (!rows.length) { list.replaceChildren(el('li', 'ow-muted', t('dash.empty'))); return; }
-  list.replaceChildren(...rows.map(({ tool, count, cloud, premium, backup }) => {
-    const li = el('li', 'dash__row');
-    if (tool.accent) { li.style.setProperty('--accent-l', tool.accent.light); li.style.setProperty('--accent-d', tool.accent.dark); }
-    const head = el('div', 'dash__head');
-    const icon = el('span', 'dash__icon');
-    icon.append(createIcon(tool.icon, { size: '1.4rem' }));
-    head.append(icon, el('h2', 'dash__name', localize(tool.name)));
-    if (tool.hasPremium) head.append(createStatusBadge(premium ? 'green' : 'yellow', t(premium ? 'dash.premium' : 'dash.free')));
-    const facts = el('dl', 'dash__facts');
-    facts.append(
-      fact(t('dash.entries'), String(count)),
-      fact(t('dash.backup'), when(backup)),
-      fact(t('dash.cloud'), cloud ? cloud.name : t('dash.notConnected')),
-    );
-    const open = el('a', 'ow-btn ow-btn--secondary', t(tool.hasPremium && !premium ? 'dash.unlock' : 'dash.open'));
-    open.href = siteUrl(tool.path);
-    li.append(head, facts, open);
-    return li;
-  }));
+  if (failed) { toolsList.replaceChildren(el('li', 'ow-error', t('dash.error'))); return; }
+  if (!rows.length) { toolsList.replaceChildren(el('li', 'ow-muted', t('dash.empty'))); return; }
+  toolsList.replaceChildren(...rows.map(toolRow));
+  dataList.replaceChildren(...rows.filter((r) => r.live && r.tool.stores !== false).map(dataRow));
 }
 
 onLangChange(render);
 try {
   const res = await fetch(siteUrl('hub/tool-registry.json'));
   if (!res.ok) throw new Error(res.status);
-  rows = await collect(await res.json());
+  tools = await res.json();
+  await collect();
 } catch { failed = true; }
 render();
 applyTranslations();
+document.addEventListener('ow:datachange', () => { if (tools) refresh(); });

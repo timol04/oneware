@@ -17,8 +17,17 @@
 <body>
   <main id="main" class="ow-container">
     <h1 class="ow-page-title" data-i18n="dash.h1">My Dashboard</h1>
-    <p class="ow-muted dash__intro" data-i18n="dash.intro">Your tools on this device. Everything here is read from your browser, nothing is sent anywhere.</p>
-    <ul id="dash" class="dash" aria-live="polite"></ul>
+    <p class="ow-muted dash__intro" data-i18n="dash.intro">Your tools, all in one place. Read from your browser, stored on your device.</p>
+    <p class="dash__trust"><span data-icon="lock" data-icon-size="1rem"></span><span data-i18n="dash.trust">Stored locally · No account · No subscription</span></p>
+    <section aria-labelledby="dash-tools-h" class="dash__section">
+      <h2 id="dash-tools-h" data-i18n="dash.tools">Your tools</h2>
+      <ul id="dash-tools" class="dash" aria-live="polite"></ul>
+    </section>
+    <section aria-labelledby="dash-data-h" class="dash__section">
+      <h2 id="dash-data-h" data-i18n="dash.data">Data and backup</h2>
+      <p class="ow-muted" data-i18n="dash.dataIntro">Back up, restore or link each tool to your own cloud folder.</p>
+      <ul id="dash-data" class="dash"></ul>
+    </section>
   </main>
   <script type="module" src="dashboard.js"></script>
 </body>
