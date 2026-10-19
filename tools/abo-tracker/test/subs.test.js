@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   newSub, chargeDate, nextCharge, chargesBetween, monthlyCost, applyPrice, applyStart, setStatus, totals,
-  upcoming, monthlySeries, byCategory, priceChanges, parsePrice, isISODate, currentPrice, dueWithin,
+  upcoming, monthlySeries, normalizeUrl, byCategory, priceChanges, parsePrice, isISODate, currentPrice, dueWithin,
 } from '../src/subs.js';
 
 const make = (over = {}) => ({ ...newSub(0, '2026-01-31'), name: 'x', ...over });
@@ -114,4 +114,13 @@ test('price and date input parsing', () => {
   assert.equal(parsePrice('abc'), null);
   assert.ok(isISODate('2026-02-28'));
   assert.ok(!isISODate('2026-02-30'));
+});
+
+test('account links get https and only allow web addresses', () => {
+  assert.equal(normalizeUrl(''), '');
+  assert.equal(normalizeUrl('  netflix.com/account '), 'https://netflix.com/account');
+  assert.equal(normalizeUrl('http://example.com/a'), 'http://example.com/a');
+  assert.equal(normalizeUrl('javascript:alert(1)'), null);
+  assert.equal(normalizeUrl('ftp://example.com'), null);
+  assert.equal(normalizeUrl('not a link'), null);
 });

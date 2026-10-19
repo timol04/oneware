@@ -36,7 +36,7 @@ function addMonths(date, months, day) {
 // --- Subscriptions ---
 export function newSub(now = Date.now(), today = todayISO()) {
   return {
-    name: '', cycle: 'monthly', category: 'other', status: 'active', note: '',
+    name: '', cycle: 'monthly', category: 'other', status: 'active', note: '', url: '',
     start: today,
     prices: [{ from: today, price: 0 }],
     periods: [{ from: today, to: null }],
@@ -184,4 +184,15 @@ export const visibleSubs = (subs, view) => subs.filter((s) => (view === 'active'
 export function parsePrice(text) {
   const n = Number(String(text).trim().replace(',', '.'));
   return text !== '' && Number.isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : null;
+}
+
+/** Cleans up an account link: "" stays empty, a missing scheme becomes https://, anything but http(s) is rejected (null). */
+export function normalizeUrl(text) {
+  const raw = String(text).trim();
+  if (!raw) return '';
+  const withScheme = /^[a-z][a-z0-9+.-]*:/i.test(raw) ? raw : `https://${raw}`;
+  try {
+    const u = new URL(withScheme);
+    return (u.protocol === 'https:' || u.protocol === 'http:') && u.hostname.includes('.') ? u.href : null;
+  } catch { return null; }
 }

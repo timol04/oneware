@@ -6,7 +6,7 @@ import { createIcon } from '../../../core/icons.js';
 import { monthsChart, categoryChart, priceList } from './charts.js';
 import {
   CYCLES, CATEGORIES, CURRENCIES, newSub, todayISO, isISODate, parsePrice, currentPrice, nextCharge, daysBetween,
-  applyPrice, applyStart, setStatus, totals, dueWithin, monthlySeries, byCategory, priceChanges, visibleSubs, upcoming, isActive,
+  applyPrice, applyStart, normalizeUrl, setStatus, totals, dueWithin, monthlySeries, byCategory, priceChanges, visibleSubs, upcoming, isActive,
 } from './subs.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
@@ -128,6 +128,18 @@ function renderList(today) {
     when$.dataset.soon = String(soon);
     b.append(span('ab-item__name', sub.name || t('ab.untitled')), span('ab-item__price', money(price)), span('ab-item__meta', meta), when$);
     li.append(b);
+    if (sub.url) {
+      const a = document.createElement('a');
+      a.className = 'ab-item__link';
+      a.href = sub.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.title = t('ab.form.openUrl');
+      a.setAttribute('aria-label', `${t('ab.form.openUrl')}: ${sub.name}`);
+      a.append(createIcon('link', { size: '1.1rem' }));
+      li.append(a);
+      li.classList.add('ab-row');
+    }
     return li;
   }));
   const empty = $('empty');
@@ -192,7 +204,7 @@ function render() {
 
 // --- Sheet (add / edit) ---
 const sheet = $('sheet');
-const FIELD_ERRORS = ['name', 'price', 'start'];
+const FIELD_ERRORS = ['name', 'price', 'start', 'url'];
 
 function fillSelects() {
   $('f-cycle').replaceChildren(...CYCLES.map((c) => new Option(t(`ab.cycle.${c}`), c)));
@@ -218,6 +230,15 @@ function renderStateActions() {
   end.hidden = editing.status === 'cancelled';
 }
 
+function updateOpenLink() {
+  const link = $('open-url');
+  const url = normalizeUrl($('f-url').value);
+  link.hidden = !url;
+  if (!url) return;
+  link.href = url;
+  link.replaceChildren(createIcon('link', { size: '1rem' }), ` ${t('ab.form.openUrl')}`);
+}
+
 function resetDelete() {
   const btn = $('delete');
   clearTimeout(deleteTimer);
@@ -239,6 +260,8 @@ function openSheet(sub) {
   $('f-cat').value = draft.category;
   $('f-start').value = draft.start;
   $('f-note').value = draft.note;
+  $('f-url').value = draft.url ?? '';
+  updateOpenLink();
   $('price-hint').hidden = !sub;
   for (const f of FIELD_ERRORS) showError(f, null);
   $('delete').hidden = !sub;
@@ -257,13 +280,16 @@ async function submit(e) {
   showError('name', name ? null : 'ab.error.name');
   showError('price', price === null ? 'ab.error.price' : null);
   showError('start', isISODate(start) ? null : 'ab.error.start');
-  if (!name || price === null || !isISODate(start)) return;
+  const url = normalizeUrl($('f-url').value);
+  showError('url', url === null ? 'ab.error.url' : null);
+  if (!name || price === null || !isISODate(start) || url === null) return;
   const today = todayISO();
   const sub = editing ?? newSub();
   sub.name = name;
   sub.cycle = $('f-cycle').value;
   sub.category = $('f-cat').value;
   sub.note = $('f-note').value.trim();
+  sub.url = url;
   if (!editing) sub.prices = [{ from: start, price }];
   if (editing) applyPrice(sub, price, today);
   applyStart(sub, start);
@@ -293,6 +319,7 @@ $('form').addEventListener('submit', submit);
 $('close').addEventListener('click', () => sheet.close());
 sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); });
 sheet.addEventListener('close', () => { editing = null; resetDelete(); });
+$('f-url').addEventListener('input', updateOpenLink);
 $('toggle-pause').addEventListener('click', () => changeStatus(isActive(editing) ? 'paused' : 'active'));
 $('cancel-sub').addEventListener('click', () => changeStatus('cancelled'));
 $('delete').addEventListener('click', async () => {

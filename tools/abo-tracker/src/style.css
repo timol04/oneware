@@ -105,3 +105,16 @@
 .ab-price__pct[data-up="true"] { color: var(--danger); }
 .ab-price__pct[data-up="false"] { color: var(--success); }
 .ab-spark { grid-column: 2; grid-row: 2; justify-self: end; color: var(--accent); }
+
+/* Account link */
+.ab-urlrow { display: flex; gap: var(--s-2); align-items: center; }
+.ab-urlrow .ow-input { flex: 1; min-width: 0; }
+.ab-urlrow .ow-btn { white-space: nowrap; text-decoration: none; }
+.ab-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-2); align-items: stretch; }
+.ab-item__link {
+  display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; border: 1px solid var(--border);
+  border-radius: var(--radius); background: var(--bg); color: var(--text-muted);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.ab-item__link:hover { border-color: var(--accent); color: var(--accent); }
+.ab-item__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

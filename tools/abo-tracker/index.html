@@ -84,6 +84,14 @@
       </div>
       <p class="ab-hint ow-muted" data-i18n="ab.form.startHint"></p>
       <div class="ow-field">
+        <label class="ow-label" for="f-url" data-i18n="ab.form.url">Account link</label>
+        <div class="ab-urlrow">
+          <input id="f-url" class="ow-input" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" data-i18n-attr="placeholder:ab.form.urlPh">
+          <a id="open-url" class="ow-btn ow-btn--secondary ow-btn--small" target="_blank" rel="noopener noreferrer" hidden></a>
+        </div>
+        <span class="ow-error" id="e-url" hidden></span>
+      </div>
+      <div class="ow-field">
         <label class="ow-label" for="f-note" data-i18n="ab.form.note">Note</label>
         <textarea id="f-note" class="ow-textarea" rows="2" maxlength="300" data-i18n-attr="placeholder:ab.form.notePh"></textarea>
       </div>
