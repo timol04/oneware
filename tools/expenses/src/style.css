@@ -1,0 +1,107 @@
+/* Expenses: month header, bookings, categories, statistics and side sheet on top of the shared tokens (core/ui-components.css). */
+[hidden] { display: none !important; }
+.ex { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); }
+.ex-sum, .ex-listcard, .ex-cats, .ex-analysis { padding: var(--s-5); border-top: 3px solid var(--accent); }
+.ex-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5); align-items: start; }
+.ex-side { display: grid; gap: var(--s-5); min-width: 0; }
+@media (min-width: 1100px) { .ex-grid { grid-template-columns: minmax(22rem, 1fr) minmax(24rem, 1fr); } }
+
+/* Month header and totals */
+.ex-sum__bar { display: flex; align-items: center; gap: var(--s-2); margin-bottom: var(--s-4); }
+.ex-month { display: flex; align-items: center; gap: var(--s-1); flex: 1; min-width: 0; }
+.ex-month__name { margin: 0; min-width: 9rem; text-align: center; font-size: var(--fs-h3); letter-spacing: -0.02em; text-transform: capitalize; }
+.ex-cur .ow-select { width: auto; }
+.ex-sum__bar .ow-btn { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); white-space: nowrap; }
+.ex-sum__bar .ow-btn:hover { filter: brightness(1.12); }
+.ex-sum__bar .ow-btn .ow-icon { vertical-align: -0.2em; }
+.ex-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-3); margin: 0; }
+.ex-stat { padding: var(--s-3) var(--s-4); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); min-width: 0; }
+.ex-stat dt { color: var(--text-muted); font-size: var(--fs-small); }
+.ex-stat dd { margin: .15rem 0 0; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ex-stat--main dd { color: var(--accent); }
+.ex-stat dd[data-neg="true"] { color: var(--danger); }
+@media (max-width: 620px) {
+  .ex-sum__bar { flex-wrap: wrap; }
+  .ex-month { flex-basis: 100%; }
+  .ex-sum__bar .ow-btn { flex: 1; }
+  .ex-stat dd { font-size: 1.3rem; }
+  .ex-stats { grid-template-columns: 1fr 1fr; }
+  .ex-stat--main { grid-column: 1 / -1; }
+}
+
+/* Filters and chips */
+.ex-tools { display: grid; gap: var(--s-3); margin-bottom: var(--s-4); }
+.ex-chips, .ex-types { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.ex-types { margin-bottom: var(--s-4); }
+.ex-chip {
+  padding: .3em .75em; border: 1px solid var(--border); border-radius: 999px;
+  background: transparent; color: var(--text); font: inherit; font-size: var(--fs-small); cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.ex-chip:hover { border-color: var(--accent); color: var(--accent); }
+.ex-chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.ex-types .ex-chip { flex: 1; padding: .55em .75em; font-size: 1rem; }
+.ex-chip:focus-visible, .ex-item:focus-visible, .ex-col:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Bookings */
+.ex-day + .ex-day { margin-top: var(--s-4); }
+.ex-day__head { display: flex; justify-content: space-between; gap: var(--s-3); margin: 0 0 var(--s-2); color: var(--text-muted); font-size: var(--fs-small); font-weight: 600; }
+.ex-day__head span:last-child { font-variant-numeric: tabular-nums; }
+.ex-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); }
+.ex-item {
+  display: grid; grid-template-columns: 1fr auto; gap: .1rem var(--s-4); align-items: center; width: 100%; text-align: left;
+  font: inherit; color: var(--text); cursor: pointer; padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg);
+  transition: border-color var(--dur) var(--ease);
+}
+.ex-item:hover { border-color: var(--accent); }
+.ex-item__name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ex-item__amount { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.ex-item__amount[data-type="income"] { color: var(--success); }
+.ex-item__note { grid-column: 1 / -1; color: var(--text-muted); font-size: var(--fs-small); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ex-empty { margin: var(--s-5) 0; text-align: center; }
+
+/* Side sheet */
+.ex-sheet { width: min(30rem, 100vw); }
+@media (min-width: 721px) {
+  .ex-sheet { margin: 0 0 0 auto; height: 100dvh; max-height: 100dvh; border-radius: var(--radius-lg) 0 0 var(--radius-lg); overflow: auto; }
+}
+.ex-sheet__head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); margin-bottom: .75em; }
+.ex-sheet__head h2 { margin: 0; }
+.ex-two { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+@media (max-width: 420px) { .ex-two { grid-template-columns: 1fr; } }
+.ex-delete.is-armed { background: var(--danger); border-color: var(--danger); color: #fff; }
+.ex-delete { margin-right: auto; }
+
+/* Categories and statistics */
+.ex-h { margin: 0 0 var(--s-4); font-size: var(--fs-h3); letter-spacing: -0.02em; }
+.ex-block + .ex-block { margin-top: var(--s-6); }
+.ex-block h3 { margin: 0; font-size: 1.05rem; }
+.ex-block__hint { margin: .15rem 0 var(--s-3); font-size: var(--fs-small); }
+.ex-locked { text-align: center; padding: var(--s-5) var(--s-3); color: var(--text-muted); }
+.ex-locked .ow-btn { margin-top: var(--s-3); }
+
+.ex-cats-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+.ex-cat__row { display: flex; justify-content: space-between; gap: var(--s-3); font-size: var(--fs-small); }
+.ex-cat__row b { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.ex-cat__track { height: .6rem; margin-top: .3rem; border-radius: 999px; background: color-mix(in srgb, var(--text) 8%, transparent); overflow: hidden; }
+.ex-cat__fill { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
+
+.ex-bars { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; align-items: end; height: 11rem; border-bottom: 1px solid var(--border); }
+.ex-col { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 2px; height: 100%; }
+.ex-col__bar { flex: 1; min-height: 2px; border-radius: 4px 4px 0 0; background: color-mix(in srgb, var(--accent) 45%, var(--surface)); transition: background var(--dur) var(--ease); }
+.ex-col__bar--in { background: color-mix(in srgb, var(--success) 45%, var(--surface)); }
+.ex-col[data-now="true"] .ex-col__bar, .ex-col:hover .ex-col__bar, .ex-col:focus-visible .ex-col__bar { background: var(--accent); }
+.ex-col[data-now="true"] .ex-col__bar--in, .ex-col:hover .ex-col__bar--in, .ex-col:focus-visible .ex-col__bar--in { background: var(--success); }
+.ex-col__val {
+  position: absolute; bottom: calc(var(--h, 0%) + 4px); left: 50%; transform: translateX(-50%); z-index: 2;
+  padding: .1rem .4rem; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  font-size: .75rem; font-variant-numeric: tabular-nums; white-space: nowrap; display: none;
+}
+.ex-col:hover .ex-col__val, .ex-col:focus-visible .ex-col__val { display: block; }
+.ex-axis { list-style: none; margin: .35rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; color: var(--text-muted); font-size: .72rem; text-align: center; }
+.ex-axis span { display: block; overflow: hidden; text-overflow: clip; white-space: nowrap; }
+.ex-legend { display: flex; gap: var(--s-4); margin: .6rem 0 0; padding: 0; list-style: none; color: var(--text-muted); font-size: var(--fs-small); }
+.ex-legend i { display: inline-block; width: .7rem; height: .7rem; border-radius: 3px; margin-right: .35rem; vertical-align: -0.05em; background: var(--accent); }
+.ex-legend li:last-child i { background: var(--success); }
+.ex-avg { margin: .5rem 0 0; font-size: var(--fs-small); font-variant-numeric: tabular-nums; }
