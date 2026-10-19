@@ -16,6 +16,7 @@ for (const n of document.querySelectorAll('[data-icon]')) n.prepend(createIcon(n
 const toolsList = document.getElementById('dash-tools');
 const dataList = document.getElementById('dash-data');
 const editBtn = document.getElementById('dash-edit');
+const dataSection = document.getElementById('dash-data').closest('section');
 const hint = document.getElementById('dash-hint');
 editBtn.addEventListener('click', () => { editing = !editing; render(); });
 let tools = null;
@@ -23,14 +24,14 @@ let rows = [];
 let failed = false;
 let editing = false;
 
-// Which tools are on the dashboard: null = never customised (all), otherwise a list of slugs.
+// Which tools are on the dashboard: a list of slugs, empty until the user adds some.
 const KEY = 'ow_dashboard';
-let selected = null;
+let selected = [];
 try { const v = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(v)) selected = v; } catch { /* storage blocked or invalid */ }
-const isOn = (slug) => selected === null || selected.includes(slug);
+const isOn = (slug) => selected.includes(slug);
 function setOn(slug, on) {
   const all = tools.map((x) => x.slug);
-  const next = new Set(selected ?? all);
+  const next = new Set(selected);
   on ? next.add(slug) : next.delete(slug);
   selected = all.filter((x) => next.has(x));
   try { localStorage.setItem(KEY, JSON.stringify(selected)); } catch { /* keep in memory */ }
@@ -141,11 +142,19 @@ function render() {
   if (failed) { toolsList.replaceChildren(el('p', 'ow-error', t('dash.error'))); return; }
   if (!rows.length) { toolsList.replaceChildren(el('p', 'ow-muted', t('dash.empty'))); return; }
   const visible = rows.filter((r) => editing || isOn(r.tool.slug));
-  editBtn.textContent = t(editing ? 'dash.done' : 'dash.customize');
+  editBtn.replaceChildren(createIcon(editing ? 'check' : 'grid', { size: '1.1rem' }), t(editing ? 'dash.done' : 'dash.customize'));
+  editBtn.hidden = false;
   editBtn.setAttribute('aria-pressed', String(editing));
   hint.hidden = !editing;
   hint.textContent = t('dash.customizeHint');
-  if (!visible.length) { toolsList.replaceChildren(el('p', 'ow-muted', t('dash.emptySelection'))); renderData(); return; }
+  dataSection.hidden = !visible.length;
+  if (!visible.length) {
+    const empty = el('div', 'dash__empty');
+    empty.append(el('p', '', t('dash.emptySelection')), button(t('dash.start'), () => { editing = true; render(); }, 'ow-btn'));
+    toolsList.replaceChildren(empty);
+    renderData();
+    return;
+  }
   toolsList.replaceChildren(...groupTools(visible.map((r) => ({ ...r.tool, row: r }))).map(({ kind, items }) => {
     const section = el('section', 'group');
     const head = el('div', 'group__head');
