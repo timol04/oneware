@@ -277,7 +277,7 @@ export default {
   "legal.privacy.s7.h": "Cloud-Ordner und Dateien",
   "legal.privacy.s7.p": "Wenn du einen Cloud-Ordner verbindest, werden Backups in einen Ordner auf deinem Gerät geschrieben, den deine eigene Cloud-App synchronisiert. Wir haben keinen Zugriff. Dateien, die du in einem Tool wie dem Umwandler, dem PDF-Werkzeug oder Verifyxr öffnest, werden in deinem Browser verarbeitet und nicht hochgeladen.",
   "legal.privacy.s8.h": "Zwecke, Empfänger und Länder",
-  "legal.privacy.s8.p": "Wir verarbeiten Daten nur, um die Website bereitzustellen, Lizenzen zu verkaufen und zu aktivieren und deine E-Mails zu beantworten. Empfänger sind GitHub (Hosting) und Lemon Squeezy (Zahlung und Lizenzprüfung), beide in den USA, wo der Datenschutz vom Schweizer abweichen kann. E-Mails, die du uns schickst, bewahren wir so lange auf, wie nötig, um sie zu beantworten, und für gesetzliche Aufbewahrungspflichten.",
+  "legal.privacy.s8.p": "Wir verarbeiten Daten nur, um die Website bereitzustellen, Lizenzen zu verkaufen und zu aktivieren und deine E-Mails zu beantworten. Empfänger sind GitHub (Hosting) und Lemon Squeezy (Zahlung und Lizenzprüfung), beide in den USA, wo der Datenschutz vom Schweizer abweichen kann. Die Übermittlung stützt sich auf die Zertifizierung der Anbieter unter dem Swiss-US Data Privacy Framework oder auf Standardvertragsklauseln. E-Mails, die du uns schickst, bewahren wir so lange auf, wie nötig, um sie zu beantworten, und für gesetzliche Aufbewahrungspflichten.",
   "shell.footer.terms": "Bedingungen",
   "shell.footer.licenses": "Lizenzen Dritter",
   "notfound.title": "Seite nicht gefunden – Oneware",
