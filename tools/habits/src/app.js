@@ -122,10 +122,10 @@ function card(h, now) {
   const check = el('button', 'hb-check', {
     type: 'button', 'aria-pressed': String(done), 'aria-label': t('hb.check'), title: t('hb.check'), disabled: paused || !!h.archived,
   });
-  check.append(createIcon('check', { size: '1rem' }));
+  check.append(createIcon('check', { size: '1rem' }), el('span', '', { text: t(done ? 'hb.checked' : 'hb.unchecked') }));
   const main = el('button', 'hb-main', { type: 'button' });
   main.append(el('span', 'hb-card__title', { text: displayTitle(h) || t('hb.untitled') }), subline(h, now));
-  row.append(check, main);
+  row.append(main, check);
   return row;
 }
 

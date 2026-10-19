@@ -22,6 +22,8 @@ export default {
   'hb.group.due': 'Für heute geplant',
   'hb.group.other': 'Nicht heute',
   'hb.todayProgress': '{done} von {total} heute erledigt',
+  'hb.unchecked': 'Abhaken',
+  'hb.checked': 'Erledigt',
   'hb.check': 'Heute als erledigt markieren',
   'hb.sub.streak': 'Serie: {count}',
   'hb.sub.week': '{done} von {goal} diese Woche',

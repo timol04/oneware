@@ -22,6 +22,8 @@ export default {
   'hb.group.due': 'Planned today',
   'hb.group.other': 'Not today',
   'hb.todayProgress': '{done} of {total} done today',
+  'hb.unchecked': 'Check off',
+  'hb.checked': 'Done',
   'hb.check': 'Mark as done today',
   'hb.sub.streak': 'Streak: {count}',
   'hb.sub.week': '{done} of {goal} this week',

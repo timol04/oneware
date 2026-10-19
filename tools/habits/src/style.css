@@ -56,12 +56,15 @@
 .hb-empty { margin: var(--s-5) 0; text-align: center; }
 
 .hb-check {
-  flex: none; display: inline-flex; align-items: center; justify-content: center; width: 1.75rem; height: 1.75rem; padding: 0;
-  border: 2px solid var(--border-strong, var(--text-muted)); border-radius: 50%; background: transparent; color: transparent; cursor: pointer;
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  flex: none; display: inline-flex; align-items: center; gap: .4em; padding: .45em .85em; min-height: 2.25rem;
+  border: 2px solid var(--accent); border-radius: 999px; background: transparent; color: var(--accent);
+  font: inherit; font-size: var(--fs-small); font-weight: 600; cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-.hb-check:hover:not(:disabled) { border-color: var(--accent); }
-.hb-check[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.hb-check .ow-icon { opacity: .55; }
+.hb-check:hover:not(:disabled):not([aria-pressed="true"]) { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.hb-check[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.hb-check[aria-pressed="true"] .ow-icon { opacity: 1; }
 .hb-check:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .hb-check:disabled { opacity: .4; cursor: default; }
 
