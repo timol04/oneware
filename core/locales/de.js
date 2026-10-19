@@ -36,7 +36,6 @@ export default {
   'hub.live': 'Live',
   'hub.soon': 'Kommt bald',
   'hub.dev': 'Entwicklung',
-  'hub.demoTool': 'Demo-Tool',
   'hub.uiComponents': 'UI-Komponenten',
 
   "core.license.buyFor": "Kaufen für {price}, einmalig",
@@ -189,7 +188,6 @@ export default {
   "hub.filter.all": "Alle",
   "category.tracker": "Tracker",
   "category.study": "Studium",
-  "category.demo": "Demo",
   "hub.retry": "Erneut versuchen",
   "hub.noscript": "Die Tool-Liste braucht JavaScript, wenn sie nicht vorab erzeugt wurde.",
   "hub.how.title": "So funktioniert's",

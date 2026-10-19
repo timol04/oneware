@@ -13,7 +13,7 @@ core/                shared library
   ui-desktop.css ui-mobile.css           layout per device (imported by ui-components.css)
 hub/                 tool-registry.json (generated) and the home page scripts/styles
 tools/               one folder per tool (tool.config.json + index.html + src/); published at /mydashboard/[slug]/
-scripts/             build-tool-registry.js, generate-demo-tools.js
+scripts/             build-tool-registry.js
 ```
 
 ## Commands
@@ -69,7 +69,7 @@ View locally: run `python3 -m http.server` in the repo root, then open `http://l
 5. Run `npm run build-registry`.
 6. Deploy. The tool appears in the catalog automatically.
 
-Folders starting with `_` (e.g. `_demo`) are not added to the registry (unless `INCLUDE_DEMO=1`). `node scripts/generate-demo-tools.js` recreates the `demo-*` tools from `_demo`.
+Folders starting with `_` (e.g. `_demo`) are not added to the registry (unless `INCLUDE_DEMO=1`).
 
 Wide tools: use `ow-container--wide` on `<main>` and put two panels in a `.ow-split` element (two columns from 1100 px).
 
@@ -110,11 +110,11 @@ Two modes, chosen per tool:
 
 - **Online (real tools): Lemon Squeezy license API.** Set `"lemonSqueezy": { "productId": 123456 }` in `tool.config.json`. When a customer enters the key, the tool activates it once at `api.lemonsqueezy.com` (public endpoint, no API key needed in the page), checks that the key belongs to this product, and stores the result in the browser. From then on the tool works offline. Once every 30 days, when online, the status is re-checked; a refunded or disabled license is locked again. Offline or server errors never lock a tool.
   - In Lemon Squeezy, turn on license keys for the product and set the **activation limit** (e.g. 3 devices). The dialog shows a clear message when the limit is reached.
-  - The build requires `lemonSqueezy.productId` for every live premium tool (demo tools excepted).
+  - The build requires `lemonSqueezy.productId` for every live premium tool.
   - Not verified in this repo: that the license endpoints answer browser requests (CORS) and the exact error texts. Test one real purchase (Lemon Squeezy test mode) before launch.
-- **Offline (demo tools, tests): checksum keys** `XXXX-XXXX-XXXX-XXXX`. Generate one with
+- **Offline (tests): checksum keys** `XXXX-XXXX-XXXX-XXXX`. Generate one with
   ```
-  node -e "import('./core/license.js').then(m => console.log(m.generateLicenseKey('demo-expenses')))"
+  node -e "import('./core/license.js').then(m => console.log(m.generateLicenseKey('my-tool')))"
   ```
   This check runs in the browser and is not copy protection.
 
