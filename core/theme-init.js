@@ -6,4 +6,5 @@
     theme = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
   document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.classList.add('js');
 })();

@@ -223,6 +223,12 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-about__text { max-width: var(--measure-text); }
 .ow-compare { display: grid; gap: var(--s-4) var(--s-6); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin: var(--s-4) 0; }
 .ow-compare h3 { margin: 0 0 var(--s-2); font-size: var(--fs-h3); }
+.ow-faq { margin: var(--s-4) 0; }
+.ow-faq h3 { margin: 0 0 var(--s-2); font-size: var(--fs-h3); }
+.ow-faq h4 { margin: var(--s-3) 0 var(--s-1); font-size: var(--fs-body); }
+.ow-faq p { margin: 0; }
+.ow-faq ul { margin: 0; padding-left: 1.2em; }
+.js #seo-static { display: none; }
 .ow-compare ul { margin: 0; padding-left: 1.2em; }
 .ow-compare--premium h3 { color: var(--accent); }
 

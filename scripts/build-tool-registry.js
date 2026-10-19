@@ -21,7 +21,7 @@ import { LOCALES } from '../core/locales/index.js';
 import { previewHtml, PREVIEW_KINDS } from '../hub/src/preview.js';
 import { licensing } from '../core/site-config.js';
 import { KINDS, groupTools } from '../hub/src/groups.js';
-import { injectToolSeo, sitemapXml } from './seo.js';
+import { injectToolSeo, sitemapXml, fillI18n, noscriptNav } from './seo.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const toolsDir = path.join(root, 'tools');
@@ -111,11 +111,21 @@ for (const tool of tools) {
   await rm(dest, { recursive: true, force: true });
   await cp(src, dest, { recursive: true });
   const page = path.join(dest, 'index.html');
-  await writeFile(page, injectToolSeo(await readFile(page, 'utf8'), tool, { free: !licensing.enabled }));
+  await writeFile(page, injectToolSeo(await readFile(page, 'utf8'), tool, { free: !licensing.enabled, registry: tools }));
   if (publish) await writeFile(path.join(src, 'index.html'), redirect(tool.slug));
 }
 
 await writeFile(path.join(root, 'sitemap.xml'), sitemapXml(tools));
+
+// ---- static pages: English texts and a no-JS link list written into the HTML (the JS shell takes over in the browser) ----
+const NAV_MARK = /<!-- nav:start -->[\s\S]*?<!-- nav:end -->\n?/;
+for (const [file, rel] of [['index.html', './'], ['how-it-works/index.html', '../'], ['legal/privacy/index.html', '../../'], ['legal/imprint/index.html', '../../'], ['404.html', '/']]) {
+  const page = path.join(root, file);
+  const before = await readFile(page, 'utf8');
+  let out = fillI18n(before, LOCALES.en).replace(NAV_MARK, '');
+  out = out.replace(/<\/main>/, (m) => `${m}\n  <!-- nav:start -->${noscriptNav(rel)}<!-- nav:end -->`);
+  if (out !== before) await writeFile(page, out);
+}
 
 // ---- pre-rendered catalog (English), so the list works without JavaScript ----
 const en = LOCALES.en;
@@ -125,7 +135,7 @@ function row(tool) {
   const style = tool.accent ? ` style="--accent-l:${tool.accent.light};--accent-d:${tool.accent.dark}"` : '';
   const inner = `<div class="tool-card__preview">${previewHtml(tool.preview)}</div>`
     + '<div class="tool-card__body">'
-    + `<div class="tool-card__top"><span class="tool-card__icon">${icon(tool.icon)}</span><h3 class="tool-card__name">${esc(text(tool.name))}</h3></div>`
+    + `<div class="tool-card__top"><span class="tool-card__icon">${icon(tool.icon)}</span><h4 class="tool-card__name">${esc(text(tool.name))}</h4></div>`
     + `<p class="tool-card__desc">${esc(text(tool.shortDescription))}</p>`
     + `<div class="tool-card__meta"><span class="tool-card__price">${esc(licensing.enabled ? text(tool.price) : live ? en['hub.freeNow'] : '')}</span>`
     + `<span class="ow-status ow-status--${live ? 'green' : 'yellow'}">${esc(live ? en['hub.live'] : en['hub.soon'])}</span></div></div>`;

@@ -64,7 +64,54 @@
       "description": {
         "en": "Quick notes with tags, colors and Markdown preview. Stored locally in your browser: no account, no cloud, no subscription.",
         "de": "Schnelle Notizen mit Tags, Farben und Markdown-Vorschau. Lokal im Browser gespeichert: ohne Konto, ohne Cloud, ohne Abo."
-      }
+      },
+      "related": [
+        "journal",
+        "checklists",
+        "readlist"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Where are my notes stored?",
+            "de": "Wo werden meine Notizen gespeichert?"
+          },
+          "a": {
+            "en": "In your browser, on your device. Nothing is uploaded to a server and there is no account. Clearing your browser data removes them, so export a backup now and then.",
+            "de": "In deinem Browser, auf deinem Gerät. Nichts wird auf einen Server hochgeladen und es gibt kein Konto. Wenn du die Browserdaten löschst, sind sie weg, exportiere deshalb ab und zu ein Backup."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I write notes in Markdown?",
+            "de": "Kann ich Notizen in Markdown schreiben?"
+          },
+          "a": {
+            "en": "Yes. Write headings, lists, bold text and links in Markdown and switch to the preview to see the result.",
+            "de": "Ja. Schreibe Überschriften, Listen, fetten Text und Links in Markdown und wechsle zur Vorschau, um das Ergebnis zu sehen."
+          }
+        },
+        {
+          "q": {
+            "en": "How can I keep my notes organized?",
+            "de": "Wie halte ich meine Notizen geordnet?"
+          },
+          "a": {
+            "en": "Give notes tags and colors, pin the important ones, archive old ones and use search to find anything.",
+            "de": "Gib Notizen Tags und Farben, pinne die wichtigen, archiviere alte und finde alles mit der Suche."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I back up my notes or move it to another device?",
+            "de": "Wie sichere ich meine Notizen oder nehme sie auf ein anderes Gerät mit?"
+          },
+          "a": {
+            "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+            "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+          }
+        }
+      ]
     },
     "path": "mydashboard/notes/"
   },
@@ -134,7 +181,54 @@
       "description": {
         "en": "Checklists with sub-items, due dates and repeating tasks. Runs in your browser and stores everything locally. No account needed.",
         "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben. Läuft im Browser, alles bleibt lokal. Ohne Konto."
-      }
+      },
+      "related": [
+        "notes",
+        "habits",
+        "readlist"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Where are my checklists stored?",
+            "de": "Wo werden meine Checklisten gespeichert?"
+          },
+          "a": {
+            "en": "In your browser, on your device. Nothing is uploaded to a server and there is no account. Clearing your browser data removes them, so export a backup now and then.",
+            "de": "In deinem Browser, auf deinem Gerät. Nichts wird auf einen Server hochgeladen und es gibt kein Konto. Wenn du die Browserdaten löschst, sind sie weg, exportiere deshalb ab und zu ein Backup."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I add sub-items to a task?",
+            "de": "Kann ich einer Aufgabe Unterpunkte hinzufügen?"
+          },
+          "a": {
+            "en": "Yes. Break any task into sub-items and the list shows your progress.",
+            "de": "Ja. Unterteile jede Aufgabe in Unterpunkte, die Liste zeigt deinen Fortschritt."
+          }
+        },
+        {
+          "q": {
+            "en": "Can tasks repeat?",
+            "de": "Können sich Aufgaben wiederholen?"
+          },
+          "a": {
+            "en": "Yes. Give a task a repeat schedule and it comes back on its own when it is due again. You can also set due dates.",
+            "de": "Ja. Gib einer Aufgabe einen Wiederholungsplan, dann kommt sie von selbst zurück, wenn sie wieder fällig ist. Fälligkeitsdaten kannst du ebenfalls setzen."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I back up my checklists or move it to another device?",
+            "de": "Wie sichere ich meine Checklisten oder nehme sie auf ein anderes Gerät mit?"
+          },
+          "a": {
+            "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+            "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+          }
+        }
+      ]
     },
     "path": "mydashboard/checklists/"
   },
@@ -204,7 +298,54 @@
       "description": {
         "en": "Track daily habits and weekly goals with streaks, a calendar and statistics. Stored locally in your browser, no account, no subscription.",
         "de": "Gewohnheiten und Wochenziele verfolgen, mit Streaks, Kalender und Statistik. Lokal im Browser gespeichert, ohne Konto und Abo."
-      }
+      },
+      "related": [
+        "checklists",
+        "journal",
+        "notes"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Where are my habits stored?",
+            "de": "Wo werden meine Gewohnheiten gespeichert?"
+          },
+          "a": {
+            "en": "In your browser, on your device. Nothing is uploaded to a server and there is no account. Clearing your browser data removes them, so export a backup now and then.",
+            "de": "In deinem Browser, auf deinem Gerät. Nichts wird auf einen Server hochgeladen und es gibt kein Konto. Wenn du die Browserdaten löschst, sind sie weg, exportiere deshalb ab und zu ein Backup."
+          }
+        },
+        {
+          "q": {
+            "en": "Which schedules can I use for a habit?",
+            "de": "Welche Zeitpläne gibt es für eine Gewohnheit?"
+          },
+          "a": {
+            "en": "A habit can be daily, planned for selected weekdays or follow a weekly goal such as three times a week.",
+            "de": "Eine Gewohnheit kann täglich sein, für bestimmte Wochentage geplant werden oder ein Wochenziel haben, zum Beispiel dreimal pro Woche."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I look back at my progress?",
+            "de": "Kann ich meinen Fortschritt nachträglich ansehen?"
+          },
+          "a": {
+            "en": "Yes. The tool shows your streaks, a calendar of every day and statistics, and you can add a note to a day.",
+            "de": "Ja. Das Tool zeigt deine Streaks, einen Kalender mit jedem Tag und Statistiken, und du kannst einem Tag eine Notiz hinzufügen."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I back up my habits or move it to another device?",
+            "de": "Wie sichere ich meine Gewohnheiten oder nehme sie auf ein anderes Gerät mit?"
+          },
+          "a": {
+            "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+            "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+          }
+        }
+      ]
     },
     "path": "mydashboard/habits/"
   },
@@ -286,7 +427,53 @@
       "description": {
         "en": "Create QR codes for links, Wi-Fi and contacts. Add colors and a logo, export PNG, SVG or PDF. Runs in your browser, nothing is uploaded.",
         "de": "QR-Codes für Links, WLAN und Kontakte erstellen. Mit Farben und Logo, Export als PNG, SVG oder PDF. Läuft im Browser, nichts wird hochgeladen."
-      }
+      },
+      "related": [
+        "pdf-toolkit",
+        "converter"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Are my links or Wi-Fi passwords uploaded?",
+            "de": "Werden meine Links oder WLAN-Passwörter hochgeladen?"
+          },
+          "a": {
+            "en": "No. The QR code is generated in your browser and nothing is sent to a server.",
+            "de": "Nein. Der QR-Code wird in deinem Browser erzeugt und nichts wird an einen Server gesendet."
+          }
+        },
+        {
+          "q": {
+            "en": "Do my QR codes expire?",
+            "de": "Laufen meine QR-Codes ab?"
+          },
+          "a": {
+            "en": "No. The code contains your content directly and does not go through a redirect service, so it keeps working.",
+            "de": "Nein. Der Code enthält deinen Inhalt direkt und läuft nicht über einen Weiterleitungsdienst, er funktioniert also dauerhaft."
+          }
+        },
+        {
+          "q": {
+            "en": "Which content can a QR code hold?",
+            "de": "Welche Inhalte kann ein QR-Code enthalten?"
+          },
+          "a": {
+            "en": "Links, text, Wi-Fi access, contacts, email, phone numbers, SMS, locations, events and app links.",
+            "de": "Links, Text, WLAN-Zugang, Kontakte, E-Mail, Telefonnummern, SMS, Standorte, Termine und App-Links."
+          }
+        },
+        {
+          "q": {
+            "en": "Which formats can I export?",
+            "de": "Welche Formate kann ich exportieren?"
+          },
+          "a": {
+            "en": "PNG is part of the free features. SVG, PDF and large PNG for print are premium features, free during the launch phase.",
+            "de": "PNG gehört zu den kostenlosen Funktionen. SVG, PDF und großes PNG für den Druck sind Premium-Funktionen, in der Startphase kostenlos."
+          }
+        }
+      ]
     },
     "path": "mydashboard/qr-pro-studio/"
   },
@@ -364,7 +551,53 @@
       "description": {
         "en": "Keep track of every subscription: monthly and yearly cost, next charges and price changes. Stored in your browser, no account.",
         "de": "Alle Abos im Blick: Kosten pro Monat und Jahr, nächste Abbuchungen und Preisänderungen. Im Browser gespeichert, ohne Konto."
-      }
+      },
+      "related": [
+        "expenses",
+        "checklists"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Does it connect to my bank account?",
+            "de": "Verbindet es sich mit meinem Bankkonto?"
+          },
+          "a": {
+            "en": "No. You enter your subscriptions yourself, so no bank access and no account are needed.",
+            "de": "Nein. Du trägst deine Abos selbst ein, deshalb braucht es weder Bankzugang noch ein Konto."
+          }
+        },
+        {
+          "q": {
+            "en": "What does the tool show me?",
+            "de": "Was zeigt mir das Tool?"
+          },
+          "a": {
+            "en": "Monthly and yearly totals, the next charges and your categories. You can pause or cancel a subscription and keep its history.",
+            "de": "Summen pro Monat und Jahr, die nächsten Abbuchungen und deine Kategorien. Ein Abo kannst du pausieren oder kündigen und behältst den Verlauf."
+          }
+        },
+        {
+          "q": {
+            "en": "Where do one-off purchases go?",
+            "de": "Wohin gehören einmalige Käufe?"
+          },
+          "a": {
+            "en": "Single bookings belong in Expenses. The subscription tracker is for charges that come back regularly.",
+            "de": "Einzelne Buchungen gehören in Ausgaben. Der Abo-Tracker ist für Abbuchungen, die regelmäßig wiederkommen."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I back up my subscriptions or move it to another device?",
+            "de": "Wie sichere ich meine Abos oder nehme sie auf ein anderes Gerät mit?"
+          },
+          "a": {
+            "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+            "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+          }
+        }
+      ]
     },
     "path": "mydashboard/abo-tracker/"
   },
@@ -438,7 +671,53 @@
       "description": {
         "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
         "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
-      }
+      },
+      "related": [
+        "converter",
+        "pdf-toolkit"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Is my thesis uploaded anywhere?",
+            "de": "Wird meine Arbeit irgendwohin hochgeladen?"
+          },
+          "a": {
+            "en": "No. Everything runs in your browser on your device, so your files never leave it.",
+            "de": "Nein. Alles läuft in deinem Browser auf deinem Gerät, deine Dateien verlassen es nie."
+          }
+        },
+        {
+          "q": {
+            "en": "What does Verifyxr check?",
+            "de": "Was prüft Verifyxr?"
+          },
+          "a": {
+            "en": "Font, size, line spacing and margins, word and page limits, and with the APA 7 check your citations against the reference list.",
+            "de": "Schrift, Größe, Zeilenabstand und Ränder, Wort- und Seitenlimits und mit der APA-7-Prüfung deine Zitate gegen das Literaturverzeichnis."
+          }
+        },
+        {
+          "q": {
+            "en": "Does it change my original document?",
+            "de": "Verändert es mein Originaldokument?"
+          },
+          "a": {
+            "en": "No. Formatting fixes are made in a corrected copy and your original file stays as it is.",
+            "de": "Nein. Formatierungskorrekturen entstehen in einer korrigierten Kopie, deine Originaldatei bleibt unverändert."
+          }
+        },
+        {
+          "q": {
+            "en": "Which files does it accept?",
+            "de": "Welche Dateien akzeptiert es?"
+          },
+          "a": {
+            "en": "Word documents in the .docx format.",
+            "de": "Word-Dokumente im Format .docx."
+          }
+        }
+      ]
     },
     "path": "mydashboard/verifyxr/"
   },
@@ -511,7 +790,54 @@
       "description": {
         "en": "Convert PDF, Word, text, Markdown and images into other formats. Runs entirely in your browser, your files are never uploaded.",
         "de": "PDF, Word, Text, Markdown und Bilder in andere Formate umwandeln. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
-      }
+      },
+      "related": [
+        "pdf-toolkit",
+        "verifyxr",
+        "qr-pro-studio"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Is my file uploaded anywhere?",
+            "de": "Wird meine Datei irgendwohin hochgeladen?"
+          },
+          "a": {
+            "en": "No. Everything runs in your browser on your device, so your files never leave it.",
+            "de": "Nein. Alles läuft in deinem Browser auf deinem Gerät, deine Dateien verlassen es nie."
+          }
+        },
+        {
+          "q": {
+            "en": "Will the layout stay the same after converting?",
+            "de": "Bleibt das Layout nach dem Umwandeln gleich?"
+          },
+          "a": {
+            "en": "Text and simple structure (headings, bold, italic, lists, tables) are kept, not the exact page layout. The tool tells you what a conversion cannot keep.",
+            "de": "Text und einfache Struktur (Überschriften, fett, kursiv, Listen, Tabellen) bleiben erhalten, nicht aber das genaue Seitenlayout. Das Tool sagt dir, was eine Umwandlung nicht erhalten kann."
+          }
+        },
+        {
+          "q": {
+            "en": "Which conversions are possible?",
+            "de": "Welche Umwandlungen sind möglich?"
+          },
+          "a": {
+            "en": "Images to PNG, JPG, WebP or PDF; Word, text and Markdown to PDF, Word, HTML or text; PDF to text, Word or images.",
+            "de": "Bilder in PNG, JPG, WebP oder PDF; Word, Text und Markdown in PDF, Word, HTML oder Text; PDF in Text, Word oder Bilder."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I convert many files at once?",
+            "de": "Kann ich viele Dateien auf einmal umwandeln?"
+          },
+          "a": {
+            "en": "Yes, as a premium feature that is free during the launch phase. You download the results as one ZIP.",
+            "de": "Ja, als Premium-Funktion, die in der Startphase kostenlos ist. Die Ergebnisse lädst du als eine ZIP-Datei herunter."
+          }
+        }
+      ]
     },
     "path": "mydashboard/converter/"
   },
@@ -580,7 +906,54 @@
       "description": {
         "en": "Save books, films, series and articles and track what you finished. Stored locally in your browser, no account needed.",
         "de": "Bücher, Filme, Serien und Artikel merken und festhalten, was du fertig hast. Lokal im Browser gespeichert, ohne Konto."
-      }
+      },
+      "related": [
+        "journal",
+        "notes",
+        "checklists"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Where are my entries stored?",
+            "de": "Wo werden meine Einträge gespeichert?"
+          },
+          "a": {
+            "en": "In your browser, on your device. Nothing is uploaded to a server and there is no account. Clearing your browser data removes them, so export a backup now and then.",
+            "de": "In deinem Browser, auf deinem Gerät. Nichts wird auf einen Server hochgeladen und es gibt kein Konto. Wenn du die Browserdaten löschst, sind sie weg, exportiere deshalb ab und zu ein Backup."
+          }
+        },
+        {
+          "q": {
+            "en": "What can I save in the reading list?",
+            "de": "Was kann ich in der Leseliste speichern?"
+          },
+          "a": {
+            "en": "Books, films, series and articles. Mark what you are reading, track your progress, rate what you finished and keep notes.",
+            "de": "Bücher, Filme, Serien und Artikel. Markiere, was du gerade liest, verfolge deinen Fortschritt, bewerte Fertiges und halte Notizen fest."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I see what I finished this year?",
+            "de": "Kann ich sehen, was ich dieses Jahr beendet habe?"
+          },
+          "a": {
+            "en": "Yes. The yearly overview and the archive show everything you completed.",
+            "de": "Ja. Die Jahresübersicht und das Archiv zeigen alles, was du abgeschlossen hast."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I back up my reading list or move it to another device?",
+            "de": "Wie sichere ich meine Leseliste oder nehme sie auf ein anderes Gerät mit?"
+          },
+          "a": {
+            "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+            "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+          }
+        }
+      ]
     },
     "path": "mydashboard/readlist/"
   },
@@ -650,7 +1023,54 @@
       "description": {
         "en": "Write a daily journal with mood, tags, a calendar and Markdown. Stored locally in your browser, no account, no cloud.",
         "de": "Tägliches Tagebuch mit Stimmung, Tags, Kalender und Markdown. Lokal im Browser gespeichert, ohne Konto und Cloud."
-      }
+      },
+      "related": [
+        "notes",
+        "habits",
+        "readlist"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Where are my journal entries stored?",
+            "de": "Wo werden meine Tagebucheinträge gespeichert?"
+          },
+          "a": {
+            "en": "In your browser, on your device. Nothing is uploaded to a server and there is no account. Clearing your browser data removes them, so export a backup now and then.",
+            "de": "In deinem Browser, auf deinem Gerät. Nichts wird auf einen Server hochgeladen und es gibt kein Konto. Wenn du die Browserdaten löschst, sind sie weg, exportiere deshalb ab und zu ein Backup."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I track my mood?",
+            "de": "Kann ich meine Stimmung festhalten?"
+          },
+          "a": {
+            "en": "Yes. Rate your mood on a scale for each entry, add tags and look back in a calendar or with search.",
+            "de": "Ja. Bewerte deine Stimmung bei jedem Eintrag auf einer Skala, füge Tags hinzu und schau im Kalender oder mit der Suche zurück."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I write in Markdown?",
+            "de": "Kann ich in Markdown schreiben?"
+          },
+          "a": {
+            "en": "Yes. Markdown works with a preview, so you can format entries with headings, lists and bold text.",
+            "de": "Ja. Markdown funktioniert mit Vorschau, du kannst Einträge mit Überschriften, Listen und fettem Text formatieren."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I back up my journal or move it to another device?",
+            "de": "Wie sichere ich mein Tagebuch oder nehme sie auf ein anderes Gerät mit?"
+          },
+          "a": {
+            "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+            "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+          }
+        }
+      ]
     },
     "path": "mydashboard/journal/"
   },
@@ -723,7 +1143,53 @@
       "description": {
         "en": "Merge, split, rotate, reorder and compress PDFs. Everything runs in your browser, your files are never uploaded.",
         "de": "PDFs zusammenfügen, teilen, drehen, sortieren und komprimieren. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
-      }
+      },
+      "related": [
+        "converter",
+        "qr-pro-studio"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Is my PDF uploaded anywhere?",
+            "de": "Wird meine PDF-Datei irgendwohin hochgeladen?"
+          },
+          "a": {
+            "en": "No. Everything runs in your browser on your device, so your files never leave it.",
+            "de": "Nein. Alles läuft in deinem Browser auf deinem Gerät, deine Dateien verlassen es nie."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I merge PDF files?",
+            "de": "Wie füge ich PDF-Dateien zusammen?"
+          },
+          "a": {
+            "en": "Add the files, arrange them with the page preview and download the combined PDF.",
+            "de": "Füge die Dateien hinzu, ordne sie mit der Seitenvorschau an und lade das zusammengefügte PDF herunter."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I extract or delete single pages?",
+            "de": "Kann ich einzelne Seiten herausziehen oder löschen?"
+          },
+          "a": {
+            "en": "Yes. Rotate, delete and reorder pages in the preview, or save selected pages or a page range as a new PDF.",
+            "de": "Ja. Drehe, lösche und ordne Seiten in der Vorschau oder speichere ausgewählte Seiten oder einen Seitenbereich als neues PDF."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I make a PDF smaller?",
+            "de": "Kann ich ein PDF verkleinern?"
+          },
+          "a": {
+            "en": "Yes. Compress repacks the file without loss or compresses strongly for scans and photo PDFs. It is a premium feature that is free during the launch phase.",
+            "de": "Ja. Komprimieren packt die Datei verlustfrei neu oder komprimiert stark bei Scans und Foto-PDFs. Es ist eine Premium-Funktion, die in der Startphase kostenlos ist."
+          }
+        }
+      ]
     },
     "path": "mydashboard/pdf-toolkit/"
   },
@@ -800,7 +1266,53 @@
       "description": {
         "en": "Record income and expenses, sort them into categories and see where your money goes each month. Stored in your browser, no account.",
         "de": "Einnahmen und Ausgaben erfassen, in Kategorien ordnen und sehen, wohin dein Geld geht. Im Browser gespeichert, ohne Konto."
-      }
+      },
+      "related": [
+        "abo-tracker",
+        "checklists"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Does it connect to my bank account?",
+            "de": "Verbindet es sich mit meinem Bankkonto?"
+          },
+          "a": {
+            "en": "No. You record income and expenses yourself in a few seconds, so no bank access and no account are needed.",
+            "de": "Nein. Du erfasst Einnahmen und Ausgaben selbst in wenigen Sekunden, deshalb braucht es weder Bankzugang noch ein Konto."
+          }
+        },
+        {
+          "q": {
+            "en": "Where do recurring payments go?",
+            "de": "Wohin gehören wiederkehrende Zahlungen?"
+          },
+          "a": {
+            "en": "Recurring subscriptions belong in the subscription tracker. Expenses is for single bookings.",
+            "de": "Wiederkehrende Abos gehören in den Abo-Tracker. Ausgaben ist für einzelne Buchungen."
+          }
+        },
+        {
+          "q": {
+            "en": "What can I see for each month?",
+            "de": "Was sehe ich pro Monat?"
+          },
+          "a": {
+            "en": "Your income, expenses and balance, grouped by day and sorted into categories, so you can see where the money went.",
+            "de": "Deine Einnahmen, Ausgaben und die Bilanz, nach Tag gruppiert und in Kategorien geordnet, damit du siehst, wohin das Geld geflossen ist."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I back up my bookings or move it to another device?",
+            "de": "Wie sichere ich meine Buchungen oder nehme sie auf ein anderes Gerät mit?"
+          },
+          "a": {
+            "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+            "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+          }
+        }
+      ]
     },
     "path": "mydashboard/expenses/"
   }

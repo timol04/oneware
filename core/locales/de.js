@@ -68,6 +68,8 @@ export default {
   "shell.limit": "Du hast das Gratis-Limit erreicht. Schalte Premium für {price} frei, einmalig.",
   "shell.limitNoPrice": "Du hast das Gratis-Limit erreicht. Mit Premium unbegrenzt nutzen.",
   "shell.about.title": "Über dieses Tool",
+  "shell.about.faq": "Fragen und Antworten",
+  "shell.about.related": "Weitere Tools",
   "shell.about.price": "Preis: {price}, einmalige Zahlung",
   "shell.about.included": "Enthalten, vorerst gratis",
   "shell.premiumLimit": "Gratis-Version: bis zu {limit}. Mehr ist eine Premium-Funktion.",

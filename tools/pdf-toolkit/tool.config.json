@@ -67,6 +67,52 @@
     "description": {
       "en": "Merge, split, rotate, reorder and compress PDFs. Everything runs in your browser, your files are never uploaded.",
       "de": "PDFs zusammenfügen, teilen, drehen, sortieren und komprimieren. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
-    }
+    },
+    "related": [
+      "converter",
+      "qr-pro-studio"
+    ],
+    "faq": [
+      {
+        "q": {
+          "en": "Is my PDF uploaded anywhere?",
+          "de": "Wird meine PDF-Datei irgendwohin hochgeladen?"
+        },
+        "a": {
+          "en": "No. Everything runs in your browser on your device, so your files never leave it.",
+          "de": "Nein. Alles läuft in deinem Browser auf deinem Gerät, deine Dateien verlassen es nie."
+        }
+      },
+      {
+        "q": {
+          "en": "How do I merge PDF files?",
+          "de": "Wie füge ich PDF-Dateien zusammen?"
+        },
+        "a": {
+          "en": "Add the files, arrange them with the page preview and download the combined PDF.",
+          "de": "Füge die Dateien hinzu, ordne sie mit der Seitenvorschau an und lade das zusammengefügte PDF herunter."
+        }
+      },
+      {
+        "q": {
+          "en": "Can I extract or delete single pages?",
+          "de": "Kann ich einzelne Seiten herausziehen oder löschen?"
+        },
+        "a": {
+          "en": "Yes. Rotate, delete and reorder pages in the preview, or save selected pages or a page range as a new PDF.",
+          "de": "Ja. Drehe, lösche und ordne Seiten in der Vorschau oder speichere ausgewählte Seiten oder einen Seitenbereich als neues PDF."
+        }
+      },
+      {
+        "q": {
+          "en": "Can I make a PDF smaller?",
+          "de": "Kann ich ein PDF verkleinern?"
+        },
+        "a": {
+          "en": "Yes. Compress repacks the file without loss or compresses strongly for scans and photo PDFs. It is a premium feature that is free during the launch phase.",
+          "de": "Ja. Komprimieren packt die Datei verlustfrei neu oder komprimiert stark bei Scans und Foto-PDFs. Es ist eine Premium-Funktion, die in der Startphase kostenlos ist."
+        }
+      }
+    ]
   }
 }

@@ -30,7 +30,7 @@ function renderRow(tool) {
   const icon = el('span', 'tool-card__icon');
   icon.append(createIcon(tool.icon, { size: '1.4rem' }));
   const top = el('div', 'tool-card__top');
-  top.append(icon, el('h3', 'tool-card__name', localize(tool.name)));
+  top.append(icon, el('h4', 'tool-card__name', localize(tool.name)));
   const meta = el('div', 'tool-card__meta');
   meta.append(el('span', 'tool-card__price', licensing.enabled ? localize(tool.price) : live ? t('hub.freeNow') : ''), createStatusBadge(live ? 'green' : 'yellow', t(live ? 'hub.live' : 'hub.soon')));
   const body = el('div', 'tool-card__body');

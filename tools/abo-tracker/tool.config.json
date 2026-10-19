@@ -72,6 +72,52 @@
     "description": {
       "en": "Keep track of every subscription: monthly and yearly cost, next charges and price changes. Stored in your browser, no account.",
       "de": "Alle Abos im Blick: Kosten pro Monat und Jahr, nächste Abbuchungen und Preisänderungen. Im Browser gespeichert, ohne Konto."
-    }
+    },
+    "related": [
+      "expenses",
+      "checklists"
+    ],
+    "faq": [
+      {
+        "q": {
+          "en": "Does it connect to my bank account?",
+          "de": "Verbindet es sich mit meinem Bankkonto?"
+        },
+        "a": {
+          "en": "No. You enter your subscriptions yourself, so no bank access and no account are needed.",
+          "de": "Nein. Du trägst deine Abos selbst ein, deshalb braucht es weder Bankzugang noch ein Konto."
+        }
+      },
+      {
+        "q": {
+          "en": "What does the tool show me?",
+          "de": "Was zeigt mir das Tool?"
+        },
+        "a": {
+          "en": "Monthly and yearly totals, the next charges and your categories. You can pause or cancel a subscription and keep its history.",
+          "de": "Summen pro Monat und Jahr, die nächsten Abbuchungen und deine Kategorien. Ein Abo kannst du pausieren oder kündigen und behältst den Verlauf."
+        }
+      },
+      {
+        "q": {
+          "en": "Where do one-off purchases go?",
+          "de": "Wohin gehören einmalige Käufe?"
+        },
+        "a": {
+          "en": "Single bookings belong in Expenses. The subscription tracker is for charges that come back regularly.",
+          "de": "Einzelne Buchungen gehören in Ausgaben. Der Abo-Tracker ist für Abbuchungen, die regelmäßig wiederkommen."
+        }
+      },
+      {
+        "q": {
+          "en": "How do I back up my subscriptions or move it to another device?",
+          "de": "Wie sichere ich meine Abos oder nehme sie auf ein anderes Gerät mit?"
+        },
+        "a": {
+          "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+          "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+        }
+      }
+    ]
   }
 }

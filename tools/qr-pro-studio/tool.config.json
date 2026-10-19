@@ -76,6 +76,52 @@
     "description": {
       "en": "Create QR codes for links, Wi-Fi and contacts. Add colors and a logo, export PNG, SVG or PDF. Runs in your browser, nothing is uploaded.",
       "de": "QR-Codes für Links, WLAN und Kontakte erstellen. Mit Farben und Logo, Export als PNG, SVG oder PDF. Läuft im Browser, nichts wird hochgeladen."
-    }
+    },
+    "related": [
+      "pdf-toolkit",
+      "converter"
+    ],
+    "faq": [
+      {
+        "q": {
+          "en": "Are my links or Wi-Fi passwords uploaded?",
+          "de": "Werden meine Links oder WLAN-Passwörter hochgeladen?"
+        },
+        "a": {
+          "en": "No. The QR code is generated in your browser and nothing is sent to a server.",
+          "de": "Nein. Der QR-Code wird in deinem Browser erzeugt und nichts wird an einen Server gesendet."
+        }
+      },
+      {
+        "q": {
+          "en": "Do my QR codes expire?",
+          "de": "Laufen meine QR-Codes ab?"
+        },
+        "a": {
+          "en": "No. The code contains your content directly and does not go through a redirect service, so it keeps working.",
+          "de": "Nein. Der Code enthält deinen Inhalt direkt und läuft nicht über einen Weiterleitungsdienst, er funktioniert also dauerhaft."
+        }
+      },
+      {
+        "q": {
+          "en": "Which content can a QR code hold?",
+          "de": "Welche Inhalte kann ein QR-Code enthalten?"
+        },
+        "a": {
+          "en": "Links, text, Wi-Fi access, contacts, email, phone numbers, SMS, locations, events and app links.",
+          "de": "Links, Text, WLAN-Zugang, Kontakte, E-Mail, Telefonnummern, SMS, Standorte, Termine und App-Links."
+        }
+      },
+      {
+        "q": {
+          "en": "Which formats can I export?",
+          "de": "Welche Formate kann ich exportieren?"
+        },
+        "a": {
+          "en": "PNG is part of the free features. SVG, PDF and large PNG for print are premium features, free during the launch phase.",
+          "de": "PNG gehört zu den kostenlosen Funktionen. SVG, PDF und großes PNG für den Druck sind Premium-Funktionen, in der Startphase kostenlos."
+        }
+      }
+    ]
   }
 }

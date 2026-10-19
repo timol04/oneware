@@ -63,6 +63,53 @@
     "description": {
       "en": "Quick notes with tags, colors and Markdown preview. Stored locally in your browser: no account, no cloud, no subscription.",
       "de": "Schnelle Notizen mit Tags, Farben und Markdown-Vorschau. Lokal im Browser gespeichert: ohne Konto, ohne Cloud, ohne Abo."
-    }
+    },
+    "related": [
+      "journal",
+      "checklists",
+      "readlist"
+    ],
+    "faq": [
+      {
+        "q": {
+          "en": "Where are my notes stored?",
+          "de": "Wo werden meine Notizen gespeichert?"
+        },
+        "a": {
+          "en": "In your browser, on your device. Nothing is uploaded to a server and there is no account. Clearing your browser data removes them, so export a backup now and then.",
+          "de": "In deinem Browser, auf deinem Gerät. Nichts wird auf einen Server hochgeladen und es gibt kein Konto. Wenn du die Browserdaten löschst, sind sie weg, exportiere deshalb ab und zu ein Backup."
+        }
+      },
+      {
+        "q": {
+          "en": "Can I write notes in Markdown?",
+          "de": "Kann ich Notizen in Markdown schreiben?"
+        },
+        "a": {
+          "en": "Yes. Write headings, lists, bold text and links in Markdown and switch to the preview to see the result.",
+          "de": "Ja. Schreibe Überschriften, Listen, fetten Text und Links in Markdown und wechsle zur Vorschau, um das Ergebnis zu sehen."
+        }
+      },
+      {
+        "q": {
+          "en": "How can I keep my notes organized?",
+          "de": "Wie halte ich meine Notizen geordnet?"
+        },
+        "a": {
+          "en": "Give notes tags and colors, pin the important ones, archive old ones and use search to find anything.",
+          "de": "Gib Notizen Tags und Farben, pinne die wichtigen, archiviere alte und finde alles mit der Suche."
+        }
+      },
+      {
+        "q": {
+          "en": "How do I back up my notes or move it to another device?",
+          "de": "Wie sichere ich meine Notizen oder nehme sie auf ein anderes Gerät mit?"
+        },
+        "a": {
+          "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+          "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+        }
+      }
+    ]
   }
 }

@@ -64,6 +64,53 @@
     "description": {
       "en": "Checklists with sub-items, due dates and repeating tasks. Runs in your browser and stores everything locally. No account needed.",
       "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben. Läuft im Browser, alles bleibt lokal. Ohne Konto."
-    }
+    },
+    "related": [
+      "notes",
+      "habits",
+      "readlist"
+    ],
+    "faq": [
+      {
+        "q": {
+          "en": "Where are my checklists stored?",
+          "de": "Wo werden meine Checklisten gespeichert?"
+        },
+        "a": {
+          "en": "In your browser, on your device. Nothing is uploaded to a server and there is no account. Clearing your browser data removes them, so export a backup now and then.",
+          "de": "In deinem Browser, auf deinem Gerät. Nichts wird auf einen Server hochgeladen und es gibt kein Konto. Wenn du die Browserdaten löschst, sind sie weg, exportiere deshalb ab und zu ein Backup."
+        }
+      },
+      {
+        "q": {
+          "en": "Can I add sub-items to a task?",
+          "de": "Kann ich einer Aufgabe Unterpunkte hinzufügen?"
+        },
+        "a": {
+          "en": "Yes. Break any task into sub-items and the list shows your progress.",
+          "de": "Ja. Unterteile jede Aufgabe in Unterpunkte, die Liste zeigt deinen Fortschritt."
+        }
+      },
+      {
+        "q": {
+          "en": "Can tasks repeat?",
+          "de": "Können sich Aufgaben wiederholen?"
+        },
+        "a": {
+          "en": "Yes. Give a task a repeat schedule and it comes back on its own when it is due again. You can also set due dates.",
+          "de": "Ja. Gib einer Aufgabe einen Wiederholungsplan, dann kommt sie von selbst zurück, wenn sie wieder fällig ist. Fälligkeitsdaten kannst du ebenfalls setzen."
+        }
+      },
+      {
+        "q": {
+          "en": "How do I back up my checklists or move it to another device?",
+          "de": "Wie sichere ich meine Checklisten oder nehme sie auf ein anderes Gerät mit?"
+        },
+        "a": {
+          "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
+          "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+        }
+      }
+    ]
   }
 }

@@ -49,11 +49,13 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
   const name = localize(config.name);
 
   // slugs of other tools (for the "wrong tool" license message); best effort
-  let otherSlugs = [];
+  let registry = [];
   try {
     const res = await fetch(siteUrl('hub/tool-registry.json'));
-    if (res.ok) otherSlugs = (await res.json()).map((x) => x.slug);
+    if (res.ok) registry = await res.json();
   } catch { /* offline or missing */ }
+  const otherSlugs = registry.map((x) => x.slug);
+  document.getElementById('seo-static')?.remove(); // plain-HTML copy for bots without JS; the about section below replaces it
 
   const openLicense = (mode = 'buy') => showLicenseDialog({
     toolSlug: slug, purchaseUrl: config.purchaseUrl, price, mode, otherSlugs, productId: config.lemonSqueezy?.productId,
@@ -252,6 +254,28 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
         cmp.append(col);
       }
       body.append(cmp);
+    }
+    const faq = config.seo?.faq ?? [];
+    if (faq.length) {
+      const sec = el('div', 'ow-faq');
+      sec.append(el('h3', '', t('shell.about.faq')));
+      for (const item of faq) sec.append(el('h4', '', localize(item.q)), el('p', '', localize(item.a)));
+      body.append(sec);
+    }
+    const related = (config.seo?.related ?? []).map((s) => registry.find((x) => x.slug === s)).filter(Boolean);
+    if (related.length) {
+      const sec = el('div', 'ow-faq');
+      sec.append(el('h3', '', t('shell.about.related')));
+      const ul = el('ul');
+      for (const r of related) {
+        const li = el('li');
+        const a = el('a', '', localize(r.name));
+        a.href = siteUrl(`mydashboard/${r.slug}/`);
+        li.append(a, document.createTextNode(`: ${localize(r.shortDescription)}`));
+        ul.append(li);
+      }
+      sec.append(ul);
+      body.append(sec);
     }
     if (hasPremium) body.append(el('p', '', t('shell.about.price', { price })));
     const priv = el('p', 'ow-banner');

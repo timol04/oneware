@@ -68,6 +68,8 @@ export default {
   "shell.limit": "You have reached the free limit. Unlock Premium for {price}, one-time.",
   "shell.limitNoPrice": "You have reached the free limit. Unlock Premium for unlimited use.",
   "shell.about.title": "About this tool",
+  "shell.about.faq": "Questions and answers",
+  "shell.about.related": "More tools",
   "shell.about.price": "Price: {price}, one-time payment",
   "shell.about.included": "Included, free for now",
   "shell.premiumLimit": "Free plan: up to {limit}. More is a Premium feature.",

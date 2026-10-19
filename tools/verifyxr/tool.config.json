@@ -68,6 +68,52 @@
     "description": {
       "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
       "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
-    }
+    },
+    "related": [
+      "converter",
+      "pdf-toolkit"
+    ],
+    "faq": [
+      {
+        "q": {
+          "en": "Is my thesis uploaded anywhere?",
+          "de": "Wird meine Arbeit irgendwohin hochgeladen?"
+        },
+        "a": {
+          "en": "No. Everything runs in your browser on your device, so your files never leave it.",
+          "de": "Nein. Alles läuft in deinem Browser auf deinem Gerät, deine Dateien verlassen es nie."
+        }
+      },
+      {
+        "q": {
+          "en": "What does Verifyxr check?",
+          "de": "Was prüft Verifyxr?"
+        },
+        "a": {
+          "en": "Font, size, line spacing and margins, word and page limits, and with the APA 7 check your citations against the reference list.",
+          "de": "Schrift, Größe, Zeilenabstand und Ränder, Wort- und Seitenlimits und mit der APA-7-Prüfung deine Zitate gegen das Literaturverzeichnis."
+        }
+      },
+      {
+        "q": {
+          "en": "Does it change my original document?",
+          "de": "Verändert es mein Originaldokument?"
+        },
+        "a": {
+          "en": "No. Formatting fixes are made in a corrected copy and your original file stays as it is.",
+          "de": "Nein. Formatierungskorrekturen entstehen in einer korrigierten Kopie, deine Originaldatei bleibt unverändert."
+        }
+      },
+      {
+        "q": {
+          "en": "Which files does it accept?",
+          "de": "Welche Dateien akzeptiert es?"
+        },
+        "a": {
+          "en": "Word documents in the .docx format.",
+          "de": "Word-Dokumente im Format .docx."
+        }
+      }
+    ]
   }
 }
