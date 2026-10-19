@@ -9,6 +9,7 @@
     "de": "Gewohnheiten über die Zeit verfolgen."
   },
   "category": "demo",
+  "kind": "app",
   "status": "live",
   "icon": "check",
   "preview": "habits",

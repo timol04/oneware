@@ -8,8 +8,8 @@
  * Folders starting with "_" (e.g. _demo) are skipped unless INCLUDE_DEMO=1 is set.
  *
  * tool.config.json fields
- *   required: slug name shortDescription category status icon price hasPremium
- *   optional: kind(app|utility, default app) preview(list|ledger|habits|links) purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores today
+ *   required: slug name shortDescription category status icon price hasPremium kind(app|utility)
+ *   optional: preview(list|ledger|habits|links) purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores today
  *   name / shortDescription / price / about / features entries: string (English) or { en, de, ... }
  */
 import { readdir, readFile, writeFile, cp, rm } from 'node:fs/promises';
@@ -61,7 +61,7 @@ for (const entry of await readdir(toolsDir, { withFileTypes: true })) {
     if (typeof cfg[k] === 'object' && cfg[k] && !cfg[k].en) fail(`"${k}" needs an "en" entry`);
     if (typeof cfg[k] === 'object' && cfg[k]) for (const l of LANGS) if (!cfg[k][l]) warnings.push(`${entry.name}: "${k}" has no "${l}" translation`);
   }
-  if (cfg.kind && !KINDS.includes(cfg.kind)) fail(`kind must be ${KINDS.join(' or ')}`);
+  if (!KINDS.includes(cfg.kind)) fail(`kind is required and must be ${KINDS.join(" or ")}`);
   if (cfg.preview && !PREVIEW_KINDS.includes(cfg.preview)) fail(`preview must be one of ${PREVIEW_KINDS.join(', ')}`);
   if (cfg.accent && !(hex.test(cfg.accent.light) && hex.test(cfg.accent.dark))) fail('accent needs { "light": "#rrggbb", "dark": "#rrggbb" }');
   for (const k of ['free', 'premium']) if (cfg.features?.[k] && !Array.isArray(cfg.features[k])) fail(`features.${k} must be an array`);
@@ -114,12 +114,12 @@ const icon = (name) => `<svg class="ow-icon" viewBox="0 0 24 24" width="1.4rem" 
 function row(tool) {
   const live = tool.status === 'live';
   const style = tool.accent ? ` style="--accent-l:${tool.accent.light};--accent-d:${tool.accent.dark}"` : '';
-  const inner = `<span class="tool-card__preview">${previewHtml(tool.preview)}</span>`
-    + '<span class="tool-card__body">'
-    + `<span class="tool-card__top"><span class="tool-card__icon">${icon(tool.icon)}</span><h3 class="tool-card__name">${esc(text(tool.name))}</h3></span>`
+  const inner = `<div class="tool-card__preview">${previewHtml(tool.preview)}</div>`
+    + '<div class="tool-card__body">'
+    + `<div class="tool-card__top"><span class="tool-card__icon">${icon(tool.icon)}</span><h3 class="tool-card__name">${esc(text(tool.name))}</h3></div>`
     + `<p class="tool-card__desc">${esc(text(tool.shortDescription))}</p>`
-    + `<span class="tool-card__meta"><span class="tool-card__price">${esc(licensing.enabled ? text(tool.price) : live ? en['hub.freeNow'] : '')}</span>`
-    + `<span class="ow-status ow-status--${live ? 'green' : 'yellow'}">${esc(live ? en['hub.live'] : en['hub.soon'])}</span></span></span>`;
+    + `<div class="tool-card__meta"><span class="tool-card__price">${esc(licensing.enabled ? text(tool.price) : live ? en['hub.freeNow'] : '')}</span>`
+    + `<span class="ow-status ow-status--${live ? 'green' : 'yellow'}">${esc(live ? en['hub.live'] : en['hub.soon'])}</span></div></div>`;
   return `        <li class="tool-card${live ? '' : ' tool-card--soon'}" data-category="${esc(tool.category)}"${style}>`
     + (live ? `<a class="tool-card__link" href="${esc(tool.path)}">${inner}</a>` : `<div class="tool-card__link">${inner}</div>`) + '</li>';
 }

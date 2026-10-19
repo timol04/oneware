@@ -129,6 +129,7 @@
       "de": "Ausgaben festhalten, ohne Konto."
     },
     "category": "demo",
+    "kind": "app",
     "status": "live",
     "icon": "wallet",
     "preview": "ledger",
@@ -176,6 +177,7 @@
       "de": "Gewohnheiten über die Zeit verfolgen."
     },
     "category": "demo",
+    "kind": "app",
     "status": "live",
     "icon": "check",
     "preview": "habits",
@@ -483,6 +485,7 @@
       "de": "Links sammeln und wiederfinden."
     },
     "category": "demo",
+    "kind": "app",
     "status": "coming-soon",
     "icon": "bookmark",
     "preview": "links",

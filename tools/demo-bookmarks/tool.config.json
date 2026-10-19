@@ -9,6 +9,7 @@
     "de": "Links sammeln und wiederfinden."
   },
   "category": "demo",
+  "kind": "app",
   "status": "coming-soon",
   "icon": "bookmark",
   "preview": "links",

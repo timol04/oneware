@@ -6,6 +6,7 @@
     "de": "Zeigt Lizenz, Speicherung und UI der Core-Bibliothek."
   },
   "category": "demo",
+  "kind": "app",
   "status": "live",
   "icon": "flask",
   "price": "CHF 0.-",

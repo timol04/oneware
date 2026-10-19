@@ -155,19 +155,19 @@ function toolRow({ tool, live, count, premium }) {
   setup(li, tool);
   const link = el(live && !editing ? 'a' : 'div', 'tool-card__link');
   if (live && !editing) link.href = siteUrl(tool.path);
-  const preview = el('span', 'tool-card__preview');
+  const preview = el('div', 'tool-card__preview');
   preview.innerHTML = previewHtml(tool.preview); // static markup from preview.js, no user data
   const icon = el('span', 'tool-card__icon');
   icon.append(createIcon(tool.icon, { size: '1.4rem' }));
-  const top = el('span', 'tool-card__top');
+  const top = el('div', 'tool-card__top');
   top.append(icon, el('h3', 'tool-card__name', localize(tool.name)));
-  const meta = el('span', 'tool-card__meta');
+  const meta = el('div', 'tool-card__meta');
   if (!live) meta.append(createStatusBadge('yellow', t('dash.soon')));
   else {
     meta.append(el('span', 'ow-muted', tool.stores !== false ? (count === 1 ? t('dash.entriesOne') : t('dash.entries', { count })) : ''));
     meta.append(tool.hasPremium && licensing.enabled ? createStatusBadge(premium ? 'green' : 'yellow', t(premium ? 'dash.premium' : 'dash.free')) : '');
   }
-  const body = el('span', 'tool-card__body');
+  const body = el('div', 'tool-card__body');
   body.append(top, el('p', 'tool-card__desc', localize(tool.shortDescription)), meta);
   if (editing) {
     const b = button(t(on ? 'dash.remove' : 'dash.add'), () => setOn(tool.slug, !on), on ? 'ow-btn ow-btn--secondary dash__cta' : 'ow-btn dash__cta');

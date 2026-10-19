@@ -9,6 +9,7 @@
     "de": "Ausgaben festhalten, ohne Konto."
   },
   "category": "demo",
+  "kind": "app",
   "status": "live",
   "icon": "wallet",
   "preview": "ledger",
