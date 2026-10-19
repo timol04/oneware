@@ -1,4 +1,4 @@
-/* VerifyXR: layout and controls on top of the shared tokens (core/ui-components.css). */
+/* Verifyxr: layout and controls on top of the shared tokens (core/ui-components.css). */
 :root[data-theme="dark"] { --accent-ink: #14081a; }
 
 [hidden] { display: none !important; }

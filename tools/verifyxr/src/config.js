@@ -1,4 +1,4 @@
-// Central settings for VerifyXR.
+// Central settings for Verifyxr.
 
 // Which features are Premium. They are marked with the Premium badge today and gated once licensing is
 // switched on (core/site-config.js). Change a value here to move a feature between Free and Premium.
