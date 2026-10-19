@@ -1,0 +1,59 @@
+{
+  "slug": "verifyxr",
+  "name": "VerifyXR",
+  "shortDescription": {
+    "en": "Check a thesis document against its format requirements.",
+    "de": "Abschlussarbeit auf Formatvorgaben und Zitierweise prüfen."
+  },
+  "category": "study",
+  "kind": "utility",
+  "status": "live",
+  "icon": "file-check",
+  "preview": "check",
+  "price": {
+    "en": "Price to follow",
+    "de": "Preis folgt"
+  },
+  "order": 60,
+  "accent": {
+    "light": "#7a3a85",
+    "dark": "#b97fc4"
+  },
+  "hasPremium": true,
+  "stores": false,
+  "about": {
+    "en": "Check a Word document against your thesis requirements before you hand it in: font, size, line spacing, margins, word and page count, and APA 7 citations against the reference list. Everything runs in your browser; your file is never uploaded.",
+    "de": "Ein Word-Dokument vor der Abgabe gegen die Vorgaben deiner Arbeit prüfen: Schrift, Grösse, Zeilenabstand, Ränder, Wort- und Seitenzahl sowie APA-7-Zitate gegen das Literaturverzeichnis. Alles läuft in deinem Browser; deine Datei wird nie hochgeladen."
+  },
+  "features": {
+    "free": [
+      {
+        "en": "Font, size, line spacing and margins",
+        "de": "Schrift, Grösse, Zeilenabstand und Ränder"
+      },
+      {
+        "en": "Word and page limits",
+        "de": "Wort- und Seitengrenzen"
+      },
+      {
+        "en": "Presets and custom requirements",
+        "de": "Vorlagen und eigene Vorgaben"
+      },
+      {
+        "en": "Plain-language fixes for every finding",
+        "de": "Verständliche Lösungshinweise zu jedem Befund"
+      }
+    ],
+    "premium": [
+      {
+        "en": "APA 7: citations against the reference list, DOI, italics and title case",
+        "de": "APA 7: Zitate gegen das Literaturverzeichnis, DOI, Kursivschrift und Titelschreibweise"
+      },
+      {
+        "en": "Check several files at once",
+        "de": "Mehrere Dateien auf einmal prüfen"
+      }
+    ]
+  },
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}

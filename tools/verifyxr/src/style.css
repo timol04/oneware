@@ -1,0 +1,116 @@
+/* VerifyXR: layout and controls on top of the shared tokens (core/ui-components.css). */
+:root[data-theme="dark"] { --accent-ink: #14081a; }
+
+[hidden] { display: none !important; }
+.vx { display: flex; flex-direction: column; gap: var(--s-5); }
+.vx__controls, .vx__output { display: grid; gap: var(--s-5); align-content: start; }
+.vx__panel { padding: var(--s-5); border-top: 3px solid var(--accent); }
+@media (min-width: 1100px) {
+  .vx { display: grid; }
+  .vx__output { position: sticky; top: var(--s-5); }
+}
+.vx .ow-card__title { display: flex; align-items: center; gap: var(--s-2); }
+.vx .ow-card__title::before { content: ""; width: .3rem; height: 1.1em; border-radius: 2px; background: var(--accent); }
+
+/* Drop zone */
+.vx-drop {
+  display: grid; justify-items: center; gap: var(--s-2); text-align: center; cursor: pointer;
+  padding: var(--s-6) var(--s-4); border: 1.5px dashed var(--border); border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg));
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.vx-drop:hover, .vx-drop.is-over, .vx-drop:focus-within { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+.vx-drop__icon { color: var(--accent); display: inline-flex; }
+.vx-drop__files { font-size: var(--fs-small); color: var(--text); word-break: break-word; }
+.vx-privacy { margin: var(--s-3) 0 0; }
+#drop-note { margin: var(--s-3) 0 0; }
+
+/* Rules */
+.vx-row { display: grid; grid-template-columns: 6.5rem 1fr; gap: var(--s-2) var(--s-4); align-items: start; padding: var(--s-3) 0; border-top: 1px solid var(--border); }
+.vx-row--first { border-top: 0; padding-top: 0; }
+.vx-row__label { font-weight: 600; font-size: var(--fs-small); color: var(--accent); padding-top: .35em; display: inline-flex; align-items: center; gap: var(--s-2); }
+.vx-stack { display: grid; gap: var(--s-3); }
+.vx-stack .ow-row { margin-bottom: 0; }
+.vx-stack .ow-select, .vx-stack .ow-input { flex: 1 1 10rem; width: auto; }
+@media (max-width: 720px) { .vx-row { grid-template-columns: 1fr; } }
+.vx-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.vx-chip {
+  padding: .4em .85em; border: 1px solid var(--border); border-radius: var(--radius);
+  background: transparent; color: var(--text); font: inherit; font-size: var(--fs-small); cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.vx-chip:hover { border-color: var(--accent); color: var(--accent); }
+.vx-chip[aria-checked="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.vx-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.vx-summary { margin: 0 0 var(--s-3); padding-top: var(--s-3); border-top: 1px solid var(--border); font-size: var(--fs-small); color: var(--text-muted); }
+.vx-advanced { border-top: 1px solid var(--border); padding-top: var(--s-3); }
+.vx-advanced summary { cursor: pointer; font-weight: 600; font-size: var(--fs-small); color: var(--accent); margin-bottom: var(--s-3); }
+.vx-grid { display: grid; gap: var(--s-3); margin-bottom: var(--s-3); }
+.vx-grid--3 { grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); }
+.vx-grid--4 { grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr)); }
+.vx-fieldset { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s-3) var(--s-4) 0; margin: 0 0 var(--s-3); }
+.vx-fieldset legend { padding: 0 var(--s-2); font-size: var(--fs-small); color: var(--text-muted); }
+.vx-check { display: flex; align-items: center; gap: var(--s-2); font-size: var(--fs-small); }
+.vx-check input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
+.ow-input:focus-visible, .ow-select:focus-visible { border-color: var(--accent); }
+
+/* Report */
+.vx-empty { margin: 0; padding: var(--s-6) 0; text-align: center; }
+.vx-file { margin: 0 0 var(--s-1); font-weight: 600; word-break: break-word; }
+.vx-meta { margin: 0 0 var(--s-4); font-size: var(--fs-small); color: var(--text-muted); }
+.vx-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-3); margin-bottom: var(--s-4); }
+.vx-tile { display: grid; gap: 2px; padding: var(--s-3); border: 1px solid var(--border); border-radius: var(--radius); }
+.vx-tile strong { font-size: 1.6rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.vx-tile span { font-size: var(--fs-small); color: var(--text-muted); }
+.vx-tile.ok strong { color: var(--success); }
+.vx-tile.warn strong { color: var(--warning); }
+.vx-tile.fail strong { color: var(--danger); }
+.vx-verdict { margin: 0 0 var(--s-4); }
+.vx-group { display: flex; align-items: center; gap: var(--s-3); margin: var(--s-5) 0 var(--s-2); font-size: var(--fs-small); text-transform: uppercase; letter-spacing: .06em; color: var(--accent); }
+.vx-group .ow-premium { margin-left: var(--s-2); }
+.vx-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
+.vx-item { display: grid; grid-template-columns: 1.5rem 1fr; gap: 0 var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid var(--border); }
+.vx-item .mark { width: 1.4rem; height: 1.4rem; margin-top: .1rem; }
+.vx-item.ok .mark { color: var(--success); }
+.vx-item.warn .mark { color: var(--warning); }
+.vx-item.fail .mark { color: var(--danger); }
+.vx-item.skip .mark { color: var(--text-muted); }
+.vx-item h3 { margin: 0; font-size: 1rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--s-2); }
+.vx-item .state { font-size: var(--fs-small); font-weight: 400; color: var(--text-muted); }
+.vx-item p { margin: 2px 0 0; font-size: var(--fs-small); color: var(--text-muted); }
+.vx-item > :not(.mark):not(h3) { grid-column: 2; }
+.vx-item details { margin-top: var(--s-2); }
+.vx-item summary { cursor: pointer; font-size: var(--fs-small); color: var(--accent); }
+.vx-findings { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.vx-findings li { padding: var(--s-2) var(--s-3); border-left: 3px solid var(--danger); background: color-mix(in srgb, var(--text) 4%, var(--bg)); border-radius: 0 var(--radius) var(--radius) 0; font-size: var(--fs-small); }
+.vx-findings li.hint { border-left-color: var(--warning); }
+.vx-findings .sev { font-weight: 600; margin-right: var(--s-1); }
+.vx-findings .where { font-weight: 600; word-break: break-word; }
+.vx-findings .vals { display: block; color: var(--text-muted); }
+.vx-fix { margin-top: var(--s-2); font-size: var(--fs-small); }
+.vx-fix strong { color: var(--text); }
+.vx-locked { padding: var(--s-4); border: 1px dashed var(--border); border-radius: var(--radius); }
+.vx-locked h3 { margin: 0 0 var(--s-1); font-size: 1rem; display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
+.vx-locked p { margin: 0 0 var(--s-3); font-size: var(--fs-small); color: var(--text-muted); }
+.vx-error { padding: var(--s-4); border: 1px solid var(--danger); border-radius: var(--radius); }
+.vx-error h3 { margin: 0 0 var(--s-1); font-size: 1rem; color: var(--danger); }
+.vx-error p { margin: 0; font-size: var(--fs-small); }
+.vx-table { width: 100%; border-collapse: collapse; margin-bottom: var(--s-4); font-size: var(--fs-small); }
+.vx-table th, .vx-table td { padding: var(--s-2); border-bottom: 1px solid var(--border); text-align: right; }
+.vx-table th:first-child, .vx-table td:first-child { text-align: left; word-break: break-word; }
+.vx-table td.ok { color: var(--success); } .vx-table td.warn { color: var(--warning); } .vx-table td.fail { color: var(--danger); }
+.vx-batch { border-top: 1px solid var(--border); padding: var(--s-3) 0; }
+.vx-batch > summary { cursor: pointer; font-weight: 600; word-break: break-word; }
+.vx-actions { margin-top: var(--s-4); }
+.vx-actions .ow-btn { flex: 1 1 12rem; }
+#print:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Print: only the report */
+@media print {
+  .ow-toolhead, .ow-skip, .ow-notices, .ow-usage, .ow-sitefoot, .ow-about, .vx__controls, .vx-actions, .vx-locked { display: none !important; }
+  .vx { display: block; }
+  .vx__output { position: static; }
+  .vx__panel, .ow-card { border: 0; padding: 0; box-shadow: none; }
+  details { display: block; }
+  details > * { display: revert; }
+}

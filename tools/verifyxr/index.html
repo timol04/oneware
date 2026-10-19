@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>VerifyXR – oneware</title>
+  <meta name="description" content="Check a Word document against your thesis requirements: font, spacing, margins, length and APA 7 citations. Everything runs in your browser.">
+  <meta property="og:title" content="VerifyXR – oneware">
+  <meta property="og:description" content="Check a Word document against your thesis requirements: font, spacing, margins, length and APA 7 citations. Everything runs in your browser.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div class="ow-split vx">
+      <div class="vx__controls">
+        <section class="ow-card ow-workspace vx__panel" aria-labelledby="h-doc">
+          <h2 class="ow-card__title" id="h-doc" data-i18n="vx.document">Document</h2>
+          <label id="drop" class="vx-drop" for="file">
+            <span id="drop-icon" class="vx-drop__icon" aria-hidden="true"></span>
+            <strong data-i18n="drop.title">Drop a Word file here</strong>
+            <span class="ow-muted" data-i18n="drop.sub">.docx, or click to choose a file</span>
+            <span id="file-names" class="vx-drop__files"></span>
+          </label>
+          <input type="file" id="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple hidden>
+          <p id="privacy" class="ow-usage vx-privacy"></p>
+          <p id="drop-note" class="ow-status ow-status--yellow" role="status" hidden></p>
+        </section>
+
+        <section class="ow-card ow-workspace vx__panel" aria-labelledby="h-rules">
+          <h2 class="ow-card__title" id="h-rules" data-i18n="vx.rules">Requirements</h2>
+          <div class="vx-row vx-row--first">
+            <span class="vx-row__label" data-i18n="rules.preset">Preset</span>
+            <div id="presets" class="vx-chips" role="radiogroup" data-i18n-attr="aria-label:rules.preset"></div>
+          </div>
+          <div class="vx-row" id="profile-row">
+            <span class="vx-row__label" data-i18n="rules.profiles">Saved</span>
+            <div class="vx-stack">
+              <div class="ow-row">
+                <select id="profile-select" class="ow-select" data-i18n-attr="aria-label:rules.profiles"></select>
+                <button type="button" id="profile-delete" class="ow-btn ow-btn--link ow-btn--small" data-i18n="rules.delete" hidden>Delete</button>
+              </div>
+              <div class="ow-row">
+                <input id="profile-name" class="ow-input" maxlength="60" autocomplete="off" data-i18n-attr="placeholder:rules.namePh;aria-label:rules.namePh">
+                <button type="button" id="profile-save" class="ow-btn ow-btn--secondary ow-btn--small" data-i18n="rules.save">Save current</button>
+              </div>
+            </div>
+          </div>
+          <p id="rules-summary" class="vx-summary"></p>
+          <details class="vx-advanced">
+            <summary data-i18n="rules.adjust">Adjust requirements</summary>
+            <div class="vx-grid vx-grid--3">
+              <div class="ow-field"><label class="ow-label" for="r-font" data-i18n="rules.font">Font</label><input id="r-font" class="ow-input" autocomplete="off"></div>
+              <div class="ow-field"><label class="ow-label" for="r-size" data-i18n="rules.size">Size (pt)</label><input id="r-size" class="ow-input" type="number" step="0.5" min="1"></div>
+              <div class="ow-field"><label class="ow-label" for="r-spacing" data-i18n="rules.spacing">Line spacing</label><input id="r-spacing" class="ow-input" type="number" step="0.05" min="0.5"></div>
+            </div>
+            <fieldset class="vx-fieldset">
+              <legend data-i18n="rules.margins">Margins (cm)</legend>
+              <div class="vx-grid vx-grid--4">
+                <div class="ow-field"><label class="ow-label" for="r-top" data-i18n="field.top">Top</label><input id="r-top" class="ow-input" type="number" step="0.1" min="0"></div>
+                <div class="ow-field"><label class="ow-label" for="r-bottom" data-i18n="field.bottom">Bottom</label><input id="r-bottom" class="ow-input" type="number" step="0.1" min="0"></div>
+                <div class="ow-field"><label class="ow-label" for="r-left" data-i18n="field.left">Left</label><input id="r-left" class="ow-input" type="number" step="0.1" min="0"></div>
+                <div class="ow-field"><label class="ow-label" for="r-right" data-i18n="field.right">Right</label><input id="r-right" class="ow-input" type="number" step="0.1" min="0"></div>
+              </div>
+            </fieldset>
+            <fieldset class="vx-fieldset">
+              <legend data-i18n="rules.length">Length (empty = no limit)</legend>
+              <div class="vx-grid vx-grid--4">
+                <div class="ow-field"><label class="ow-label" for="r-minWords" data-i18n="rules.minWords">Words min.</label><input id="r-minWords" class="ow-input" type="number" min="0"></div>
+                <div class="ow-field"><label class="ow-label" for="r-maxWords" data-i18n="rules.maxWords">Words max.</label><input id="r-maxWords" class="ow-input" type="number" min="0"></div>
+                <div class="ow-field"><label class="ow-label" for="r-minPages" data-i18n="rules.minPages">Pages min.</label><input id="r-minPages" class="ow-input" type="number" min="0"></div>
+                <div class="ow-field"><label class="ow-label" for="r-maxPages" data-i18n="rules.maxPages">Pages max.</label><input id="r-maxPages" class="ow-input" type="number" min="0"></div>
+              </div>
+            </fieldset>
+            <label class="vx-check"><input id="r-ignore" type="checkbox" checked><span data-i18n="rules.ignore">Skip headings, tables of contents and captions</span></label>
+          </details>
+        </section>
+      </div>
+
+      <div class="vx__output">
+        <section class="ow-card ow-workspace vx__panel" aria-labelledby="h-report">
+          <h2 class="ow-card__title" id="h-report" data-i18n="vx.report">Report</h2>
+          <p id="empty" class="vx-empty ow-muted" data-i18n="report.empty">Choose a document. The result appears here.</p>
+          <div id="report" aria-live="polite"></div>
+          <div class="ow-row vx-actions" id="actions" hidden>
+            <button type="button" id="print" class="ow-btn ow-btn--secondary" data-i18n="report.print">Save report as PDF</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
