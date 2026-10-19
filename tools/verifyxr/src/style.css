@@ -51,6 +51,10 @@
 .vx-fieldset { border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s-3) var(--s-4) 0; margin: 0 0 var(--s-3); }
 .vx-fieldset legend { padding: 0 var(--s-2); font-size: var(--fs-small); color: var(--text-muted); }
 .vx-check { display: flex; align-items: center; gap: var(--s-2); font-size: var(--fs-small); }
+.vx-check { align-items: flex-start; }
+.vx-check input { flex: none; margin-top: .15rem; }
+.vx-check .ow-premium { margin-left: var(--s-2); }
+.vx-desc { margin: 0; font-size: var(--fs-small); color: var(--text-muted); }
 .vx-check input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
 .ow-input:focus-visible, .ow-select:focus-visible { border-color: var(--accent); }
 
@@ -67,7 +71,6 @@
 .vx-tile.fail strong { color: var(--danger); }
 .vx-verdict { margin: 0 0 var(--s-4); }
 .vx-group { display: flex; align-items: center; gap: var(--s-3); margin: var(--s-5) 0 var(--s-2); font-size: var(--fs-small); text-transform: uppercase; letter-spacing: .06em; color: var(--accent); }
-.vx-group .ow-premium { margin-left: var(--s-2); }
 .vx-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
 .vx-item { display: grid; grid-template-columns: 1.5rem 1fr; gap: 0 var(--s-3); padding: var(--s-3) 0; border-bottom: 1px solid var(--border); }
 .vx-item .mark { width: 1.4rem; height: 1.4rem; margin-top: .1rem; }
@@ -89,9 +92,6 @@
 .vx-findings .vals { display: block; color: var(--text-muted); }
 .vx-fix { margin-top: var(--s-2); font-size: var(--fs-small); }
 .vx-fix strong { color: var(--text); }
-.vx-locked { padding: var(--s-4); border: 1px dashed var(--border); border-radius: var(--radius); }
-.vx-locked h3 { margin: 0 0 var(--s-1); font-size: 1rem; display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
-.vx-locked p { margin: 0 0 var(--s-3); font-size: var(--fs-small); color: var(--text-muted); }
 .vx-error { padding: var(--s-4); border: 1px solid var(--danger); border-radius: var(--radius); }
 .vx-error h3 { margin: 0 0 var(--s-1); font-size: 1rem; color: var(--danger); }
 .vx-error p { margin: 0; font-size: var(--fs-small); }
@@ -114,7 +114,7 @@
 
 /* Print: only the report */
 @media print {
-  .ow-toolhead, .ow-skip, .ow-notices, .ow-usage, .ow-sitefoot, .ow-about, .vx__controls, .vx-actions, .vx-locked, .vx-fixbar { display: none !important; }
+  .ow-toolhead, .ow-skip, .ow-notices, .ow-usage, .ow-sitefoot, .ow-about, .vx__controls, .vx-actions, .vx-fixbar { display: none !important; }
   .vx { display: block; }
   .vx__output { position: static; }
   .vx__panel, .ow-card { border: 0; padding: 0; box-shadow: none; }

@@ -2,7 +2,7 @@ export default {
   'vx.document': 'Document',
   'vx.rules': 'Requirements',
   'vx.report': 'Report',
-  'usage.free': 'Free: font, size, spacing, margins and length checks. APA 7, fixing the formatting and checking several files are Premium.',
+  'usage.free': 'Free: font, size, spacing, margins and length checks. The APA 7 check, fixing the formatting and checking several files are Premium.',
 
   'drop.title': 'Drop a Word file here',
   'drop.sub': '.docx, or click to choose a file',
@@ -99,9 +99,9 @@ export default {
   'rep.overview.one': 'Overview ({n} file)',
   'rep.overview.other': 'Overview ({n} files)',
   'rep.file': 'File',
-  'apa.lockedTitle': 'APA 7 consistency',
-  'apa.lockedText': 'Matches the citations in your text with the reference list and checks DOI, italics and title case.',
-  'apa.unlock': 'Unlock Premium',
+  'rules.checks': 'Extra check',
+  'apa.label': 'Check APA 7 citations and references',
+  'apa.desc': 'Compares the citations in your text with the reference list: every citation needs a matching entry (author and year), every entry should be cited, and "et al." is used correctly. It also checks the entries: journal titles in italics, sentence case for article titles and DOIs as links. Needs a heading such as "References" or "Literaturverzeichnis". Detection is approximate, so some findings are only notes.',
 
   'where.document': 'Document',
   'where.page': 'Page {page}, "{text}"',

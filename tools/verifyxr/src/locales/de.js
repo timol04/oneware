@@ -2,7 +2,7 @@ export default {
   'vx.document': 'Dokument',
   'vx.rules': 'Vorgaben',
   'vx.report': 'Prüfbericht',
-  'usage.free': 'Gratis: Prüfung von Schrift, Grösse, Abstand, Rändern und Umfang. APA 7, das Beheben des Formats und mehrere Dateien auf einmal sind Premium.',
+  'usage.free': 'Gratis: Prüfung von Schrift, Grösse, Abstand, Rändern und Umfang. Die APA-7-Prüfung, das Beheben des Formats und mehrere Dateien auf einmal sind Premium.',
 
   'drop.title': 'Word-Datei hier ablegen',
   'drop.sub': '.docx, oder klicken, um eine Datei zu wählen',
@@ -99,9 +99,9 @@ export default {
   'rep.overview.one': 'Übersicht ({n} Datei)',
   'rep.overview.other': 'Übersicht ({n} Dateien)',
   'rep.file': 'Datei',
-  'apa.lockedTitle': 'APA-7-Konsistenz',
-  'apa.lockedText': 'Gleicht die Zitate im Text mit dem Literaturverzeichnis ab und prüft DOI, Kursivschrift und Titelschreibweise.',
-  'apa.unlock': 'Premium freischalten',
+  'rules.checks': 'Zusatzprüfung',
+  'apa.label': 'APA-7-Zitate und Literaturverzeichnis prüfen',
+  'apa.desc': 'Gleicht die Zitate im Text mit dem Literaturverzeichnis ab: Jedes Zitat braucht einen passenden Eintrag (Autor und Jahr), jeder Eintrag sollte zitiert sein, und «et al.» wird richtig verwendet. Geprüft wird auch die Form der Einträge: Zeitschriftentitel kursiv, Satzschreibweise bei Artikeltiteln und DOI als Link. Braucht eine Überschrift wie «Literaturverzeichnis» oder «References». Die Erkennung ist eine Näherung, manche Befunde sind deshalb nur Hinweise.',
 
   'where.document': 'Dokument',
   'where.page': 'Seite {page}, «{text}»',

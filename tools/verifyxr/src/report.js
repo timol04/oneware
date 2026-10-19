@@ -62,9 +62,8 @@ const tile = (cls, n, label) => `<div class="vx-tile ${cls}"><strong>${n}</stron
 /**
  * One full report.
  * @param entry { name, doc, result, apa|null, error? }
- * @param opts  { apaLocked, apaBadge } apaLocked: show the locked APA block; apaBadge: HTML of the Premium badge
  */
-export function reportHtml(entry, { apaLocked, apaBadge = '' }) {
+export function reportHtml(entry) {
   if (entry.error) return `<div class="vx-error" role="alert"><h3>${esc(t('rep.errorTitle', { name: entry.name }))}</h3><p>${esc(t(entry.error))}</p></div>`;
   const { doc, result, apa } = entry;
   const all = apa ? [...result.criteria, ...apa] : result.criteria;
@@ -82,20 +81,17 @@ export function reportHtml(entry, { apaLocked, apaBadge = '' }) {
     ${entry.fixable ? `<div class="vx-fixbar"><p>${esc(t('fix.text'))}</p><button type="button" class="ow-btn" data-fix="${entry.index}">${esc(t('fix.button'))}</button></div>` : ''}
     <h3 class="vx-group">${esc(t('rep.groupFormat'))}</h3>
     <ul class="vx-list">${result.criteria.map(criterionHtml).join('')}</ul>
-    ${apa ? `<h3 class="vx-group">${esc(t('rep.groupApa'))}${apaBadge}</h3><ul class="vx-list">${apa.map(criterionHtml).join('')}</ul>`
-      : apaLocked ? `<h3 class="vx-group">${esc(t('rep.groupApa'))}${apaBadge}</h3>
-        <div class="vx-locked"><h3>${esc(t('apa.lockedTitle'))}</h3><p>${esc(t('apa.lockedText'))}</p>
-        <button type="button" class="ow-btn ow-btn--secondary ow-btn--small" data-unlock>${esc(t('apa.unlock'))}</button></div>` : ''}`;
+    ${apa ? `<h3 class="vx-group">${esc(t('rep.groupApa'))}</h3><ul class="vx-list">${apa.map(criterionHtml).join('')}</ul>` : ''}`;
 }
 
 /** Several files: overview table plus one collapsible report per file. */
-export function batchHtml(entries, opts) {
+export function batchHtml(entries) {
   const rows = entries.map((e) => {
     if (e.error) return `<tr><td>${esc(e.name)}</td><td colspan="3">${esc(t(e.error))}</td></tr>`;
     const c = countStatuses(e.apa ? [...e.result.criteria, ...e.apa] : e.result.criteria);
     return `<tr><td>${esc(e.name)}</td><td class="ok">${c.ok}</td><td class="warn">${c.warn}</td><td class="fail">${c.fail}</td></tr>`;
   }).join('');
-  const sections = entries.map((e, i) => `<details class="vx-batch"${i === 0 ? ' open' : ''}><summary>${esc(e.name)}</summary>${reportHtml(e, opts)}</details>`).join('');
+  const sections = entries.map((e, i) => `<details class="vx-batch"${i === 0 ? ' open' : ''}><summary>${esc(e.name)}</summary>${reportHtml(e)}</details>`).join('');
   return `<h3 class="vx-group">${esc(tn('rep.overview', entries.length))}</h3>
     <table class="vx-table"><thead><tr><th>${esc(t('rep.file'))}</th><th>${esc(t('rep.passed'))}</th><th>${esc(t('rep.hinted'))}</th><th>${esc(t('rep.failed'))}</th></tr></thead><tbody>${rows}</tbody></table>
     ${sections}`;

@@ -28,6 +28,8 @@ const locked = (feature) => PREMIUM_FEATURES[feature] && !isPremium();
 
 let entries = [];          // [{ name, doc }] or [{ name, error }]
 let selection = DEFAULT_PRESET; // preset id, or "profile:<name>"
+const APA_KEY = 'verifyxr:apa';
+let apaOn = (() => { try { return localStorage.getItem(APA_KEY) === '1'; } catch { return false; } })();
 
 // ---------- Requirements form ----------
 const FIELDS = {
@@ -144,7 +146,7 @@ const FIXABLE = ['font', 'size', 'spacing', 'margins'];
 
 function compute(entry) {
   if (entry.error) return entry;
-  const apa = PREMIUM_FEATURES.apa && !isPremium() ? null : checkApa(entry.doc);
+  const apa = apaOn && !locked('apa') ? checkApa(entry.doc) : null;
   const result = checkDocument(entry.doc, readRules());
   const fixable = result.criteria.some((c) => FIXABLE.includes(c.id) && (c.status === 'warn' || c.status === 'fail'));
   return { ...entry, result, apa, fixable };
@@ -157,19 +159,11 @@ function render() {
   $('actions').hidden = !has || entries.every((e) => e.error);
   if (!has) { box.innerHTML = ''; return; }
   const computed = entries.map((e, i) => ({ ...compute(e), index: i }));
-  const apaLocked = !!PREMIUM_FEATURES.apa && !isPremium();
-  const opts = { apaLocked, apaBadge: apaLocked || PREMIUM_FEATURES.apa ? '<span data-badge-slot></span>' : '' };
-  box.innerHTML = computed.length === 1 ? reportHtml(computed[0], opts) : batchHtml(computed, opts);
-  box.querySelectorAll('[data-badge-slot]').forEach((slot) => {
-    const host = slot.parentElement;
-    slot.remove();
-    markPremium(host, SLUG, { compact: false });
-  });
+  box.innerHTML = computed.length === 1 ? reportHtml(computed[0]) : batchHtml(computed);
   box.querySelectorAll('[data-fix]').forEach((b) => {
     if (PREMIUM_FEATURES.fix) markPremium(b.parentElement.querySelector('p'), SLUG);
     b.addEventListener('click', () => fix(entries[Number(b.dataset.fix)], b));
   });
-  box.querySelectorAll('[data-unlock]').forEach((b) => b.addEventListener('click', () => shell.openLicense('buy')));
   const printBtn = $('print');
   printBtn.classList.toggle('is-locked', !!locked('pdf'));
   if (PREMIUM_FEATURES.pdf) markPremium(printBtn, SLUG, { compact: true });
@@ -202,9 +196,18 @@ async function fix(entry, button) {
   }
 }
 
+// ---------- APA option ----------
+function renderApa() {
+  $('r-apa').checked = apaOn && !locked('apa');
+  const text = $('r-apa').nextElementSibling;
+  text.querySelector('.ow-premium')?.remove();
+  if (PREMIUM_FEATURES.apa) markPremium(text, SLUG);
+}
+
 // ---------- Premium state ----------
 function onLicense() {
   renderProfiles();
+  renderApa();
   if (entries.length) render();
   syncUsage();
 }
@@ -250,6 +253,12 @@ $('rules-summary').closest('section').addEventListener('input', (e) => {
   if (selection !== '') { selection = ''; renderPresets(); renderProfiles(); }
   afterRulesChange();
 });
+$('r-apa').addEventListener('change', (e) => {
+  if (e.target.checked && locked('apa')) { e.target.checked = false; shell.openLicense('buy'); return; }
+  apaOn = e.target.checked;
+  try { localStorage.setItem(APA_KEY, apaOn ? '1' : '0'); } catch { /* storage unavailable */ }
+  render();
+});
 $('file').addEventListener('change', (e) => { handleFiles(e.target.files); e.target.value = ''; });
 const drop = $('drop');
 ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('is-over'); }));
@@ -269,6 +278,7 @@ function renderAll() {
   drop.tabIndex = 0;
   renderPresets();
   renderProfiles();
+  renderApa();
   $('rules-summary').textContent = summaryText();
   syncUsage();
   render();
