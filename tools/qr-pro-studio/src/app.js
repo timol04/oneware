@@ -353,7 +353,7 @@ function syncLocks() {
   document.querySelectorAll('.qr-chip[data-format], #csv-btn').forEach((b) => {
     b.classList.toggle('is-locked', !premium && !FREE_FORMATS.includes(b.dataset.format ?? ''));
   });
-  document.querySelectorAll('.qr-swatch[data-gradient]').forEach((b) => b.classList.toggle('is-locked', !premium));
+  document.querySelectorAll('.qr-swatch[data-gradient]').forEach((b) => { markPremium(b, SLUG, { compact: true }); b.classList.toggle('is-locked', !premium); });
   shell.setUsage(premium ? '' : t('usage.free'));
 }
 function onLicense() {

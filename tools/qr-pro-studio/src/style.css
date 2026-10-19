@@ -83,7 +83,7 @@
 .ow-input:focus-visible, .ow-textarea:focus-visible, .ow-select:focus-visible { border-color: var(--accent); }
 .qr-lock { display: none !important; } /* replaced by the shared Premium badge */
 
-/* Gradient swatches are Premium: a small accent dot marks them */
+/* Gradient swatches are Premium: the star badge sits on the corner of the swatch */
 .qr-swatch { position: relative; }
-.qr-swatch[data-gradient]::after { content: ""; position: absolute; right: -2px; top: -2px; width: .55rem; height: .55rem; border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); }
-.qr-swatch.is-locked { opacity: .8; }
+.qr-swatch .ow-premium { position: absolute; right: -.45rem; top: -.45rem; margin: 0; padding: .2em; background: var(--surface); }
+.qr-swatch.is-locked { opacity: .85; }
