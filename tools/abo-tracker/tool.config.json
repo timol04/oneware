@@ -63,5 +63,15 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "Subscription tracker, private and offline – Oneware",
+      "de": "Abo-Tracker, privat und lokal – Oneware"
+    },
+    "description": {
+      "en": "Keep track of every subscription: monthly and yearly cost, next charges and price changes. Stored in your browser, no account.",
+      "de": "Alle Abos im Blick: Kosten pro Monat und Jahr, nächste Abbuchungen und Preisänderungen. Im Browser gespeichert, ohne Konto."
+    }
+  }
 }

@@ -9,7 +9,7 @@
  *
  * tool.config.json fields
  *   required: slug name shortDescription category status icon price hasPremium kind(app|utility)
- *   optional: preview(list|ledger|habits|links) purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores today
+ *   optional: seo{title,description} preview(list|ledger|habits|links) purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores today
  *   name / shortDescription / price / about / features entries: string (English) or { en, de, ... }
  */
 import { readdir, readFile, writeFile, cp, rm } from 'node:fs/promises';
@@ -21,6 +21,7 @@ import { LOCALES } from '../core/locales/index.js';
 import { previewHtml, PREVIEW_KINDS } from '../hub/src/preview.js';
 import { licensing } from '../core/site-config.js';
 import { KINDS, groupTools } from '../hub/src/groups.js';
+import { injectToolSeo, sitemapXml } from './seo.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const toolsDir = path.join(root, 'tools');
@@ -61,6 +62,10 @@ for (const entry of await readdir(toolsDir, { withFileTypes: true })) {
     if (typeof cfg[k] === 'object' && cfg[k] && !cfg[k].en) fail(`"${k}" needs an "en" entry`);
     if (typeof cfg[k] === 'object' && cfg[k]) for (const l of LANGS) if (!cfg[k][l]) warnings.push(`${entry.name}: "${k}" has no "${l}" translation`);
   }
+  if (cfg.seo) for (const k of ['title', 'description']) {
+    if (typeof cfg.seo[k] === 'object' && cfg.seo[k] && !cfg.seo[k].en) fail(`"seo.${k}" needs an "en" entry`);
+    if (typeof cfg.seo[k] === 'object' && cfg.seo[k]) for (const l of LANGS) if (!cfg.seo[k][l]) warnings.push(`${entry.name}: "seo.${k}" has no "${l}" translation`);
+  } else if (cfg.status === 'live') warnings.push(`${entry.name}: no "seo" block (title and description are derived from name and about)`);
   if (!KINDS.includes(cfg.kind)) fail(`kind is required and must be ${KINDS.join(" or ")}`);
   if (cfg.preview && !PREVIEW_KINDS.includes(cfg.preview)) fail(`preview must be one of ${PREVIEW_KINDS.join(', ')}`);
   if (cfg.accent && !(hex.test(cfg.accent.light) && hex.test(cfg.accent.dark))) fail('accent needs { "light": "#rrggbb", "dark": "#rrggbb" }');
@@ -105,8 +110,12 @@ for (const tool of tools) {
   const dest = path.join(root, tool.path);
   await rm(dest, { recursive: true, force: true });
   await cp(src, dest, { recursive: true });
+  const page = path.join(dest, 'index.html');
+  await writeFile(page, injectToolSeo(await readFile(page, 'utf8'), tool, { free: !licensing.enabled }));
   if (publish) await writeFile(path.join(src, 'index.html'), redirect(tool.slug));
 }
+
+await writeFile(path.join(root, 'sitemap.xml'), sitemapXml(tools));
 
 // ---- pre-rendered catalog (English), so the list works without JavaScript ----
 const en = LOCALES.en;

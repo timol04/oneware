@@ -58,5 +58,15 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "Document converter: PDF, Word, text, images – Oneware",
+      "de": "Dokumente umwandeln: PDF, Word, Text, Bilder – Oneware"
+    },
+    "description": {
+      "en": "Convert PDF, Word, text, Markdown and images into other formats. Runs entirely in your browser, your files are never uploaded.",
+      "de": "PDF, Word, Text, Markdown und Bilder in andere Formate umwandeln. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
+    }
+  }
 }

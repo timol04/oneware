@@ -54,5 +54,15 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "Reading list for books, films and series – Oneware",
+      "de": "Leseliste für Bücher, Filme und Serien – Oneware"
+    },
+    "description": {
+      "en": "Save books, films, series and articles and track what you finished. Stored locally in your browser, no account needed.",
+      "de": "Bücher, Filme, Serien und Artikel merken und festhalten, was du fertig hast. Lokal im Browser gespeichert, ohne Konto."
+    }
+  }
 }

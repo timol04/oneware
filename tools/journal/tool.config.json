@@ -40,5 +40,15 @@
       { "en": "Unlimited entries", "de": "Unbegrenzt viele Einträge" }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "Daily journal with mood and calendar, private – Oneware",
+      "de": "Tagebuch mit Stimmung und Kalender, privat – Oneware"
+    },
+    "description": {
+      "en": "Write a daily journal with mood, tags, a calendar and Markdown. Stored locally in your browser, no account, no cloud.",
+      "de": "Tägliches Tagebuch mit Stimmung, Tags, Kalender und Markdown. Lokal im Browser gespeichert, ohne Konto und Cloud."
+    }
+  }
 }

@@ -55,5 +55,15 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "Checklist app with sub-items and due dates – Oneware",
+      "de": "Checklisten-App mit Unterpunkten und Fristen – Oneware"
+    },
+    "description": {
+      "en": "Checklists with sub-items, due dates and repeating tasks. Runs in your browser and stores everything locally. No account needed.",
+      "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben. Läuft im Browser, alles bleibt lokal. Ohne Konto."
+    }
+  }
 }

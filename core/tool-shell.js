@@ -193,7 +193,10 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
   function render() {
     backLabel();
     title.replaceChildren(createIcon(config.icon, { size: '1.25rem' }), el('span', '', name));
-    document.title = `${name} – oneware`;
+    document.title = localize(config.seo?.title) || `${name} – oneware`;
+    const seoDesc = localize(config.seo?.description);
+    if (seoDesc) for (const sel of ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]']) document.head.querySelector(sel)?.setAttribute('content', seoDesc);
+    for (const sel of ['meta[property="og:title"]', 'meta[name="twitter:title"]']) document.head.querySelector(sel)?.setAttribute('content', document.title);
     menuBtn.title = t('shell.menu.label');
     menuBtn.setAttribute('aria-label', t('shell.menu.label'));
     const premium = isPremiumUnlocked(slug);

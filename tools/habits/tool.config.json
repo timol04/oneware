@@ -55,5 +55,15 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "Habit tracker with streaks, no account – Oneware",
+      "de": "Habit-Tracker mit Streaks, ohne Konto – Oneware"
+    },
+    "description": {
+      "en": "Track daily habits and weekly goals with streaks, a calendar and statistics. Stored locally in your browser, no account, no subscription.",
+      "de": "Gewohnheiten und Wochenziele verfolgen, mit Streaks, Kalender und Statistik. Lokal im Browser gespeichert, ohne Konto und Abo."
+    }
+  }
 }

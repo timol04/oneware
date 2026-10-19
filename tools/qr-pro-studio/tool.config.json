@@ -67,5 +67,15 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "QR code generator with logo and colors – Oneware",
+      "de": "QR-Code-Generator mit Logo und Farben – Oneware"
+    },
+    "description": {
+      "en": "Create QR codes for links, Wi-Fi and contacts. Add colors and a logo, export PNG, SVG or PDF. Runs in your browser, nothing is uploaded.",
+      "de": "QR-Codes für Links, WLAN und Kontakte erstellen. Mit Farben und Logo, Export als PNG, SVG oder PDF. Läuft im Browser, nichts wird hochgeladen."
+    }
+  }
 }

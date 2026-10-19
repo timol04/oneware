@@ -54,5 +54,15 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "Notes app in your browser, no account – Oneware",
+      "de": "Notizen-App im Browser, ohne Konto – Oneware"
+    },
+    "description": {
+      "en": "Quick notes with tags, colors and Markdown preview. Stored locally in your browser: no account, no cloud, no subscription.",
+      "de": "Schnelle Notizen mit Tags, Farben und Markdown-Vorschau. Lokal im Browser gespeichert: ohne Konto, ohne Cloud, ohne Abo."
+    }
+  }
 }

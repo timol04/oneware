@@ -56,6 +56,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "Notes app in your browser, no account – Oneware",
+        "de": "Notizen-App im Browser, ohne Konto – Oneware"
+      },
+      "description": {
+        "en": "Quick notes with tags, colors and Markdown preview. Stored locally in your browser: no account, no cloud, no subscription.",
+        "de": "Schnelle Notizen mit Tags, Farben und Markdown-Vorschau. Lokal im Browser gespeichert: ohne Konto, ohne Cloud, ohne Abo."
+      }
+    },
     "path": "mydashboard/notes/"
   },
   {
@@ -116,6 +126,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "Checklist app with sub-items and due dates – Oneware",
+        "de": "Checklisten-App mit Unterpunkten und Fristen – Oneware"
+      },
+      "description": {
+        "en": "Checklists with sub-items, due dates and repeating tasks. Runs in your browser and stores everything locally. No account needed.",
+        "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben. Läuft im Browser, alles bleibt lokal. Ohne Konto."
+      }
+    },
     "path": "mydashboard/checklists/"
   },
   {
@@ -176,6 +196,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "Habit tracker with streaks, no account – Oneware",
+        "de": "Habit-Tracker mit Streaks, ohne Konto – Oneware"
+      },
+      "description": {
+        "en": "Track daily habits and weekly goals with streaks, a calendar and statistics. Stored locally in your browser, no account, no subscription.",
+        "de": "Gewohnheiten und Wochenziele verfolgen, mit Streaks, Kalender und Statistik. Lokal im Browser gespeichert, ohne Konto und Abo."
+      }
+    },
     "path": "mydashboard/habits/"
   },
   {
@@ -248,6 +278,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "QR code generator with logo and colors – Oneware",
+        "de": "QR-Code-Generator mit Logo und Farben – Oneware"
+      },
+      "description": {
+        "en": "Create QR codes for links, Wi-Fi and contacts. Add colors and a logo, export PNG, SVG or PDF. Runs in your browser, nothing is uploaded.",
+        "de": "QR-Codes für Links, WLAN und Kontakte erstellen. Mit Farben und Logo, Export als PNG, SVG oder PDF. Läuft im Browser, nichts wird hochgeladen."
+      }
+    },
     "path": "mydashboard/qr-pro-studio/"
   },
   {
@@ -316,6 +356,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "Subscription tracker, private and offline – Oneware",
+        "de": "Abo-Tracker, privat und lokal – Oneware"
+      },
+      "description": {
+        "en": "Keep track of every subscription: monthly and yearly cost, next charges and price changes. Stored in your browser, no account.",
+        "de": "Alle Abos im Blick: Kosten pro Monat und Jahr, nächste Abbuchungen und Preisänderungen. Im Browser gespeichert, ohne Konto."
+      }
+    },
     "path": "mydashboard/abo-tracker/"
   },
   {
@@ -380,6 +430,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "Thesis format checker for Word documents – Oneware",
+        "de": "Formatprüfung für Abschlussarbeiten (Word) – Oneware"
+      },
+      "description": {
+        "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
+        "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
+      }
+    },
     "path": "mydashboard/verifyxr/"
   },
   {
@@ -443,6 +503,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "Document converter: PDF, Word, text, images – Oneware",
+        "de": "Dokumente umwandeln: PDF, Word, Text, Bilder – Oneware"
+      },
+      "description": {
+        "en": "Convert PDF, Word, text, Markdown and images into other formats. Runs entirely in your browser, your files are never uploaded.",
+        "de": "PDF, Word, Text, Markdown und Bilder in andere Formate umwandeln. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
+      }
+    },
     "path": "mydashboard/converter/"
   },
   {
@@ -502,6 +572,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "Reading list for books, films and series – Oneware",
+        "de": "Leseliste für Bücher, Filme und Serien – Oneware"
+      },
+      "description": {
+        "en": "Save books, films, series and articles and track what you finished. Stored locally in your browser, no account needed.",
+        "de": "Bücher, Filme, Serien und Artikel merken und festhalten, was du fertig hast. Lokal im Browser gespeichert, ohne Konto."
+      }
+    },
     "path": "mydashboard/readlist/"
   },
   {
@@ -562,6 +642,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "Daily journal with mood and calendar, private – Oneware",
+        "de": "Tagebuch mit Stimmung und Kalender, privat – Oneware"
+      },
+      "description": {
+        "en": "Write a daily journal with mood, tags, a calendar and Markdown. Stored locally in your browser, no account, no cloud.",
+        "de": "Tägliches Tagebuch mit Stimmung, Tags, Kalender und Markdown. Lokal im Browser gespeichert, ohne Konto und Cloud."
+      }
+    },
     "path": "mydashboard/journal/"
   },
   {
@@ -625,6 +715,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "PDF tools in your browser: merge, split, compress – Oneware",
+        "de": "PDF-Tools im Browser: zusammenfügen, teilen – Oneware"
+      },
+      "description": {
+        "en": "Merge, split, rotate, reorder and compress PDFs. Everything runs in your browser, your files are never uploaded.",
+        "de": "PDFs zusammenfügen, teilen, drehen, sortieren und komprimieren. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
+      }
+    },
     "path": "mydashboard/pdf-toolkit/"
   },
   {
@@ -692,6 +792,16 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "seo": {
+      "title": {
+        "en": "Expense tracker, private and offline – Oneware",
+        "de": "Haushaltsbuch, privat und lokal – Oneware"
+      },
+      "description": {
+        "en": "Record income and expenses, sort them into categories and see where your money goes each month. Stored in your browser, no account.",
+        "de": "Einnahmen und Ausgaben erfassen, in Kategorien ordnen und sehen, wohin dein Geld geht. Im Browser gespeichert, ohne Konto."
+      }
+    },
     "path": "mydashboard/expenses/"
   }
 ]

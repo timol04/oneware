@@ -58,5 +58,15 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "PDF tools in your browser: merge, split, compress – Oneware",
+      "de": "PDF-Tools im Browser: zusammenfügen, teilen – Oneware"
+    },
+    "description": {
+      "en": "Merge, split, rotate, reorder and compress PDFs. Everything runs in your browser, your files are never uploaded.",
+      "de": "PDFs zusammenfügen, teilen, drehen, sortieren und komprimieren. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
+    }
+  }
 }

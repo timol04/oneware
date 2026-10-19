@@ -22,6 +22,8 @@ jobs:
         with:
           node-version: 22
       - run: npm run build-registry -- --publish
+      - name: Keep demo pages out of the public site
+        run: rm -rf tools/_demo core/test
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

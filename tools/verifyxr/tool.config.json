@@ -59,5 +59,15 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "Thesis format checker for Word documents – Oneware",
+      "de": "Formatprüfung für Abschlussarbeiten (Word) – Oneware"
+    },
+    "description": {
+      "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
+      "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
+    }
+  }
 }

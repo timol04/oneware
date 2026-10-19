@@ -41,5 +41,15 @@
       { "en": "Spending by category over the year", "de": "Ausgaben nach Kategorie über das Jahr" }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "seo": {
+    "title": {
+      "en": "Expense tracker, private and offline – Oneware",
+      "de": "Haushaltsbuch, privat und lokal – Oneware"
+    },
+    "description": {
+      "en": "Record income and expenses, sort them into categories and see where your money goes each month. Stored in your browser, no account.",
+      "de": "Einnahmen und Ausgaben erfassen, in Kategorien ordnen und sehen, wohin dein Geld geht. Im Browser gespeichert, ohne Konto."
+    }
+  }
 }
