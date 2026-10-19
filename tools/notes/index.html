@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>Notes – oneware</title>
+  <meta name="description" content="Quick notes with tags, colors and Markdown. Stored in your browser, no account.">
+  <meta property="og:title" content="Notes – oneware">
+  <meta property="og:description" content="Quick notes with tags, colors and Markdown. Stored in your browser, no account.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div id="app" class="ow-split nt">
+      <section class="ow-card ow-workspace nt__side" aria-labelledby="h-list">
+        <h2 class="ow-sr-only" id="h-list" data-i18n="nt.list">Notes</h2>
+        <div class="nt-top">
+          <label class="nt-search">
+            <span class="ow-sr-only" data-i18n="nt.search">Search notes</span>
+            <input id="search" class="ow-input" type="search" autocomplete="off" data-i18n-attr="placeholder:nt.search">
+          </label>
+          <button type="button" id="new" class="ow-btn"></button>
+        </div>
+        <div id="views" class="nt-chips" role="group" data-i18n-attr="aria-label:nt.views"></div>
+        <div id="tags" class="nt-chips" role="group" data-i18n-attr="aria-label:nt.tags"></div>
+        <ul id="list" class="nt-list"></ul>
+        <p id="empty" class="nt-empty ow-muted" hidden></p>
+      </section>
+
+      <section class="ow-card ow-workspace nt__editor" id="editor" aria-labelledby="h-editor">
+        <h2 class="ow-sr-only" id="h-editor" data-i18n="nt.editor">Editor</h2>
+        <p id="placeholder" class="nt-empty ow-muted" data-i18n="nt.pick">Pick a note or create a new one.</p>
+        <div id="form" hidden>
+          <div class="nt-bar">
+            <button type="button" id="back" class="ow-btn ow-btn--secondary ow-btn--small nt-back"></button>
+            <div class="nt-bar__tools">
+              <button type="button" id="pin" class="ow-iconbtn nt-tool" aria-pressed="false"></button>
+              <button type="button" id="archive" class="ow-iconbtn nt-tool"></button>
+              <button type="button" id="delete" class="ow-iconbtn nt-tool"></button>
+            </div>
+          </div>
+          <input id="title" class="nt-title" maxlength="120" autocomplete="off" data-i18n-attr="placeholder:nt.titlePh;aria-label:nt.titlePh">
+          <div id="colors" class="nt-colors" role="group" data-i18n-attr="aria-label:nt.color"></div>
+          <div class="nt-tagbox">
+            <ul id="note-tags" class="nt-chips"></ul>
+            <input id="tag-input" class="nt-taginput" maxlength="24" autocomplete="off" list="tag-suggestions" data-i18n-attr="placeholder:nt.tagPh;aria-label:nt.tagPh">
+            <datalist id="tag-suggestions"></datalist>
+          </div>
+          <div id="modes" class="nt-chips" role="group" data-i18n-attr="aria-label:nt.mode"></div>
+          <textarea id="body" class="nt-body" spellcheck="true" data-i18n-attr="placeholder:nt.bodyPh;aria-label:nt.bodyPh"></textarea>
+          <div id="preview" class="nt-md" hidden></div>
+          <p id="meta" class="ow-usage"></p>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

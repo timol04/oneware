@@ -11,9 +11,6 @@ const feat = {
   premium: [{ en: 'Unlimited entries', de: 'Unbegrenzt viele Einträge' }],
 };
 const tools = [
-  { slug: 'demo-notes', preview: 'list', icon: 'note', price: 'CHF 3.-', order: 10, accent: { light: '#2433e8', dark: '#93a0ff' },
-    name: { en: 'Demo: Notes', de: 'Demo: Notizen' }, desc: { en: 'Quick notes, stored locally.', de: 'Schnelle Notizen, lokal gespeichert.' },
-    en: { heading: 'Notes', ph: 'New note' }, de: { heading: 'Notizen', ph: 'Neue Notiz' } },
   { slug: 'demo-expenses', preview: 'ledger', icon: 'wallet', price: 'CHF 5.-', order: 20, accent: { light: '#d9480f', dark: '#f0a07a' },
     name: { en: 'Demo: Expenses', de: 'Demo: Ausgaben' }, desc: { en: 'Log expenses without an account.', de: 'Ausgaben festhalten, ohne Konto.' },
     en: { heading: 'Expenses', ph: 'Expense (e.g. coffee 4.50)' }, de: { heading: 'Ausgaben', ph: 'Ausgabe (z. B. Kaffee 4.50)' } },

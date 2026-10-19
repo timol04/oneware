@@ -1,35 +1,47 @@
 [
   {
-    "slug": "demo-notes",
+    "slug": "notes",
     "name": {
-      "en": "Demo: Notes",
-      "de": "Demo: Notizen"
+      "en": "Notes",
+      "de": "Notizen"
     },
     "shortDescription": {
-      "en": "Quick notes, stored locally.",
-      "de": "Schnelle Notizen, lokal gespeichert."
+      "en": "Quick notes with tags and colors.",
+      "de": "Schnelle Notizen mit Tags und Farben."
     },
-    "category": "demo",
+    "category": "notes",
+    "kind": "app",
     "status": "live",
     "icon": "note",
     "preview": "list",
-    "price": "CHF 3.-",
+    "price": {
+      "en": "Price to follow",
+      "de": "Preis folgt"
+    },
     "order": 10,
     "accent": {
-      "light": "#2433e8",
-      "dark": "#93a0ff"
+      "light": "#b45309",
+      "dark": "#e0a458"
     },
     "hasPremium": true,
     "stores": true,
     "about": {
-      "en": "Quick notes, stored locally. A demo tool that shows how a tool looks inside the shared frame.",
-      "de": "Schnelle Notizen, lokal gespeichert. Ein Demo-Tool, das zeigt, wie ein Tool im gemeinsamen Rahmen aussieht."
+      "en": "Capture quick notes, sort them with tags and colors, pin what matters and write in Markdown with a preview. Everything stays in your browser.",
+      "de": "Schnelle Notizen festhalten, mit Tags und Farben ordnen, Wichtiges anpinnen und in Markdown mit Vorschau schreiben. Alles bleibt in deinem Browser."
     },
     "features": {
       "free": [
         {
-          "en": "Up to 3 entries",
-          "de": "Bis zu 3 Einträge"
+          "en": "Up to 20 notes with all features",
+          "de": "Bis zu 20 Notizen mit allen Funktionen"
+        },
+        {
+          "en": "Tags, colors, pinning, archive and search",
+          "de": "Tags, Farben, Anpinnen, Archiv und Suche"
+        },
+        {
+          "en": "Markdown with preview",
+          "de": "Markdown mit Vorschau"
         },
         {
           "en": "Backup export and import",
@@ -38,13 +50,13 @@
       ],
       "premium": [
         {
-          "en": "Unlimited entries",
-          "de": "Unbegrenzt viele Einträge"
+          "en": "Unlimited notes",
+          "de": "Unbegrenzt viele Notizen"
         }
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
-    "path": "mydashboard/demo-notes/"
+    "path": "mydashboard/notes/"
   },
   {
     "slug": "demo-expenses",

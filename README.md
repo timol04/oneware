@@ -110,7 +110,7 @@ Two modes, chosen per tool:
   - Not verified in this repo: that the license endpoints answer browser requests (CORS) and the exact error texts. Test one real purchase (Lemon Squeezy test mode) before launch.
 - **Offline (demo tools, tests): checksum keys** `XXXX-XXXX-XXXX-XXXX`. Generate one with
   ```
-  node -e "import('./core/license.js').then(m => console.log(m.generateLicenseKey('demo-notes')))"
+  node -e "import('./core/license.js').then(m => console.log(m.generateLicenseKey('demo-expenses')))"
   ```
   This check runs in the browser and is not copy protection.
 

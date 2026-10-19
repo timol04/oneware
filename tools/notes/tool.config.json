@@ -1,0 +1,58 @@
+{
+  "slug": "notes",
+  "name": {
+    "en": "Notes",
+    "de": "Notizen"
+  },
+  "shortDescription": {
+    "en": "Quick notes with tags and colors.",
+    "de": "Schnelle Notizen mit Tags und Farben."
+  },
+  "category": "notes",
+  "kind": "app",
+  "status": "live",
+  "icon": "note",
+  "preview": "list",
+  "price": {
+    "en": "Price to follow",
+    "de": "Preis folgt"
+  },
+  "order": 10,
+  "accent": {
+    "light": "#b45309",
+    "dark": "#e0a458"
+  },
+  "hasPremium": true,
+  "stores": true,
+  "about": {
+    "en": "Capture quick notes, sort them with tags and colors, pin what matters and write in Markdown with a preview. Everything stays in your browser.",
+    "de": "Schnelle Notizen festhalten, mit Tags und Farben ordnen, Wichtiges anpinnen und in Markdown mit Vorschau schreiben. Alles bleibt in deinem Browser."
+  },
+  "features": {
+    "free": [
+      {
+        "en": "Up to 20 notes with all features",
+        "de": "Bis zu 20 Notizen mit allen Funktionen"
+      },
+      {
+        "en": "Tags, colors, pinning, archive and search",
+        "de": "Tags, Farben, Anpinnen, Archiv und Suche"
+      },
+      {
+        "en": "Markdown with preview",
+        "de": "Markdown mit Vorschau"
+      },
+      {
+        "en": "Backup export and import",
+        "de": "Backup-Export und -Import"
+      }
+    ],
+    "premium": [
+      {
+        "en": "Unlimited notes",
+        "de": "Unbegrenzt viele Notizen"
+      }
+    ]
+  },
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}
