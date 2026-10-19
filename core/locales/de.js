@@ -224,7 +224,7 @@ export default {
   "legal.imprint.title": "Impressum – Oneware",
   "legal.imprint.h1": "Impressum",
   "legal.imprint.p1": "Anbieter: Oneware, Einzelunternehmen (Schweiz)",
-  "legal.imprint.p2": "Postadresse: auf Anfrage per E-Mail",
+  "legal.imprint.p2": "Postadresse: in Bearbeitung, bis dahin auf Anfrage per E-Mail",
   "legal.imprint.p3": "Kontakt: oneware.contact@gmail.com",
   "legal.draft": "Angaben nach Art. 3 Abs. 1 lit. s UWG.",
   "legal.privacy.title": "Datenschutz – Oneware",
