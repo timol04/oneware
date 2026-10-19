@@ -27,7 +27,7 @@ let query = '';
 let saving = 0;
 let saveTimer;
 let deleteTimer;
-const open = new Set(); // item ids with expanded details
+const collapsed = new Set(); // item ids whose details are folded away (details are open by default)
 
 const selected = () => lists.find((l) => l.id === selectedId) ?? null;
 const premium = () => isPremiumUnlocked(SLUG);
@@ -184,7 +184,7 @@ function renderItem(item, index, total) {
     chip.append(createIcon('repeat', { size: '.8rem' }), t(`cl.repeat.${item.repeat}`));
     row.append(chip);
   }
-  const isOpen = open.has(item.id);
+  const isOpen = !collapsed.has(item.id);
   row.append(iconAction('more', 'more', t('cl.item.more'), { 'aria-expanded': String(isOpen) }));
   li.append(row);
 
@@ -339,7 +339,7 @@ $('items').addEventListener('click', (e) => {
   if (check) {
     if (sub) toggleSub(item, sub.id); else toggleItem(item);
   } else if (act === 'more') {
-    if (open.has(item.id)) open.delete(item.id); else open.add(item.id);
+    if (collapsed.has(item.id)) collapsed.delete(item.id); else collapsed.add(item.id);
   } else if (act === 'add-sub') {
     const s = newSubItem('');
     item.sub.push(s);
@@ -352,7 +352,7 @@ $('items').addEventListener('click', (e) => {
     item.sub = item.sub.filter((s) => s.id !== sub.id);
   } else if (act === 'remove') {
     list.items = list.items.filter((i) => i !== item);
-    open.delete(item.id);
+    collapsed.delete(item.id);
   } else if (act === 'up' || act === 'down') {
     moveItem(list.items, list.items.indexOf(item), act === 'up' ? -1 : 1);
   } else return;

@@ -10,8 +10,9 @@ export function newList(now = Date.now()) {
   return { title: '', items: [], pinned: false, archived: false, created: now, updated: now };
 }
 
-export function newItem(text = '') {
-  return { id: newId(), text, done: false, due: null, repeat: null, sub: [] };
+/** New items are due today and do not repeat. */
+export function newItem(text = '', today = isoDate()) {
+  return { id: newId(), text, done: false, due: today, repeat: null, sub: [] };
 }
 
 export const newSubItem = (text = '') => ({ id: newId(), text, done: false });
