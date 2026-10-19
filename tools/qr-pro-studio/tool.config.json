@@ -1,0 +1,24 @@
+{
+  "slug": "qr-pro-studio",
+  "name": "QR Pro Studio",
+  "shortDescription": {
+    "en": "Design and export QR codes.",
+    "de": "QR-Codes gestalten und exportieren."
+  },
+  "category": "utility",
+  "kind": "utility",
+  "status": "coming-soon",
+  "icon": "grid",
+  "preview": "qr",
+  "price": {
+    "en": "Price to follow",
+    "de": "Preis folgt"
+  },
+  "order": 50,
+  "accent": {
+    "light": "#0e7490",
+    "dark": "#67c4d9"
+  },
+  "hasPremium": true,
+  "stores": false
+}

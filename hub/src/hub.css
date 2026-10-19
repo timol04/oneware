@@ -84,3 +84,7 @@ a.tool-card__link:focus-visible { outline: 2px solid var(--accent); outline-offs
 .group__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-4); margin-bottom: var(--s-4); }
 .group__title { margin: 0; font-size: var(--fs-h3); }
 .group__desc { margin: 0; color: var(--text-muted); font-size: var(--fs-small); }
+.pv-qrwrap { display: flex; justify-content: center; padding: .5rem 0; border-top: 1px solid var(--border); }
+.pv-qr { display: grid; grid-template-columns: repeat(7, .5rem); gap: 2px; }
+.pv-q { width: .5rem; height: .5rem; border-radius: 2px; background: transparent; }
+.pv-q.is-on { background: var(--accent); }
