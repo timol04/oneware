@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>Journal – oneware</title>
+  <meta name="description" content="Daily journal with mood, tags, calendar and Markdown. Stored in your browser, no account.">
+  <meta property="og:title" content="Journal – oneware">
+  <meta property="og:description" content="Daily journal with mood, tags, calendar and Markdown. Stored in your browser, no account.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div id="app" class="ow-split jr">
+      <section class="ow-card ow-workspace jr__side" aria-labelledby="h-list">
+        <h2 class="ow-sr-only" id="h-list" data-i18n="jr.list">Entries</h2>
+        <div class="jr-top">
+          <label class="jr-search">
+            <span class="ow-sr-only" data-i18n="jr.search">Search entries</span>
+            <input id="search" class="ow-input" type="search" autocomplete="off" data-i18n-attr="placeholder:jr.search">
+          </label>
+          <button type="button" id="new" class="ow-btn"></button>
+        </div>
+        <dl class="jr-stats" id="stats"></dl>
+        <div id="views" class="jr-chips" role="group" data-i18n-attr="aria-label:jr.views"></div>
+        <div id="tags" class="jr-chips" role="group" data-i18n-attr="aria-label:jr.tags"></div>
+        <div id="side-cal" hidden>
+          <div class="jr-cal__head">
+            <h3 class="jr-cal__title" id="h-cal"></h3>
+            <div class="jr-cal__nav">
+              <button type="button" id="prev" class="ow-iconbtn jr-tool"></button>
+              <button type="button" id="next" class="ow-iconbtn jr-tool"></button>
+            </div>
+          </div>
+          <div id="cal" class="jr-cal"></div>
+        </div>
+        <ul id="list" class="jr-list"></ul>
+        <p id="empty" class="jr-empty ow-muted" hidden></p>
+      </section>
+
+      <section class="ow-card ow-workspace jr__editor" id="editor" aria-labelledby="h-editor">
+        <h2 class="ow-sr-only" id="h-editor" data-i18n="jr.editor">Entry</h2>
+        <p id="placeholder" class="jr-empty ow-muted" data-i18n="jr.pick">Pick an entry, open a day in the calendar or write today's entry.</p>
+        <div id="form" hidden>
+          <div class="jr-bar">
+            <button type="button" id="back" class="ow-btn ow-btn--secondary ow-btn--small jr-back"></button>
+            <div class="jr-bar__tools">
+              <button type="button" id="day-prev" class="ow-iconbtn jr-tool"></button>
+              <button type="button" id="day-next" class="ow-iconbtn jr-tool"></button>
+              <button type="button" id="delete" class="ow-iconbtn jr-tool"></button>
+            </div>
+          </div>
+          <h3 class="jr-date" id="date"></h3>
+          <div id="moods" class="jr-moods" role="radiogroup" data-i18n-attr="aria-label:jr.mood"></div>
+          <input id="title" class="jr-title" maxlength="120" autocomplete="off" data-i18n-attr="placeholder:jr.titlePh;aria-label:jr.titlePh">
+          <div class="jr-tagbox">
+            <ul id="entry-tags" class="jr-chips"></ul>
+            <input id="tag-input" class="jr-taginput" maxlength="24" autocomplete="off" list="tag-suggestions" data-i18n-attr="placeholder:jr.tagPh;aria-label:jr.tagPh">
+            <datalist id="tag-suggestions"></datalist>
+          </div>
+          <div class="jr-modes" id="modes" role="group" data-i18n-attr="aria-label:jr.mode"></div>
+          <label class="jr-bodywrap" id="write">
+            <span class="ow-sr-only" data-i18n="jr.bodyLabel">Entry text</span>
+            <textarea id="body" class="ow-input jr-body" rows="14" spellcheck="true" data-i18n-attr="placeholder:jr.bodyPh"></textarea>
+          </label>
+          <div id="preview" class="jr-md" hidden></div>
+          <p id="meta" class="ow-usage"></p>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

@@ -52,6 +52,17 @@ export const ICONS = {
   film: '<rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 5v14M16 5v14M4 9.5h4M4 14.5h4M16 9.5h4M16 14.5h4"/>',
   tv: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M9 21h6M8 3l4 3 4-3"/>',
   link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  'mood-1': '<circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M8.5 17c1-1.6 2.2-2.2 3.5-2.2s2.5.6 3.5 2.2"/>',
+  'mood-2': '<circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M9 16.2c.8-.8 1.8-1.2 3-1.2s2.2.4 3 1.2"/>',
+  'mood-3': '<circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M9 15.5h6"/>',
+  'mood-4': '<circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M9 14.6c.8.8 1.8 1.2 3 1.2s2.2-.4 3-1.2"/>',
+  'mood-5': '<circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01"/><path d="M8 13.5c1 2.4 2.4 3.3 4 3.3s3-.9 4-3.3z"/>',
+  'book-open': '<path d="M3 5.5c3-1 6-.8 9 1v13c-3-1.8-6-2-9-1zM21 5.5c-3-1-6-.8-9 1v13c3-1.8 6-2 9-1z"/>',
+  'calendar': '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/>',
+  'external': '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+  'convert': '<path d="M4 8h13m0 0-3-3m3 3-3 3M20 16H7m0 0 3-3m-3 3 3 3"/>',
+  'eye': '<path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/>',
+  'edit': '<path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/>',
 };
 
 export const ICON_NAMES = Object.keys(ICONS);

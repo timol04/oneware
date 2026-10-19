@@ -538,6 +538,66 @@
     "path": "mydashboard/readlist/"
   },
   {
+    "slug": "journal",
+    "name": {
+      "en": "Journal",
+      "de": "Journal"
+    },
+    "shortDescription": {
+      "en": "Daily journal with mood, tags and a calendar.",
+      "de": "Tagebuch mit Stimmung, Tags und Kalender."
+    },
+    "category": "notes",
+    "kind": "app",
+    "status": "live",
+    "icon": "book-open",
+    "preview": "list",
+    "price": {
+      "en": "Price to follow",
+      "de": "Preis folgt"
+    },
+    "order": 80,
+    "accent": {
+      "light": "#4d7c0f",
+      "dark": "#a3d36b"
+    },
+    "hasPremium": true,
+    "stores": true,
+    "today": true,
+    "about": {
+      "en": "Write one entry per day, rate your mood, sort entries with tags and look back in a calendar. Markdown works with a preview. Everything stays in your browser.",
+      "de": "Pro Tag einen Eintrag schreiben, die Stimmung festhalten, mit Tags ordnen und im Kalender zurückblättern. Markdown funktioniert mit Vorschau. Alles bleibt in deinem Browser."
+    },
+    "features": {
+      "free": [
+        {
+          "en": "Up to 30 entries with all features",
+          "de": "Bis zu 30 Einträge mit allen Funktionen"
+        },
+        {
+          "en": "Mood scale, tags and search",
+          "de": "Stimmungsskala, Tags und Suche"
+        },
+        {
+          "en": "Calendar view and writing streak",
+          "de": "Kalenderansicht und Schreibserie"
+        },
+        {
+          "en": "Markdown with preview, backup export and import",
+          "de": "Markdown mit Vorschau, Backup-Export und -Import"
+        }
+      ],
+      "premium": [
+        {
+          "en": "Unlimited entries",
+          "de": "Unbegrenzt viele Einträge"
+        }
+      ]
+    },
+    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "path": "mydashboard/journal/"
+  },
+  {
     "slug": "demo-bookmarks",
     "name": {
       "en": "Demo: Bookmarks",
