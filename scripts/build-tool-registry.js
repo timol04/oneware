@@ -9,7 +9,7 @@
  *
  * tool.config.json fields
  *   required: slug name shortDescription category status icon price hasPremium
- *   optional: preview(list|ledger|habits|links) purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores
+ *   optional: kind(app|utility, default app) preview(list|ledger|habits|links) purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores
  *   name / shortDescription / price / about / features entries: string (English) or { en, de, ... }
  */
 import { readdir, readFile, writeFile, cp, rm } from 'node:fs/promises';
@@ -19,6 +19,7 @@ import path from 'node:path';
 import { ICONS, ICON_NAMES } from '../core/icons.js';
 import { LOCALES } from '../core/locales/index.js';
 import { previewHtml, PREVIEW_KINDS } from '../hub/src/preview.js';
+import { KINDS, groupTools } from '../hub/src/groups.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const toolsDir = path.join(root, 'tools');
@@ -59,6 +60,7 @@ for (const entry of await readdir(toolsDir, { withFileTypes: true })) {
     if (typeof cfg[k] === 'object' && cfg[k] && !cfg[k].en) fail(`"${k}" needs an "en" entry`);
     if (typeof cfg[k] === 'object' && cfg[k]) for (const l of LANGS) if (!cfg[k][l]) warnings.push(`${entry.name}: "${k}" has no "${l}" translation`);
   }
+  if (cfg.kind && !KINDS.includes(cfg.kind)) fail(`kind must be ${KINDS.join(' or ')}`);
   if (cfg.preview && !PREVIEW_KINDS.includes(cfg.preview)) fail(`preview must be one of ${PREVIEW_KINDS.join(', ')}`);
   if (cfg.accent && !(hex.test(cfg.accent.light) && hex.test(cfg.accent.dark))) fail('accent needs { "light": "#rrggbb", "dark": "#rrggbb" }');
   for (const k of ['free', 'premium']) if (cfg.features?.[k] && !Array.isArray(cfg.features[k])) fail(`features.${k} must be an array`);
@@ -121,7 +123,9 @@ function row(tool) {
     + (live ? `<a class="tool-card__link" href="${esc(tool.path)}">${inner}</a>` : `<div class="tool-card__link">${inner}</div>`) + '</li>';
 }
 const html = await readFile(indexFile, 'utf8');
-const rows = tools.length ? tools.map(row).join('\n') : `        <li class="catalog__msg ow-muted">${esc(en['hub.empty'])}</li>`;
+const group = (g) => `        <section class="group"><div class="group__head"><h3 class="group__title">${esc(en[`hub.group.${g.kind}`])}</h3><p class="group__desc">${esc(en[`hub.group.${g.kind}.desc`])}</p></div>\n`
+  + `        <ul class="catalog">\n${g.items.map(row).join('\n')}\n        </ul></section>`;
+const rows = tools.length ? groupTools(tools).map(group).join('\n') : `        <p class="catalog__msg ow-muted">${esc(en['hub.empty'])}</p>`;
 const next = html.replace(/(<!-- catalog:start -->)[\s\S]*?(<!-- catalog:end -->)/, `$1\n${rows}\n        $2`);
 if (next !== html) await writeFile(indexFile, next);
 

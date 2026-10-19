@@ -7,6 +7,7 @@ import { getAllItems, exportData, importData } from '../core/storage.js';
 import { getLastExport, BACKUP_INTERVAL_DAYS } from '../core/persistence.js';
 import { getCloudLink } from '../core/cloud.js';
 import { previewHtml } from '../hub/src/preview.js';
+import { groupTools } from '../hub/src/groups.js';
 import { showCloudDialog } from '../core/cloud-ui.js';
 
 mountSiteShell();
@@ -114,9 +115,17 @@ function dataRow({ tool, count, cloud, backup }) {
 }
 
 function render() {
-  if (failed) { toolsList.replaceChildren(el('li', 'ow-error', t('dash.error'))); return; }
-  if (!rows.length) { toolsList.replaceChildren(el('li', 'ow-muted', t('dash.empty'))); return; }
-  toolsList.replaceChildren(...rows.map(toolRow));
+  if (failed) { toolsList.replaceChildren(el('p', 'ow-error', t('dash.error'))); return; }
+  if (!rows.length) { toolsList.replaceChildren(el('p', 'ow-muted', t('dash.empty'))); return; }
+  toolsList.replaceChildren(...groupTools(rows.map((r) => ({ ...r.tool, row: r }))).map(({ kind, items }) => {
+    const section = el('section', 'group');
+    const head = el('div', 'group__head');
+    head.append(el('h3', 'group__title', t(`hub.group.${kind}`)), el('p', 'group__desc', t(`hub.group.${kind}.desc`)));
+    const ul = el('ul', 'catalog');
+    ul.append(...items.map((x) => toolRow(x.row)));
+    section.append(head, ul);
+    return section;
+  }));
   dataList.replaceChildren(...rows.filter((r) => r.live && r.tool.stores !== false).map(dataRow));
 }
 

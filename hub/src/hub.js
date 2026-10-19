@@ -2,6 +2,7 @@ import { mountSiteShell, siteUrl } from '../../core/site-shell.js';
 import { createStatusBadge } from '../../core/ui-components.js';
 import { createIcon } from '../../core/icons.js';
 import { previewHtml } from './preview.js';
+import { groupTools } from './groups.js';
 import { cloudBrowserLine } from '../../core/cloud-ui.js';
 import { t, localize, onLangChange, applyTranslations } from '../../core/i18n.js';
 
@@ -36,6 +37,16 @@ function renderRow(tool) {
   link.append(preview, body);
   row.append(link);
   return row;
+}
+
+function renderGroup({ kind, items }) {
+  const section = el('section', 'group');
+  const head = el('div', 'group__head');
+  head.append(el('h3', 'group__title', t(`hub.group.${kind}`)), el('p', 'group__desc', t(`hub.group.${kind}.desc`)));
+  const ul = el('ul', 'catalog');
+  ul.append(...items.map(renderRow));
+  section.append(head, ul);
+  return section;
 }
 
 const catalog = document.getElementById('catalog');
@@ -75,7 +86,7 @@ function render() {
     const retry = el('button', 'ow-btn ow-btn--secondary', t('hub.retry'));
     retry.type = 'button';
     retry.addEventListener('click', load);
-    const msg = el('li', 'catalog__msg');
+    const msg = el('div', 'catalog__msg');
     msg.append(el('span', 'ow-error', t('hub.error')), retry);
     catalog.replaceChildren(msg);
     return;
@@ -83,7 +94,7 @@ function render() {
   if (!tools) return; // keep the pre-rendered list / skeleton until data arrives
   renderFilter();
   const shown = tools.filter((x) => !category || x.category === category || x.status !== 'live');
-  catalog.replaceChildren(...(shown.length ? shown.map(renderRow) : [el('li', 'catalog__msg ow-muted', t('hub.empty'))]));
+  catalog.replaceChildren(...(shown.length ? groupTools(shown).map(renderGroup) : [el('p', 'catalog__msg ow-muted', t('hub.empty'))]));
 }
 onLangChange(() => { render(); });
 

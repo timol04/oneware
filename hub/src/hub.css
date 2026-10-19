@@ -78,3 +78,9 @@ a.tool-card__link:focus-visible { outline: 2px solid var(--accent); outline-offs
 .pillar__list li { display: grid; gap: var(--s-1); justify-items: start; }
 .pillar__list p { margin: 0; color: var(--text-muted); font-size: var(--fs-small); line-height: 1.5; }
 .pillar__check { margin: var(--s-4) 0 0; padding-top: var(--s-4); border-top: 1px solid var(--border); color: var(--text-muted); font-size: var(--fs-small); line-height: 1.5; }
+
+/* Groups: Apps and Utilities */
+.groups { display: grid; gap: var(--s-7); }
+.group__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-4); margin-bottom: var(--s-4); }
+.group__title { margin: 0; font-size: var(--fs-h3); }
+.group__desc { margin: 0; color: var(--text-muted); font-size: var(--fs-small); }

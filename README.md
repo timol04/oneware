@@ -55,7 +55,7 @@ View locally: run `python3 -m http.server` in the repo root, then open `http://l
    - Required: `slug name shortDescription category status icon price hasPremium`. `slug` must equal the folder name. `status` is `live` or `coming-soon`.
    - `icon` is an **icon name** from `core/icons.js`, never an emoji.
    - `name`, `shortDescription`, `price`, `about` and `features` entries are a plain string (English) or an object per language; `en` is required.
-   - Optional: `order` (sort order in the catalog), `accent` (colours for light/dark), `about` and `features` (shown under "About this tool"), `stores` (default `true`; set `false` if the tool saves no data, which removes backup menu items and reminders).
+   - Optional: `kind` (`app` for tools that keep data over time, default; `utility` for single-purpose tools; the home page and dashboard show the two groups separately), `order` (sort order in the catalog), `accent` (colours for light/dark), `about` and `features` (shown under "About this tool"), `stores` (default `true`; set `false` if the tool saves no data, which removes backup menu items and reminders).
    - A `live` tool with `hasPremium` needs a real `purchaseUrl` and `lemonSqueezy.productId`. The build fails on placeholders (allowed only for `"category": "demo"`).
 3. Build the page. `tools/_demo/index.html` shows the pattern: it only contains `<main id="main" class="ow-container ow-container--tool">` with your workspace; the header (back link, name, license status, menu), notices, "About this tool" and footer come from the **tool shell**:
    ```js
