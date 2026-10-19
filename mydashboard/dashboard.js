@@ -5,7 +5,7 @@ import { t, localize, onLangChange, applyTranslations, getLang } from '../core/i
 import { isPremiumUnlocked } from '../core/license.js';
 import { getAllItems, exportData, importData } from '../core/storage.js';
 import { getLastExport, BACKUP_INTERVAL_DAYS } from '../core/persistence.js';
-import { getCloudLink } from '../core/cloud.js';
+import { getCloudLink, getSharedCloud, getCloudSupport, connectCloudAll, syncCloudAll, restoreCloudAll, disconnectCloudAll } from '../core/cloud.js';
 import { licensing } from '../core/site-config.js';
 import { previewHtml } from '../hub/src/preview.js';
 import { groupTools } from '../hub/src/groups.js';
@@ -30,6 +30,7 @@ let rows = [];
 let failed = false;
 let editing = false;
 let feed = [];
+let shared = null;
 const BASE = new URL(siteUrl('mydashboard/'), location.href).href;
 const todayList = document.getElementById('dash-today');
 const todaySection = document.getElementById('dash-today-section');
@@ -65,6 +66,7 @@ function button(label, onClick, className = 'ow-btn ow-btn--secondary ow-btn--sm
 const days = (ms) => (Date.now() - ms) / 86400000;
 
 async function collect() {
+  try { shared = await getSharedCloud(); } catch { shared = null; }
   rows = await Promise.all(tools.map(async (tool) => {
     const live = tool.status === 'live';
     let count = 0;
@@ -206,7 +208,7 @@ function dataRow({ tool, count, cloud, backup }) {
   actions.append(
     button(t('dash.export'), async () => { await exportData(tool.slug); showToast(t('shell.exported')); refresh(); }),
     button(t('dash.import'), () => file.click()),
-    button(cloud ? t('dash.cloudManage', { name: cloud.name }) : t('cloud.menu'), () => showCloudDialog({ toolSlug: tool.slug, onChange: refresh }).then(() => {}), 'ow-btn ow-btn--secondary ow-btn--small'),
+    ...(cloud?.shared ? [] : [button(cloud ? t('dash.cloudManage', { name: cloud.name }) : t('cloud.menu'), () => showCloudDialog({ toolSlug: tool.slug, onChange: refresh }).then(() => {}), 'ow-btn ow-btn--secondary ow-btn--small')]),
     file,
   );
   li.append(head(tool), status, actions);
@@ -250,7 +252,39 @@ function render() {
   }));
   renderData();
 }
+const cloudBox = document.getElementById('dash-cloud');
+function renderCloud() {
+  const slugs = rows.filter((r) => r.live && r.tool.stores !== false).map((r) => r.tool.slug);
+  const support = getCloudSupport();
+  const parts = [];
+  if (!support.supported) parts.push(el('p', 'ow-muted dash__cloud-note', t('cloud.all.unsupported', { browser: support.browser.name })));
+  else if (!shared) {
+    parts.push(el('p', 'ow-muted dash__cloud-note', t('cloud.all.help')));
+    parts.push(button(t('cloud.all.connect'), async () => {
+      try { await connectCloudAll(slugs); showToast(t('cloud.all.saved', { count: slugs.length })); await refresh(); }
+      catch (e) { if (e?.name !== 'AbortError') showToast(t('cloud.connectFailed', { reason: e?.message || String(e) })); }
+    }, 'ow-btn dash__cloud-btn'));
+  } else {
+    const head = el('div', 'dash__cloud-head');
+    head.append(createIcon('cloud', { size: '1.1rem' }), el('strong', '', t('cloud.all.linked', { name: shared.name })));
+    const actions = el('div', 'dash__actions');
+    actions.append(
+      button(t('cloud.all.saveAll'), async () => {
+        try { const r = await syncCloudAll(slugs, { interactive: true }); showToast(r.needsAccess ? t('cloud.needsAccess') : t('cloud.all.saved', { count: r.ok })); await refresh(); }
+        catch (e) { showToast(t('cloud.connectFailed', { reason: e?.message || String(e) })); }
+      }),
+      button(t('cloud.all.restoreAll'), async () => {
+        try { showToast(t('cloud.all.restored', { count: await restoreCloudAll(slugs) })); await refresh(); }
+        catch (e) { showToast(t('cloud.restoreFailed', { reason: e?.message || String(e) })); }
+      }),
+      button(t('cloud.all.disconnect'), async () => { await disconnectCloudAll(); await refresh(); }),
+    );
+    parts.push(head, actions);
+  }
+  cloudBox.replaceChildren(...parts);
+}
 function renderData() {
+  renderCloud();
   dataList.replaceChildren(...rows.filter((r) => r.live && r.tool.stores !== false && isOn(r.tool.slug)).map(dataRow));
 }
 

@@ -54,12 +54,53 @@ async function dbOp(mode, fn) {
     });
   } finally { db.close(); }
 }
-const getHandle = (slug) => dbOp('readonly', (s) => s.get(slug)).catch(() => undefined);
+// One folder for everything is stored under this key; a tool's own folder (if any) takes precedence.
+const ALL = '*';
+const getOwnHandle = (slug) => dbOp('readonly', (s) => s.get(slug)).catch(() => undefined);
+const getHandle = async (slug) => (await getOwnHandle(slug)) ?? (await getOwnHandle(ALL));
 
-/** Link info for a tool: { name, lastSync } or null. */
+/** Link info for a tool: { name, lastSync, shared } or null. `shared` means it uses the one folder for all tools. */
 export async function getCloudLink(slug) {
-  const handle = await getHandle(slug);
-  return handle ? { name: handle.name, lastSync: readState(slug).lastSync ?? null } : null;
+  const own = await getOwnHandle(slug);
+  const handle = own ?? (await getOwnHandle(ALL));
+  return handle ? { name: handle.name, lastSync: readState(slug).lastSync ?? null, shared: !own } : null;
+}
+
+/** The one folder for all tools: { name } or null. */
+export async function getSharedCloud() {
+  const handle = await getOwnHandle(ALL);
+  return handle ? { name: handle.name } : null;
+}
+
+/** Lets the user pick one folder for all tools and writes a backup file per tool into it. Throws AbortError if cancelled. */
+export async function connectCloudAll(slugs) {
+  const handle = await showDirectoryPicker({ id: 'oneware', mode: 'readwrite', startIn: 'documents' });
+  await dbOp('readwrite', (s) => s.put(handle, ALL));
+  await syncCloudAll(slugs, { interactive: true });
+  return { name: handle.name };
+}
+
+/** Saves every given tool into its linked folder. Returns { ok, needsAccess }. */
+export async function syncCloudAll(slugs, { interactive = false } = {}) {
+  const out = { ok: 0, needsAccess: 0 };
+  for (const slug of slugs) {
+    const r = await syncCloud(slug, { interactive });
+    if (r === 'ok') out.ok++; else if (r === 'needs-access') out.needsAccess++;
+  }
+  return out;
+}
+
+/** Restores every given tool that has a backup file in its linked folder. Returns the number of restored entries. */
+export async function restoreCloudAll(slugs) {
+  let count = 0;
+  for (const slug of slugs) {
+    try { count += await restoreCloud(slug); } catch { /* no file for this tool yet */ }
+  }
+  return count;
+}
+
+export async function disconnectCloudAll() {
+  await dbOp('readwrite', (s) => s.delete(ALL));
 }
 
 async function hasAccess(handle, ask) {

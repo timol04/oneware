@@ -57,7 +57,7 @@ export async function showCloudDialog({ toolSlug, onChange } = {}) {
         catch (e) { if (e?.name !== 'AbortError') showToast(t('cloud.connectFailed', { reason: reason(e) })); }
       }));
     } else {
-      parts.push(el('p', '', t('cloud.connected', { name: link.name })));
+      parts.push(el('p', '', t(link.shared ? 'cloud.connectedAll' : 'cloud.connected', { name: link.name })));
       parts.push(el('p', 'ow-muted', link.lastSync ? t('cloud.lastSync', { time: new Date(link.lastSync).toLocaleString(getLang()) }) : t('cloud.never')));
       const row = el('div', 'ow-row');
       row.append(
@@ -69,7 +69,7 @@ export async function showCloudDialog({ toolSlug, onChange } = {}) {
           try { showToast(t('cloud.restored', { count: await restoreCloud(toolSlug) })); onChange?.(); }
           catch (e) { showToast(t('cloud.restoreFailed', { reason: reason(e) })); }
         }, 'ow-btn ow-btn--secondary'),
-        button(t('cloud.disconnect'), async () => { await disconnectCloud(toolSlug); draw(); }, 'ow-btn ow-btn--secondary'),
+        ...(link.shared ? [] : [button(t('cloud.disconnect'), async () => { await disconnectCloud(toolSlug); draw(); }, 'ow-btn ow-btn--secondary')]),
       );
       parts.push(row);
     }
