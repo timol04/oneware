@@ -56,7 +56,7 @@ export default {
   "shell.footer.imprint": "Impressum",
   "shell.footer.privacy": "Datenschutz",
   "shell.footer.copy": "Oneware",
-  "shell.back": "Zurück zu allen Tools",
+  "shell.back": "Zurück zu Mein Dashboard",
   "shell.free": "Gratis",
   "shell.premium": "Premium",
   "shell.unlock": "Freischalten",

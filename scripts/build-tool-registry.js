@@ -3,6 +3,8 @@
  * Scans /tools/, validates every tool.config.json and writes
  *   - hub/tool-registry.json          (array of all tool configs)
  *   - the pre-rendered catalog in index.html (between the catalog markers; English)
+ * Every tool is also mirrored to mydashboard/<slug>/ (its public URL; git-ignored). With --publish (CI)
+ *   tools/<slug>/index.html is replaced by a redirect to the new URL so old links keep working.
  * Folders starting with "_" (e.g. _demo) are skipped unless INCLUDE_DEMO=1 is set.
  *
  * tool.config.json fields
@@ -10,7 +12,7 @@
  *   optional: preview(list|ledger|habits|links) purchaseUrl lemonSqueezy{productId} order accent{light,dark} about features{free[],premium[]} stores
  *   name / shortDescription / price / about / features entries: string (English) or { en, de, ... }
  */
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile, cp, rm } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -23,6 +25,7 @@ const toolsDir = path.join(root, 'tools');
 const outFile = path.join(root, 'hub', 'tool-registry.json');
 const indexFile = path.join(root, 'index.html');
 const includeDemo = process.env.INCLUDE_DEMO === '1';
+const publish = process.argv.includes('--publish');
 
 const REQUIRED = ['slug', 'name', 'shortDescription', 'category', 'status', 'icon', 'price', 'hasPremium'];
 const STATUSES = ['live', 'coming-soon'];
@@ -71,7 +74,7 @@ for (const entry of await readdir(toolsDir, { withFileTypes: true })) {
       else fail('purchaseUrl is still a placeholder');
     }
   }
-  tools.push({ ...cfg, path: `tools/${entry.name}/` });
+  tools.push({ ...cfg, path: `mydashboard/${entry.name}/`, source: `tools/${entry.name}/` });
 }
 
 if (errors.length) {
@@ -83,7 +86,24 @@ tools.sort((a, b) =>
   (a.status === b.status ? 0 : a.status === 'live' ? -1 : 1)
   || (a.order ?? 1e6) - (b.order ?? 1e6)
   || text(a.name).localeCompare(text(b.name), 'en'));
-await writeFile(outFile, JSON.stringify(tools, null, 2) + '\n');
+await writeFile(outFile, JSON.stringify(tools.map(({ source, ...cfg }) => cfg), null, 2) + '\n');
+
+// ---- mirror every tool to its public URL /mydashboard/<slug>/ ----
+const redirect = (slug) => `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<title>Oneware</title>
+<script>location.replace('../../mydashboard/${slug}/' + location.search + location.hash);</script>
+<noscript><meta http-equiv="refresh" content="0; url=../../mydashboard/${slug}/"></noscript>
+</head><body><a href="../../mydashboard/${slug}/">Open ${slug}</a></body></html>
+`;
+for (const tool of tools) {
+  const src = path.join(root, tool.source);
+  if (!existsSync(path.join(src, 'index.html'))) continue;
+  const dest = path.join(root, tool.path);
+  await rm(dest, { recursive: true, force: true });
+  await cp(src, dest, { recursive: true });
+  if (publish) await writeFile(path.join(src, 'index.html'), redirect(tool.slug));
+}
 
 // ---- pre-rendered catalog (English), so the list works without JavaScript ----
 const en = LOCALES.en;

@@ -44,7 +44,7 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
-    "path": "tools/demo-notes/"
+    "path": "mydashboard/demo-notes/"
   },
   {
     "slug": "demo-expenses",
@@ -91,7 +91,7 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
-    "path": "tools/demo-expenses/"
+    "path": "mydashboard/demo-expenses/"
   },
   {
     "slug": "demo-habits",
@@ -138,7 +138,7 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
-    "path": "tools/demo-habits/"
+    "path": "mydashboard/demo-habits/"
   },
   {
     "slug": "demo-bookmarks",
@@ -185,6 +185,6 @@
       ]
     },
     "purchaseUrl": "https://example.com/lemon-squeezy-link",
-    "path": "tools/demo-bookmarks/"
+    "path": "mydashboard/demo-bookmarks/"
   }
 ]

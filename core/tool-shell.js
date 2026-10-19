@@ -62,9 +62,10 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
   const header = el('header', 'ow-toolhead');
   const inner = el('div', 'ow-container ow-container--tool ow-toolhead__in');
   const back = el('a', 'ow-toolhead__back');
-  back.href = siteUrl();
-  back.append(createIcon('arrow-left', { size: '1.2rem' }), el('span', 'ow-hide-mobile', 'oneware'));
-  const backLabel = () => { back.title = t('shell.back'); back.setAttribute('aria-label', t('shell.back')); };
+  back.href = siteUrl('mydashboard/');
+  const backText = el('span', 'ow-hide-mobile', t('dash.h1'));
+  back.append(createIcon('arrow-left', { size: '1.2rem' }), backText);
+  const backLabel = () => { backText.textContent = t('dash.h1'); back.title = t('shell.back'); back.setAttribute('aria-label', t('shell.back')); };
   const title = el('h1', 'ow-toolhead__title');
   const status = el('span', 'ow-toolstatus');
   const menuWrap = el('span', 'ow-menuwrap');

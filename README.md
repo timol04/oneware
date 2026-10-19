@@ -12,7 +12,7 @@ core/                shared library
   ui-components.css/js                   tokens, components, dialog, toast
   ui-desktop.css ui-mobile.css           layout per device (imported by ui-components.css)
 hub/                 tool-registry.json (generated) and the home page scripts/styles
-tools/               one folder per tool (tool.config.json + index.html + src/)
+tools/               one folder per tool (tool.config.json + index.html + src/); published at /mydashboard/[slug]/
 scripts/             build-tool-registry.js, generate-demo-tools.js
 ```
 
@@ -22,7 +22,7 @@ scripts/             build-tool-registry.js, generate-demo-tools.js
 |---|---|
 | `npm install` | dev dependency for tests (fake-indexeddb) |
 | `npm test` | core tests (license, storage, i18n, locale key parity, backup reminders) |
-| `npm run build-registry` | generates `hub/tool-registry.json` from all `tools/*/tool.config.json` |
+| `npm run build-registry` | generates `hub/tool-registry.json` from all `tools/*/tool.config.json` and mirrors each tool to `mydashboard/[slug]/` (git-ignored; run it before previewing locally). CI runs it with `--publish`, which also turns `tools/[slug]/index.html` into a redirect so old links keep working |
 
 View locally: run `python3 -m http.server` in the repo root, then open `http://localhost:8000/`. ES modules need a server; `file://` does not work.
 
@@ -75,7 +75,7 @@ Wide tools: use `ow-container--wide` on `<main>` and put two panels in a `.ow-sp
 
 ## License purchase flow
 
-In Lemon Squeezy, set each product's redirect after purchase to `https://[your-domain]/tools/[slug]/?purchased=1`. The tool then opens the license dialog on the "I already have a key" side. (Check in the Lemon Squeezy dashboard that this option exists for your plan; it has not been verified here.)
+In Lemon Squeezy, set each product's redirect after purchase to `https://[your-domain]/mydashboard/[slug]/?purchased=1`. The tool then opens the license dialog on the "I already have a key" side. (Check in the Lemon Squeezy dashboard that this option exists for your plan; it has not been verified here.)
 
 ## Design rules
 
