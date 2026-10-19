@@ -70,6 +70,7 @@ export default {
   "shell.about.title": "Über dieses Tool",
   "shell.about.price": "Preis: {price}, einmalige Zahlung",
   "shell.about.included": "Enthalten, vorerst gratis",
+  "shell.premiumLimit": "Gratis-Version: bis zu {limit}. Mehr ist eine Premium-Funktion.",
   "shell.about.free": "Gratis",
   "shell.about.premium": "Premium",
   "shell.backup.reminder": "Sichere deine Daten. Du hast länger kein Backup exportiert.",

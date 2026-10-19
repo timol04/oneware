@@ -373,7 +373,7 @@ function render() {
   applyTranslations();
   renderFormatBars();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('nt.new')}`);
-  shell.setUsage(premium() ? '' : t('nt.usage', { count: notes.length, limit: FREE_LIMIT }));
+  shell.setPremiumLimit(t('nt.limitLabel', { limit: FREE_LIMIT }), t('nt.usage', { count: notes.length, limit: FREE_LIMIT }));
   renderViews();
   renderTags();
   renderList();

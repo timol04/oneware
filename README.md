@@ -77,6 +77,10 @@ Wide tools: use `ow-container--wide` on `<main>` and put two panels in a `.ow-sp
 
 `core/site-config.js` holds `licensing.enabled`. While it is `false` (current state, Lemon Squeezy not connected yet), every premium feature is free in every tool: `isPremiumUnlocked()` returns true, the license dialog, unlock buttons, prices and premium badges are hidden, and the build does not require `purchaseUrl` or `lemonSqueezy.productId`. When Lemon Squeezy is connected, set each live tool's `purchaseUrl` and `lemonSqueezy.productId` and change that one value to `true`; premium is then unlocked only by license key. After flipping, run `npm run build-registry` (it validates the purchase fields) and publish.
 
+### Marking Premium features
+
+Use `core/premium.js` for every feature that is (or will be) Premium: `markPremium(element, slug)` (or `{ compact: true }` for a star only), or `data-premium-badge` in markup (applied by the tool shell). Free limits go through `shell.setPremiumLimit(limitLabel, usageText)`. The badge shows during the free launch phase and for locked tools, and disappears after a license key unlocks the tool. It never locks anything: gating stays with `isPremiumUnlocked()`, which is always true while `licensing.enabled` is false.
+
 ## License purchase flow
 
 In Lemon Squeezy, set each product's redirect after purchase to `https://[your-domain]/mydashboard/[slug]/?purchased=1`. The tool then opens the license dialog on the "I already have a key" side. (Check in the Lemon Squeezy dashboard that this option exists for your plan; it has not been verified here.)

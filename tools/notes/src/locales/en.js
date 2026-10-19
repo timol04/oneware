@@ -50,4 +50,5 @@ export default {
   'nt.emptyArchive': 'The archive is empty.',
   'nt.noMatch': 'No note matches.',
   'nt.usage': '{count} of {limit} free notes used',
+  'nt.limitLabel': '{limit} notes',
 };

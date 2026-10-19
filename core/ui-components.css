@@ -252,3 +252,8 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-container--tool > .ow-usage { margin-bottom: var(--s-3); }
 .ow-workspace { margin-bottom: var(--s-4); }
 .ow-workspace .ow-row { margin-bottom: var(--s-3); }
+
+/* Premium badge (see premium.js) */
+.ow-premium { display: inline-flex; align-items: center; gap: .3em; margin-left: .5em; padding: .08em .55em; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, transparent); color: var(--accent); font-size: .72rem; font-weight: 700; line-height: 1.5; letter-spacing: 0; vertical-align: middle; white-space: nowrap; }
+.ow-premium[hidden] { display: none; }
+.ow-premium--compact { padding: .15em .35em; margin-left: .35em; }

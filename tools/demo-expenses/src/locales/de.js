@@ -4,4 +4,5 @@ export default {
   'demo.add': 'Hinzufügen',
   'demo.delete': 'Löschen',
   'demo.usage': '{count} von {limit} Gratis-Einträgen genutzt',
+  'demo.limitLabel': '{limit} Einträge',
 };

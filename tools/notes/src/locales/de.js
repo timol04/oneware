@@ -50,4 +50,5 @@ export default {
   'nt.emptyArchive': 'Das Archiv ist leer.',
   'nt.noMatch': 'Keine Notiz passt.',
   'nt.usage': '{count} von {limit} Gratis-Notizen genutzt',
+  'nt.limitLabel': '{limit} Notizen',
 };

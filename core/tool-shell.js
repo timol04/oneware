@@ -4,6 +4,7 @@
  *
  *   const shell = await mountToolShell({ slug, config, main, onLicenseChange });
  *   shell.setUsage('2 of 3 free entries used');   // quiet counter
+ *   shell.setPremiumLimit(20, '3 of 20 free notes used'); // counter; during the free launch only marks the limit as Premium
  *   shell.showLimit();                             // inline "free limit reached" notice
  *   shell.isPremium();
  *
@@ -13,6 +14,7 @@ import { t, localize, availableLanguages, languageName, getLang, setLang, applyT
 import { initTheme, getTheme, toggleTheme } from './theme.js';
 import { createIcon } from './icons.js';
 import { licensing } from './site-config.js';
+import { markPremium, applyPremiumBadges } from './premium.js';
 import { isPremiumUnlocked, revalidateLicense } from './license.js';
 import { createStatusBadge, showLicenseDialog, showToast } from './ui-components.js';
 import { siteUrl, createSiteFooter } from './site-shell.js';
@@ -229,6 +231,7 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
     let free = (config.features?.free ?? []).map(localize);
     let prem = (config.features?.premium ?? []).map(localize);
     const freeLaunch = !licensing.enabled && !!config.hasPremium;
+    const premiumItems = new Set(prem);
     if (freeLaunch) { free = [...free, ...prem]; prem = []; }
     if (free.length || prem.length) {
       const cmp = el('div', 'ow-compare');
@@ -237,7 +240,11 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
         const col = el('div', cls.trim());
         const h = el('h3', '', label);
         const ul = el('ul');
-        for (const f of list) ul.append(el('li', '', f));
+        for (const f of list) {
+          const li = el('li', '', f);
+          if (freeLaunch && premiumItems.has(f)) markPremium(li, slug);
+          ul.append(li);
+        }
         col.append(h, ul);
         cmp.append(col);
       }
@@ -307,11 +314,18 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
   document.addEventListener('ow:langchange', () => { render(); checkData(); applyTranslations(); });
   document.addEventListener('ow:themechange', () => { if (!menu.hidden) buildMenu(); });
   render();
+  applyPremiumBadges(main, slug);
   applyTranslations();
 
   return {
     isPremium: () => isPremiumUnlocked(slug),
     setUsage: (text) => { usage.textContent = text; },
+    /** Counter for a free limit. In the free launch phase it only announces the limit with a Premium badge. */
+    setPremiumLimit: (limit, usageText) => {
+      if (licensing.enabled) { usage.textContent = isPremiumUnlocked(slug) ? '' : usageText; return; }
+      usage.textContent = t('shell.premiumLimit', { limit });
+      markPremium(usage, slug);
+    },
     showLimit: () => addNotice('limit', price ? t('shell.limit', { price }) : t('shell.limitNoPrice'), {
       action: { label: t('shell.unlock'), onClick: () => openLicense('buy') },
     }),

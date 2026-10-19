@@ -30,7 +30,7 @@ async function render() {
     li.append(text, del);
     return li;
   }));
-  shell.setUsage(isPremiumUnlocked(SLUG) ? '' : t('demo.usage', { count: items.length, limit: FREE_LIMIT }));
+  shell.setPremiumLimit(t('demo.limitLabel', { limit: FREE_LIMIT }), t('demo.usage', { count: items.length, limit: FREE_LIMIT }));
 }
 
 $('form').addEventListener('submit', async (e) => {

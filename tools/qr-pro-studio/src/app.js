@@ -1,4 +1,5 @@
 import { registerMessages, t, applyTranslations, onLangChange } from '../../../core/i18n.js';
+import { markPremium } from '../../../core/premium.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import { showToast } from '../../../core/ui-components.js';
@@ -342,6 +343,10 @@ function update() {
 function syncLocks() {
   const premium = isPremium();
   document.querySelectorAll('[data-premium]').forEach((row) => row.classList.toggle('is-locked', !premium));
+  // Premium markers (visible in the free launch phase too; see core/premium.js)
+  document.querySelectorAll('[data-premium] .qr-row__label').forEach((l) => markPremium(l, SLUG, { compact: true }));
+  document.querySelectorAll('.qr-chip[data-dots]:not([data-dots="rounded"]), .qr-chip[data-format]:not([data-format="png"])').forEach((c) => markPremium(c, SLUG, { compact: true }));
+  markPremium($('csv-btn'), SLUG, { compact: true });
   document.querySelectorAll('.qr-chip[data-format], #csv-btn').forEach((b) => {
     b.classList.toggle('is-locked', !premium && !FREE_FORMATS.includes(b.dataset.format ?? ''));
   });

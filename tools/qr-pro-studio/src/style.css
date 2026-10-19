@@ -81,3 +81,4 @@
 #csv-btn:hover { border-color: var(--accent); color: var(--accent); }
 .qr-stage { background: color-mix(in srgb, var(--accent) 14%, var(--bg)); }
 .ow-input:focus-visible, .ow-textarea:focus-visible, .ow-select:focus-visible { border-color: var(--accent); }
+.qr-lock { display: none !important; } /* replaced by the shared Premium badge */
