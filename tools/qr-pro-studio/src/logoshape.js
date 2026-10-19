@@ -57,7 +57,7 @@ function buildMatrix(data) {
 }
 
 /** Zeichnet den Code mit Logo-Form auf ein Quadrat der Kantenlänge size. */
-export async function shapeCodeCanvas(data, size, logoUrl, darkColor = '#000000', strength = 0.5) {
+export async function shapeCodeCanvas(data, size, logoUrl, darkColor = '#000000', strength = 0.5, dotStyle = 'rounded') {
   const tuning = tuningFor(strength);
   const img = await loadImage(logoUrl);
   const qr = buildMatrix(data);
@@ -145,10 +145,16 @@ export async function shapeCodeCanvas(data, size, logoUrl, darkColor = '#000000'
 
   const inFinder = (r, c) =>
     (r < FINDER + 1 && c < FINDER + 1) || (r < FINDER + 1 && c >= n - FINDER - 1) || (r >= n - FINDER - 1 && c < FINDER + 1);
+  // Punktform folgt der gewählten Gestaltung: dots = Kreis, rounded = weiches Quadrat, classy = stärker gerundet, square = Quadrat
   const dot = (r, c, radius, color) => {
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(origin + (c + 0.5) * m, origin + (r + 0.5) * m, radius * m, 0, Math.PI * 2);
+    const cx = origin + (c + 0.5) * m;
+    const cy = origin + (r + 0.5) * m;
+    const half = radius * m;
+    if (dotStyle === 'dots') ctx.arc(cx, cy, half, 0, Math.PI * 2);
+    else if (dotStyle === 'square') ctx.rect(cx - half, cy - half, 2 * half, 2 * half);
+    else ctx.roundRect(cx - half, cy - half, 2 * half, 2 * half, half * (dotStyle === 'classy' ? 0.85 : 0.5));
     ctx.fill();
   };
   for (let r = 0; r < n; r++) {

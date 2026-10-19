@@ -46,7 +46,7 @@ function options({ data, size, color = '#000000', logo = null, dots = 'rounded' 
 export async function codeBlob(data, size, style = {}, type = 'png') {
   if (style.logo && style.logoMode === 'shape') {
     const dark = Array.isArray(style.color) ? style.color[0] : style.color;
-    const canvas = await shapeCodeCanvas(data, size, style.logo, dark, style.logoStrength);
+    const canvas = await shapeCodeCanvas(data, size, style.logo, dark, style.logoStrength, style.dots);
     const png = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
     if (type !== 'svg') return png;
     // Logo-Form ist ein Pixelbild; für SVG wird es eingebettet
