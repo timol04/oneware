@@ -151,3 +151,45 @@ export async function importData(toolSlug, file, { replace = false } = {}) {
   changed(toolSlug);
   return items.length;
 }
+
+const BUNDLE_VERSION = 1;
+
+/** Downloads one file with the data of all given tools: `oneware-backup-YYYY-MM-DD.json`. Returns the number of items. */
+export async function exportAll(slugs) {
+  const tools = {};
+  let count = 0;
+  for (const slug of slugs) {
+    tools[slug] = await buildExport(slug);
+    count += tools[slug].data.length;
+  }
+  const payload = { bundle: true, version: BUNDLE_VERSION, exportedAt: new Date().toISOString(), tools };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `oneware-backup-${payload.exportedAt.slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  for (const slug of slugs) markExported(slug);
+  return count;
+}
+
+/** Imports a backup of all tools (or a single tool export) and merges it. Tools outside `slugs` are ignored. Returns the number of items. */
+export async function importAll(slugs, file) {
+  let parsed = file;
+  if (typeof file?.text === 'function') {
+    try { parsed = JSON.parse(await file.text()); }
+    catch { throw new Error(t('core.storage.invalidJson')); }
+  }
+  if (parsed?.bundle) {
+    if (typeof parsed.tools !== 'object' || !parsed.tools || typeof parsed.version !== 'number') throw new Error(t('core.storage.invalidFormat'));
+    if (parsed.version > BUNDLE_VERSION) throw new Error(t('core.storage.unsupportedVersion', { version: parsed.version }));
+    let count = 0;
+    for (const slug of slugs) if (parsed.tools[slug]) count += await importData(slug, parsed.tools[slug]);
+    return count;
+  }
+  if (typeof parsed?.tool === 'string' && slugs.includes(parsed.tool)) return importData(parsed.tool, parsed);
+  throw new Error(t('core.storage.invalidFormat'));
+}

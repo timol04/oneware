@@ -3,13 +3,12 @@ import { createStatusBadge, showToast } from '../core/ui-components.js';
 import { createIcon } from '../core/icons.js';
 import { t, localize, onLangChange, applyTranslations, getLang } from '../core/i18n.js';
 import { isPremiumUnlocked } from '../core/license.js';
-import { getAllItems, exportData, importData } from '../core/storage.js';
+import { getAllItems, exportAll, importAll } from '../core/storage.js';
 import { getLastExport, BACKUP_INTERVAL_DAYS } from '../core/persistence.js';
-import { getCloudLink, getSharedCloud, getCloudSupport, connectCloudAll, syncCloudAll, restoreCloudAll, disconnectCloudAll } from '../core/cloud.js';
+import { getSharedCloud, getCloudSupport, connectCloudAll, syncCloudAll, restoreCloudAll, disconnectCloudAll } from '../core/cloud.js';
 import { licensing } from '../core/site-config.js';
 import { previewHtml } from '../hub/src/preview.js';
 import { groupTools } from '../hub/src/groups.js';
-import { showCloudDialog } from '../core/cloud-ui.js';
 import { collectToday, toggleToday } from '../core/today.js';
 
 mountSiteShell();
@@ -70,12 +69,10 @@ async function collect() {
   rows = await Promise.all(tools.map(async (tool) => {
     const live = tool.status === 'live';
     let count = 0;
-    let cloud = null;
     if (live && tool.stores !== false) {
       try { count = (await getAllItems(tool.slug)).length; } catch { /* storage blocked */ }
-      try { cloud = await getCloudLink(tool.slug); } catch { /* no IndexedDB */ }
     }
-    return { tool, live, count, cloud, premium: isPremiumUnlocked(tool.slug), backup: getLastExport(tool.slug) };
+    return { tool, live, count, premium: isPremiumUnlocked(tool.slug), backup: getLastExport(tool.slug) };
   }));
 }
 async function loadFeed() {
@@ -186,35 +183,6 @@ function toolRow({ tool, live, count, premium }) {
   return li;
 }
 
-function dataRow({ tool, count, cloud, backup }) {
-  const li = el('li', 'dash__row');
-  setup(li, tool);
-  const stale = count > 0 && (!backup || days(backup) > BACKUP_INTERVAL_DAYS);
-  const status = el('div', 'dash__meta');
-  if (!count) status.append(el('span', 'ow-muted', t('dash.noData')));
-  else {
-    status.append(el('span', '', backup ? t('dash.lastBackup', { date: new Date(backup).toLocaleDateString(getLang()) }) : t('dash.neverBackup')));
-    if (stale) status.append(createStatusBadge('yellow', t('dash.stale')));
-  }
-  const file = el('input');
-  file.type = 'file'; file.accept = 'application/json'; file.hidden = true;
-  file.addEventListener('change', async () => {
-    const f = file.files[0]; file.value = '';
-    if (!f) return;
-    try { showToast(t('shell.imported', { count: await importData(tool.slug, f) })); refresh(); }
-    catch (e) { showToast(t('shell.importFailed', { reason: e.message })); }
-  });
-  const actions = el('div', 'dash__actions');
-  actions.append(
-    button(t('dash.export'), async () => { await exportData(tool.slug); showToast(t('shell.exported')); refresh(); }),
-    button(t('dash.import'), () => file.click()),
-    ...(cloud?.shared ? [] : [button(cloud ? t('dash.cloudManage', { name: cloud.name }) : t('cloud.menu'), () => showCloudDialog({ toolSlug: tool.slug, onChange: refresh }).then(() => {}), 'ow-btn ow-btn--secondary ow-btn--small')]),
-    file,
-  );
-  li.append(head(tool), status, actions);
-  return li;
-}
-
 function render() {
   renderToday();
   if (failed) { toolsList.replaceChildren(el('p', 'ow-error', t('dash.error'))); return; }
@@ -252,23 +220,53 @@ function render() {
   }));
   renderData();
 }
-const cloudBox = document.getElementById('dash-cloud');
-function renderCloud() {
-  const slugs = rows.filter((r) => r.live && r.tool.stores !== false).map((r) => r.tool.slug);
-  const support = getCloudSupport();
+function renderData() {
+  const stores = rows.filter((r) => r.live && r.tool.stores !== false);
+  const slugs = stores.map((r) => r.tool.slug);
+  const total = stores.reduce((sum, r) => sum + r.count, 0);
+  const last = stores.filter((r) => r.count).map((r) => r.backup || 0);
+  const oldest = last.length ? Math.min(...last) : null;
+  const stale = total > 0 && (!oldest || days(oldest) > BACKUP_INTERVAL_DAYS);
   const parts = [];
-  if (!support.supported) parts.push(el('p', 'ow-muted dash__cloud-note', t('cloud.all.unsupported', { browser: support.browser.name })));
+
+  const status = el('div', 'dash__meta');
+  if (!total) status.append(el('span', 'ow-muted', t('dash.noData')));
+  else {
+    status.append(el('span', '', oldest ? t('dash.lastBackup', { date: new Date(oldest).toLocaleDateString(getLang()) }) : t('dash.neverBackup')));
+    if (stale) status.append(createStatusBadge('yellow', t('dash.stale')));
+  }
+  parts.push(status);
+
+  const file = el('input');
+  file.type = 'file'; file.accept = 'application/json'; file.hidden = true;
+  file.addEventListener('change', async () => {
+    const f = file.files[0]; file.value = '';
+    if (!f) return;
+    try { showToast(t('shell.imported', { count: await importAll(slugs, f) })); refresh(); }
+    catch (e) { showToast(t('shell.importFailed', { reason: e.message })); }
+  });
+  const actions = el('div', 'dash__actions');
+  actions.append(
+    button(t('dash.exportAll'), async () => { await exportAll(slugs); showToast(t('shell.exported')); refresh(); }),
+    button(t('dash.importAll'), () => file.click()),
+    file,
+  );
+  parts.push(actions);
+
+  const support = getCloudSupport();
+  const cloud = el('div', 'dash__cloud');
+  if (!support.supported) cloud.append(el('p', 'ow-muted dash__cloud-note', t('cloud.all.unsupported', { browser: support.browser.name })));
   else if (!shared) {
-    parts.push(el('p', 'ow-muted dash__cloud-note', t('cloud.all.help')));
-    parts.push(button(t('cloud.all.connect'), async () => {
+    cloud.append(el('p', 'ow-muted dash__cloud-note', t('cloud.all.help')));
+    cloud.append(button(t('cloud.all.connect'), async () => {
       try { await connectCloudAll(slugs); showToast(t('cloud.all.saved', { count: slugs.length })); await refresh(); }
       catch (e) { if (e?.name !== 'AbortError') showToast(t('cloud.connectFailed', { reason: e?.message || String(e) })); }
     }, 'ow-btn dash__cloud-btn'));
   } else {
     const head = el('div', 'dash__cloud-head');
     head.append(createIcon('cloud', { size: '1.1rem' }), el('strong', '', t('cloud.all.linked', { name: shared.name })));
-    const actions = el('div', 'dash__actions');
-    actions.append(
+    const row = el('div', 'dash__actions');
+    row.append(
       button(t('cloud.all.saveAll'), async () => {
         try { const r = await syncCloudAll(slugs, { interactive: true }); showToast(r.needsAccess ? t('cloud.needsAccess') : t('cloud.all.saved', { count: r.ok })); await refresh(); }
         catch (e) { showToast(t('cloud.connectFailed', { reason: e?.message || String(e) })); }
@@ -279,19 +277,11 @@ function renderCloud() {
       }),
       button(t('cloud.all.disconnect'), async () => { await disconnectCloudAll(); await refresh(); }),
     );
-    parts.push(head, actions);
+    cloud.append(head, row);
   }
-  cloudBox.replaceChildren(...parts);
+  parts.push(cloud);
+  dataList.replaceChildren(...parts);
 }
-function renderData() {
-  renderCloud();
-  dataList.replaceChildren(...rows.filter((r) => r.live && r.tool.stores !== false && isOn(r.tool.slug)).map(dataRow));
-}
-
-const wide = window.matchMedia('(min-width: 1000px)');
-const dataDetails = document.querySelector('.dash__details');
-dataDetails.open = wide.matches;
-wide.addEventListener('change', () => { dataDetails.open = wide.matches; });
 
 onLangChange(() => { loadFeed().then(render); });
 try {
