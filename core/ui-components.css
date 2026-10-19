@@ -176,7 +176,7 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-notice { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); padding: var(--s-3) var(--s-4); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius); background: var(--surface); font-size: var(--fs-small); }
 .ow-notice--warn { border-left-color: var(--warning); }
 .ow-notice p { margin: 0; flex: 1 1 16rem; }
-.ow-usage { margin: 0; font-size: var(--fs-small); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.ow-usage { margin: 0 0 var(--s-5); font-size: var(--fs-small); color: var(--text-muted); font-variant-numeric: tabular-nums; }
 .ow-toast { position: fixed; left: 50%; bottom: calc(var(--s-5) + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 200; max-width: calc(100% - 2rem); padding: var(--s-3) var(--s-4); border-radius: var(--radius); background: var(--text); color: var(--bg); font-size: var(--fs-small); }
 .ow-btn--small { padding: .35em .8em; font-size: var(--fs-small); }
 .ow-btn--link { background: none; border-color: transparent; color: var(--accent); padding-left: 0; padding-right: 0; text-decoration: underline; text-underline-offset: .18em; }
@@ -249,11 +249,11 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-sitehead__bar .ow-langselect select { min-height: 0; }
 .ow-row > .ow-input { flex: 1 1 14rem; width: auto; }
 .ow-container--tool > .ow-notices { margin-bottom: var(--s-4); }
-.ow-container--tool > .ow-usage { margin-bottom: var(--s-3); }
 .ow-workspace { margin-bottom: var(--s-4); }
 .ow-workspace .ow-row { margin-bottom: var(--s-3); }
 
 /* Premium badge (see premium.js) */
-.ow-premium { display: inline-flex; align-items: center; gap: .3em; margin-left: .5em; padding: .08em .55em; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, transparent); color: var(--accent); font-size: .72rem; font-weight: 700; line-height: 1.5; letter-spacing: 0; vertical-align: middle; white-space: nowrap; }
+.ow-premium { display: inline-flex; align-items: center; gap: .3em; margin-left: .85em; padding: .15em .7em; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); border-radius: 999px; background: color-mix(in srgb, var(--accent) 9%, transparent); color: var(--accent); font-size: .72rem; font-weight: 700; line-height: 1.5; letter-spacing: 0; vertical-align: middle; white-space: nowrap; }
 .ow-premium[hidden] { display: none; }
-.ow-premium--compact { padding: .15em .35em; margin-left: .35em; }
+.ow-premium--compact { padding: .2em .4em; margin-left: .5em; }
+main#main.ow-container--wide { padding-top: var(--s-5); }
