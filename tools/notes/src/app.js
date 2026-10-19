@@ -93,7 +93,7 @@ function renderTags() {
   const counts = view === 'notes' ? tagCounts(notes) : [];
   if (tagFilter && !counts.some(([tag]) => tag === tagFilter)) tagFilter = null;
   $('tags').hidden = !counts.length;
-  $('tags').replaceChildren(...counts.map(([tag, n]) => chip(`${tag} ${n}`, tag === tagFilter, { tag })));
+  $('tags').replaceChildren(...counts.map(([tag, n]) => chip(`${tag} (${n})`, tag === tagFilter, { tag })));
 }
 
 function renderList() {
