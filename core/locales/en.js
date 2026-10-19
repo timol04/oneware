@@ -80,7 +80,6 @@ export default {
   "hub.trust.local": "Data stays on your device",
   "hub.trust.once": "One payment per tool, no subscription",
   "hub.trust.noaccount": "No account, no sign-up",
-  "hub.eyebrow": "Local-first tools",
   "hub.cta.tools": "Browse tools",
   "hub.cta.how": "How it works",
   "hub.benefit.local.title": "Local by default",

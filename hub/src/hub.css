@@ -3,7 +3,6 @@
 @import url("hub-mobile.css") (max-width: 720px);
 
 /* Hero */
-.hero__eyebrow { display: inline-flex; align-items: center; gap: var(--s-2); margin: 0 0 var(--s-4); padding: .3em .85em; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--text-muted); font-size: var(--fs-small); font-weight: 600; }
 .hero h1 { margin: 0 0 .3em; font-weight: 800; letter-spacing: -0.045em; line-height: .96; }
 .hero__lead { margin: 0 0 var(--s-5); color: var(--text-muted); }
 .hero__cta { display: flex; flex-wrap: wrap; gap: var(--s-3); }
