@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>QR Pro Studio – oneware</title>
+  <meta name="description" content="Design and export QR codes: links, Wi-Fi, contacts and more, as PNG, SVG or PDF. Everything runs in your browser.">
+  <meta property="og:title" content="QR Pro Studio – oneware">
+  <meta property="og:description" content="Design and export QR codes: links, Wi-Fi, contacts and more, as PNG, SVG or PDF. Everything runs in your browser.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div class="ow-split qr">
+      <div class="qr__controls">
+        <section class="ow-card ow-workspace qr__panel" aria-labelledby="h-content">
+          <h2 class="ow-card__title" id="h-content" data-i18n="qr.content">Content</h2>
+          <div id="types" class="qr-chips" role="radiogroup" data-i18n-attr="aria-label:qr.type"></div>
+          <div id="fields" class="qr-fields"></div>
+          <p id="status" class="ow-usage" role="status">&nbsp;</p>
+        </section>
+
+        <section class="ow-card ow-workspace qr__panel" aria-labelledby="h-style">
+          <h2 class="ow-card__title" id="h-style" data-i18n="qr.style">Style</h2>
+          <div class="qr-row">
+            <span class="qr-row__label" data-i18n="row.dots">Dots</span>
+            <div id="dot-styles" class="qr-chips" role="group" data-i18n-attr="aria-label:row.dotsAria"></div>
+          </div>
+          <div class="qr-row" data-premium>
+            <span class="qr-row__label"><span data-i18n="row.colors">Colors</span><span class="qr-lock" data-i18n-attr="title:badge.hint"></span></span>
+            <div id="swatches" class="qr-swatches" role="group" data-i18n-attr="aria-label:row.colors"></div>
+          </div>
+          <div class="qr-row" data-premium>
+            <span class="qr-row__label"><span data-i18n="row.logo">Logo</span><span class="qr-lock" data-i18n-attr="title:badge.hint"></span></span>
+            <div class="qr-stack">
+              <div class="ow-row">
+                <button type="button" id="logo-btn" class="ow-btn ow-btn--secondary ow-btn--small" data-i18n="logo.upload">Upload logo</button>
+                <img id="logo-thumb" class="qr-thumb" alt="" hidden>
+                <button type="button" id="logo-remove" class="ow-btn ow-btn--link ow-btn--small" data-i18n="logo.remove" hidden>Remove logo</button>
+                <input type="file" id="logo-file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
+              </div>
+              <div id="logo-modes" class="qr-chips" role="group" data-i18n-attr="aria-label:logo.modesAria" hidden>
+                <button type="button" class="qr-chip" data-logomode="shape" aria-pressed="true" data-i18n="logo.shape">As shape</button>
+                <button type="button" class="qr-chip" data-logomode="center" aria-pressed="false" data-i18n="logo.center">In the center</button>
+              </div>
+              <label id="logo-strength-row" class="qr-slider" hidden>
+                <span data-i18n="logo.safe">safe</span>
+                <input type="range" id="logo-strength" min="0" max="100" value="50" data-i18n-attr="aria-label:logo.strengthAria">
+                <span data-i18n="logo.bold">bold</span>
+              </label>
+            </div>
+          </div>
+          <div class="qr-row" data-premium>
+            <span class="qr-row__label"><span data-i18n="row.sticker">Sticker</span><span class="qr-lock" data-i18n-attr="title:badge.hint"></span></span>
+            <div id="shapes" class="qr-chips" role="group" data-i18n-attr="aria-label:row.stickerAria"></div>
+          </div>
+          <div class="qr-row" data-premium>
+            <span class="qr-row__label"><span data-i18n="row.text">Caption</span><span class="qr-lock" data-i18n-attr="title:badge.hint"></span></span>
+            <div class="qr-stack">
+              <input id="label" class="ow-input" maxlength="40" autocomplete="off" data-i18n-attr="placeholder:text.placeholder;aria-label:text.aria">
+              <div id="label-presets" class="qr-chips"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="qr__output">
+        <section class="ow-card ow-workspace qr__panel" aria-labelledby="h-preview">
+          <h2 class="ow-sr-only" id="h-preview" data-i18n="mat.aria">Preview</h2>
+          <div id="stage" class="qr-stage is-empty">
+            <div id="preview" class="qr-stage__canvas"></div>
+            <p id="empty-note" class="qr-stage__note ow-muted" data-i18n="mat.empty">Fill in the content. Your code appears here.</p>
+          </div>
+          <p id="scan" class="ow-status" hidden></p>
+          <p id="caption" class="ow-usage"></p>
+          <div class="qr-row qr-row--stack">
+            <span class="qr-row__label" data-i18n="row.format">Format</span>
+            <div id="formats" class="qr-chips" role="group" data-i18n-attr="aria-label:format.aria"></div>
+          </div>
+          <div class="qr-row qr-row--stack" id="sheet-row" hidden>
+            <span class="qr-row__label" data-i18n="row.sheet">Sheet</span>
+            <div id="sheet-sizes" class="qr-chips" role="group" data-i18n-attr="aria-label:sheet.aria"></div>
+          </div>
+          <div class="ow-row qr-actions">
+            <button type="button" id="download" class="ow-btn" disabled></button>
+            <button type="button" id="csv-btn" class="ow-btn ow-btn--secondary" data-premium-action data-i18n="batch.btn">Many codes from CSV</button>
+            <input type="file" id="csv-file" accept=".csv,.txt,text/csv,text/plain" hidden>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

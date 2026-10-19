@@ -16,9 +16,52 @@
   },
   "order": 50,
   "accent": {
-    "light": "#0e7490",
-    "dark": "#67c4d9"
+    "light": "#2f6070",
+    "dark": "#467986"
   },
   "hasPremium": true,
-  "stores": false
+  "stores": false,
+  "about": {
+    "en": "Create QR codes for links, Wi-Fi, contacts, events and more. Style them, add a logo, check that they scan and export for print or web. Everything runs in your browser.",
+    "de": "QR-Codes für Links, WLAN, Kontakte, Termine und mehr erstellen. Gestalten, Logo einfügen, Scanbarkeit prüfen und für Druck oder Web exportieren. Alles läuft in deinem Browser."
+  },
+  "features": {
+    "free": [
+      {
+        "en": "All content types: link, text, Wi-Fi, contact, email, phone, SMS, location, event, app",
+        "de": "Alle Inhaltsarten: Link, Text, WLAN, Kontakt, E-Mail, Telefon, SMS, Standort, Termin, App"
+      },
+      {
+        "en": "Live preview with scan test",
+        "de": "Live-Vorschau mit Scan-Test"
+      },
+      {
+        "en": "PNG export",
+        "de": "PNG-Export"
+      }
+    ],
+    "premium": [
+      {
+        "en": "Colors, gradients and dot shapes",
+        "de": "Farben, Verläufe und Punktformen"
+      },
+      {
+        "en": "Logo in the center or as the code shape",
+        "de": "Logo in der Mitte oder als Form des Codes"
+      },
+      {
+        "en": "Sticker shapes with caption and printable A4 sheet",
+        "de": "Stickerformen mit Beschriftung und druckfertiger A4-Bogen"
+      },
+      {
+        "en": "SVG, PDF and large PNG",
+        "de": "SVG, PDF und grosses PNG"
+      },
+      {
+        "en": "Many codes at once from a CSV file",
+        "de": "Viele Codes auf einmal aus einer CSV-Datei"
+      }
+    ]
+  },
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
 }

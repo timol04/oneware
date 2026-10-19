@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Monorepo-Fundament für die Oneware Tool-Familie (client-seitig, ohne Backend)",
   "scripts": {
-    "test": "node --test \"core/test/*.test.js\"",
+    "test": "node --test \"core/test/*.test.js\" \"tools/*/test/*.test.js\"",
     "build-registry": "node scripts/build-tool-registry.js"
   },
   "devDependencies": {
