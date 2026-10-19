@@ -67,3 +67,17 @@
 .qr-actions { margin-top: var(--s-4); }
 .qr-actions .ow-btn { flex: 1 1 12rem; }
 #csv-btn.is-locked { color: var(--text-muted); }
+
+/* Stronger accent */
+.qr__panel { border-top: 3px solid var(--accent); }
+.qr .ow-card__title { display: flex; align-items: center; gap: var(--s-2); }
+.qr .ow-card__title::before { content: ""; width: .3rem; height: 1.1em; border-radius: 2px; background: var(--accent); }
+.qr-row__label { color: var(--accent); }
+.qr-chip:hover { border-color: var(--accent); color: var(--accent); }
+.qr-chip[aria-pressed="true"]:hover { color: var(--accent-ink); }
+.qr-chip[aria-pressed="true"] { box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--accent) 60%, transparent); }
+#download { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+#download:hover:not(:disabled) { filter: brightness(1.12); }
+#csv-btn:hover { border-color: var(--accent); color: var(--accent); }
+.qr-stage { background: color-mix(in srgb, var(--accent) 14%, var(--bg)); }
+.ow-input:focus-visible, .ow-textarea:focus-visible, .ow-select:focus-visible { border-color: var(--accent); }
