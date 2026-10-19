@@ -1,0 +1,58 @@
+{
+  "slug": "readlist",
+  "name": {
+    "en": "Reading list",
+    "de": "Merkliste"
+  },
+  "shortDescription": {
+    "en": "Save books, films, series and articles and track what you finished.",
+    "de": "Bücher, Filme, Serien und Artikel merken und festhalten, was du durch hast."
+  },
+  "category": "productivity",
+  "kind": "app",
+  "status": "live",
+  "icon": "book",
+  "preview": "list",
+  "price": {
+    "en": "Price to follow",
+    "de": "Preis folgt"
+  },
+  "order": 70,
+  "accent": {
+    "light": "#0f766e",
+    "dark": "#5fc9bd"
+  },
+  "hasPremium": true,
+  "stores": true,
+  "about": {
+    "en": "Save books, films, series and articles you want to get to, mark what you are reading, rate what you finished and keep notes. Everything stays in your browser.",
+    "de": "Bücher, Filme, Serien und Artikel merken, die du noch vorhast, festhalten was gerade läuft, Fertiges bewerten und Notizen führen. Alles bleibt in deinem Browser."
+  },
+  "features": {
+    "free": [
+      {
+        "en": "Up to 30 entries with all features",
+        "de": "Bis zu 30 Einträge mit allen Funktionen"
+      },
+      {
+        "en": "Status, progress, rating, notes and tags",
+        "de": "Status, Fortschritt, Bewertung, Notizen und Tags"
+      },
+      {
+        "en": "Search, filters, yearly overview and archive",
+        "de": "Suche, Filter, Jahresübersicht und Archiv"
+      },
+      {
+        "en": "Backup export and import",
+        "de": "Backup-Export und -Import"
+      }
+    ],
+    "premium": [
+      {
+        "en": "Unlimited entries",
+        "de": "Unbegrenzt viele Einträge"
+      }
+    ]
+  },
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}

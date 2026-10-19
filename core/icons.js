@@ -48,6 +48,9 @@ export const ICONS = {
   chart: '<path d="M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-6"/>',
   flame: '<path d="M12 3c.6 3.2 5 5.4 5 10.2a5 5 0 0 1-10 0c0-2 .9-3.4 2.2-4.4.1 1.6.8 2.6 1.8 2.9C10.4 8.6 10.8 5.6 12 3z"/>',
   repeat: '<path d="M4 11V9a3 3 0 0 1 3-3h12m0 0-3-3m3 3-3 3M20 13v2a3 3 0 0 1-3 3H5m0 0 3 3m-3-3 3-3"/>',
+  book: '<path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h10"/>',
+  film: '<rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 5v14M16 5v14M4 9.5h4M4 14.5h4M16 9.5h4M16 14.5h4"/>',
+  tv: '<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M9 21h6M8 3l4 3 4-3"/>',
   link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
 };
 

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>Reading list – oneware</title>
+  <meta name="description" content="Save books, films, series and articles and track what you finished. Stored in your browser, no account.">
+  <meta property="og:title" content="Reading list – oneware">
+  <meta property="og:description" content="Save books, films, series and articles and track what you finished. Stored in your browser, no account.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div id="app" class="ow-split rl">
+      <section class="ow-card ow-workspace rl__side" aria-labelledby="h-list">
+        <h2 class="ow-sr-only" id="h-list" data-i18n="rl.list">Reading list</h2>
+        <div class="rl-top">
+          <label class="rl-search">
+            <span class="ow-sr-only" data-i18n="rl.search">Search entries</span>
+            <input id="search" class="ow-input" type="search" autocomplete="off" data-i18n-attr="placeholder:rl.search">
+          </label>
+          <button type="button" id="new" class="ow-btn"></button>
+        </div>
+        <div id="views" class="rl-chips" role="group" data-i18n-attr="aria-label:rl.views"></div>
+        <div id="status-filter" class="rl-chips" role="group" data-i18n-attr="aria-label:rl.filterStatus"></div>
+        <div id="type-filter" class="rl-chips" role="group" data-i18n-attr="aria-label:rl.filterType"></div>
+        <div id="tag-filter" class="rl-chips" role="group" data-i18n-attr="aria-label:rl.filterTag"></div>
+        <p id="stats" class="rl-stats"></p>
+        <ul id="list" class="rl-list"></ul>
+        <p id="empty" class="rl-empty ow-muted" hidden></p>
+      </section>
+
+      <section class="ow-card ow-workspace rl__editor" id="editor" aria-labelledby="h-editor">
+        <h2 class="ow-sr-only" id="h-editor" data-i18n="rl.editor">Entry</h2>
+        <p id="placeholder" class="rl-empty ow-muted" data-i18n="rl.pick">Pick an entry or add a new one.</p>
+        <div id="form" hidden>
+          <div class="rl-bar">
+            <button type="button" id="back" class="ow-btn ow-btn--secondary ow-btn--small rl-back"></button>
+            <div class="rl-bar__tools">
+              <button type="button" id="archive" class="ow-iconbtn rl-tool"></button>
+              <button type="button" id="delete" class="ow-iconbtn rl-tool"></button>
+            </div>
+          </div>
+          <input id="title" class="rl-title" maxlength="160" autocomplete="off" data-i18n-attr="placeholder:rl.titlePh;aria-label:rl.titlePh">
+          <div id="types" class="rl-seg" role="group" data-i18n-attr="aria-label:rl.filterType"></div>
+          <div id="statuses" class="rl-seg" role="group" data-i18n-attr="aria-label:rl.filterStatus"></div>
+
+          <div class="rl-grid">
+            <label class="rl-field"><span id="creator-label"></span>
+              <input id="creator" class="ow-input" maxlength="120" autocomplete="off">
+            </label>
+            <label class="rl-field"><span data-i18n="rl.link">Link</span>
+              <span class="rl-linkrow">
+                <input id="link" class="ow-input" type="url" maxlength="500" autocomplete="off" placeholder="https://">
+                <a id="open" class="ow-iconbtn rl-tool" target="_blank" rel="noopener noreferrer" hidden></a>
+              </span>
+            </label>
+          </div>
+
+          <div class="rl-field">
+            <span id="rating-label" data-i18n="rl.rating">Rating</span>
+            <div id="stars" class="rl-stars" role="group" aria-labelledby="rating-label"></div>
+          </div>
+
+          <div class="rl-field">
+            <span data-i18n="rl.progress">Progress</span>
+            <div class="rl-progress">
+              <input id="current" class="ow-input rl-num" type="number" min="0" inputmode="numeric" data-i18n-attr="aria-label:rl.progress">
+              <span class="ow-muted" data-i18n="rl.of">of</span>
+              <input id="total" class="ow-input rl-num" type="number" min="0" inputmode="numeric" data-i18n-attr="aria-label:rl.progress">
+              <span id="unit" class="ow-muted"></span>
+            </div>
+            <div class="rl-meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="meter"><i id="meter-fill"></i></div>
+          </div>
+
+          <div class="rl-grid">
+            <label class="rl-field"><span data-i18n="rl.started">Started</span>
+              <input id="started" class="ow-input" type="date">
+            </label>
+            <label class="rl-field"><span data-i18n="rl.finished">Finished</span>
+              <input id="finished" class="ow-input" type="date">
+            </label>
+          </div>
+
+          <label class="rl-field"><span data-i18n="rl.tags">Tags</span>
+            <input id="tags" class="ow-input" maxlength="200" autocomplete="off" data-i18n-attr="placeholder:rl.tagsPh">
+          </label>
+          <label class="rl-field"><span data-i18n="rl.note">Note</span>
+            <textarea id="note" class="ow-textarea rl-note" rows="6" maxlength="20000" data-i18n-attr="placeholder:rl.notePh"></textarea>
+          </label>
+          <p id="meta" class="ow-usage"></p>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
