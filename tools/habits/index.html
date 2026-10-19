@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title>Habits – oneware</title>
+  <meta name="description" content="Habit tracker with streaks, weekday schedules and weekly goals. Stored in your browser, no account.">
+  <meta property="og:title" content="Habits – oneware">
+  <meta property="og:description" content="Habit tracker with streaks, weekday schedules and weekly goals. Stored in your browser, no account.">
+  <meta property="og:image" content="https://timol04.github.io/oneware/core/og.png">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <main id="main" class="ow-container ow-container--wide">
+    <div id="app" class="ow-split hb">
+      <section class="ow-card ow-workspace hb__side" aria-labelledby="h-list">
+        <h2 class="ow-sr-only" id="h-list" data-i18n="hb.list">Habits</h2>
+        <div class="hb-top">
+          <label class="hb-search">
+            <span class="ow-sr-only" data-i18n="hb.search">Search habits</span>
+            <input id="search" class="ow-input" type="search" autocomplete="off" data-i18n-attr="placeholder:hb.search">
+          </label>
+          <button type="button" id="new" class="ow-btn"></button>
+        </div>
+        <div id="views" class="hb-chips" role="group" data-i18n-attr="aria-label:hb.views"></div>
+        <div id="today" class="hb-today" hidden>
+          <div class="hb-meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="today-meter"><i id="today-fill"></i></div>
+          <span id="today-text" class="hb-today__text"></span>
+        </div>
+        <div id="list" class="hb-list"></div>
+        <p id="empty" class="hb-empty ow-muted" hidden></p>
+      </section>
+
+      <section class="ow-card ow-workspace hb__editor" id="editor" aria-labelledby="h-editor">
+        <h2 class="ow-sr-only" id="h-editor" data-i18n="hb.editor">Habit</h2>
+        <p id="placeholder" class="hb-empty ow-muted" data-i18n="hb.pick">Pick a habit or create a new one.</p>
+        <div id="form" hidden>
+          <div class="hb-bar">
+            <button type="button" id="back" class="ow-btn ow-btn--secondary ow-btn--small hb-back"></button>
+            <div class="hb-bar__tools">
+              <button type="button" id="archive" class="ow-iconbtn hb-tool"></button>
+              <button type="button" id="delete" class="ow-iconbtn hb-tool"></button>
+            </div>
+          </div>
+          <input id="title" class="hb-title" maxlength="80" autocomplete="off" data-i18n-attr="placeholder:hb.titlePh;aria-label:hb.titlePh">
+
+          <dl class="hb-stats" id="stats"></dl>
+
+          <fieldset class="hb-group">
+            <legend data-i18n="hb.schedule">Schedule</legend>
+            <div class="hb-schedule">
+              <select id="sched-type" class="ow-input" data-i18n-attr="aria-label:hb.schedule"></select>
+              <select id="sched-week" class="ow-input" data-i18n-attr="aria-label:hb.perWeek"></select>
+            </div>
+            <div id="sched-days" class="hb-days" role="group" data-i18n-attr="aria-label:hb.weekdays"></div>
+          </fieldset>
+
+          <fieldset class="hb-group">
+            <legend data-i18n="hb.pause">Pause</legend>
+            <div class="hb-pause">
+              <p id="pause-text" class="hb-pause__text"></p>
+              <select id="pause-for" class="ow-input" data-i18n-attr="aria-label:hb.pauseFor"></select>
+              <button type="button" id="pause-btn" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+            </div>
+          </fieldset>
+
+          <section class="hb-group" aria-labelledby="h-cal">
+            <div class="hb-cal__head">
+              <h3 class="hb-cal__title" id="h-cal"></h3>
+              <div class="hb-cal__nav">
+                <button type="button" id="prev" class="ow-iconbtn hb-tool"></button>
+                <button type="button" id="next" class="ow-iconbtn hb-tool"></button>
+              </div>
+            </div>
+            <div id="cal" class="hb-cal"></div>
+            <div class="hb-legend" aria-hidden="true">
+              <span><i class="hb-key" data-state="done"></i><span data-i18n="hb.key.done">Done</span></span>
+              <span><i class="hb-key" data-state="missed"></i><span data-i18n="hb.key.missed">Missed</span></span>
+              <span><i class="hb-key" data-state="paused"></i><span data-i18n="hb.key.paused">Paused</span></span>
+            </div>
+          </section>
+
+          <section class="hb-group hb-day" aria-labelledby="h-day">
+            <div class="hb-day__head">
+              <h3 class="hb-day__title" id="h-day"></h3>
+              <button type="button" id="day-toggle" class="ow-btn ow-btn--secondary ow-btn--small" aria-pressed="false"></button>
+            </div>
+            <label class="hb-day__note">
+              <span class="ow-sr-only" data-i18n="hb.note">Note for this day</span>
+              <textarea id="day-note" class="ow-input" rows="3" maxlength="500" data-i18n-attr="placeholder:hb.notePh"></textarea>
+            </label>
+          </section>
+
+          <p id="meta" class="ow-usage"></p>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

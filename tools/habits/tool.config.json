@@ -1,0 +1,58 @@
+{
+  "slug": "habits",
+  "name": {
+    "en": "Habits",
+    "de": "Gewohnheiten"
+  },
+  "shortDescription": {
+    "en": "Habit tracker with streaks, weekday schedules and weekly goals.",
+    "de": "Habit-Tracker mit Serien, Wochentagen und Wochenzielen."
+  },
+  "category": "productivity",
+  "kind": "app",
+  "status": "live",
+  "icon": "flame",
+  "preview": "habits",
+  "price": {
+    "en": "Price to follow",
+    "de": "Preis folgt"
+  },
+  "order": 30,
+  "accent": {
+    "light": "#be3a5c",
+    "dark": "#ee8aa5"
+  },
+  "hasPremium": true,
+  "stores": true,
+  "about": {
+    "en": "Track daily habits and weekly goals, keep your streaks, see a calendar of every day and add a note when something is worth remembering. Everything stays in your browser.",
+    "de": "Tägliche Gewohnheiten und Wochenziele verfolgen, Serien halten, jeden Tag im Kalender sehen und eine Notiz festhalten, wenn etwas erwähnenswert ist. Alles bleibt in deinem Browser."
+  },
+  "features": {
+    "free": [
+      {
+        "en": "Up to 5 habits with all features",
+        "de": "Bis zu 5 Gewohnheiten mit allen Funktionen"
+      },
+      {
+        "en": "Daily, weekday and weekly-goal schedules",
+        "de": "Täglich, an Wochentagen oder mit Wochenziel"
+      },
+      {
+        "en": "Streaks, calendar, statistics and day notes",
+        "de": "Serien, Kalender, Statistik und Tagesnotizen"
+      },
+      {
+        "en": "Pauses, archive and backup export and import",
+        "de": "Pausen, Archiv sowie Backup-Export und -Import"
+      }
+    ],
+    "premium": [
+      {
+        "en": "Unlimited habits",
+        "de": "Unbegrenzt viele Gewohnheiten"
+      }
+    ]
+  },
+  "purchaseUrl": "https://example.com/lemon-squeezy-link"
+}
