@@ -424,7 +424,10 @@
         }
       ]
     },
-    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/afae0ec2-bd75-49a0-8936-12eb0a844354",
+    "lemonSqueezy": {
+      "productId": 1456626
+    },
     "seo": {
       "title": {
         "en": "QR code generator with logo and colors – Oneware",
