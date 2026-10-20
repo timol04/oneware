@@ -134,8 +134,8 @@
     "icon": "check-circle",
     "preview": "list",
     "price": {
-      "en": "Price to follow",
-      "de": "Preis folgt"
+      "en": "$2.99 one-time",
+      "de": "2.99 USD einmalig"
     },
     "order": 20,
     "accent": {
@@ -175,7 +175,10 @@
         }
       ]
     },
-    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/b1873b5d-fa08-4814-ad6d-7049a8551e96",
+    "lemonSqueezy": {
+      "productId": 1456690
+    },
     "seo": {
       "title": {
         "en": "Checklist app with sub-items and due dates – Oneware",
