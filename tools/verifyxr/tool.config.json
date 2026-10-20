@@ -59,7 +59,10 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/e710e299-700f-4923-966b-4db5a5d7ba93",
+  "lemonSqueezy": {
+    "productId": 1456636
+  },
   "seo": {
     "title": {
       "en": "Thesis format checker for Word documents – Oneware",
