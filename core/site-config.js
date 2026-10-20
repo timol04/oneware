@@ -8,7 +8,7 @@
  * Flip `enabled` to true once Lemon Squeezy is connected (purchaseUrl and lemonSqueezy.productId
  * set in each tool.config.json). This is the only place to change.
  */
-export const licensing = { enabled: false };
+export const licensing = { enabled: true };
 
 // Test switch for the purchase flow before launch: in a browser where localStorage has
 // oneware-licensing-preview = 1, licensing behaves as enabled. Only affects that browser.
