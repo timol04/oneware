@@ -502,8 +502,8 @@
     "icon": "repeat",
     "preview": "ledger",
     "price": {
-      "en": "Price to follow",
-      "de": "Preis folgt"
+      "en": "$3.99 one-time",
+      "de": "3.99 USD einmalig"
     },
     "order": 60,
     "accent": {
@@ -551,7 +551,10 @@
         }
       ]
     },
-    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/4ced6911-b375-45a3-aca1-049d95c2038f",
+    "lemonSqueezy": {
+      "productId": 1456685
+    },
     "seo": {
       "title": {
         "en": "Subscription tracker, private and offline – Oneware",
