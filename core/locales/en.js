@@ -283,7 +283,7 @@ export default {
   "legal.licenses.note": "QR Code is a registered trademark of DENSO WAVE INCORPORATED. Other product names are the property of their owners and are used for identification only.",
   "legal.licenses.intro": "Oneware includes the following open-source components. They are bundled with the site and run in your browser. Each is used under the license named below. Copyright belongs to the respective authors. The full license texts are in the file headers and at the linked projects.",
   "legal.privacy.s6.h": "License check",
-  "legal.privacy.s6.p": "When you enter a license key, your browser sends the key and a device name to Lemon Squeezy (USA) to activate it, which also shows them your IP address. Afterwards the key is checked again from time to time. If you are offline, the tool keeps working. We do not store the key on a server of our own.",
+  "legal.privacy.s6.p": "When you enter a license key, your browser sends the key and a device name to Lemon Squeezy (USA) to activate it, which also shows them your IP address. Afterwards the key is checked again about every 7 days while you are online. If you are offline, the tool keeps working. We do not store the key on a server of our own.",
   "legal.privacy.s7.h": "Cloud folder and files",
   "legal.privacy.s7.p": "If you connect a cloud folder, backups are written to a folder on your device that your own cloud app syncs. We have no access. Files you open in a tool such as the converter, the PDF toolkit or Verifyxr are processed in your browser and are not uploaded.",
   "legal.privacy.s8.h": "Purposes, recipients and countries",

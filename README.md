@@ -108,7 +108,7 @@ English is the default language. The chosen language is stored in `localStorage`
 
 Two modes, chosen per tool:
 
-- **Online (real tools): Lemon Squeezy license API.** Set `"lemonSqueezy": { "productId": 123456 }` in `tool.config.json`. When a customer enters the key, the tool activates it once at `api.lemonsqueezy.com` (public endpoint, no API key needed in the page), checks that the key belongs to this product, and stores the result in the browser. From then on the tool works offline. Once every 30 days, when online, the status is re-checked; a refunded or disabled license is locked again. Offline or server errors never lock a tool.
+- **Online (real tools): Lemon Squeezy license API.** Set `"lemonSqueezy": { "productId": 123456 }` in `tool.config.json`. When a customer enters the key, the tool activates it once at `api.lemonsqueezy.com` (public endpoint, no API key needed in the page), checks that the key belongs to this product, and stores the result in the browser. From then on the tool works offline. Once every 7 days, when online, the status is re-checked; a refunded or disabled license is locked again. Offline or server errors never lock a tool.
   - In Lemon Squeezy, turn on license keys for the product and set the **activation limit** (2 devices, as stated in the terms). The dialog shows a clear message when the limit is reached.
   - The build requires `lemonSqueezy.productId` for every live premium tool.
   - Not verified in this repo: that the license endpoints answer browser requests (CORS) and the exact error texts. Test one real purchase (Lemon Squeezy test mode) before launch.
