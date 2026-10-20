@@ -749,8 +749,8 @@
     "icon": "repeat",
     "preview": "list",
     "price": {
-      "en": "Price to follow",
-      "de": "Preis folgt"
+      "en": "$4.99 one-time",
+      "de": "4.99 USD einmalig"
     },
     "order": 70,
     "accent": {
@@ -793,7 +793,10 @@
         }
       ]
     },
-    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/12cc346a-171f-4541-ae76-fdfe7cf955b2",
+    "lemonSqueezy": {
+      "productId": 1456664
+    },
     "seo": {
       "title": {
         "en": "Document converter: PDF, Word, text, images – Oneware",
@@ -988,8 +991,8 @@
     "icon": "book-open",
     "preview": "list",
     "price": {
-      "en": "Price to follow",
-      "de": "Preis folgt"
+      "en": "$3.49 one-time",
+      "de": "3.49 USD einmalig"
     },
     "order": 80,
     "accent": {
@@ -1029,7 +1032,10 @@
         }
       ]
     },
-    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/c83978d1-56c4-48c6-9b49-5a1598187c20",
+    "lemonSqueezy": {
+      "productId": 1456655
+    },
     "seo": {
       "title": {
         "en": "Daily journal with mood and calendar, private – Oneware",

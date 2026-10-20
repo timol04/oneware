@@ -14,8 +14,8 @@
   "icon": "book-open",
   "preview": "list",
   "price": {
-    "en": "Price to follow",
-    "de": "Preis folgt"
+    "en": "$3.49 one-time",
+    "de": "3.49 USD einmalig"
   },
   "order": 80,
   "accent": {
@@ -40,7 +40,10 @@
       { "en": "Unlimited entries", "de": "Unbegrenzt viele Einträge" }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/c83978d1-56c4-48c6-9b49-5a1598187c20",
+  "lemonSqueezy": {
+    "productId": 1456655
+  },
   "seo": {
     "title": {
       "en": "Daily journal with mood and calendar, private – Oneware",

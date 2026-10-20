@@ -14,8 +14,8 @@
   "icon": "repeat",
   "preview": "list",
   "price": {
-    "en": "Price to follow",
-    "de": "Preis folgt"
+    "en": "$4.99 one-time",
+    "de": "4.99 USD einmalig"
   },
   "order": 70,
   "accent": {
@@ -58,7 +58,10 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/12cc346a-171f-4541-ae76-fdfe7cf955b2",
+  "lemonSqueezy": {
+    "productId": 1456664
+  },
   "seo": {
     "title": {
       "en": "Document converter: PDF, Word, text, images – Oneware",
