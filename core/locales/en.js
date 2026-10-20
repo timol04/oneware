@@ -235,7 +235,7 @@ export default {
   "legal.imprint.p3": "Contact: oneware.contact@gmail.com",
   "legal.draft": "Information under Art. 3 para. 1 lit. s of the Swiss UWG.",
   "legal.privacy.title": "Privacy – Oneware",
-  "legal.privacy.desc": "Privacy information for Oneware: no tracking, no cookies, your entries stay on your device.",
+  "legal.privacy.desc": "How Oneware handles data: no tracking, no advertising cookies, entries stay on your device, license keys are checked only with Lemon Squeezy.",
   "legal.privacy.h1": "Privacy",
   "legal.privacy.draft": "Controller: Timo Lanter, sole proprietorship Oneware (Switzerland). The Swiss Data Protection Act (FADP) applies.",
   "legal.privacy.s1.h": "In short",

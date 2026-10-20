@@ -89,7 +89,7 @@ export function fillI18n(html, en) {
     for (const pair of spec.split(';')) {
       const [attr, key] = pair.split(':').map((s) => s.trim());
       const v = attr && key ? text(key) : null;
-      if (v === null || attr === 'content') continue;
+      if (v === null) continue;
       const re = new RegExp(`(\\s${attr}=")[^"]*(")`);
       out = re.test(out) ? out.replace(re, `$1${v}$2`) : out.replace(/>$/, ` ${attr}="${v}">`);
     }

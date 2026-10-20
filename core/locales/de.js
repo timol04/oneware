@@ -235,7 +235,7 @@ export default {
   "legal.imprint.p3": "Kontakt: oneware.contact@gmail.com",
   "legal.draft": "Angaben nach Art. 3 Abs. 1 lit. s UWG.",
   "legal.privacy.title": "Datenschutz – Oneware",
-  "legal.privacy.desc": "Datenschutz bei Oneware: kein Tracking, keine Cookies, deine Einträge bleiben auf deinem Gerät.",
+  "legal.privacy.desc": "So geht Oneware mit Daten um: kein Tracking, keine Werbe-Cookies, Einträge bleiben auf deinem Gerät, Lizenzschlüssel prüft nur Lemon Squeezy.",
   "legal.privacy.h1": "Datenschutz",
   "legal.privacy.draft": "Verantwortlich: Timo Lanter, Einzelunternehmen Oneware (Schweiz). Es gilt das Schweizer Datenschutzgesetz (DSG).",
   "legal.privacy.s1.h": "Kurz gesagt",
