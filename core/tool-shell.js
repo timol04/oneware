@@ -60,6 +60,7 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
   const openLicense = (mode = 'buy') => showLicenseDialog({
     toolSlug: slug, purchaseUrl: config.purchaseUrl, price, mode, otherSlugs, productId: config.lemonSqueezy?.productId,
     description: localize(config.about) || undefined,
+    thanks: { tool: name, features: (config.features?.premium ?? []).map((f) => localize(f)) },
     onUnlock: () => { render(); onLicenseChange?.(); },
   });
 

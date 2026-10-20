@@ -109,14 +109,46 @@ function formatKey(value) {
   return normalizeKey(value).slice(0, 16).match(/.{1,4}/g)?.join('-') ?? '';
 }
 
+/** Thank-you popup after a successful unlock: what Premium adds now. Uses the tool's accent color. */
+export function showThanksDialog({ tool, features = [] } = {}) {
+  const dialog = el('dialog', 'ow-dialog ow-thanks');
+  dialog.setAttribute('aria-labelledby', 'ow-thanks-title');
+  const mark = el('span', 'ow-thanks__mark');
+  mark.append(createIcon('check', { size: '1.6rem' }));
+  const heading = el('h2', '', t('core.license.thanksTitle'));
+  heading.id = 'ow-thanks-title';
+  const text = el('p', 'ow-muted', t('core.license.thanksText', { tool }));
+  const body = [mark, heading, text];
+  if (features.length) {
+    const sub = el('p', 'ow-thanks__sub', t('core.license.thanksNow'));
+    const list = el('ul', 'ow-thanks__list');
+    for (const f of features) {
+      const li = el('li');
+      li.append(createIcon('check-circle', { size: '1.1rem' }), el('span', '', f));
+      list.append(li);
+    }
+    body.push(sub, list);
+  }
+  const actions = el('div', 'ow-dialog__actions');
+  const go = el('button', 'ow-btn', t('core.license.thanksButton'));
+  go.type = 'button';
+  go.addEventListener('click', () => dialog.close());
+  actions.append(go);
+  dialog.append(...body, actions);
+  dialog.addEventListener('close', () => dialog.remove());
+  document.body.append(dialog);
+  dialog.showModal();
+  go.focus();
+}
+
 /**
  * License dialog with two ways: buy, or enter a key.
  * Options: toolSlug, purchaseUrl, price, description (text), mode ('buy' | 'key'),
  * productId (Lemon Squeezy product id: keys are activated online once), otherSlugs (offline mode only,
- * to give a precise "wrong tool" message), onUnlock.
+ * to give a precise "wrong tool" message), onUnlock, thanks ({ tool, features[] }: shows the thank-you dialog after a successful unlock).
  * Returns Promise<boolean> (true = unlocked, false = closed).
  */
-export function showLicenseDialog({ toolSlug, purchaseUrl, price, description, mode = 'buy', otherSlugs = [], productId, onUnlock } = {}) {
+export function showLicenseDialog({ toolSlug, purchaseUrl, price, description, mode = 'buy', otherSlugs = [], productId, onUnlock, thanks } = {}) {
   const online = productId != null; // Lemon Squeezy license API; otherwise offline checksum keys
   if (!toolSlug) throw new Error('toolSlug is required');
   return new Promise((resolve) => {
@@ -196,7 +228,7 @@ export function showLicenseDialog({ toolSlug, purchaseUrl, price, description, m
     const succeed = () => {
       result = true;
       dialog.close();
-      showToast(t('core.license.success'));
+      if (thanks) showThanksDialog(thanks); else showToast(t('core.license.success'));
       onUnlock?.();
     };
     const fail = (text) => {
