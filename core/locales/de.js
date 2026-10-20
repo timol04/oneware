@@ -260,7 +260,7 @@ export default {
   "legal.terms.s1.h": "Anbieter",
   "legal.terms.s1.p": "Timo Lanter, Einzelunternehmen Oneware (Schweiz). Kontakt: oneware.contact@gmail.com.",
   "legal.terms.s2.h": "Gratis-Nutzung und Premium",
-  "legal.terms.s2.p": "Du kannst jedes Tool ohne Konto öffnen und nutzen. Einige Funktionen sind als Premium gekennzeichnet und brauchen einen Lizenzschlüssel. Solange Premium-Funktionen als gratis angezeigt werden, kannst du sie ohne Schlüssel nutzen. Funktionen, die du mit einer Lizenz freigeschaltet hast, bleiben freigeschaltet.",
+  "legal.terms.s2.p": "Du kannst jedes Tool ohne Konto öffnen und nutzen. Einige Funktionen sind als Premium gekennzeichnet und brauchen einen Lizenzschlüssel. Funktionen, die du mit einer Lizenz freigeschaltet hast, bleiben freigeschaltet.",
   "legal.terms.s3.h": "Lizenz",
   "legal.terms.s3.p": "Eine Lizenz wird einmal pro Tool gekauft, hat kein Abo und gilt dauerhaft für dieses Tool, einschliesslich seiner Updates, solange es angeboten wird. Sie ist persönlich, nicht übertragbar und kann auf bis zu 2 deiner Geräte genutzt werden. Du darfst deinen Schlüssel nicht weiterverkaufen, weitergeben oder veröffentlichen. Wird das Tool nicht mehr angeboten, darfst du die Version, die du hast, weiter nutzen.",
   "legal.terms.s4.h": "Kauf und Zahlung",

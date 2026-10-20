@@ -260,7 +260,7 @@ export default {
   "legal.terms.s1.h": "Provider",
   "legal.terms.s1.p": "Timo Lanter, sole proprietorship Oneware (Switzerland). Contact: oneware.contact@gmail.com.",
   "legal.terms.s2.h": "Free use and Premium",
-  "legal.terms.s2.p": "You can open and use every tool without an account. Some features are marked Premium and need a license key. While Premium features are shown as free, you can use them without a key. Features you unlocked with a license stay unlocked.",
+  "legal.terms.s2.p": "You can open and use every tool without an account. Some features are marked Premium and need a license key. Features you unlocked with a license stay unlocked.",
   "legal.terms.s3.h": "License",
   "legal.terms.s3.p": "A license is bought once per tool, has no subscription and is valid permanently for that tool, including its updates for as long as it is offered. It is personal, not transferable and may be used on up to 2 of your devices. You may not resell, share or publish your key. If the tool is no longer offered, you may keep using the version you have.",
   "legal.terms.s4.h": "Purchase and payment",
