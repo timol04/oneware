@@ -87,10 +87,10 @@ function renderPresets() {
   }));
 }
 
-function renderProfiles() {
+async function renderProfiles() {
   const row = $('profile-row');
   const select = $('profile-select');
-  const mine = listProfiles();
+  const mine = await listProfiles();
   select.replaceChildren(new Option(t('rules.none'), ''), ...mine.map((p) => new Option(p.name, p.name)));
   select.value = selection.startsWith('profile:') ? selection.slice(8) : '';
   $('profile-delete').hidden = !select.value;
@@ -220,10 +220,10 @@ $('presets').addEventListener('click', (e) => {
   const b = e.target.closest('[data-preset]');
   if (b) selectPreset(b.dataset.preset);
 });
-$('profile-select').addEventListener('change', (e) => {
+$('profile-select').addEventListener('change', async (e) => {
   const name = e.target.value;
   if (!name) { selectPreset(DEFAULT_PRESET); return; }
-  const p = getProfile(name);
+  const p = await getProfile(name);
   if (!p) return;
   selection = `profile:${name}`;
   writeRules(p.rules);
@@ -231,20 +231,20 @@ $('profile-select').addEventListener('change', (e) => {
   renderPresets();
   renderProfiles();
 });
-$('profile-save').addEventListener('click', () => {
+$('profile-save').addEventListener('click', async () => {
   if (locked('profiles')) { shell.openLicense('buy'); return; }
   const name = $('profile-name').value.trim();
   if (!name) { $('profile-name').focus(); return; }
-  if (!saveProfile(name, readRules())) { showToast(t('rules.saveFailed')); return; }
+  if (!(await saveProfile(name, readRules()))) { showToast(t('rules.saveFailed')); return; }
   selection = `profile:${name}`;
   $('profile-name').value = '';
   renderPresets();
   renderProfiles();
   showToast(t('rules.saved', { name }));
 });
-$('profile-delete').addEventListener('click', () => {
+$('profile-delete').addEventListener('click', async () => {
   const name = $('profile-select').value;
-  if (!name || !deleteProfile(name)) return;
+  if (!name || !(await deleteProfile(name))) return;
   selectPreset(DEFAULT_PRESET);
 });
 $('rules-summary').closest('section').addEventListener('input', (e) => {
