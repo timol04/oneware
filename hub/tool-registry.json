@@ -1260,7 +1260,10 @@
         }
       ]
     },
-    "purchaseUrl": "https://example.com/lemon-squeezy-link",
+    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/eb2c384e-b06a-4dd6-b5ea-8d02c24054eb",
+    "lemonSqueezy": {
+      "productId": 1456609
+    },
     "seo": {
       "title": {
         "en": "Expense tracker, private and offline – Oneware",
