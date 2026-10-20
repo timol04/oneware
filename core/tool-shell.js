@@ -206,7 +206,7 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
     status.replaceChildren();
     if (hasPremium) {
       if (premium) {
-        const badge = createStatusBadge('green', t('shell.premium'));
+        const badge = createStatusBadge('green', t('shell.planPremium'));
         status.append(badge);
       } else {
         const unlock = el('button', 'ow-btn ow-btn--small', t('shell.unlock'));
