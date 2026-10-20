@@ -196,6 +196,7 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-sitefoot__col { display: flex; flex-direction: column; gap: var(--s-2); align-items: flex-start; }
 .ow-sitefoot__col h2 { margin: 0 0 var(--s-1); font-size: var(--fs-small); letter-spacing: 0; font-weight: 700; color: var(--text); }
 .ow-sitefoot a { color: var(--text-muted); text-decoration: none; transition: color var(--dur) var(--ease); }
+.ow-sitefoot__social { display: inline-flex; align-items: center; gap: var(--s-2); }
 .ow-sitefoot a:hover { color: var(--text); text-decoration: underline; }
 .ow-sitefoot__base { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); padding-top: var(--s-5); border-top: 1px solid var(--border); }
 .ow-sitefoot__license { margin: 0; margin-right: auto; max-width: 38rem; }

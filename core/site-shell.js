@@ -22,6 +22,28 @@ function link(href, key, className) {
   return a;
 }
 
+const YOUTUBE_URL = 'https://www.youtube.com/channel/UClksNKTpR_8o3jnoHvX71jQ';
+
+/** Plain link to the YouTube channel (no embed, no request until clicked) with an inline SVG icon. */
+function youtubeLink() {
+  const a = el('a', 'ow-sitefoot__social');
+  a.href = YOUTUBE_URL;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('width', '16');
+  svg.setAttribute('height', '16');
+  svg.setAttribute('aria-hidden', 'true');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('fill', 'currentColor');
+  path.setAttribute('d', 'M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.27 5 12 5 12 5s-6.27 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2C2 8.78 2 12 2 12s0 3.22.4 4.8a2.5 2.5 0 0 0 1.76 1.77C5.73 19 12 19 12 19s6.27 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77C22 15.22 22 12 22 12s0-3.22-.4-4.8ZM10 15V9l5.2 3L10 15Z');
+  svg.append(path);
+  const label = el('span', '', 'shell.footer.youtube');
+  a.append(svg, label);
+  return a;
+}
+
 const isDev = () => ['localhost', '127.0.0.1'].includes(location.hostname) || new URLSearchParams(location.search).has('dev');
 
 /** Footer shared by website pages and tools. */
@@ -43,7 +65,7 @@ export function createSiteFooter() {
     nav.append(h, ...links);
     return nav;
   };
-  const product = column('shell.footer.product', link(siteUrl('#tools'), 'shell.footer.tools'), link(siteUrl('how-it-works/'), 'shell.footer.how'));
+  const product = column('shell.footer.product', link(siteUrl('#tools'), 'shell.footer.tools'), link(siteUrl('how-it-works/'), 'shell.footer.how'), youtubeLink());
   const legal = column('shell.footer.legal', link(siteUrl('legal/imprint/'), 'shell.footer.imprint'), link(siteUrl('legal/privacy/'), 'shell.footer.privacy'), link(siteUrl('legal/terms/'), 'shell.footer.terms'), link(siteUrl('legal/licenses/'), 'shell.footer.licenses'), link('mailto:oneware.contact@gmail.com', 'shell.footer.contact'));
   if (isDev()) {
     const demo = el('a'); demo.href = siteUrl('tools/_demo/'); demo.textContent = 'Demo tool (dev)';
