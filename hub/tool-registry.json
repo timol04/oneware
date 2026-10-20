@@ -481,8 +481,8 @@
             "de": "Welche Formate kann ich exportieren?"
           },
           "a": {
-            "en": "PNG is part of the free features. SVG, PDF and large PNG for print are premium features, free during the launch phase.",
-            "de": "PNG gehört zu den kostenlosen Funktionen. SVG, PDF und großes PNG für den Druck sind Premium-Funktionen, in der Startphase kostenlos."
+            "en": "PNG is part of the free features. SVG, PDF and large PNG for print are part of the premium unlock.",
+            "de": "PNG gehört zu den kostenlosen Funktionen. SVG, PDF und großes PNG für den Druck gehören zur Premium-Freischaltung."
           }
         }
       ]
@@ -854,8 +854,8 @@
             "de": "Kann ich viele Dateien auf einmal umwandeln?"
           },
           "a": {
-            "en": "Yes, as a premium feature that is free during the launch phase. You download the results as one ZIP.",
-            "de": "Ja, als Premium-Funktion, die in der Startphase kostenlos ist. Die Ergebnisse lädst du als eine ZIP-Datei herunter."
+            "en": "Yes, with the premium unlock. You download the results as one ZIP.",
+            "de": "Ja, mit der Premium-Freischaltung. Die Ergebnisse lädst du als eine ZIP-Datei herunter."
           }
         }
       ]
@@ -1215,8 +1215,8 @@
             "de": "Kann ich ein PDF verkleinern?"
           },
           "a": {
-            "en": "Yes. Compress repacks the file without loss or compresses strongly for scans and photo PDFs. It is a premium feature that is free during the launch phase.",
-            "de": "Ja. Komprimieren packt die Datei verlustfrei neu oder komprimiert stark bei Scans und Foto-PDFs. Es ist eine Premium-Funktion, die in der Startphase kostenlos ist."
+            "en": "Yes. Compress repacks the file without loss or compresses strongly for scans and photo PDFs. It is part of the premium unlock.",
+            "de": "Ja. Komprimieren packt die Datei verlustfrei neu oder komprimiert stark bei Scans und Foto-PDFs. Es gehört zur Premium-Freischaltung."
           }
         }
       ]
