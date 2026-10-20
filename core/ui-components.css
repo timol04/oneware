@@ -249,6 +249,11 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-prose { max-width: var(--measure-text); }
 .ow-prose h2 { margin: var(--s-7) 0 var(--s-3); font-size: var(--fs-h2); }
 .ow-prose p, .ow-prose li { margin: 0 0 var(--s-3); }
+.ow-address-label { margin-bottom: var(--s-1); }
+.ow-address__img { display: block; height: auto; max-width: 100%; }
+.ow-address__img--dark { display: none; }
+:root[data-theme="dark"] .ow-address__img--light { display: none; }
+:root[data-theme="dark"] .ow-address__img--dark { display: block; }
 .ow-prose details { border-bottom: 1px solid var(--border); padding: var(--s-3) 0; }
 .ow-prose summary { cursor: pointer; font-weight: 700; }
 @media (min-width: 1100px) { .ow-split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6); align-items: start; } }
