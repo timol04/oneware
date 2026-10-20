@@ -54,7 +54,10 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/543421f0-4d35-444e-bd76-5eb1d488b842",
+  "lemonSqueezy": {
+    "productId": 1456642
+  },
   "seo": {
     "title": {
       "en": "Reading list for books, films and series – Oneware",
