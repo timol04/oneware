@@ -53,7 +53,7 @@ export default {
   'ex.categoriesNone': 'Keine Ausgaben in diesem Monat.',
   'ex.analysis': 'Statistik',
   'ex.locked': 'Die Statistik zeigt, wie sich Einnahmen und Ausgaben über das Jahr entwickeln.',
-  'ex.unlock': 'Freischalten',
+  'ex.unlock': 'Premium freischalten',
   'ex.chart.months': 'Einnahmen und Ausgaben',
   'ex.chart.monthsHint': 'Die letzten 12 Monate bis zum gewählten Monat.',
   'ex.chart.monthsLabel': '{month}: {income} Einnahmen, {expense} Ausgaben',

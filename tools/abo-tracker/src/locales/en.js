@@ -66,7 +66,7 @@ export default {
   'ab.cat.other': 'Other',
   'ab.analysis': 'Analysis',
   'ab.locked': 'The analysis shows how your costs develop over time.',
-  'ab.unlock': 'Unlock',
+  'ab.unlock': 'Unlock Premium',
   'ab.chart.months': 'Spending per month',
   'ab.chart.monthsHint': 'Charges of the last 12 months. The current month includes charges still due.',
   'ab.chart.monthsLabel': '{month}: {amount}',

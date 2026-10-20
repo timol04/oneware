@@ -66,7 +66,7 @@ export default {
   'ab.cat.other': 'Sonstiges',
   'ab.analysis': 'Auswertung',
   'ab.locked': 'Die Auswertung zeigt, wie sich deine Kosten über die Zeit entwickeln.',
-  'ab.unlock': 'Freischalten',
+  'ab.unlock': 'Premium freischalten',
   'ab.chart.months': 'Ausgaben pro Monat',
   'ab.chart.monthsHint': 'Abbuchungen der letzten 12 Monate. Der aktuelle Monat enthält noch fällige Abbuchungen.',
   'ab.chart.monthsLabel': '{month}: {amount}',

@@ -53,7 +53,7 @@ export default {
   'ex.categoriesNone': 'No expenses this month.',
   'ex.analysis': 'Statistics',
   'ex.locked': 'The statistics show how income and expenses develop over the year.',
-  'ex.unlock': 'Unlock',
+  'ex.unlock': 'Unlock Premium',
   'ex.chart.months': 'Income and expenses',
   'ex.chart.monthsHint': 'The last 12 months up to the selected month.',
   'ex.chart.monthsLabel': '{month}: {income} in, {expense} out',
