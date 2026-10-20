@@ -55,7 +55,10 @@
       }
     ]
   },
-  "purchaseUrl": "https://example.com/lemon-squeezy-link",
+  "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/35c22045-57d8-4058-b00a-9e492df12989",
+  "lemonSqueezy": {
+    "productId": 1456621
+  },
   "seo": {
     "title": {
       "en": "Habit tracker with streaks, no account – Oneware",
