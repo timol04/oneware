@@ -118,7 +118,7 @@ for (const tool of tools) {
 await writeFile(path.join(root, 'sitemap.xml'), sitemapXml(tools));
 
 // ---- static pages: English texts and a no-JS link list written into the HTML (the JS shell takes over in the browser) ----
-for (const [file, rel] of [['index.html', './'], ['how-it-works/index.html', '../'], ['legal/privacy/index.html', '../../'], ['legal/imprint/index.html', '../../'], ['legal/terms/index.html', '../../'], ['legal/licenses/index.html', '../../'], ['404.html', '/']]) {
+for (const [file, rel] of [['index.html', './'], ['how-it-works/index.html', '../'], ['legal/privacy/index.html', '../../'], ['legal/imprint/index.html', '../../'], ['legal/terms/index.html', '../../'], ['legal/refund/index.html', '../../'], ['legal/licenses/index.html', '../../'], ['404.html', '/']]) {
   const page = path.join(root, file);
   const before = await readFile(page, 'utf8');
   // everything between </main> and the next script is replaced, so repeated builds stay identical

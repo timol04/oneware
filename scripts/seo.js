@@ -62,14 +62,14 @@ export function injectToolSeo(html, tool, { free, registry = [] }) {
 /** sitemap.xml for the fixed pages plus every live tool. */
 export function sitemapXml(tools) {
   const urls = [`${SITE}/`, `${SITE}/how-it-works/`, ...tools.filter((t) => t.status === 'live').map(toolUrl),
-    `${SITE}/legal/privacy/`, `${SITE}/legal/terms/`, `${SITE}/legal/licenses/`, `${SITE}/legal/imprint/`];
+    `${SITE}/legal/privacy/`, `${SITE}/legal/terms/`, `${SITE}/legal/refund/`, `${SITE}/legal/licenses/`, `${SITE}/legal/imprint/`];
   return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + urls.map((u) => `  <url><loc>${u}</loc></url>\n`).join('') + '</urlset>\n';
 }
 
 // ---- prerendering: plain HTML for visitors and bots that do not run JavaScript ----
 
-const NAV = [['', 'Oneware'], ['#tools', 'Tools'], ['how-it-works/', 'How it works'], ['legal/privacy/', 'Privacy'], ['legal/terms/', 'Terms'], ['legal/licenses/', 'Third-party licenses'], ['legal/imprint/', 'About']];
+const NAV = [['', 'Oneware'], ['#tools', 'Tools'], ['how-it-works/', 'How it works'], ['legal/privacy/', 'Privacy'], ['legal/terms/', 'Terms'], ['legal/refund/', 'Request a refund'], ['legal/licenses/', 'Third-party licenses'], ['legal/imprint/', 'About']];
 
 /** Plain links to the main pages, shown only when JavaScript is off (the site shell is mounted by JS). `rel` is the path back to the site root, ending in a slash. */
 export function noscriptNav(rel) {

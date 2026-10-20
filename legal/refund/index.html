@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
+  <title data-i18n="legal.refund.title">Request a refund – Oneware</title>
+  <meta name="description" content="How to get your money back within 14 days of buying a Oneware license." data-i18n-attr="content:legal.refund.desc">
+  <meta property="og:title" content="Request a refund – Oneware">
+  <meta property="og:description" content="How to get your money back within 14 days of buying a Oneware license." data-i18n-attr="content:legal.refund.desc">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://oneware.page/core/og.png">
+  <link rel="canonical" href="https://oneware.page/legal/refund/">
+  <meta property="og:url" content="https://oneware.page/legal/refund/">
+  <meta property="og:site_name" content="Oneware">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Request a refund – Oneware">
+  <meta name="twitter:description" content="How to get your money back within 14 days of buying a Oneware license." data-i18n-attr="content:legal.refund.desc">
+  <meta name="twitter:image" content="https://oneware.page/core/og.png">
+  <link rel="icon" href="../../favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg" sizes="any">
+  <link rel="icon" type="image/png" href="../../icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+  <script src="../../core/theme-init.js"></script>
+  <link rel="preload" href="../../core/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../core/ui-components.css">
+</head>
+<body>
+  <main id="main" class="ow-container">
+    <div class="ow-prose">
+      <h1 class="ow-page-title" data-i18n="legal.refund.h1">Request a refund</h1>
+      <p class="ow-muted" data-i18n="legal.refund.intro">You can get your money back within 14 days of purchase, without giving a reason. The refund is not a button in your Lemon Squeezy receipt, you request it from us by e-mail.</p>
+      <h2 data-i18n="legal.refund.steps.h">How it works</h2>
+      <ol>
+        <li data-i18n="legal.refund.step1">Find your order number in the purchase confirmation e-mail from Lemon Squeezy.</li>
+        <li data-i18n="legal.refund.step2">Write to oneware.contact@gmail.com within 14 days of the purchase. Include the order number, the tool you bought and the e-mail address used for the purchase.</li>
+        <li data-i18n="legal.refund.step3">We refund the purchase through Lemon Squeezy and deactivate the license key. The money goes back to the payment method you used. Your bank decides how long it takes to show up.</li>
+      </ol>
+      <h2 data-i18n="legal.refund.mail.h">E-mail template</h2>
+      <p data-i18n="legal.refund.mail.p">The button opens your e-mail app with subject and text filled in. Replace the parts in square brackets before you send.</p>
+      <p><a class="ow-btn" id="refund-mail" href="mailto:oneware.contact@gmail.com" data-i18n="legal.refund.mail.btn">Write the e-mail</a></p>
+      <h2 data-i18n="legal.refund.note.h">Good to know</h2><p data-i18n="legal.refund.note.p">After the refund the key no longer unlocks Premium features. Your entries stay in your browser and the free features keep working. Your license is valid on up to 2 devices, so a second device is not a reason to refund: you can use the same key there.</p>
+      <p><a href="../terms/" data-i18n="shell.footer.terms">Terms</a></p>
+    </div>
+  </main>
+  <!-- nav:start --><noscript><nav aria-label="Main"><a href="../../">Oneware</a> · <a href="../../#tools">Tools</a> · <a href="../../how-it-works/">How it works</a> · <a href="../../legal/privacy/">Privacy</a> · <a href="../../legal/terms/">Terms</a> · <a href="../../legal/refund/">Request a refund</a> · <a href="../../legal/licenses/">Third-party licenses</a> · <a href="../../legal/imprint/">About</a></nav></noscript><!-- nav:end -->
+  <script type="module">
+    import { mountSiteShell } from '../../core/site-shell.js';
+    import { t } from '../../core/i18n.js';
+    mountSiteShell({ active: '' });
+    const link = document.getElementById('refund-mail');
+    const fill = () => {
+      link.href = `mailto:oneware.contact@gmail.com?subject=${encodeURIComponent(t('legal.refund.mail.subject'))}&body=${encodeURIComponent(t('legal.refund.mail.body'))}`;
+    };
+    fill();
+    document.addEventListener('ow:langchange', fill);
+  </script>
+</body>
+</html>
