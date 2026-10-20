@@ -251,6 +251,8 @@ export default {
   "legal.privacy.s3.p": "The website is served as static files by GitHub Pages. When you open a page, the hosting provider may process technical data such as your IP address in server logs, also in the USA. Links to other sites, such as our YouTube channel, are plain links: nothing is loaded from them until you click.",
   "legal.privacy.s4.h": "Payments",
   "legal.privacy.s4.p": "Purchases are handled by Lemon Squeezy, which acts as the seller and processes your payment and billing data under its own privacy policy. We do not receive your payment details.",
+  "legal.privacy.s9.h": "What we see about a purchase",
+  "legal.privacy.s9.p": "When you buy a license, we see the following in the Lemon Squeezy dashboard: order number and time, product and amount, the VAT included, your name and e-mail address, the license key with its status (active or deactivated) and number of activations (for example 1 of 2), and a timeline of the order (order created, receipt e-mailed). We use this only to give support, handle refunds and manage licenses. We do not see your card or other payment details, those stay with Lemon Squeezy. How long Lemon Squeezy keeps this data is set by Lemon Squeezy.",
   "legal.privacy.s5.h": "Contact",
   "legal.privacy.s5.p": "oneware.contact@gmail.com. You can ask at any time for access, correction or deletion of your data.",
   "legal.terms.title": "Terms – Oneware",
