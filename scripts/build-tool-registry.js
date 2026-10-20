@@ -145,7 +145,7 @@ const html = await readFile(indexFile, 'utf8');
 const group = (g) => `        <section class="group"><div class="group__head"><h3 class="group__title">${esc(en[`hub.group.${g.kind}`])}</h3><p class="group__desc">${esc(en[`hub.group.${g.kind}.desc`])}</p></div>\n`
   + `        <ul class="catalog">\n${g.items.map(row).join('\n')}\n        </ul></section>`;
 const rows = tools.length ? groupTools(tools).map(group).join('\n') : `        <p class="catalog__msg ow-muted">${esc(en['hub.empty'])}</p>`;
-const next = html.replace(/(<!-- catalog:start -->)[\s\S]*?(<!-- catalog:end -->)/, `$1\n${rows}\n        $2`);
+const next = html.replace(/(<!-- catalog:start -->)[\s\S]*?(<!-- catalog:end -->)/, (_, start, end) => `${start}\n${rows}\n        ${end}`);
 if (next !== html) await writeFile(indexFile, next);
 
 for (const w of warnings) console.warn(`warning: ${w}`);

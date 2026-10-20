@@ -91,7 +91,7 @@ export function fillI18n(html, en) {
       const v = attr && key ? text(key) : null;
       if (v === null) continue;
       const re = new RegExp(`(\\s${attr}=")[^"]*(")`);
-      out = re.test(out) ? out.replace(re, `$1${v}$2`) : out.replace(/>$/, ` ${attr}="${v}">`);
+      out = re.test(out) ? out.replace(re, (_, a, b) => `${a}${v}${b}`) : out.replace(/>$/, ` ${attr}="${v}">`);
     }
     return out;
   });
