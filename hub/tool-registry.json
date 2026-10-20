@@ -251,8 +251,8 @@
     "icon": "flame",
     "preview": "habits",
     "price": {
-      "en": "Price to follow",
-      "de": "Preis folgt"
+      "en": "$5.99 one-time",
+      "de": "5.99 USD einmalig"
     },
     "order": 30,
     "accent": {
@@ -368,8 +368,8 @@
     "icon": "grid",
     "preview": "qr",
     "price": {
-      "en": "Price to follow",
-      "de": "Preis folgt"
+      "en": "$5.99 one-time",
+      "de": "5.99 USD einmalig"
     },
     "order": 50,
     "accent": {
@@ -623,8 +623,8 @@
     "icon": "file-check",
     "preview": "check",
     "price": {
-      "en": "Price to follow",
-      "de": "Preis folgt"
+      "en": "$11.99 one-time",
+      "de": "11.99 USD einmalig"
     },
     "order": 60,
     "accent": {
@@ -869,8 +869,8 @@
     "icon": "book",
     "preview": "list",
     "price": {
-      "en": "Price to follow",
-      "de": "Preis folgt"
+      "en": "$3.49 one-time",
+      "de": "3.49 USD einmalig"
     },
     "order": 70,
     "accent": {

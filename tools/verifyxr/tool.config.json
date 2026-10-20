@@ -11,8 +11,8 @@
   "icon": "file-check",
   "preview": "check",
   "price": {
-    "en": "Price to follow",
-    "de": "Preis folgt"
+    "en": "$11.99 one-time",
+    "de": "11.99 USD einmalig"
   },
   "order": 60,
   "accent": {

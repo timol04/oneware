@@ -14,8 +14,8 @@
   "icon": "book",
   "preview": "list",
   "price": {
-    "en": "Price to follow",
-    "de": "Preis folgt"
+    "en": "$3.49 one-time",
+    "de": "3.49 USD einmalig"
   },
   "order": 70,
   "accent": {

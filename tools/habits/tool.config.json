@@ -14,8 +14,8 @@
   "icon": "flame",
   "preview": "habits",
   "price": {
-    "en": "Price to follow",
-    "de": "Preis folgt"
+    "en": "$5.99 one-time",
+    "de": "5.99 USD einmalig"
   },
   "order": 30,
   "accent": {
