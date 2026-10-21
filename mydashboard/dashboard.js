@@ -5,6 +5,7 @@ import { t, localize, onLangChange, applyTranslations, getLang } from '../core/i
 import { isPremiumUnlocked } from '../core/license.js';
 import { getAllItems, exportAll, importAll } from '../core/storage.js';
 import { getLastExport, BACKUP_INTERVAL_DAYS } from '../core/persistence.js';
+import { cloudHowTo } from '../core/cloud-ui.js';
 import { getSharedCloud, getCloudSupport, connectCloudAll, syncCloudAll, restoreCloudAll, disconnectCloudAll } from '../core/cloud.js';
 import { licensing } from '../core/site-config.js';
 import { previewHtml } from '../hub/src/preview.js';
@@ -263,7 +264,7 @@ function renderData() {
   else if (!shared) {
     cloud.append(el('p', 'ow-muted dash__cloud-note', t('cloud.all.help')));
     cloud.append(button(t('cloud.all.connect'), async () => {
-      try { await connectCloudAll(slugs); showToast(t('cloud.all.saved', { count: slugs.length })); await refresh(); }
+      try { const c = await connectCloudAll(slugs); showToast(t(c.kept ? 'cloud.found' : 'cloud.all.saved', { count: slugs.length })); await refresh(); }
       catch (e) { if (e?.name !== 'AbortError') showToast(t('cloud.connectFailed', { reason: e?.message || String(e) })); }
     }, 'ow-btn dash__cloud-btn'));
   } else {
@@ -283,6 +284,7 @@ function renderData() {
     );
     cloud.append(head, row);
   }
+  cloud.append(cloudHowTo());
   parts.push(cloud);
   dataList.replaceChildren(...parts);
 }

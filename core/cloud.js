@@ -5,7 +5,7 @@
  * Needs the File System Access API (showDirectoryPicker): Chrome, Edge, Opera, Brave on desktop.
  * Everywhere else the manual backup export/import keeps working.
  */
-import { buildExport, importData } from './storage.js';
+import { buildExport, importData, getAllItems } from './storage.js';
 
 const DB = 'ow_cloud';
 const STORE = 'folders';
@@ -78,16 +78,16 @@ export async function getSharedCloud() {
 export async function connectCloudAll(slugs) {
   const handle = await showDirectoryPicker({ id: 'oneware', mode: 'readwrite', startIn: 'documents' });
   await dbOp('readwrite', (s) => s.put(handle, ALL));
-  await syncCloudAll(slugs, { interactive: true });
-  return { name: handle.name };
+  const result = await syncCloudAll(slugs, { interactive: true });
+  return { name: handle.name, kept: result.kept };
 }
 
 /** Saves every given tool into its linked folder. Returns { ok, needsAccess }. */
 export async function syncCloudAll(slugs, { interactive = false } = {}) {
-  const out = { ok: 0, needsAccess: 0 };
+  const out = { ok: 0, needsAccess: 0, kept: 0 };
   for (const slug of slugs) {
     const r = await syncCloud(slug, { interactive });
-    if (r === 'ok') out.ok++; else if (r === 'needs-access') out.needsAccess++;
+    if (r === 'ok') out.ok++; else if (r === 'needs-access') out.needsAccess++; else if (r === 'kept') out.kept++;
   }
   return out;
 }
@@ -111,11 +111,23 @@ async function hasAccess(handle, ask) {
   return ask && (await handle.requestPermission?.(opts)) === 'granted';
 }
 
-/** Writes the current backup into the linked folder. Returns 'ok' | 'needs-access' | 'not-linked'. */
+/** True if the folder already holds a backup with entries for this tool. */
+async function folderHasBackup(handle, slug) {
+  try {
+    const data = JSON.parse(await (await (await handle.getFileHandle(fileName(slug))).getFile()).text());
+    return Array.isArray(data?.data) && data.data.length > 0;
+  } catch { return false; }
+}
+
+/**
+ * Writes the current backup into the linked folder. Returns 'ok' | 'needs-access' | 'not-linked' | 'kept'.
+ * 'kept': this device has no entries yet but the folder has a backup, so it is left untouched until restored.
+ */
 export async function syncCloud(slug, { interactive = false } = {}) {
   const handle = await getHandle(slug);
   if (!handle) return 'not-linked';
   if (!(await hasAccess(handle, interactive))) return 'needs-access';
+  if (!(await getAllItems(slug)).length && (await folderHasBackup(handle, slug))) return 'kept';
   const file = await handle.getFileHandle(fileName(slug), { create: true });
   const w = await file.createWritable();
   await w.write(JSON.stringify(await buildExport(slug), null, 2));
@@ -128,8 +140,8 @@ export async function syncCloud(slug, { interactive = false } = {}) {
 export async function connectCloud(slug) {
   const handle = await showDirectoryPicker({ id: 'oneware', mode: 'readwrite', startIn: 'documents' });
   await dbOp('readwrite', (s) => s.put(handle, slug));
-  await syncCloud(slug, { interactive: true });
-  return { name: handle.name };
+  const result = await syncCloud(slug, { interactive: true });
+  return { name: handle.name, kept: result === 'kept' };
 }
 
 /** Reads the backup file from the linked folder and merges it into local data. Returns the item count. */

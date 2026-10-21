@@ -24,6 +24,20 @@ export function cloudBrowserLine() {
   return t(supported ? 'cloud.yourBrowser.yes' : 'cloud.yourBrowser.no', { browser: browser.name });
 }
 
+/** Short collapsible how-to: folder, saving, restoring on a new device, license key. */
+export function cloudHowTo() {
+  const d = el('details', 'ow-cloud-howto');
+  const sum = el('summary');
+  sum.append(createIcon('cloud', { size: '1rem' }), ' ', t('cloud.howto.title'));
+  const ol = el('ol');
+  for (const k of ['pick', 'save', 'restore']) ol.append(el('li', '', t(`cloud.howto.${k}`)));
+  d.append(sum, ol, el('p', 'ow-muted', t('cloud.howto.license')));
+  d.style.fontSize = 'var(--fs-small)';
+  d.style.marginTop = 'var(--s-3)';
+  sum.style.cursor = 'pointer';
+  return d;
+}
+
 /** Opens the dialog. `onChange` runs after data was restored. */
 export async function showCloudDialog({ toolSlug, onChange } = {}) {
   const support = getCloudSupport();
@@ -53,7 +67,7 @@ export async function showCloudDialog({ toolSlug, onChange } = {}) {
     } else if (!link) {
       parts.push(el('p', 'ow-muted', t('cloud.intro')));
       parts.push(button(t('cloud.connect'), async () => {
-        try { await connectCloud(toolSlug); showToast(t('cloud.synced')); draw(); }
+        try { showToast(t((await connectCloud(toolSlug)).kept ? 'cloud.found' : 'cloud.synced')); draw(); }
         catch (e) { if (e?.name !== 'AbortError') showToast(t('cloud.connectFailed', { reason: reason(e) })); }
       }));
     } else {
@@ -76,7 +90,7 @@ export async function showCloudDialog({ toolSlug, onChange } = {}) {
     const info = el('div', 'ow-muted');
     info.style.fontSize = 'var(--fs-small)';
     info.append(el('p', '', t('cloud.browsers.yes')), el('p', '', t('cloud.browsers.no')), el('p', '', cloudBrowserLine()), el('p', '', t('cloud.note')));
-    parts.push(info);
+    parts.push(info, cloudHowTo());
     box.replaceChildren(...parts);
   }
 
