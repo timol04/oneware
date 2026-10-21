@@ -3,8 +3,7 @@ import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/sto
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
-import { renderMarkdown } from './markdown.js';
-import { htmlToMarkdown } from './htmltomd.js';
+import { mountRichEditor } from '../../../core/rich-editor.js';
 import { COLORS, FREE_LIMIT, newNote, displayTitle, snippet, normalizeTag, tagCounts, visibleNotes, atLimit } from './notes.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
@@ -14,12 +13,22 @@ registerMessages('de', de);
 
 const SLUG = 'notes';
 const SAVE_DELAY = 400;
-const TOOLBAR = [['bold', 'bold'], ['italic', 'italic'], ['heading', 'heading'], ['ul', 'list'], ['ol', 'list-ordered'], ['quote', 'quote'], ['code', 'code'], ['link', 'link']];
-const FLOATING = ['bold', 'italic', 'heading', 'code', 'link'];
 const config = await (await fetch('tool.config.json')).json();
 const $ = (id) => document.getElementById(id);
 
 const shell = await mountToolShell({ slug: SLUG, config, main: $('main'), onLicenseChange: render });
+
+const editor = mountRichEditor({
+  body: $('body'),
+  bar: $('fmt'),
+  float: $('float'),
+  onInput(markdown) {
+    const n = selected();
+    if (!n) return;
+    n.body = markdown;
+    touch(n);
+  },
+});
 
 let notes = [];
 let selectedId = null;
@@ -178,178 +187,6 @@ function renderTools(note) {
   $('back').replaceChildren(createIcon('arrow-left', { size: '1rem' }), ` ${t('nt.back')}`);
 }
 
-// --- Formatting toolbar and selection bar ---
-const body = () => $('body');
-const inEditor = (node) => !!node && body().contains(node);
-
-function currentRange() {
-  const sel = getSelection();
-  return sel.rangeCount && inEditor(sel.anchorNode) ? sel.getRangeAt(0) : null;
-}
-function closestTag(...tags) {
-  let node = getSelection().anchorNode;
-  while (node && node !== body()) {
-    if (node.nodeType === 1 && tags.includes(node.tagName)) return node;
-    node = node.parentNode;
-  }
-  return null;
-}
-
-function formatButtons(kinds) {
-  return kinds.map((kind) => {
-    const icon = TOOLBAR.find(([k]) => k === kind)[1];
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'nt-fmt__btn';
-    b.dataset.format = kind;
-    b.title = t(`nt.fmt.${kind}`);
-    b.setAttribute('aria-label', t(`nt.fmt.${kind}`));
-    b.append(createIcon(icon, { size: '1.1rem' }));
-    return b;
-  });
-}
-
-function renderFormatBars() {
-  $('fmt').replaceChildren(...formatButtons(TOOLBAR.map(([k]) => k)));
-  $('float').replaceChildren(...formatButtons(FLOATING));
-}
-
-/** Which formats are active at the cursor (shown as pressed buttons). */
-function syncFormatState() {
-  const active = {
-    bold: document.queryCommandState('bold'),
-    italic: document.queryCommandState('italic'),
-    heading: !!closestTag('H1', 'H2', 'H3'),
-    ul: !!closestTag('UL'),
-    ol: !!closestTag('OL'),
-    quote: !!closestTag('BLOCKQUOTE'),
-    code: !!closestTag('CODE'),
-    link: !!closestTag('A'),
-  };
-  document.querySelectorAll('[data-format]').forEach((b) => b.setAttribute('aria-pressed', String(!!active[b.dataset.format])));
-}
-
-function askLink(current) {
-  return new Promise((resolve) => {
-    const dialog = document.createElement('dialog');
-    dialog.className = 'ow-dialog';
-    dialog.innerHTML = `<form method="dialog" novalidate><h2></h2><div class="ow-field"><label class="ow-label" for="nt-link-url"></label><input id="nt-link-url" class="ow-input" type="url" inputmode="url" autocomplete="off" placeholder="https://"></div><div class="ow-dialog__actions"><button type="button" class="ow-btn ow-btn--secondary" data-act="remove"></button><button type="button" class="ow-btn ow-btn--secondary" data-act="cancel"></button><button class="ow-btn" data-act="save"></button></div></form>`;
-    dialog.querySelector('h2').textContent = t('nt.link.title');
-    dialog.querySelector('label').textContent = t('nt.link.url');
-    dialog.querySelector('[data-act=remove]').textContent = t('nt.link.remove');
-    dialog.querySelector('[data-act=cancel]').textContent = t('nt.link.cancel');
-    dialog.querySelector('[data-act=save]').textContent = t('nt.link.save');
-    dialog.querySelector('[data-act=remove]').hidden = !current;
-    const input = dialog.querySelector('input');
-    input.value = current ?? '';
-    let result = null;
-    dialog.addEventListener('click', (e) => {
-      const act = e.target.closest('[data-act]')?.dataset.act;
-      if (act === 'remove') { result = ''; dialog.close(); } else if (act === 'cancel' || e.target === dialog) dialog.close();
-    });
-    dialog.querySelector('form').addEventListener('submit', () => { result = input.value.trim(); });
-    dialog.addEventListener('close', () => { dialog.remove(); resolve(result); });
-    document.body.append(dialog);
-    dialog.showModal();
-    input.focus();
-    input.select();
-  });
-}
-
-async function editLink() {
-  const range = currentRange();
-  if (!range) return;
-  const saved = range.cloneRange();
-  const existing = closestTag('A');
-  const url = await askLink(existing?.getAttribute('href'));
-  body().focus();
-  const sel = getSelection();
-  sel.removeAllRanges();
-  sel.addRange(saved);
-  if (url === null) return;
-  if (!url) { if (existing) document.execCommand('unlink'); return; }
-  const href = /^[a-z][a-z0-9+.-]*:/i.test(url) ? url : `https://${url}`;
-  if (!/^https?:\/\/\S+$/i.test(href)) return;
-  if (existing) existing.setAttribute('href', href);
-  else if (sel.isCollapsed) document.execCommand('insertHTML', false, `<a href="${href.replace(/"/g, '&quot;')}">${href.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</a>`);
-  else document.execCommand('createLink', false, href);
-}
-
-function toggleCode() {
-  const existing = closestTag('CODE');
-  if (existing) {
-    existing.replaceWith(...existing.childNodes);
-    return;
-  }
-  const sel = getSelection();
-  if (sel.isCollapsed) return;
-  const text = sel.toString().replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
-  document.execCommand('insertHTML', false, `<code>${text}</code>`);
-}
-
-function format(kind) {
-  const note = selected();
-  if (!note || !currentRange()) { body().focus(); return; }
-  body().focus();
-  if (kind === 'bold') document.execCommand('bold');
-  else if (kind === 'italic') document.execCommand('italic');
-  else if (kind === 'ul') document.execCommand('insertUnorderedList');
-  else if (kind === 'ol') document.execCommand('insertOrderedList');
-  else if (kind === 'code') toggleCode();
-  else if (kind === 'quote') {
-    if (closestTag('BLOCKQUOTE')) document.execCommand('outdent'); else document.execCommand('formatBlock', false, '<blockquote>');
-  } else if (kind === 'heading') {
-    const level = Number(closestTag('H1', 'H2', 'H3')?.tagName[1] ?? 0);
-    document.execCommand('formatBlock', false, level >= 3 ? '<p>' : `<h${level + 1}>`);
-  } else if (kind === 'link') { editLink().then(afterFormat); return; }
-  afterFormat();
-}
-
-function afterFormat() {
-  body().dispatchEvent(new Event('input', { bubbles: true }));
-  syncFormatState();
-  updateFloat();
-}
-
-function hideFloat() { $('float').hidden = true; }
-
-function updateFloat() {
-  const bar = $('float');
-  const sel = getSelection();
-  const range = currentRange();
-  if (!range || sel.isCollapsed || document.activeElement !== body()) { hideFloat(); return; }
-  bar.hidden = false;
-  const rect = range.getBoundingClientRect();
-  const wrap = $('body').parentElement.getBoundingClientRect();
-  const above = rect.top - wrap.top - bar.offsetHeight - 8;
-  bar.style.top = `${above >= 0 ? above : rect.bottom - wrap.top + 8}px`;
-  bar.style.left = `${Math.max(0, Math.min(rect.left - wrap.left, wrap.width - bar.offsetWidth))}px`;
-}
-
-document.addEventListener('mousedown', (e) => { if (e.target.closest('#fmt, #float')) e.preventDefault(); });
-for (const id of ['fmt', 'float']) {
-  $(id).addEventListener('click', (e) => {
-    const b = e.target.closest('[data-format]');
-    if (b) format(b.dataset.format);
-  });
-}
-document.addEventListener('selectionchange', () => {
-  if (document.activeElement !== body()) { hideFloat(); return; }
-  syncFormatState();
-  updateFloat();
-});
-body().addEventListener('blur', () => setTimeout(() => { if (!document.activeElement?.closest?.('#float')) hideFloat(); }));
-body().addEventListener('keydown', (e) => {
-  if (!(e.ctrlKey || e.metaKey) || e.altKey || e.key.toLowerCase() !== 'k') return;
-  e.preventDefault();
-  format('link');
-});
-// Links open on Ctrl/Cmd+click; a plain click only places the cursor
-body().addEventListener('click', (e) => {
-  const a = e.target.closest('a');
-  if (a && (e.ctrlKey || e.metaKey)) window.open(a.href, '_blank', 'noopener');
-});
-
 function renderMeta(note) {
   $('meta').textContent = t('nt.updated', { date: dateFmt().format(note.updated) });
 }
@@ -361,7 +198,7 @@ function renderEditor() {
   $('placeholder').hidden = !!note;
   if (!note) return;
   $('title').value = note.title;
-  $('body').innerHTML = renderMarkdown(note.body);
+  editor.setMarkdown(note.body);
   $('editor').dataset.color = note.color ?? '';
   renderTools(note);
   renderColors(note);
@@ -371,7 +208,7 @@ function renderEditor() {
 
 function render() {
   applyTranslations();
-  renderFormatBars();
+  editor.renderBars();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('nt.new')}`);
   shell.setPremiumLimit(t('nt.limitLabel', { limit: FREE_LIMIT }), t('nt.usage', { count: notes.length, limit: FREE_LIMIT }));
   renderViews();
@@ -426,19 +263,6 @@ $('tags').addEventListener('click', (e) => {
 $('back').addEventListener('click', async () => { await flush(); selectedId = null; renderList(); renderEditor(); });
 
 $('title').addEventListener('input', (e) => { const n = selected(); if (n) { n.title = e.target.value; touch(n); } });
-$('body').addEventListener('input', () => {
-  const n = selected();
-  if (!n) return;
-  const body = $('body');
-  if (!body.textContent.trim() && !body.querySelector('li, hr, pre')) body.replaceChildren();
-  n.body = htmlToMarkdown(body);
-  touch(n);
-});
-// Paste as plain text so foreign formatting never ends up in a note
-$('body').addEventListener('paste', (e) => {
-  e.preventDefault();
-  document.execCommand('insertText', false, e.clipboardData.getData('text/plain'));
-});
 $('colors').addEventListener('click', async (e) => {
   const b = e.target.closest('.nt-color');
   const note = selected();

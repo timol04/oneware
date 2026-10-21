@@ -7,7 +7,7 @@ import {
   FREE_LIMIT, MOODS, newEntry, isoDate, parseDay, addDays, displayTitle, snippet, parseTags, normalizeTag, tagCounts,
   entryOn, hasContent, visibleEntries, streaks, averageMood, monthGrid, atLimit,
 } from './journal.js';
-import { renderMarkdown } from './markdown.js';
+import { mountRichEditor } from '../../../core/rich-editor.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
 
@@ -26,13 +26,25 @@ let selectedId = null;
 let view = 'list';
 let tag = null;
 let query = '';
-let mode = 'write';
 let month = { y: new Date().getFullYear(), m: new Date().getMonth() };
 let saving = 0;
 let saveTimer;
 let deleteTimer;
 
 const selected = () => entries.find((e) => e.id === selectedId) ?? null;
+
+const editor = mountRichEditor({
+  body: $('body'),
+  bar: $('fmt'),
+  float: $('float'),
+  btnClass: 'jr-fmt__btn',
+  onInput(markdown) {
+    const e = selected();
+    if (!e) return;
+    e.body = markdown;
+    touch(e);
+  },
+});
 const premium = () => isPremiumUnlocked(SLUG);
 const today = () => isoDate();
 
@@ -229,22 +241,6 @@ function renderEntryTags(e) {
   }));
 }
 
-function renderModes() {
-  const chip = (label, m, icon) => {
-    const b = el('button', 'jr-chip', { type: 'button', 'aria-pressed': String(mode === m), 'data-mode': m });
-    b.append(createIcon(icon, { size: '.95rem' }), ` ${label}`);
-    return b;
-  };
-  $('modes').replaceChildren(chip(t('jr.mode.write'), 'write', 'edit'), chip(t('jr.mode.preview'), 'preview', 'eye'));
-  const e = selected();
-  $('write').hidden = mode !== 'write';
-  $('preview').hidden = mode !== 'preview';
-  if (e && mode === 'preview') {
-    $('preview').innerHTML = e.body.trim() ? renderMarkdown(e.body) : '';
-    if (!e.body.trim()) $('preview').textContent = t('jr.previewEmpty');
-  }
-}
-
 function renderMeta(e) {
   $('meta').textContent = t('jr.meta', { date: new Intl.DateTimeFormat(getLang(), { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(e.updated)) });
 }
@@ -258,16 +254,16 @@ function renderEditor() {
   $('date').textContent = longFmt().format(parseDay(e.date));
   $('day-next').disabled = e.date >= today();
   if (document.activeElement !== $('title')) $('title').value = e.title;
-  if (document.activeElement !== $('body')) $('body').value = e.body;
+  if (document.activeElement !== $('body')) editor.setMarkdown(e.body);
   renderTools();
   renderMoods(e);
   renderEntryTags(e);
-  renderModes();
   renderMeta(e);
 }
 
 function render() {
   applyTranslations();
+  editor.renderBars();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('jr.new')}`);
   shell.setPremiumLimit(t('jr.limitLabel', { limit: FREE_LIMIT }), t('jr.usage', { count: entries.filter(hasContent).length, limit: FREE_LIMIT }));
   renderViews();
@@ -289,9 +285,8 @@ async function openDay(date) {
   selectedId = entry.id;
   const d = parseDay(date);
   month = { y: d.getFullYear(), m: d.getMonth() };
-  mode = entry.body.trim() ? 'preview' : 'write';
   render();
-  if (mode === 'write') $('body').focus();
+  if (!entry.body.trim()) editor.focus();
 }
 
 $('new').addEventListener('click', () => openDay(today()));
@@ -317,7 +312,6 @@ $('list').addEventListener('click', async (e) => {
   const entry = selected();
   const d = parseDay(entry.date);
   month = { y: d.getFullYear(), m: d.getMonth() };
-  mode = entry.body.trim() ? 'preview' : 'write';
   render();
 });
 $('cal').addEventListener('click', (e) => {
@@ -341,15 +335,6 @@ $('moods').addEventListener('click', (ev) => {
   touch(e);
 });
 $('title').addEventListener('input', (ev) => { const e = selected(); if (e) { e.title = ev.target.value; touch(e); } });
-$('body').addEventListener('input', (ev) => { const e = selected(); if (e) { e.body = ev.target.value; touch(e); } });
-
-$('modes').addEventListener('click', (ev) => {
-  const b = ev.target.closest('[data-mode]');
-  if (!b) return;
-  mode = b.dataset.mode;
-  renderModes();
-  if (mode === 'write') $('body').focus();
-});
 
 // Tags
 function addTags(text) {

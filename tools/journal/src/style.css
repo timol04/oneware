@@ -124,9 +124,10 @@
 .jr-taginput { flex: 1; min-width: 9rem; padding: .3em .2em; border: 0; background: transparent; color: var(--text); font: inherit; font-size: var(--fs-small); }
 .jr-taginput:focus-visible { outline: none; }
 .jr-chip-x { display: inline-flex; align-items: center; gap: .3em; }
-.jr-modes { display: flex; gap: var(--s-2); margin-bottom: var(--s-3); }
-.jr-bodywrap { display: block; }
-.jr-body { width: 100%; resize: vertical; min-height: 14rem; line-height: 1.6; }
+.jr-bodywrap { position: relative; }
+#body { min-height: 14rem; line-height: 1.6; outline: none; }
+#body:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+#body:empty::before { content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; }
 .jr-md { padding: var(--s-4); border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); overflow-wrap: anywhere; min-height: 14rem; }
 .jr-md > :first-child { margin-top: 0; }
 .jr-md h1, .jr-md h2, .jr-md h3 { margin: 1.2em 0 .4em; letter-spacing: -0.02em; }
@@ -145,3 +146,23 @@
 .jr-dayb[aria-current="date"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
 .jr-dayb.has-entry::after { content: none; }
 .jr-stats dd, .jr-stats dt { white-space: nowrap; }
+
+.jr-md a { color: var(--accent); }
+.jr-md hr { border: 0; border-top: 1px solid var(--border); margin: var(--s-4) 0; }
+
+/* Formatting bars */
+.jr-fmt { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-bottom: var(--s-2); }
+.jr-fmt__btn {
+  display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; padding: 0;
+  border: 1px solid var(--border); border-radius: var(--radius); background: transparent; color: var(--text); cursor: pointer;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.jr-fmt__btn:hover { border-color: var(--accent); color: var(--accent); }
+.jr-fmt__btn[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 16%, transparent); border-color: var(--accent); color: var(--accent); }
+.jr-fmt__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.jr-float {
+  position: absolute; z-index: 5; display: flex; gap: var(--s-1); padding: var(--s-1);
+  border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-md);
+}
+.jr-float .jr-fmt__btn { width: 2rem; height: 2rem; border-color: transparent; }
+.jr-float .jr-fmt__btn:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
