@@ -236,7 +236,7 @@ export default {
   "legal.imprint.h1": "About",
   "legal.imprint.p1": "Anbieter: Timo Lanter, Einzelunternehmen Oneware (Schweiz)",
   "legal.imprint.p2": "Postanschrift:",
-  "legal.imprint.addralt": "Postanschrift",
+  "legal.imprint.addrnojs": "wird nur mit aktiviertem JavaScript angezeigt, sonst bitte per E-Mail anfragen.",
   "legal.imprint.p4": "Zahlungsabwicklung und Vertrieb erfolgen über unseren Partner Lemon Squeezy.",
   "legal.imprint.p3": "Kontakt: oneware.contact@gmail.com",
   "legal.draft": "Angaben nach Art. 3 Abs. 1 lit. s UWG.",
