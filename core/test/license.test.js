@@ -106,3 +106,12 @@ test('premium is open for everyone while licensing is switched off', () => {
   try { assert.equal(isPremiumUnlocked('abo-tracker'), true); } finally { licensing.enabled = true; }
   assert.equal(isPremiumUnlocked('abo-tracker'), false);
 });
+
+test('revalidation: force skips the wait, unknown status revokes', async () => {
+  const now = Date.now();
+  await unlockPremiumOnline('tool-y', 'KEY', { productId: 7, fetchImpl: ok(), now });
+  assert.equal(await revalidateLicense('tool-y', { now, fetchImpl: reply({ valid: true, license_key: { status: 'active' } }) }), 'fresh');
+  assert.equal(await revalidateLicense('tool-y', { now, force: true, fetchImpl: reply({ valid: true, license_key: { status: 'active' } }) }), 'ok');
+  assert.equal(await revalidateLicense('tool-y', { now, force: true, fetchImpl: reply({ valid: true, license_key: { status: 'expired' } }) }), 'revoked');
+  assert.equal(isPremiumUnlocked('tool-y'), false);
+});

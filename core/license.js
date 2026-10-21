@@ -173,20 +173,23 @@ export async function unlockPremiumOnline(toolSlug, key, { productId, fetchImpl 
 }
 
 /**
- * Re-checks an online-activated license at most once a day. Offline or server errors never lock the tool.
+ * Re-checks an online-activated license at most once a day (`force` skips that wait). Offline or server errors never lock the tool.
  * Returns 'skip' | 'fresh' | 'offline' | 'ok' | 'revoked'.
  */
-export async function revalidateLicense(toolSlug, { fetchImpl = globalThis.fetch, now = Date.now() } = {}) {
+export async function revalidateLicense(toolSlug, { fetchImpl = globalThis.fetch, now = Date.now(), force = false } = {}) {
   if (!licensing.enabled) return 'skip';
   const rec = readRecord(toolSlug);
   if (!rec) return 'skip';
-  if (now - (rec.checkedAt ?? 0) < REVALIDATE_DAYS * 86400000) return 'fresh';
+  if (!force && now - (rec.checkedAt ?? 0) < REVALIDATE_DAYS * 86400000) return 'fresh';
   let res;
   try { res = await lsPost('validate', { license_key: rec.key, instance_id: rec.instanceId }, fetchImpl); }
   catch { return 'offline'; }
   const j = res.json;
   if (!j) return 'offline';
-  if (j.valid === false || ['expired', 'disabled'].includes(j.license_key?.status)) {
+  const status = String(j.license_key?.status ?? '').toLowerCase();
+  const gone = j.valid === false || (status !== '' && !['active', 'inactive'].includes(status));
+  console.info('[oneware] license check', toolSlug, { valid: j.valid, status, error: j.error ?? null });
+  if (gone) {
     lockPremium(toolSlug);
     return 'revoked';
   }

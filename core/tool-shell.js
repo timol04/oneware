@@ -143,6 +143,12 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
     const premium = isPremiumUnlocked(slug);
     const items = [];
     if (hasPremium && !premium) items.push(item('key', t('shell.menu.license'), () => openLicense('key')));
+    if (hasPremium && premium) items.push(item('key', t('shell.menu.checkLicense'), async () => {
+      const state = await revalidateLicense(slug, { force: true }).catch(() => 'offline');
+      if (state === 'ok') showToast(t('core.license.stillActive'));
+      else if (state === 'revoked') showToast(t('core.license.disabled'));
+      else showToast(t('core.license.checkFailed'));
+    }));
     if (stores) {
       items.push(item('download', t('shell.menu.export'), async () => { await exportData(slug); showToast(t('shell.exported')); removeNotice('backup'); }));
       items.push(item('upload', t('shell.menu.import'), () => fileInput.click()));
@@ -339,7 +345,9 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
   }
 
   document.addEventListener('ow:licensechange', (e) => { if (e.detail?.toolSlug === slug) { render(); onLicenseChange?.(); } });
-  revalidateLicense(slug).then((state) => { if (state === 'revoked') showToast(t('core.license.disabled')); }).catch(() => {});
+  const checkLicense = () => revalidateLicense(slug).then((state) => { if (state === 'revoked') showToast(t('core.license.disabled')); }).catch(() => {});
+  checkLicense();
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) checkLicense(); });
   document.addEventListener('ow:langchange', () => { render(); checkData(); applyTranslations(); });
   document.addEventListener('ow:themechange', () => { if (!menu.hidden) buildMenu(); });
   render();
