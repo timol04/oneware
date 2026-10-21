@@ -244,6 +244,17 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-compare ul { margin: 0; padding-left: 1.2em; }
 .ow-compare--premium h3 { color: var(--accent); }
 
+/* ---- Cloud how-to ---- */
+.ow-howto { margin-top: var(--s-4); font-size: var(--fs-small); }
+.ow-howto__item { border-bottom: 1px solid var(--border); padding: var(--s-3) 0; }
+.ow-howto__item > summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); }
+.ow-howto__item > summary::-webkit-details-marker { display: none; }
+.ow-howto__item > summary .ow-icon { flex: none; transition: transform var(--dur) var(--ease); }
+.ow-howto__item[open] > summary .ow-icon { transform: rotate(180deg); }
+.ow-howto__body { padding-top: var(--s-2); }
+.ow-howto__body p, .ow-howto__body li { margin: 0 0 var(--s-2); }
+.ow-howto__body ol { margin: 0; padding-left: 1.2em; }
+
 /* ---- Layout helpers ---- */
 .ow-container--wide { max-width: var(--measure-wide); }
 .ow-prose { max-width: var(--measure-text); }

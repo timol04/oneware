@@ -8,3 +8,23 @@
   document.documentElement.setAttribute('data-theme', theme);
   document.documentElement.classList.add('js');
 })();
+
+/* Dev preview marker: on the Cloudflare preview host (*.workers.dev) the tab title starts with "oneware dev". No effect on the live site. */
+(function () {
+  if (!/\.workers\.dev$/.test(location.hostname)) return;
+  var PREFIX = 'oneware dev | ';
+  function mark() {
+    if (document.title.indexOf(PREFIX) !== 0) document.title = PREFIX + document.title;
+  }
+  function start() {
+    var el = document.querySelector('title');
+    if (!el) return;
+    mark();
+    var badge = document.createElement('div');
+    badge.textContent = 'DEV-Vorschau';
+    badge.setAttribute('style', 'position:fixed;left:12px;bottom:12px;z-index:2147483647;padding:6px 12px;border-radius:999px;background:#c2410c;color:#fff;font:600 13px/1 system-ui,sans-serif;pointer-events:none');
+    document.body.appendChild(badge);
+    new MutationObserver(mark).observe(el, { childList: true, characterData: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();

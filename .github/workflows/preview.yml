@@ -1,0 +1,33 @@
+name: Vorschau (dev)
+# Baut dev wie die Live-Seite, veroeffentlicht aber nichts.
+# Das Ergebnis ist ein Download (Artifact) unter Actions, die Live-Domain bleibt unberuehrt.
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run build-registry -- --publish
+      - name: Keep demo pages out of the preview
+        run: rm -rf tools/_demo core/test
+      - name: Pack site
+        run: |
+          mkdir _vorschau
+          tar --exclude=./.git --exclude=./.github --exclude=./_vorschau --exclude=./node_modules -cf - . | tar -xf - -C _vorschau
+      - uses: actions/upload-artifact@v4
+        with:
+          name: oneware-vorschau
+          path: _vorschau
+          retention-days: 14

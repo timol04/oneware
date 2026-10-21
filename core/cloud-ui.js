@@ -24,6 +24,38 @@ export function cloudBrowserLine() {
   return t(supported ? 'cloud.yourBrowser.yes' : 'cloud.yourBrowser.no', { browser: browser.name });
 }
 
+const BROWSER_KEYS = ['chromium', 'brave', 'safari', 'firefox', 'mobile'];
+
+/** Collapsible how-to: steps, license note and one fold-out per browser (the current browser is opened). */
+export function cloudHowTo() {
+  const fold = (title, body, open = false) => {
+    const d = el('details', 'ow-howto__item');
+    d.open = open;
+    const sum = el('summary');
+    sum.append(el('span', '', title), createIcon('chevron-down', { size: '1.1rem' }));
+    d.append(sum, body);
+    return d;
+  };
+  const { browser, mobile, braveOff } = getCloudSupport();
+  const current = mobile ? 'mobile' : braveOff || browser.name === 'Brave' ? 'brave'
+    : browser.name === 'Safari' ? 'safari' : browser.name === 'Firefox' ? 'firefox' : 'chromium';
+
+  const steps = el('ol');
+  for (const k of ['pick', 'save', 'restore']) steps.append(el('li', '', t(`cloud.howto.${k}`)));
+  const stepsBody = el('div', 'ow-howto__body');
+  stepsBody.append(steps, el('p', 'ow-muted', t('cloud.howto.license')));
+
+  const browsers = el('div', 'ow-howto__body');
+  for (const k of BROWSER_KEYS) browsers.append(fold(t(`cloud.howto.b.${k}.title`), el('p', '', t(`cloud.howto.b.${k}`)), k === current));
+
+  const root = el('div', 'ow-howto');
+  const outer = fold(t('cloud.howto.title'), el('div'));
+  outer.lastChild.replaceWith(el('div', 'ow-howto__body'));
+  outer.lastChild.append(fold(t('cloud.howto.steps'), stepsBody, true), fold(t('cloud.howto.browsers'), browsers));
+  root.append(outer);
+  return root;
+}
+
 /** Opens the dialog. `onChange` runs after data was restored. */
 export async function showCloudDialog({ toolSlug, onChange } = {}) {
   const support = getCloudSupport();
@@ -53,7 +85,7 @@ export async function showCloudDialog({ toolSlug, onChange } = {}) {
     } else if (!link) {
       parts.push(el('p', 'ow-muted', t('cloud.intro')));
       parts.push(button(t('cloud.connect'), async () => {
-        try { await connectCloud(toolSlug); showToast(t('cloud.synced')); draw(); }
+        try { showToast(t((await connectCloud(toolSlug)).kept ? 'cloud.found' : 'cloud.synced')); draw(); }
         catch (e) { if (e?.name !== 'AbortError') showToast(t('cloud.connectFailed', { reason: reason(e) })); }
       }));
     } else {
@@ -76,7 +108,7 @@ export async function showCloudDialog({ toolSlug, onChange } = {}) {
     const info = el('div', 'ow-muted');
     info.style.fontSize = 'var(--fs-small)';
     info.append(el('p', '', t('cloud.browsers.yes')), el('p', '', t('cloud.browsers.no')), el('p', '', cloudBrowserLine()), el('p', '', t('cloud.note')));
-    parts.push(info);
+    parts.push(info, cloudHowTo());
     box.replaceChildren(...parts);
   }
 
