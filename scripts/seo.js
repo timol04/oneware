@@ -42,6 +42,7 @@ export function injectToolSeo(html, tool, { free, registry = [] }) {
   strip(/[ \t]*<link rel="canonical"[^>]*>\n?/g);
   html = html.replace(/<title[^>]*>[^<]*<\/title>/, `<title>${title}</title>`);
   const tags = [
+    ...(tool.status === 'live' ? [] : ['<meta name="robots" content="noindex">']),
     `<meta name="description" content="${desc}">`,
     `<link rel="canonical" href="${url}">`,
     `<meta property="og:title" content="${title}">`,
@@ -103,7 +104,7 @@ const list = (items) => `<ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}<
 export function toolStaticSection(tool, registry, { free }) {
   const prem = (tool.features?.premium ?? []).map(pick);
   const feats = [...(tool.features?.free ?? []).map(pick), ...(free ? prem : [])];
-  const related = (tool.seo?.related ?? []).map((s) => registry.find((t) => t.slug === s)).filter(Boolean);
+  const related = (tool.seo?.related ?? []).map((s) => registry.find((t) => t.slug === s)).filter((t) => t && t.status === 'live');
   let h = '<section id="seo-static" class="ow-container ow-prose">';
   h += `<h1>${esc(pick(tool.name))}</h1><p>${esc(pick(tool.about))}</p>`;
   if (feats.length) h += `<h2>${free ? 'Included, free for now' : 'Features'}</h2>${list(feats)}`;

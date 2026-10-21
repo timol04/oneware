@@ -54,6 +54,7 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
     const res = await fetch(siteUrl('hub/tool-registry.json'));
     if (res.ok) registry = await res.json();
   } catch { /* offline or missing */ }
+  if (registry.find((x) => x.slug === slug)?.status === 'coming-soon') { location.replace(siteUrl('')); return; } // tool paused: back to the hub
   const otherSlugs = registry.map((x) => x.slug);
   document.getElementById('seo-static')?.remove(); // plain-HTML copy for bots without JS; the about section below replaces it
 
@@ -263,7 +264,7 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
       for (const item of faq) sec.append(el('h4', '', localize(item.q)), el('p', '', localize(item.a)));
       body.append(sec);
     }
-    const related = (config.seo?.related ?? []).map((s) => registry.find((x) => x.slug === s)).filter(Boolean);
+    const related = (config.seo?.related ?? []).map((s) => registry.find((x) => x.slug === s)).filter((x) => x && x.status === 'live');
     if (related.length) {
       const sec = el('div', 'ow-faq');
       sec.append(el('h3', '', t('shell.about.related')));
