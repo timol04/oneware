@@ -190,6 +190,7 @@ export async function revalidateLicense(toolSlug, { fetchImpl = globalThis.fetch
     lockPremium(toolSlug);
     return 'revoked';
   }
+  if (j.valid !== true) return 'offline';                        // unclear answer (e.g. rate limit): keep the tool, retry next time
   try { localStorage.setItem(storageKey(toolSlug), JSON.stringify({ ...rec, checkedAt: now })); } catch { /* ignore */ }
   return 'ok';
 }
