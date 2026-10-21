@@ -35,7 +35,7 @@ export default {
   'hub.empty': 'No tools published yet – more soon.',
   'hub.error': 'Could not load the tool list.',
   'hub.live': 'Live',
-  'hub.soon': 'Coming soon',
+  'hub.soon': 'In progress',
   'hub.dev': 'Development',
   'hub.uiComponents': 'UI components',
 

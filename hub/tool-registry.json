@@ -617,129 +617,6 @@
     "path": "mydashboard/abo-tracker/"
   },
   {
-    "slug": "verifyxr",
-    "name": "Verifyxr",
-    "shortDescription": {
-      "en": "Verify a thesis document against its format requirements and fix it.",
-      "de": "Abschlussarbeit auf Formatvorgaben prüfen und das Format beheben."
-    },
-    "category": "study",
-    "kind": "utility",
-    "status": "live",
-    "icon": "file-check",
-    "preview": "check",
-    "price": {
-      "en": "$11.99 one-time",
-      "de": "11.99 USD einmalig"
-    },
-    "order": 60,
-    "accent": {
-      "light": "#7a3a85",
-      "dark": "#b97fc4"
-    },
-    "hasPremium": true,
-    "stores": true,
-    "about": {
-      "en": "Check a Word document against your thesis requirements before you hand it in: font, size, line spacing, margins, word and page count, and APA 7 citations against the reference list. Then fix the formatting in a corrected copy. Everything runs in your browser; your file is never uploaded.",
-      "de": "Ein Word-Dokument vor der Abgabe gegen die Vorgaben deiner Arbeit prüfen: Schrift, Grösse, Zeilenabstand, Ränder, Wort- und Seitenzahl sowie APA-7-Zitate gegen das Literaturverzeichnis. Danach das Format in einer korrigierten Kopie beheben. Alles läuft in deinem Browser; deine Datei wird nie hochgeladen."
-    },
-    "features": {
-      "free": [
-        {
-          "en": "Font, size, line spacing and margins",
-          "de": "Schrift, Grösse, Zeilenabstand und Ränder"
-        },
-        {
-          "en": "Word and page limits",
-          "de": "Wort- und Seitengrenzen"
-        },
-        {
-          "en": "Presets and custom requirements",
-          "de": "Vorlagen und eigene Vorgaben"
-        },
-        {
-          "en": "Plain-language fixes for every finding",
-          "de": "Verständliche Lösungshinweise zu jedem Befund"
-        }
-      ],
-      "premium": [
-        {
-          "en": "APA 7: citations against the reference list, DOI, italics and title case",
-          "de": "APA 7: Zitate gegen das Literaturverzeichnis, DOI, Kursivschrift und Titelschreibweise"
-        },
-        {
-          "en": "Fix the formatting in a corrected copy of your document",
-          "de": "Format in einer korrigierten Kopie deines Dokuments beheben"
-        },
-        {
-          "en": "Check several files at once",
-          "de": "Mehrere Dateien auf einmal prüfen"
-        }
-      ]
-    },
-    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/3fa3d217-cd87-4805-94a4-37137e2bd270",
-    "lemonSqueezy": {
-      "productId": 1456730
-    },
-    "seo": {
-      "title": {
-        "en": "Thesis format checker for Word documents – Oneware",
-        "de": "Formatprüfung für Abschlussarbeiten (Word) – Oneware"
-      },
-      "description": {
-        "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
-        "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
-      },
-      "related": [
-        "converter",
-        "pdf-toolkit"
-      ],
-      "faq": [
-        {
-          "q": {
-            "en": "Is my thesis uploaded anywhere?",
-            "de": "Wird meine Arbeit irgendwohin hochgeladen?"
-          },
-          "a": {
-            "en": "No. Everything runs in your browser on your device, so your files never leave it.",
-            "de": "Nein. Alles läuft in deinem Browser auf deinem Gerät, deine Dateien verlassen es nie."
-          }
-        },
-        {
-          "q": {
-            "en": "What does Verifyxr check?",
-            "de": "Was prüft Verifyxr?"
-          },
-          "a": {
-            "en": "Font, size, line spacing and margins, word and page limits, and with the APA 7 check your citations against the reference list.",
-            "de": "Schrift, Größe, Zeilenabstand und Ränder, Wort- und Seitenlimits und mit der APA-7-Prüfung deine Zitate gegen das Literaturverzeichnis."
-          }
-        },
-        {
-          "q": {
-            "en": "Does it change my original document?",
-            "de": "Verändert es mein Originaldokument?"
-          },
-          "a": {
-            "en": "No. Formatting fixes are made in a corrected copy and your original file stays as it is.",
-            "de": "Nein. Formatierungskorrekturen entstehen in einer korrigierten Kopie, deine Originaldatei bleibt unverändert."
-          }
-        },
-        {
-          "q": {
-            "en": "Which files does it accept?",
-            "de": "Welche Dateien akzeptiert es?"
-          },
-          "a": {
-            "en": "Word documents in the .docx format.",
-            "de": "Word-Dokumente im Format .docx."
-          }
-        }
-      ]
-    },
-    "path": "mydashboard/verifyxr/"
-  },
-  {
     "slug": "converter",
     "name": {
       "en": "Document Converter",
@@ -1348,5 +1225,128 @@
       ]
     },
     "path": "mydashboard/expenses/"
+  },
+  {
+    "slug": "verifyxr",
+    "name": "Verifyxr",
+    "shortDescription": {
+      "en": "Verify a thesis document against its format requirements and fix it.",
+      "de": "Abschlussarbeit auf Formatvorgaben prüfen und das Format beheben."
+    },
+    "category": "study",
+    "kind": "utility",
+    "status": "coming-soon",
+    "icon": "file-check",
+    "preview": "check",
+    "price": {
+      "en": "$11.99 one-time",
+      "de": "11.99 USD einmalig"
+    },
+    "order": 60,
+    "accent": {
+      "light": "#7a3a85",
+      "dark": "#b97fc4"
+    },
+    "hasPremium": true,
+    "stores": true,
+    "about": {
+      "en": "Check a Word document against your thesis requirements before you hand it in: font, size, line spacing, margins, word and page count, and APA 7 citations against the reference list. Then fix the formatting in a corrected copy. Everything runs in your browser; your file is never uploaded.",
+      "de": "Ein Word-Dokument vor der Abgabe gegen die Vorgaben deiner Arbeit prüfen: Schrift, Grösse, Zeilenabstand, Ränder, Wort- und Seitenzahl sowie APA-7-Zitate gegen das Literaturverzeichnis. Danach das Format in einer korrigierten Kopie beheben. Alles läuft in deinem Browser; deine Datei wird nie hochgeladen."
+    },
+    "features": {
+      "free": [
+        {
+          "en": "Font, size, line spacing and margins",
+          "de": "Schrift, Grösse, Zeilenabstand und Ränder"
+        },
+        {
+          "en": "Word and page limits",
+          "de": "Wort- und Seitengrenzen"
+        },
+        {
+          "en": "Presets and custom requirements",
+          "de": "Vorlagen und eigene Vorgaben"
+        },
+        {
+          "en": "Plain-language fixes for every finding",
+          "de": "Verständliche Lösungshinweise zu jedem Befund"
+        }
+      ],
+      "premium": [
+        {
+          "en": "APA 7: citations against the reference list, DOI, italics and title case",
+          "de": "APA 7: Zitate gegen das Literaturverzeichnis, DOI, Kursivschrift und Titelschreibweise"
+        },
+        {
+          "en": "Fix the formatting in a corrected copy of your document",
+          "de": "Format in einer korrigierten Kopie deines Dokuments beheben"
+        },
+        {
+          "en": "Check several files at once",
+          "de": "Mehrere Dateien auf einmal prüfen"
+        }
+      ]
+    },
+    "_purchaseUrl_paused": "https://oneware.lemonsqueezy.com/checkout/buy/3fa3d217-cd87-4805-94a4-37137e2bd270",
+    "lemonSqueezy": {
+      "productId": 1456730
+    },
+    "seo": {
+      "title": {
+        "en": "Thesis format checker for Word documents – Oneware",
+        "de": "Formatprüfung für Abschlussarbeiten (Word) – Oneware"
+      },
+      "description": {
+        "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
+        "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
+      },
+      "related": [
+        "converter",
+        "pdf-toolkit"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Is my thesis uploaded anywhere?",
+            "de": "Wird meine Arbeit irgendwohin hochgeladen?"
+          },
+          "a": {
+            "en": "No. Everything runs in your browser on your device, so your files never leave it.",
+            "de": "Nein. Alles läuft in deinem Browser auf deinem Gerät, deine Dateien verlassen es nie."
+          }
+        },
+        {
+          "q": {
+            "en": "What does Verifyxr check?",
+            "de": "Was prüft Verifyxr?"
+          },
+          "a": {
+            "en": "Font, size, line spacing and margins, word and page limits, and with the APA 7 check your citations against the reference list.",
+            "de": "Schrift, Größe, Zeilenabstand und Ränder, Wort- und Seitenlimits und mit der APA-7-Prüfung deine Zitate gegen das Literaturverzeichnis."
+          }
+        },
+        {
+          "q": {
+            "en": "Does it change my original document?",
+            "de": "Verändert es mein Originaldokument?"
+          },
+          "a": {
+            "en": "No. Formatting fixes are made in a corrected copy and your original file stays as it is.",
+            "de": "Nein. Formatierungskorrekturen entstehen in einer korrigierten Kopie, deine Originaldatei bleibt unverändert."
+          }
+        },
+        {
+          "q": {
+            "en": "Which files does it accept?",
+            "de": "Welche Dateien akzeptiert es?"
+          },
+          "a": {
+            "en": "Word documents in the .docx format.",
+            "de": "Word-Dokumente im Format .docx."
+          }
+        }
+      ]
+    },
+    "path": "mydashboard/verifyxr/"
   }
 ]
