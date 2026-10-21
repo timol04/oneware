@@ -150,6 +150,7 @@ export default {
   "cloud.howto.pick": "Ordner wählen: Klicke auf die Verbinden-Schaltfläche und wähle einen Ordner, den deine Cloud-App synchronisiert (zum Beispiel in iCloud Drive, Google Drive oder Dropbox). Erlaube den Zugriff.",
   "cloud.howto.save": "Sichern: Oneware speichert nach jeder Änderung automatisch. Mit \"Jetzt speichern\" gehst du sicher. Warte, bis deine Cloud-App den Ordner hochgeladen hat.",
   "cloud.howto.restore": "Neues Gerät: Öffne Oneware im Desktop-Browser, warte bis der Cloud-Ordner synchronisiert ist, verbinde denselben Ordner und wähle \"Aus Cloud wiederherstellen\".",
+  "cloud.howto.files": "Dateien im Ordner: Oneware legt pro Tool eine Datei oneware-<tool>.json an und überschreibt nur diese. Andere Dateien bleiben unberührt. Nutzt du Oneware auf zwei Geräten mit demselben Ordner, gewinnt der letzte Speicherstand. Stelle deshalb auf einem neuen Gerät zuerst wieder her, bevor du dort etwas erfasst.",
   "cloud.howto.license": "Der Lizenzschlüssel ist nicht im Backup. Gib ihn auf dem neuen Gerät erneut ein, du findest ihn in der Kaufbestätigung per E-Mail.",
   "cloud.howto.steps": "Schritt für Schritt",
   "cloud.howto.browsers": "So funktioniert es in deinem Browser",

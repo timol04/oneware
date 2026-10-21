@@ -43,7 +43,7 @@ export function cloudHowTo() {
   const steps = el('ol');
   for (const k of ['pick', 'save', 'restore']) steps.append(el('li', '', t(`cloud.howto.${k}`)));
   const stepsBody = el('div', 'ow-howto__body');
-  stepsBody.append(steps, el('p', 'ow-muted', t('cloud.howto.license')));
+  stepsBody.append(steps, el('p', 'ow-muted', t('cloud.howto.files')), el('p', 'ow-muted', t('cloud.howto.license')));
 
   const browsers = el('div', 'ow-howto__body');
   for (const k of BROWSER_KEYS) browsers.append(fold(t(`cloud.howto.b.${k}.title`), el('p', '', t(`cloud.howto.b.${k}`)), k === current));

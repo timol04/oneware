@@ -150,6 +150,7 @@ export default {
   "cloud.howto.pick": "Pick a folder: click the connect button and choose a folder that your cloud app syncs (for example in iCloud Drive, Google Drive or Dropbox). Allow access.",
   "cloud.howto.save": "Back up: Oneware saves automatically after every change. \"Save now\" makes sure. Wait until your cloud app has uploaded the folder.",
   "cloud.howto.restore": "New device: open Oneware in a desktop browser, wait until the cloud folder has synced, connect the same folder and choose \"Restore from cloud\".",
+  "cloud.howto.files": "Files in the folder: Oneware creates one file oneware-<tool>.json per tool and only overwrites those. Other files are left alone. If you use Oneware on two devices with the same folder, the last save wins. On a new device, restore first before you add anything there.",
   "cloud.howto.license": "The license key is not part of the backup. Enter it again on the new device. You find it in your purchase email.",
   "cloud.howto.steps": "Step by step",
   "cloud.howto.browsers": "How it works in your browser",
