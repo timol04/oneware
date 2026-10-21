@@ -24,10 +24,10 @@ jobs:
         run: rm -rf tools/_demo core/test
       - name: Pack site
         run: |
-          mkdir -p ../vorschau
-          tar --exclude=.git --exclude=.github -cf - . | tar -xf - -C ../vorschau
+          mkdir _vorschau
+          tar --exclude=./.git --exclude=./.github --exclude=./_vorschau --exclude=./node_modules -cf - . | tar -xf - -C _vorschau
       - uses: actions/upload-artifact@v4
         with:
           name: oneware-vorschau
-          path: ../vorschau
+          path: _vorschau
           retention-days: 14
