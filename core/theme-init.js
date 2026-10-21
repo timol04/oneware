@@ -20,6 +20,10 @@
     var el = document.querySelector('title');
     if (!el) return;
     mark();
+    var badge = document.createElement('div');
+    badge.textContent = 'DEV-Vorschau';
+    badge.setAttribute('style', 'position:fixed;left:12px;bottom:12px;z-index:2147483647;padding:6px 12px;border-radius:999px;background:#c2410c;color:#fff;font:600 13px/1 system-ui,sans-serif;pointer-events:none');
+    document.body.appendChild(badge);
     new MutationObserver(mark).observe(el, { childList: true, characterData: true, subtree: true });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
