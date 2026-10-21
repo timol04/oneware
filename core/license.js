@@ -116,7 +116,7 @@ export function lockPremium(toolSlug) {
 // A key is activated once online; afterwards the status is stored locally and works offline.
 // The activation limit (2 devices, as stated in the terms) is configured per product in the Lemon Squeezy dashboard.
 const LS_API = 'https://api.lemonsqueezy.com/v1/licenses';
-const REVALIDATE_DAYS = 7;
+const REVALIDATE_DAYS = 1;
 
 async function lsPost(path, body, fetchImpl) {
   const res = await fetchImpl(`${LS_API}/${path}`, {
@@ -173,7 +173,7 @@ export async function unlockPremiumOnline(toolSlug, key, { productId, fetchImpl 
 }
 
 /**
- * Re-checks an online-activated license at most every 7 days. Offline or server errors never lock the tool.
+ * Re-checks an online-activated license at most once a day. Offline or server errors never lock the tool.
  * Returns 'skip' | 'fresh' | 'offline' | 'ok' | 'revoked'.
  */
 export async function revalidateLicense(toolSlug, { fetchImpl = globalThis.fetch, now = Date.now() } = {}) {
