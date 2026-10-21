@@ -24,18 +24,36 @@ export function cloudBrowserLine() {
   return t(supported ? 'cloud.yourBrowser.yes' : 'cloud.yourBrowser.no', { browser: browser.name });
 }
 
-/** Short collapsible how-to: folder, saving, restoring on a new device, license key. */
+const BROWSER_KEYS = ['chromium', 'brave', 'safari', 'firefox', 'mobile'];
+
+/** Collapsible how-to: steps, license note and one fold-out per browser (the current browser is opened). */
 export function cloudHowTo() {
-  const d = el('details', 'ow-cloud-howto');
-  const sum = el('summary');
-  sum.append(createIcon('cloud', { size: '1rem' }), ' ', t('cloud.howto.title'));
-  const ol = el('ol');
-  for (const k of ['pick', 'save', 'restore']) ol.append(el('li', '', t(`cloud.howto.${k}`)));
-  d.append(sum, ol, el('p', 'ow-muted', t('cloud.howto.license')));
-  d.style.fontSize = 'var(--fs-small)';
-  d.style.marginTop = 'var(--s-3)';
-  sum.style.cursor = 'pointer';
-  return d;
+  const fold = (title, body, open = false) => {
+    const d = el('details', 'ow-howto__item');
+    d.open = open;
+    const sum = el('summary');
+    sum.append(el('span', '', title), createIcon('chevron-down', { size: '1.1rem' }));
+    d.append(sum, body);
+    return d;
+  };
+  const { browser, mobile, braveOff } = getCloudSupport();
+  const current = mobile ? 'mobile' : braveOff || browser.name === 'Brave' ? 'brave'
+    : browser.name === 'Safari' ? 'safari' : browser.name === 'Firefox' ? 'firefox' : 'chromium';
+
+  const steps = el('ol');
+  for (const k of ['pick', 'save', 'restore']) steps.append(el('li', '', t(`cloud.howto.${k}`)));
+  const stepsBody = el('div', 'ow-howto__body');
+  stepsBody.append(steps, el('p', 'ow-muted', t('cloud.howto.license')));
+
+  const browsers = el('div', 'ow-howto__body');
+  for (const k of BROWSER_KEYS) browsers.append(fold(t(`cloud.howto.b.${k}.title`), el('p', '', t(`cloud.howto.b.${k}`)), k === current));
+
+  const root = el('div', 'ow-howto');
+  const outer = fold(t('cloud.howto.title'), el('div'));
+  outer.lastChild.replaceWith(el('div', 'ow-howto__body'));
+  outer.lastChild.append(fold(t('cloud.howto.steps'), stepsBody, true), fold(t('cloud.howto.browsers'), browsers));
+  root.append(outer);
+  return root;
 }
 
 /** Opens the dialog. `onChange` runs after data was restored. */
