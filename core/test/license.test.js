@@ -90,7 +90,9 @@ test('a key of another product is rejected and its activation is released', asyn
 test('revalidation: fresh and offline never lock, revoked locks', async () => {
   const now = Date.now();
   await unlockPremiumOnline('tool-x', 'KEY', { productId: 7, fetchImpl: ok(), now });
-  assert.equal(await revalidateLicense('tool-x', { now: now + 86400000 }), 'fresh');
+  assert.equal(await revalidateLicense('tool-x', { now: now + 0.5 * 86400000 }), 'fresh');
+  assert.equal(await revalidateLicense('tool-x', { now: now + 0.9 * 86400000 }), 'fresh');
+  assert.equal(await revalidateLicense('tool-x', { now: now + 1.1 * 86400000, fetchImpl: reply({ error: 'rate limited' }) }), 'offline');
   const later = now + 10 * 86400000;
   assert.equal(await revalidateLicense('tool-x', { now: later, fetchImpl: async () => { throw new Error('offline'); } }), 'offline');
   assert.equal(isPremiumUnlocked('tool-x'), true);
