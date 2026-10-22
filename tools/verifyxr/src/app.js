@@ -9,6 +9,7 @@ import { checkDocument } from './checker.js';
 import { checkApa } from './apa.js';
 import { fixDocx } from './fixer.js';
 import { compareDocs } from './compare.js';
+import { readGuideline, extractRules, hasFindings } from './guideline.js';
 import { PRESETS, PRESET_IDS, DEFAULT_PRESET } from './presets.js';
 import { listProfiles, saveProfile, deleteProfile, getProfile } from './profiles.js';
 import { reportHtml, batchHtml, esc, tx } from './report.js';
@@ -114,6 +115,64 @@ function afterRulesChange() {
   entries.forEach((e) => { delete e.fixed; }); // a corrected copy belongs to the rules it was made with
   $('rules-summary').textContent = summaryText();
   render();
+}
+
+// ---------- Import requirements from a guideline ----------
+const IMPORT_FIELDS = [
+  ['font', 'rules.font', (v) => v], ['size', 'rules.size', (v) => `${tx(v)} pt`], ['lineSpacing', 'rules.spacing', (v) => `${tx(v)}×`],
+  ['top', 'field.top', (v) => `${tx(v)} cm`], ['bottom', 'field.bottom', (v) => `${tx(v)} cm`], ['left', 'field.left', (v) => `${tx(v)} cm`], ['right', 'field.right', (v) => `${tx(v)} cm`],
+  ['minWords', 'rules.minWords', tx], ['maxWords', 'rules.maxWords', tx], ['minPages', 'rules.minPages', tx], ['maxPages', 'rules.maxPages', tx],
+];
+let imported = null; // result of extractRules()
+
+function renderImport() {
+  const box = $('import-result');
+  if (!imported) { box.replaceChildren(); return; }
+  if (imported.error) { box.innerHTML = `<p class="ow-status ow-status--yellow" role="status">${esc(t(imported.error))}</p>`; return; }
+  const margin = (key) => (['top', 'bottom', 'left', 'right'].includes(key) ? `${t('rules.margins')}: ` : '');
+  const rows = IMPORT_FIELDS.filter(([key]) => imported[key].length).map(([key, label, fmt]) => {
+    const list = imported[key];
+    const value = list.length === 1
+      ? `<strong>${esc(fmt(list[0].value))}</strong>`
+      : `<select class="ow-select" data-import-select="${key}" aria-label="${esc(t(label))}">${list.map((c, i) => `<option value="${i}">${esc(fmt(c.value))}</option>`).join('')}</select>`;
+    return `<li class="vx-import__row"><label><input type="checkbox" data-import="${key}"${list.length === 1 ? ' checked' : ''}> <span>${esc(margin(key) + t(label))}</span></label> ${value}
+      <span class="vx-import__quote" data-quote="${key}">${esc(list[0].quote)}</span></li>`;
+  });
+  const missing = IMPORT_FIELDS.filter(([key]) => !imported[key].length).map(([, label]) => t(label));
+  box.innerHTML = `<p class="vx-desc">${esc(t('imp.found', { name: imported.name }))}</p>
+    <ul class="vx-import">${rows.join('')}</ul>
+    ${missing.length ? `<p class="vx-desc">${esc(t('imp.missing', { list: missing.join(', ') }))}</p>` : ''}
+    <div class="ow-row"><button type="button" id="import-apply" class="ow-btn ow-btn--small">${esc(t('imp.apply'))}</button></div>`;
+}
+
+async function importGuideline(file) {
+  if (!file) return;
+  try {
+    const found = extractRules(await readGuideline(file.name, await file.arrayBuffer()));
+    imported = hasFindings(found) ? { ...found, name: file.name } : { error: 'imp.none' };
+  } catch (e) {
+    imported = { error: e.message === 'unsupported' ? 'imp.unsupported' : 'imp.unreadable' };
+  }
+  renderImport();
+}
+
+function applyImport() {
+  const rules = readRules();
+  let n = 0;
+  $('import-result').querySelectorAll('[data-import]:checked').forEach((box) => {
+    const key = box.dataset.import;
+    const select = $('import-result').querySelector(`[data-import-select="${key}"]`);
+    const value = imported[key][select ? Number(select.value) : 0].value;
+    if (['top', 'bottom', 'left', 'right'].includes(key)) rules.marginsCm[key] = value; else rules[key] = value;
+    n++;
+  });
+  if (!n) { showToast(t('imp.nothing')); return; }
+  writeRules(rules);
+  selection = '';
+  renderPresets();
+  renderProfiles();
+  afterRulesChange();
+  showToast(t('imp.applied', { n: tx(n) }));
 }
 
 // ---------- Files ----------
@@ -262,6 +321,15 @@ $('rules-summary').closest('section').addEventListener('input', (e) => {
   if (selection !== '') { selection = ''; renderPresets(); renderProfiles(); }
   afterRulesChange();
 });
+$('import-btn').addEventListener('click', () => $('import-file').click());
+$('import-file').addEventListener('change', (e) => { importGuideline(e.target.files[0]); e.target.value = ''; });
+$('import-result').addEventListener('click', (e) => { if (e.target.id === 'import-apply') applyImport(); });
+$('import-result').addEventListener('change', (e) => {
+  const key = e.target.dataset.importSelect;
+  if (!key) return; // a choice in the list ticks the row and shows the matching sentence
+  $('import-result').querySelector(`[data-import="${key}"]`).checked = true;
+  $('import-result').querySelector(`[data-quote="${key}"]`).textContent = imported[key][Number(e.target.value)].quote;
+});
 $('r-apa').addEventListener('change', (e) => {
   if (e.target.checked && locked('apa')) { e.target.checked = false; shell.openLicense('buy'); return; }
   apaOn = e.target.checked;
@@ -288,6 +356,7 @@ function renderAll() {
   renderPresets();
   renderProfiles();
   renderApa();
+  renderImport();
   $('rules-summary').textContent = summaryText();
   syncUsage();
   render();
