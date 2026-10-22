@@ -65,12 +65,11 @@
             <input id="tag-input" class="jr-taginput" maxlength="24" autocomplete="off" list="tag-suggestions" data-i18n-attr="placeholder:jr.tagPh;aria-label:jr.tagPh">
             <datalist id="tag-suggestions"></datalist>
           </div>
-          <div class="jr-modes" id="modes" role="group" data-i18n-attr="aria-label:jr.mode"></div>
-          <label class="jr-bodywrap" id="write">
-            <span class="ow-sr-only" data-i18n="jr.bodyLabel">Entry text</span>
-            <textarea id="body" class="ow-input jr-body" rows="14" spellcheck="true" data-i18n-attr="placeholder:jr.bodyPh"></textarea>
-          </label>
-          <div id="preview" class="jr-md" hidden></div>
+          <div id="fmt" class="jr-fmt" role="toolbar"></div>
+          <div class="jr-bodywrap">
+            <div id="body" class="jr-body jr-md" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" data-i18n-attr="data-placeholder:jr.bodyPh;aria-label:jr.bodyLabel"></div>
+            <div id="float" class="jr-float" role="toolbar" hidden></div>
+          </div>
           <p id="meta" class="ow-usage"></p>
         </div>
       </section>
