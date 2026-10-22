@@ -105,7 +105,7 @@ export default {
   'scan.robust': 'Scan test passed, even from a distance',
   'scan.gut': 'Scan test passed',
   'scan.knapp': 'Scan test barely passed. More contrast or less content helps.',
-  'scan.fail': 'Scan test failed. Use darker colors or a smaller logo.',
+  'scan.fail': 'Scanning might be difficult. Try scanning with another device right on this screen.',
 
   'row.format': 'Format',
   'format.aria': 'Format',
