@@ -8,7 +8,7 @@ import { getLastExport, BACKUP_INTERVAL_DAYS } from '../core/persistence.js';
 import { cloudHowTo } from '../core/cloud-ui.js';
 import { getSharedCloud, getCloudSupport, connectCloudAll, syncCloudAll, restoreCloudAll, disconnectCloudAll } from '../core/cloud.js';
 import { licensing } from '../core/site-config.js';
-import { previewHtml } from '../hub/src/preview.js';
+import { previewHtml, shotHtml } from '../hub/src/preview.js';
 import { groupTools } from '../hub/src/groups.js';
 import { collectToday, toggleToday } from '../core/today.js';
 
@@ -157,10 +157,11 @@ function toolRow({ tool, live, count, premium }) {
   const on = isOn(tool.slug);
   const li = el('li', `tool-card${live ? '' : ' tool-card--soon'}${editing ? '' : ' tool-card--compact'}${editing && !on ? ' tool-card--off' : ''}`);
   setup(li, tool);
+  li.dataset.kind = tool.kind ?? 'app';
   const link = el(live && !editing ? 'a' : 'div', 'tool-card__link');
   if (live && !editing) link.href = siteUrl(tool.path);
   const preview = el('div', 'tool-card__preview');
-  preview.innerHTML = previewHtml(tool.preview); // static markup from preview.js, no user data
+  preview.innerHTML = tool.shot ? shotHtml(tool.slug, siteUrl('')) : previewHtml(tool.preview); // static markup from preview.js, no user data
   const icon = el('span', 'tool-card__icon');
   icon.append(createIcon(tool.icon, { size: '1.4rem' }));
   const top = el('div', 'tool-card__top');
