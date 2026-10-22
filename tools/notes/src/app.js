@@ -3,8 +3,11 @@ import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/sto
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
+import { showToast } from '../../../core/ui-components.js';
 import { mountRichEditor } from '../../../core/rich-editor.js';
 import { COLORS, FREE_LIMIT, newNote, displayTitle, snippet, normalizeTag, tagCounts, visibleNotes, atLimit } from './notes.js';
+import { extractTasks, checklistTitle, createChecklistFromNote, CHECKLISTS } from './tasks.js';
+import { FREE_LIMIT as CHECKLIST_LIMIT } from '../../checklists/src/checklists.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
 
@@ -27,6 +30,7 @@ const editor = mountRichEditor({
     if (!n) return;
     n.body = markdown;
     touch(n);
+    renderConvert(n);
   },
 });
 
@@ -191,10 +195,84 @@ function renderMeta(note) {
   $('meta').textContent = t('nt.updated', { date: dateFmt().format(note.updated) });
 }
 
+// --- Tasks to checklist ---
+/** The button shows only while the open note contains at least one task. */
+function renderConvert(note) {
+  $('convert').hidden = !note || !extractTasks(note.body).length;
+}
+
+function openDialog({ title, text, actions }) {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'ow-dialog';
+  dialog.setAttribute('aria-labelledby', 'nt-dialog-title');
+  const h = document.createElement('h2');
+  h.id = 'nt-dialog-title';
+  h.textContent = title;
+  const p = document.createElement('p');
+  p.textContent = text;
+  const bar = document.createElement('div');
+  bar.className = 'ow-dialog__actions';
+  const result = new Promise((resolve) => {
+    for (const [label, value, primary] of actions) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = primary ? 'ow-btn' : 'ow-btn ow-btn--secondary';
+      b.textContent = label;
+      b.addEventListener('click', () => { dialog.dataset.result = value; dialog.close(); });
+      bar.append(b);
+    }
+    dialog.addEventListener('close', () => { const v = dialog.dataset.result ?? null; dialog.remove(); resolve(v); });
+  });
+  dialog.append(h, p, bar);
+  document.body.append(dialog);
+  dialog.showModal();
+  dialog.querySelector('.ow-btn:last-child').focus();
+  return result;
+}
+
+const checklistsUrl = (id) => `../checklists/${id ? `?list=${encodeURIComponent(id)}` : ''}`;
+
+async function convertToChecklist() {
+  await flush();
+  const note = selected();
+  if (!note) return;
+  const tasks = extractTasks(note.body);
+  if (!tasks.length) { renderConvert(note); return; }
+  const checklistsPremium = isPremiumUnlocked(CHECKLISTS);
+  const fallbackTitle = t('nt.toChecklist.fallback');
+  const title = checklistTitle(note, fallbackTitle);
+  const done = tasks.filter((x) => x.done).length;
+  try {
+    const existing = (await getAllItems(CHECKLISTS)).length;
+    if (!checklistsPremium && existing >= CHECKLIST_LIMIT) {
+      const open = await openDialog({
+        title: t('nt.toChecklist.limitTitle'),
+        text: t('nt.toChecklist.limitText', { limit: CHECKLIST_LIMIT }),
+        actions: [[t('nt.toChecklist.cancel'), 'cancel'], [t('nt.toChecklist.openChecklists'), 'open', true]],
+      });
+      if (open === 'open') location.href = checklistsUrl();
+      return;
+    }
+    const ok = await openDialog({
+      title: t('nt.toChecklist.title'),
+      text: t(tasks.length === 1 ? 'nt.toChecklist.text.one' : 'nt.toChecklist.text', { title, count: tasks.length, done }),
+      actions: [[t('nt.toChecklist.cancel'), 'cancel'], [t('nt.toChecklist.create'), 'create', true]],
+    });
+    if (ok !== 'create') return;
+    const result = await createChecklistFromNote(note, { premium: checklistsPremium, fallbackTitle });
+    if (result.status !== 'created') { showToast(t('nt.toChecklist.failed')); return; }
+    location.href = checklistsUrl(result.list.id);
+  } catch {
+    showToast(t('nt.toChecklist.failed'));
+  }
+}
+$('to-checklist').addEventListener('click', convertToChecklist);
+
 function renderEditor() {
   const note = selected();
   $('app').classList.toggle('is-editing', !!note);
   $('form').hidden = !note;
+  renderConvert(note);
   $('placeholder').hidden = !!note;
   if (!note) return;
   $('title').value = note.title;
@@ -210,6 +288,7 @@ function render() {
   applyTranslations();
   editor.renderBars();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('nt.new')}`);
+  $('to-checklist').replaceChildren(createIcon('check-circle', { size: '1.05rem' }), ` ${t('nt.toChecklist')}`);
   shell.setPremiumLimit(t('nt.limitLabel', { limit: FREE_LIMIT }), t('nt.usage', { count: notes.length, limit: FREE_LIMIT }));
   renderViews();
   renderTags();
