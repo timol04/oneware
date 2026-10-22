@@ -115,3 +115,7 @@
 .dash__section h2 { display: flex; align-items: center; gap: .5em; }
 .dash__section h2::before { content: ""; flex: none; width: .5em; height: .5em; border-radius: 2px; background: var(--accent); }
 .dash__trust { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .03em; }
+
+/* Brand detail: small price tag before section titles */
+.dash__section h2 { display: flex; align-items: center; gap: .4em; }
+.dash__section h2::before { content: ""; flex: none; width: .75em; height: .55em; background: radial-gradient(circle at 24% 50%, var(--surface) 0 .08em, transparent .09em), var(--tag); clip-path: polygon(30% 0, 100% 0, 100% 100%, 30% 100%, 0 50%); }

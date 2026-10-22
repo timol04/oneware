@@ -255,7 +255,7 @@ export default {
   "how.faq2.a": "Ja, ausser du hast ein Backup exportiert. Importiere die Backup-Datei und gib den Lizenzschlüssel erneut ein.",
   "how.faq3.q": "Bekomme ich eine Rechnung oder eine Rückerstattung?",
   "how.faq3.a": "Lemon Squeezy schickt zu jedem Kauf einen Beleg. Innerhalb von 14 Tagen nach dem Kauf erhältst du dein Geld ohne Begründung zurück. Schreib uns einfach: oneware.contact@gmail.com.",
-  "hub.eyebrow": "Kleine Tools, unabhängig gebaut",
+  "hub.stamp": "Einmal zahlen. Kein Abo.",
   "hub.stage.caption": "Echte Ansichten: Gewohnheiten, Ausgaben und QR Pro Studio.",
   "hub.freePlan": "Gratis-Version",
   "how.faq4.q": "Was passiert langfristig mit meiner Lizenz?",

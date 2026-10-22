@@ -134,11 +134,12 @@ function row(tool) {
   const live = tool.status === 'live';
   const style = tool.accent ? ` style="--accent-l:${tool.accent.light};--accent-d:${tool.accent.dark}"` : '';
   const free = licensing.enabled && tool.hasPremium ? `<span class="tool-card__tag">${esc(en['hub.freePlan'])}</span>` : '';
-  const inner = `<div class="tool-card__preview">${tool.shot ? shotHtml(tool.slug) : previewHtml(tool.preview)}</div>`
+  const priceText = licensing.enabled ? text(tool.price) : live ? en['hub.freeNow'] : '';
+  const inner = `<div class="tool-card__preview">${tool.shot ? shotHtml(tool.slug) : previewHtml(tool.preview)}${priceText ? `<span class="price-tag">${esc(priceText)}</span>` : ''}</div>`
     + '<div class="tool-card__body">'
     + `<div class="tool-card__top"><span class="tool-card__no" aria-hidden="true"></span><span class="tool-card__icon">${icon(tool.icon)}</span><h4 class="tool-card__name">${esc(text(tool.name))}</h4></div>`
     + `<p class="tool-card__desc">${esc(text(tool.shortDescription))}</p>`
-    + `<div class="tool-card__meta"><span class="tool-card__price">${esc(licensing.enabled ? text(tool.price) : live ? en['hub.freeNow'] : '')}</span>${free}`
+    + `<div class="tool-card__meta">${free || '<span></span>'}`
     + `<span class="ow-status ow-status--${live ? 'green' : 'yellow'}">${esc(live ? en['hub.live'] : en['hub.soon'])}</span></div></div>`;
   return `        <li class="tool-card${live ? '' : ' tool-card--soon'}" data-kind="${esc(tool.kind ?? 'app')}" data-category="${esc(tool.category)}"${style}>`
     + (live ? `<a class="tool-card__link" href="${esc(tool.path)}">${inner}</a>` : `<div class="tool-card__link">${inner}</div>`) + '</li>';

@@ -1,11 +1,11 @@
 /* Home, desktop layout */
-.hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); align-items: center; gap: var(--s-8); padding: clamp(3rem, 7vw, 5.5rem) 0 var(--s-8); }
-.hero h1 { font-size: clamp(3.5rem, 8.2vw, 7.25rem); }
+.hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: var(--s-8); padding: clamp(3rem, 7vw, 5.5rem) 0 var(--s-8); }
+.hero h1 { font-size: clamp(3.25rem, 6.9vw, 6.5rem); }
 .hero__lead { max-width: 30rem; font-size: 1.2rem; }
 ul.benefits { grid-template-columns: repeat(3, 1fr); margin-bottom: var(--s-9); }
 .benefit { padding: var(--s-5) var(--s-5) var(--s-5) 0; }
-.benefit + .benefit { padding-left: var(--s-5); border-left: 1px solid var(--border); }
-.tool-card__preview { height: 12.5rem; }
+.benefit + .benefit { padding-left: var(--s-5); border-left: 2px dashed var(--text-muted); }
+.tool-card__preview { height: 13rem; }
 .group[data-kind="app"] .tool-card:nth-child(7n+1), .group[data-kind="app"] .tool-card:nth-child(7n+7) { grid-column: span 7; }
 .group[data-kind="app"] .tool-card:nth-child(7n+2), .group[data-kind="app"] .tool-card:nth-child(7n+6) { grid-column: span 5; }
 .group[data-kind="utility"] .tool-card:nth-child(4n+1), .group[data-kind="utility"] .tool-card:nth-child(4n+4) { grid-column: span 5; }
