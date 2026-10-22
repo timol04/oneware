@@ -6,11 +6,9 @@
 
 :root {
   --hole: rgb(22 25 29 / .10);
-  --stamp: #c2410c;
 }
 :root[data-theme="dark"] {
   --hole: rgb(0 0 0 / .5);
-  --stamp: #ff7a4d;
 }
 
 /* Pegboard wall */
@@ -27,7 +25,7 @@
 .hero__lead { margin: 0 0 var(--s-5); color: var(--text); opacity: .8; }
 .hero__cta { display: flex; flex-wrap: wrap; gap: var(--s-3); }
 
-/* Stage: three real tools on the wall, with a rubber stamp */
+/* Stage: three real tools on the wall, */
 .stage { margin: 0; }
 .stage__field { position: relative; aspect-ratio: 1 / .96; }
 .stage figcaption { margin-top: var(--s-4); font-size: var(--fs-small); color: var(--text-muted); }
@@ -44,7 +42,6 @@
 .stage__field:hover .win--b { transform: rotate(2.5deg) translate(8px, -3px); }
 .stage__field:hover .win--c { transform: rotate(-.5deg) translate(-4px, 8px); }
 @keyframes ow-rise { from { opacity: 0; translate: 0 18px; } }
-.stamp { position: absolute; right: -1%; top: -7%; z-index: 5; padding: .45rem .85rem .5rem; border: .2rem double var(--stamp); border-radius: .5rem; color: var(--stamp); font-weight: 800; font-size: 1.05rem; line-height: 1.15; letter-spacing: .08em; text-transform: uppercase; text-align: center; transform: rotate(-8deg); background: color-mix(in srgb, var(--bg) 78%, transparent); }
 
 /* The three rules: one sign, not three cards */
 .benefits { list-style: none; margin: 0; padding: 0; display: grid; border-top: 2px dashed var(--text-muted); border-bottom: 2px dashed var(--text-muted); }

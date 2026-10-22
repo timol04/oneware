@@ -11,6 +11,5 @@ ul.benefits { margin-bottom: var(--s-8); }
 .tool-card, .group .tool-card:nth-child(n) { grid-column: 1 / -1; }
 .tool-card__preview { height: 10.5rem; }
 .catalog { gap: var(--s-7) var(--s-4); }
-.stamp { font-size: .85rem; right: 0; }
 .how { margin-top: var(--s-8); }
 section.pillars { margin-top: var(--s-8); }
