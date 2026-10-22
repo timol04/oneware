@@ -97,6 +97,26 @@ export async function updateItem(toolSlug, id, item) {
   return updated;
 }
 
+// Small per-tool preferences (e.g. currency) live in localStorage under "<slug>:<name>" and travel with the backup.
+function readSettings(toolSlug) {
+  const out = {};
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k?.startsWith(`${toolSlug}:`)) out[k] = localStorage.getItem(k);
+    }
+  } catch { /* storage blocked */ }
+  return out;
+}
+
+function restoreSettings(toolSlug, settings) {
+  if (!settings || typeof settings !== 'object') return;
+  for (const [k, v] of Object.entries(settings)) {
+    if (!k.startsWith(`${toolSlug}:`) || typeof v !== 'string') continue;
+    try { localStorage.setItem(k, v); } catch { /* storage blocked */ }
+  }
+}
+
 /** Export as an object (testable, no download). */
 export async function buildExport(toolSlug) {
   return {
@@ -104,6 +124,7 @@ export async function buildExport(toolSlug) {
     version: EXPORT_VERSION,
     exportedAt: new Date().toISOString(),
     data: await getAllItems(toolSlug),
+    settings: readSettings(toolSlug),
   };
 }
 
@@ -148,6 +169,7 @@ export async function importData(toolSlug, file, { replace = false } = {}) {
   const s = await store(toolSlug, 'readwrite');
   if (replace) await req(s.clear());
   for (const it of items) await req(s.put(it));
+  restoreSettings(toolSlug, parsed.settings);
   changed(toolSlug);
   return items.length;
 }
