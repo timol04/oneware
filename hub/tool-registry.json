@@ -20,7 +20,7 @@
     },
     "order": 10,
     "accent": {
-      "light": "#b45309",
+      "light": "#a14607",
       "dark": "#e0a458"
     },
     "hasPremium": true,
@@ -395,7 +395,7 @@
     "order": 50,
     "accent": {
       "light": "#2f6070",
-      "dark": "#467986"
+      "dark": "#6ba1af"
     },
     "hasPremium": true,
     "stores": false,
@@ -1046,7 +1046,7 @@
     },
     "order": 80,
     "accent": {
-      "light": "#4d7c0f",
+      "light": "#46720d",
       "dark": "#a3d36b"
     },
     "hasPremium": true,
@@ -1299,7 +1299,7 @@
     },
     "order": 90,
     "accent": {
-      "light": "#b45309",
+      "light": "#a14607",
       "dark": "#f0b45a"
     },
     "hasPremium": true,

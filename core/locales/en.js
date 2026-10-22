@@ -255,7 +255,7 @@ export default {
   "how.faq2.a": "Yes, unless you exported a backup. Import the backup file and enter your license key again.",
   "how.faq3.q": "Can I get an invoice or a refund?",
   "how.faq3.a": "Lemon Squeezy sends a receipt with every purchase. You can get a refund within 14 days of purchase, no questions asked. Just e-mail us: oneware.contact@gmail.com.",
-  "dash.headline": "Your workbench.",
+  "dash.headline": "My Dashboard",
   "dash.ruler": "On this device",
   "hub.stage.caption": "Real screens: Habits, Expenses and QR Pro Studio.",
   "hub.freePlan": "Free plan",

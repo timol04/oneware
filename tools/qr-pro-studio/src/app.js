@@ -67,6 +67,7 @@ function renderTypes() {
   $('types').replaceChildren(...TYPE_IDS.map((id) => {
     const b = chip(t(`type.${id}`), id === kind, { kind: id });
     b.setAttribute('role', 'radio');
+    b.removeAttribute('aria-pressed'); // radios use aria-checked
     b.setAttribute('aria-checked', String(id === kind));
     return b;
   }));

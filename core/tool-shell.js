@@ -229,7 +229,8 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
 
   // ---- about section ----
   const about = el('details', 'ow-about');
-  const aboutWrap = el('div', 'ow-container ow-container--tool');
+  const aboutWrap = el('section', 'ow-container ow-container--tool');
+  aboutWrap.setAttribute('aria-label', t('shell.about.title'));
   aboutWrap.append(about);
   main.after(aboutWrap);
   if (isDesktop()) about.open = true;
