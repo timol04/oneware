@@ -286,3 +286,7 @@ a { color: var(--accent); text-underline-offset: 0.18em; }
 .ow-premium[hidden] { display: none; }
 .ow-premium--compact { padding: .2em .4em; margin-left: .5em; }
 main#main.ow-container--wide { padding-top: var(--s-5); }
+
+/* Brand motif: the module (a square with an offset outline) in front of the wordmark */
+.ow-wordmark { display: inline-flex; align-items: center; gap: .5em; }
+.ow-wordmark::before { content: ""; position: relative; width: .62em; height: .62em; border: 1.5px solid var(--accent); border-radius: 2px; box-shadow: .22em .22em 0 -1px var(--accent); margin-right: .2em; }

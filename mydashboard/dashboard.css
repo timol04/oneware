@@ -110,3 +110,8 @@
 .dash__aside .dash__cloud { margin: var(--s-2) 0 0; padding: var(--s-4) 0 0; border-bottom: 0; border-top: 1px solid var(--border); }
 .dash__aside .dash__section > p { font-size: var(--fs-small); }
 .dash__cloud-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Brand details: module square before section titles, mono trust line */
+.dash__section h2 { display: flex; align-items: center; gap: .5em; }
+.dash__section h2::before { content: ""; flex: none; width: .5em; height: .5em; border-radius: 2px; background: var(--accent); }
+.dash__trust { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .03em; }

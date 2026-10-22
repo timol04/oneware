@@ -1,12 +1,15 @@
 /* Home, mobile layout */
-.hero { padding: var(--s-6) 0 var(--s-7); }
-.hero h1 { font-size: clamp(2.6rem, 13vw, 3.5rem); }
+.hero { gap: var(--s-6); padding: var(--s-5) 0 var(--s-7); }
+.hero h1 { font-size: clamp(3rem, 16vw, 4.25rem); }
 .hero__lead { font-size: 1.05rem; }
 .hero__cta .ow-btn { flex: 1 1 100%; justify-content: center; text-align: center; }
-ul.benefits { margin-bottom: var(--s-8); gap: var(--s-3); }
-.benefit { display: grid; grid-template-columns: auto 1fr; column-gap: var(--s-4); row-gap: var(--s-1); padding: var(--s-4); }
-.benefit__icon { grid-row: 1 / span 2; margin: 0; }
+.stage__field::before { inset: -8px; }
+ul.benefits { margin-bottom: var(--s-8); }
+.benefit { display: grid; grid-template-columns: auto 1fr; column-gap: var(--s-4); row-gap: var(--s-1); padding: var(--s-4) 0; }
+.benefit + .benefit { border-top: 1px solid var(--border); }
+.benefit__icon { grid-row: 1 / span 2; }
 .filter button { min-height: 2.75rem; }
-.tool-card__preview { height: 9rem; }
+.tool-card, .group .tool-card:nth-child(n) { grid-column: 1 / -1; }
+.tool-card__preview { height: 10rem; }
 .how { margin-top: var(--s-8); }
 section.pillars { margin-top: var(--s-8); }

@@ -2,7 +2,7 @@ import { mountSiteShell, siteUrl } from '../../core/site-shell.js';
 import { createStatusBadge } from '../../core/ui-components.js';
 import { createIcon } from '../../core/icons.js';
 import { licensing } from '../../core/site-config.js';
-import { previewHtml } from './preview.js';
+import { previewHtml, shotHtml } from './preview.js';
 import { groupTools } from './groups.js';
 import { cloudBrowserLine } from '../../core/cloud-ui.js';
 import { t, localize, onLangChange, applyTranslations } from '../../core/i18n.js';
@@ -21,18 +21,21 @@ function renderRow(tool) {
   const live = tool.status === 'live';
   const row = el('li', `tool-card${live ? '' : ' tool-card--soon'}`);
   row.dataset.category = tool.category;
+  row.dataset.kind = tool.kind ?? 'app';
   if (tool.accent) { row.style.setProperty('--accent-l', tool.accent.light); row.style.setProperty('--accent-d', tool.accent.dark); }
   const link = el(live ? 'a' : 'div', 'tool-card__link');
   if (live) link.href = siteUrl(tool.path);
 
   const preview = el('div', 'tool-card__preview');
-  preview.innerHTML = previewHtml(tool.preview); // static markup from preview.js, no user data
+  preview.innerHTML = tool.shot ? shotHtml(tool.slug, siteUrl('')) : previewHtml(tool.preview); // static markup from preview.js, no user data
   const icon = el('span', 'tool-card__icon');
   icon.append(createIcon(tool.icon, { size: '1.4rem' }));
   const top = el('div', 'tool-card__top');
-  top.append(icon, el('h4', 'tool-card__name', localize(tool.name)));
+  const no = el('span', 'tool-card__no');
+  no.setAttribute('aria-hidden', 'true');
+  top.append(no, icon, el('h4', 'tool-card__name', localize(tool.name)));
   const meta = el('div', 'tool-card__meta');
-  meta.append(el('span', 'tool-card__price', licensing.enabled ? localize(tool.price) : live ? t('hub.freeNow') : ''), createStatusBadge(live ? 'green' : 'yellow', t(live ? 'hub.live' : 'hub.soon')));
+  meta.append(el('span', 'tool-card__price', licensing.enabled ? localize(tool.price) : live ? t('hub.freeNow') : ''), ...(licensing.enabled && tool.hasPremium ? [el('span', 'tool-card__tag', t('hub.freePlan'))] : []), createStatusBadge(live ? 'green' : 'yellow', t(live ? 'hub.live' : 'hub.soon')));
   const body = el('div', 'tool-card__body');
   body.append(top, el('p', 'tool-card__desc', localize(tool.shortDescription)), meta);
   link.append(preview, body);
@@ -42,6 +45,7 @@ function renderRow(tool) {
 
 function renderGroup({ kind, items }) {
   const section = el('section', 'group');
+  section.dataset.kind = kind;
   const head = el('div', 'group__head');
   head.append(el('h3', 'group__title', t(`hub.group.${kind}`)), el('p', 'group__desc', t(`hub.group.${kind}.desc`)));
   const ul = el('ul', 'catalog');
