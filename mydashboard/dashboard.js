@@ -273,7 +273,7 @@ function renderData() {
     const row = el('div', 'dash__actions');
     row.append(
       button(t('cloud.all.saveAll'), async () => {
-        try { const r = await syncCloudAll(slugs, { interactive: true }); showToast(r.needsAccess ? t('cloud.needsAccess') : t('cloud.all.saved', { count: r.ok })); await refresh(); }
+        try { const r = await syncCloudAll(slugs, { interactive: true }); showToast(r.needsAccess ? t('cloud.needsAccess') : t(r.kept ? 'cloud.all.savedKept' : 'cloud.all.saved', { count: r.ok, kept: r.kept })); await refresh(); }
         catch (e) { showToast(t('cloud.connectFailed', { reason: e?.message || String(e) })); }
       }),
       button(t('cloud.all.restoreAll'), async () => {
