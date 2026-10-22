@@ -21,7 +21,7 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 const shell = await mountToolShell({ slug: SLUG, config, main: $('main'), onLicenseChange: onLicense });
 
-// Free: every content type, soft dots, plain black, PNG. Premium: the rest.
+// Free: every content type, soft dots, plain black, caption, PNG. Premium: the rest.
 const FREE_FORMATS = ['png'];
 const FORMAT_IDS = ['png', 'png-large', 'svg', 'pdf', 'sheet'];
 const SHEET_SIZES = [30, 40, 50, 60];
@@ -39,7 +39,7 @@ let landed = false;
 
 const isPremium = () => shell.isPremium();
 // Locked styling never reaches the preview or the export.
-const activeStyle = () => (isPremium() ? { ...style } : { dots: style.dots, color: Array.isArray(style.color) ? '#000000' : style.color });
+const activeStyle = () => (isPremium() ? { ...style } : { dots: style.dots, label: style.label, color: Array.isArray(style.color) ? '#000000' : style.color });
 const has = (key) => t(key) !== key;
 
 /** Returns true (and opens the license dialog) when the feature is locked. */
@@ -179,11 +179,10 @@ $('shapes').addEventListener('click', (e) => {
   refresh();
 });
 const labelInput = $('label');
-labelInput.addEventListener('focus', () => { if (gated()) labelInput.blur(); });
 labelInput.addEventListener('input', () => { style.label = labelInput.value.trim(); refresh(); });
 $('label-presets').addEventListener('click', (e) => {
   const b = e.target.closest('.qr-chip');
-  if (!b || gated()) return;
+  if (!b) return;
   labelInput.value = style.label = b.textContent;
   refresh();
 });
