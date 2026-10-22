@@ -7,7 +7,7 @@
   },
   "category": "study",
   "kind": "utility",
-  "status": "coming-soon",
+  "status": "live",
   "icon": "file-check",
   "preview": "check",
   "price": {
@@ -59,7 +59,7 @@
       }
     ]
   },
-  "_purchaseUrl_paused": "https://oneware.lemonsqueezy.com/checkout/buy/3fa3d217-cd87-4805-94a4-37137e2bd270",
+  "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/3fa3d217-cd87-4805-94a4-37137e2bd270",
   "lemonSqueezy": {
     "productId": 1456730
   },
