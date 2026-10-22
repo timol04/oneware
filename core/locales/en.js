@@ -39,7 +39,7 @@ export default {
   'hub.dev': 'Development',
   'hub.uiComponents': 'UI components',
 
-  "core.license.buyFor": "Buy for {price}, one-time",
+  "core.license.buyFor": "Buy for {price}",
   "core.license.buyShort": "Buy license",
   "core.license.or": "or",
   "core.license.haveKey": "I already have a key",
