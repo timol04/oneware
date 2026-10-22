@@ -128,6 +128,7 @@ export default {
   "cloud.all.restoreAll": "Restore all",
   "cloud.all.disconnect": "Disconnect",
   "cloud.all.saved": "Saved {count} tools to the cloud folder.",
+  "cloud.all.savedKept": "Saved {count} tools to the cloud folder. {kept} left unchanged because the folder already has a backup and this device has no entries yet. Use \"Restore from cloud\" to load them.",
   "cloud.all.restored": "Restored {count} entries from the cloud folder.",
   "cloud.all.unsupported": "Cloud folders do not work in {browser}. Use a desktop Chrome, Edge, Opera or Brave, or export manually.",
   "cloud.connected": "Connected to the folder \"{name}\"",

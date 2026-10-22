@@ -128,6 +128,7 @@ export default {
   "cloud.all.restoreAll": "Alle wiederherstellen",
   "cloud.all.disconnect": "Trennen",
   "cloud.all.saved": "{count} Tools im Cloud-Ordner gespeichert.",
+  "cloud.all.savedKept": "{count} Tools im Cloud-Ordner gespeichert. {kept} blieben unverändert, weil dort schon ein Backup liegt und hier noch keine Einträge sind. Mit \"Aus Cloud wiederherstellen\" holst du sie.",
   "cloud.all.restored": "{count} Einträge aus dem Cloud-Ordner wiederhergestellt.",
   "cloud.all.unsupported": "Cloud-Ordner funktionieren in {browser} nicht. Nutze Chrome, Edge, Opera oder Brave am Desktop oder exportiere manuell.",
   "cloud.connected": "Verbunden mit dem Ordner \"{name}\"",
