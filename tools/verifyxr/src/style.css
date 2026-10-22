@@ -87,6 +87,13 @@
 .vx-findings { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: grid; gap: var(--s-2); }
 .vx-findings li { padding: var(--s-2) var(--s-3); border-left: 3px solid var(--danger); background: color-mix(in srgb, var(--text) 4%, var(--bg)); border-radius: 0 var(--radius) var(--radius) 0; font-size: var(--fs-small); }
 .vx-findings li.hint { border-left-color: var(--warning); }
+.vx-findings li.change { border-left-color: var(--success); }
+.vx-was { text-decoration: line-through; text-decoration-thickness: 1px; }
+.vx-now { color: var(--text); font-weight: 600; }
+.vx-places { margin: var(--s-1) 0 0; padding-left: var(--s-4); }
+.vx-changes details { margin-top: var(--s-1); }
+.vx-changes summary { cursor: pointer; color: var(--accent); }
+.vx-note { margin: var(--s-3) 0 0; font-size: var(--fs-small); color: var(--text-muted); }
 .vx-findings .sev { font-weight: 600; margin-right: var(--s-1); }
 .vx-findings .where { font-weight: 600; word-break: break-word; }
 .vx-findings .vals { display: block; color: var(--text-muted); }

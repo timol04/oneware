@@ -6,6 +6,8 @@
 // Findings: { severity: 'error'|'hint', where, message, expected, found, hint }; expected/found are
 // message objects or plain strings (font names, numbers with unit).
 
+import { checkStructure } from './structure.js';
+
 export const TOLERANCE = { size: 0.01, spacing: 0.05, marginCm: 0.1 };
 // From this share of deviating words, yellow turns red.
 const WARN_SHARE = 0.1;
@@ -27,6 +29,7 @@ export function checkDocument(doc, rules) {
   const criteria = [
     checkFont(doc, rules), checkSize(doc, rules), checkSpacing(doc, rules),
     checkMargins(doc, rules), checkWordCount(doc, rules), checkPageCount(doc, rules),
+    ...checkStructure(doc),
   ];
   return { criteria, status: overall(criteria) };
 }

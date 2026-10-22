@@ -8,6 +8,7 @@ import { parseDocx } from './docx.js';
 import { checkDocument } from './checker.js';
 import { checkApa } from './apa.js';
 import { fixDocx } from './fixer.js';
+import { compareDocs } from './compare.js';
 import { PRESETS, PRESET_IDS, DEFAULT_PRESET } from './presets.js';
 import { listProfiles, saveProfile, deleteProfile, getProfile } from './profiles.js';
 import { reportHtml, batchHtml, esc, tx } from './report.js';
@@ -110,6 +111,7 @@ function selectPreset(id) {
 }
 
 function afterRulesChange() {
+  entries.forEach((e) => { delete e.fixed; }); // a corrected copy belongs to the rules it was made with
   $('rules-summary').textContent = summaryText();
   render();
 }
@@ -164,6 +166,12 @@ function render() {
     if (PREMIUM_FEATURES.fix) markPremium(b.parentElement.querySelector('p'), SLUG);
     b.addEventListener('click', () => fix(entries[Number(b.dataset.fix)], b));
   });
+  box.querySelectorAll('[data-download]').forEach((b) => {
+    b.addEventListener('click', () => {
+      const entry = entries[Number(b.dataset.download)];
+      if (entry?.fixed) download(entry.fixed.bytes, `${entry.name.replace(/\.docx$/i, '')}-fixed.docx`);
+    });
+  });
   const printBtn = $('print');
   printBtn.classList.toggle('is-locked', !!locked('pdf'));
   if (PREMIUM_FEATURES.pdf) markPremium(printBtn, SLUG, { compact: true });
@@ -186,9 +194,10 @@ async function fix(entry, button) {
   if (locked('fix')) { shell.openLicense('buy'); return; }
   button.disabled = true;
   try {
-    const { bytes, stats } = await fixDocx(entry.buffer, readRules());
-    download(bytes, `${entry.name.replace(/\.docx$/i, '')}-fixed.docx`);
-    showToast(t('fix.done', { n: tx(stats.paragraphs) }));
+    const { bytes } = await fixDocx(entry.buffer, readRules());
+    entry.fixed = { bytes, changes: compareDocs(entry.doc, await parseDocx(bytes)) };
+    render();
+    showToast(t('fix.ready'));
   } catch {
     showToast(t('fix.failed'));
   } finally {

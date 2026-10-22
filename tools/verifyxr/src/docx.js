@@ -33,6 +33,7 @@ export async function parseDocx(data) {
     zip.file('docProps/app.xml')?.async('string'),
   ]);
   if (!docXml) throw new Error('invalid');
+  const relTargets = await readRelTargets(zip);
 
   const styles = buildStyleResolver(stylesXml, themeXml);
   const body = child(docXml.find((n) => nameOf(n) === 'w:document'), 'w:body');
@@ -40,9 +41,12 @@ export async function parseDocx(data) {
 
   const paragraphs = [];
   const sections = [];
-  collectBlocks(kids(body), { paragraphs, sections, styles, inTable: false });
+  const tables = [];
+  collectBlocks(kids(body), { paragraphs, sections, tables, styles, inTable: false });
 
   assignPages(paragraphs, sections);
+  tables.forEach((tb) => { tb.page = paragraphs[tb.start]?.page ?? 1; });
+  await resolvePageNumbers(sections, relTargets, zip);
 
   const words = paragraphs.reduce((sum, p) => sum + p.words, 0);
   const computedPages = paragraphs.reduce((m, p) => Math.max(m, p.page), 1);
@@ -51,6 +55,7 @@ export async function parseDocx(data) {
   return {
     paragraphs,
     sections,
+    tables, // top-level tables: { start, end (exclusive), page } as indexes into paragraphs
     wordCount: words,
     pages: Math.max(appPages, computedPages),
     // Where the page count comes from, so the UI can show uncertainty.
@@ -112,11 +117,14 @@ function collectBlocks(nodes, ctx) {
       case 'w:p':
         ctx.paragraphs.push(readParagraph(node, ctx));
         break;
-      case 'w:tbl': // tables: text counts as words but is not checked as body text
+      case 'w:tbl': { // tables: text counts as words but is not checked as body text
+        const start = ctx.paragraphs.length;
         for (const tr of kids(node).filter((n) => nameOf(n) === 'w:tr'))
           for (const tc of kids(tr).filter((n) => nameOf(n) === 'w:tc'))
             collectBlocks(kids(tc), { ...ctx, inTable: true });
+        if (!ctx.inTable) ctx.tables.push({ start, end: ctx.paragraphs.length });
         break;
+      }
       case 'w:sdt': // Inhaltssteuerelemente (z.B. Inhaltsverzeichnis) enthalten w:sdtContent
         collectBlocks(kids(child(node, 'w:sdtContent')), ctx);
         break;
@@ -127,11 +135,16 @@ function collectBlocks(nodes, ctx) {
   }
 }
 
+const refId = (sectPr, name) => attrs(kids(sectPr).find((c) => nameOf(c) === name && (attrs(c)['w:type'] ?? 'default') === 'default'))['r:id'];
+
 function readSection(sectPr, endsAfterParagraph) {
   const m = attrs(child(sectPr, 'w:pgMar'));
   return {
     // sectPr describes the section that ends BEFORE this element; w:type applies to its start.
     breakType: val(sectPr, 'w:type') ?? 'nextPage',
+    // Header/footer parts of the default pages: relationship ids, resolved in resolvePageNumbers().
+    header: refId(sectPr, 'w:headerReference'),
+    footer: refId(sectPr, 'w:footerReference'),
     endsAfterParagraph, // Index (exklusiv) in paragraphs
     margins: {
       top: twipsToCm(m['w:top']),
@@ -164,6 +177,8 @@ function readParagraph(p, ctx) {
     styleName,
     special: SPECIAL_STYLE.test(styleName) || SPECIAL_STYLE.test(styleId ?? '') || child(pPr, 'w:outlineLvl') !== undefined,
     inTable: ctx.inTable,
+    headingLevel: headingLevelOf(pPr, chain, styleName, styleId),
+    hasFigure: false,
     pageBreakBefore: child(pPr, 'w:pageBreakBefore') !== undefined && val(pPr, 'w:pageBreakBefore') !== '0',
     lineSpacing,
     items: [], // Reihenfolge: Textsegmente {text,font,size,...} und Marker {marker:'lr'|'br'}
@@ -191,6 +206,7 @@ function collectRuns(nodes, para, ctx, paraChain) {
 
 function readRun(r, para, ctx, paraChain) {
   const { styles } = ctx;
+  if (!para.hasFigure && isFigure(r)) para.hasFigure = true;
   const rPr = child(r, 'w:rPr');
   const charStyleId = val(rPr, 'w:rStyle');
   const sources = [
@@ -267,5 +283,76 @@ function assignPages(paragraphs, sections) {
     p.page = hasLR ? (first?.pageLR ?? lr) : (first?.pageEx ?? ex);
     p.pageSource = hasLR ? 'lastRendered' : 'explicit';
     for (const item of p.items) if (item.text !== undefined) item.page = hasLR ? item.pageLR : item.pageEx;
+  }
+}
+
+// ---------- Headings and figures ----------
+const HEADING_NAME = /^(?:heading|überschrift)\s*([1-9])$/i;
+
+/** Heading level 1..9 of a paragraph (outline level or heading style), or null for body text. */
+function headingLevelOf(pPr, chain, styleName, styleId) {
+  // The outline level is inherited like other paragraph properties; 9 means "body text".
+  const outline = firstOf([pPr, ...chain.map((s) => child(s, 'w:pPr'))], (src) => val(src, 'w:outlineLvl'));
+  if (outline !== undefined) {
+    const n = Number(outline);
+    return Number.isInteger(n) && n >= 0 && n <= 8 ? n + 1 : null;
+  }
+  const m = HEADING_NAME.exec(styleName ?? '') ?? HEADING_NAME.exec(styleId ?? '');
+  return m ? Number(m[1]) : null;
+}
+
+// Pictures smaller than this in both directions (EMU) are icons or logos, not figures.
+const MIN_FIGURE_EMU = 2 * 360000;
+
+const findDeep = (nodes, pred) => nodes.some((n) => pred(n) || findDeep(kids(n), pred));
+
+/** True if the run holds an inline picture (or an old-style picture) of figure size. */
+function isFigure(run) {
+  return findDeep(kids(run), (n) => {
+    if (nameOf(n) === 'wp:inline') {
+      const ext = attrs(child(n, 'wp:extent'));
+      const cx = Number(ext.cx); const cy = Number(ext.cy);
+      return !(cx < MIN_FIGURE_EMU && cy < MIN_FIGURE_EMU);
+    }
+    return nameOf(n) === 'v:imagedata';
+  });
+}
+
+// ---------- Page numbers ----------
+async function readRelTargets(zip) {
+  const f = zip.file('word/_rels/document.xml.rels');
+  const map = new Map();
+  if (!f) return map;
+  for (const rel of parseXml(await f.async('string')).flatMap((n) => kids(n))) {
+    const a = attrs(rel);
+    if (a.Id && a.Target) map.set(a.Id, a.Target.replace(/^\//, '').replace(/^(?!word\/)/, 'word/'));
+  }
+  return map;
+}
+
+const PAGE_FIELD = /^\s*PAGE(\s|$)/i;
+const hasPageField = (nodes) => findDeep(nodes, (n) => (nameOf(n) === 'w:fldSimple' && PAGE_FIELD.test(attrs(n)['w:instr'] ?? ''))
+  || (nameOf(n) === 'w:instrText' && PAGE_FIELD.test(kids(n).map((t) => t.text ?? '').join(''))));
+
+/**
+ * Sets section.pageNumber: true if the header or footer of the section's default pages holds a PAGE field.
+ * Sections without their own reference inherit it from the previous section.
+ */
+async function resolvePageNumbers(sections, relTargets, zip) {
+  const cache = new Map();
+  const partHasField = async (rid) => {
+    const path = relTargets.get(rid);
+    if (!path || !/word\/(header|footer)/.test(path)) return false;
+    if (!cache.has(path)) {
+      const f = zip.file(path);
+      cache.set(path, f ? hasPageField(parseXml(await f.async('string'))) : false);
+    }
+    return cache.get(path);
+  };
+  let header; let footer; // a section without its own reference inherits the previous section's
+  for (const sec of sections) {
+    header = sec.header ?? header;
+    footer = sec.footer ?? footer;
+    sec.pageNumber = (await Promise.all([header, footer].filter(Boolean).map(partHasField))).some(Boolean);
   }
 }

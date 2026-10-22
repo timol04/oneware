@@ -57,6 +57,27 @@ export function criterionHtml(c) {
     <p>${esc(tx(c.summary) + (c.note ? ` ${tx(c.note)}` : ''))}</p>${list}</li>`;
 }
 
+const listOf = (values) => values.map(tx).join(', ');
+
+/** Before/after view of a corrected copy. @param entry { index, fixed: { changes } } */
+export function compareHtml(entry) {
+  const { rows, paragraphs, sections } = entry.fixed.changes;
+  const label = (r) => (r.kind === 'margin' ? `${t('crit.margins')}, ${t(`side.${r.side}`)}` : t(`crit.${r.kind}`));
+  const items = rows.map((r) => {
+    const shown = r.places.slice(0, MAX_FINDINGS);
+    const more = r.places.length - shown.length;
+    return `<li class="change"><span class="where">${esc(label(r))} · ${esc(tn(r.kind === 'margin' ? 'cmp.sections' : 'cmp.paragraphs', r.count))}</span>
+      <span class="vals"><span class="vx-was">${esc(listOf(r.before))}</span> <span aria-label="${esc(t('cmp.to'))}">→</span> <strong class="vx-now">${esc(listOf(r.after))}</strong></span>
+      <details><summary>${esc(t('cmp.where'))}</summary><ul class="vx-places">${shown.map((w) => `<li>${esc(tx(w))}</li>`).join('')}${more > 0 ? `<li>${esc(t('rep.moreItems', { n: tx(more) }))}</li>` : ''}</ul></details></li>`;
+  }).join('');
+  return `<div class="vx-compare">
+    <h3 class="vx-group">${esc(t('cmp.title'))}</h3>
+    <div class="vx-fixbar"><p>${esc(rows.length ? t('cmp.summary', { p: tn('cmp.paragraphs', paragraphs), s: tn('cmp.sections', sections) }) : t('cmp.nothing'))}</p>
+      <button type="button" class="ow-btn" data-download="${entry.index}">${esc(t('cmp.download'))}</button></div>
+    ${rows.length ? `<ul class="vx-findings vx-changes">${items}</ul>` : ''}
+    <p class="vx-note">${esc(t('cmp.note'))}</p></div>`;
+}
+
 const tile = (cls, n, label) => `<div class="vx-tile ${cls}"><strong>${n}</strong><span>${esc(label)}</span></div>`;
 
 /**
@@ -78,9 +99,11 @@ export function reportHtml(entry) {
     <p class="vx-meta">${esc(pagesLine)}</p>
     <div class="vx-tiles">${tile('ok', counts.ok, t('rep.passed'))}${tile('warn', counts.warn, t('rep.hinted'))}${tile('fail', counts.fail, t('rep.failed'))}</div>
     <p class="vx-verdict">${esc(counts.fail + counts.warn === 0 ? t('rep.allGood') : t('rep.verdict', { errors: tn('rep.errors', errors), hints: tn('rep.hints', hints) }))}</p>
-    ${entry.fixable ? `<div class="vx-fixbar"><p>${esc(t('fix.text'))}</p><button type="button" class="ow-btn" data-fix="${entry.index}">${esc(t('fix.button'))}</button></div>` : ''}
+    ${entry.fixed ? compareHtml(entry) : entry.fixable ? `<div class="vx-fixbar"><p>${esc(t('fix.text'))}</p><button type="button" class="ow-btn" data-fix="${entry.index}">${esc(t('fix.button'))}</button></div>` : ''}
     <h3 class="vx-group">${esc(t('rep.groupFormat'))}</h3>
-    <ul class="vx-list">${result.criteria.map(criterionHtml).join('')}</ul>
+    <ul class="vx-list">${result.criteria.filter((c) => c.group !== 'structure').map(criterionHtml).join('')}</ul>
+    <h3 class="vx-group">${esc(t('rep.groupStructure'))}</h3>
+    <ul class="vx-list">${result.criteria.filter((c) => c.group === 'structure').map(criterionHtml).join('')}</ul>
     ${apa ? `<h3 class="vx-group">${esc(t('rep.groupApa'))}</h3><ul class="vx-list">${apa.map(criterionHtml).join('')}</ul>` : ''}`;
 }
 
