@@ -392,8 +392,8 @@
           "de": "Alle Inhaltsarten: Link, Text, WLAN, Kontakt, E-Mail, Telefon, SMS, Standort, Termin, App"
         },
         {
-          "en": "Dot shapes and solid colors",
-          "de": "Punktformen und einfarbige Farben"
+          "en": "Dot shapes, solid colors and a caption under the code",
+          "de": "Punktformen, einfarbige Farben und Beschriftung unter dem Code"
         },
         {
           "en": "Live preview with scan test",
@@ -414,8 +414,8 @@
           "de": "Logo in der Mitte oder als Form des Codes"
         },
         {
-          "en": "Sticker shapes with caption and printable A4 sheet",
-          "de": "Stickerformen mit Beschriftung und druckfertiger A4-Bogen"
+          "en": "Sticker shapes and printable A4 sheet",
+          "de": "Stickerformen und druckfertiger A4-Bogen"
         },
         {
           "en": "SVG, PDF and large PNG",
