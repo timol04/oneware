@@ -25,6 +25,10 @@
     "en": "Check a Word document against your thesis requirements before you hand it in: font, size, line spacing, margins, word and page count, and APA 7 citations against the reference list. Then fix the formatting in a corrected copy. Everything runs in your browser; your file is never uploaded.",
     "de": "Ein Word-Dokument vor der Abgabe gegen die Vorgaben deiner Arbeit prüfen: Schrift, Grösse, Zeilenabstand, Ränder, Wort- und Seitenzahl sowie APA-7-Zitate gegen das Literaturverzeichnis. Danach das Format in einer korrigierten Kopie beheben. Alles läuft in deinem Browser; deine Datei wird nie hochgeladen."
   },
+  "audience": {
+    "en": "Students checking a paper against formatting requirements before they hand it in.",
+    "de": "Studierende, die ihre Arbeit vor der Abgabe gegen Formatvorgaben prüfen."
+  },
   "features": {
     "free": [
       {

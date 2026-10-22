@@ -28,6 +28,10 @@
     "en": "Work on PDF files without uploading them: combine several PDFs, pull out or delete pages, rotate and reorder them with a page preview, split a PDF into parts and make a file smaller. Everything runs in your browser; your files never leave your device.",
     "de": "PDF-Dateien bearbeiten, ohne sie hochzuladen: mehrere PDFs zusammenfügen, Seiten herausziehen oder löschen, mit Seitenvorschau drehen und umsortieren, ein PDF in Teile aufteilen und Dateien verkleinern. Alles läuft in deinem Browser; deine Dateien verlassen dein Gerät nie."
   },
+  "audience": {
+    "en": "One-off jobs on PDFs: combine, reorder, extract, compress and split, without uploading them.",
+    "de": "Einmalige Arbeiten an PDFs: zusammenfügen, ordnen, extrahieren, komprimieren und teilen, ohne sie hochzuladen."
+  },
   "features": {
     "free": [
       {

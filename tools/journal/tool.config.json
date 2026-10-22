@@ -29,15 +29,35 @@
     "en": "Write one entry per day, rate your mood, sort entries with tags and look back in a calendar. Markdown works with a preview. Everything stays in your browser.",
     "de": "Pro Tag einen Eintrag schreiben, die Stimmung festhalten, mit Tags ordnen und im Kalender zurückblättern. Markdown funktioniert mit Vorschau. Alles bleibt in deinem Browser."
   },
+  "audience": {
+    "en": "Daily writing, mood tracking and private reflection that stays on your device.",
+    "de": "Tägliches Schreiben, Stimmung festhalten und private Reflexion, die auf deinem Gerät bleibt."
+  },
+  "countLimit": true,
   "features": {
     "free": [
-      { "en": "Up to 30 entries with all features", "de": "Bis zu 30 Einträge mit allen Funktionen" },
-      { "en": "Mood scale, tags and search", "de": "Stimmungsskala, Tags und Suche" },
-      { "en": "Calendar view and writing streak", "de": "Kalenderansicht und Schreibserie" },
-      { "en": "Markdown with preview, backup export and import", "de": "Markdown mit Vorschau, Backup-Export und -Import" }
+      {
+        "en": "Up to 30 entries with all features",
+        "de": "Bis zu 30 Einträge mit allen Funktionen"
+      },
+      {
+        "en": "Mood scale, tags and search",
+        "de": "Stimmungsskala, Tags und Suche"
+      },
+      {
+        "en": "Calendar view and writing streak",
+        "de": "Kalenderansicht und Schreibserie"
+      },
+      {
+        "en": "Markdown with preview, backup export and import",
+        "de": "Markdown mit Vorschau, Backup-Export und -Import"
+      }
     ],
     "premium": [
-      { "en": "Unlimited entries", "de": "Unbegrenzt viele Einträge" }
+      {
+        "en": "Unlimited entries",
+        "de": "Unbegrenzt viele Einträge"
+      }
     ]
   },
   "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/5f13286b-d90a-4312-96ff-4287645ef181",

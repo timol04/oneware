@@ -28,6 +28,11 @@
     "en": "Capture quick notes, sort them with tags and colors, pin what matters and write in Markdown with a preview. Everything stays in your browser.",
     "de": "Schnelle Notizen festhalten, mit Tags und Farben ordnen, Wichtiges anpinnen und in Markdown mit Vorschau schreiben. Alles bleibt in deinem Browser."
   },
+  "audience": {
+    "en": "Quick private notes with tags and Markdown, no account needed.",
+    "de": "Schnelle private Notizen mit Tags und Markdown, ohne Konto."
+  },
+  "countLimit": true,
   "features": {
     "free": [
       {

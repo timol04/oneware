@@ -25,6 +25,10 @@
     "en": "Create QR codes for links, Wi-Fi, contacts, events and more. Style them, add a logo, check that they scan and export for print or web. Everything runs in your browser.",
     "de": "QR-Codes für Links, WLAN, Kontakte, Termine und mehr erstellen. Gestalten, Logo einfügen, Scanbarkeit prüfen und für Druck oder Web exportieren. Alles läuft in deinem Browser."
   },
+  "audience": {
+    "en": "Making QR codes for links, Wi-Fi, contacts and print, with your own colors and logo.",
+    "de": "QR-Codes für Links, WLAN, Kontakte und Druck, mit eigenen Farben und Logo."
+  },
   "features": {
     "free": [
       {

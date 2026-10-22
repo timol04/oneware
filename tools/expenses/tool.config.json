@@ -28,17 +28,43 @@
     "en": "Record every income and expense in seconds, sort them into categories and review each month: totals, balance and where the money went. Single bookings only; recurring subscriptions belong in the subscription tracker. Everything stays in your browser.",
     "de": "Erfasse jede Einnahme und Ausgabe in Sekunden, ordne sie Kategorien zu und behalte jeden Monat im Blick: Summen, Saldo und wohin das Geld ging. Nur einzelne Buchungen; wiederkehrende Abos gehören in den Abo-Tracker. Alles bleibt in deinem Browser."
   },
+  "audience": {
+    "en": "Keeping a simple record of income and spending, without bank connection or account.",
+    "de": "Wer Einnahmen und Ausgaben einfach festhalten will, ohne Bankanbindung und ohne Konto."
+  },
+  "countLimit": true,
   "features": {
     "free": [
-      { "en": "Up to 50 bookings with all features", "de": "Bis zu 50 Buchungen mit allen Funktionen" },
-      { "en": "Monthly overview: income, expenses, balance", "de": "Monatsübersicht: Einnahmen, Ausgaben, Saldo" },
-      { "en": "Categories, search and day grouping", "de": "Kategorien, Suche und Gruppierung nach Tag" },
-      { "en": "Backup export and import", "de": "Backup-Export und -Import" }
+      {
+        "en": "Up to 50 bookings with all features",
+        "de": "Bis zu 50 Buchungen mit allen Funktionen"
+      },
+      {
+        "en": "Monthly overview: income, expenses, balance",
+        "de": "Monatsübersicht: Einnahmen, Ausgaben, Saldo"
+      },
+      {
+        "en": "Categories, search and day grouping",
+        "de": "Kategorien, Suche und Gruppierung nach Tag"
+      },
+      {
+        "en": "Backup export and import",
+        "de": "Backup-Export und -Import"
+      }
     ],
     "premium": [
-      { "en": "Unlimited bookings", "de": "Unbegrenzt viele Buchungen" },
-      { "en": "Statistics: income and expenses over 12 months", "de": "Statistik: Einnahmen und Ausgaben über 12 Monate" },
-      { "en": "Spending by category over the year", "de": "Ausgaben nach Kategorie über das Jahr" }
+      {
+        "en": "Unlimited bookings",
+        "de": "Unbegrenzt viele Buchungen"
+      },
+      {
+        "en": "Statistics: income and expenses over 12 months",
+        "de": "Statistik: Einnahmen und Ausgaben über 12 Monate"
+      },
+      {
+        "en": "Spending by category over the year",
+        "de": "Ausgaben nach Kategorie über das Jahr"
+      }
     ]
   },
   "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/ae832872-94dd-4305-9a4e-6f682f0b70be",

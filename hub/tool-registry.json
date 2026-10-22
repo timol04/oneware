@@ -29,6 +29,11 @@
       "en": "Capture quick notes, sort them with tags and colors, pin what matters and write in Markdown with a preview. Everything stays in your browser.",
       "de": "Schnelle Notizen festhalten, mit Tags und Farben ordnen, Wichtiges anpinnen und in Markdown mit Vorschau schreiben. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "Quick private notes with tags and Markdown, no account needed.",
+      "de": "Schnelle private Notizen mit Tags und Markdown, ohne Konto."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -149,6 +154,11 @@
       "en": "Keep several checklists, break tasks into sub-items, set due dates and let recurring tasks come back on their own. Everything stays in your browser.",
       "de": "Mehrere Checklisten führen, Aufgaben in Unterpunkte gliedern, Fälligkeiten setzen und wiederkehrende Aufgaben von selbst zurückkehren lassen. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "Packing lists, shopping lists and small projects with due dates and repeating tasks.",
+      "de": "Packlisten, Einkaufslisten und kleine Projekte mit Fälligkeiten und wiederkehrenden Aufgaben."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -269,6 +279,11 @@
       "en": "Track daily habits and weekly goals, keep your streaks, see a calendar of every day and add a note when something is worth remembering. Everything stays in your browser.",
       "de": "Tägliche Gewohnheiten und Wochenziele verfolgen, Serien halten, jeden Tag im Kalender sehen und eine Notiz festhalten, wenn etwas erwähnenswert ist. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "People who build routines day by day and want streaks and weekly goals.",
+      "de": "Wer Routinen Tag für Tag aufbaut und Serien und Wochenziele will."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -384,6 +399,10 @@
     "about": {
       "en": "Create QR codes for links, Wi-Fi, contacts, events and more. Style them, add a logo, check that they scan and export for print or web. Everything runs in your browser.",
       "de": "QR-Codes für Links, WLAN, Kontakte, Termine und mehr erstellen. Gestalten, Logo einfügen, Scanbarkeit prüfen und für Druck oder Web exportieren. Alles läuft in deinem Browser."
+    },
+    "audience": {
+      "en": "Making QR codes for links, Wi-Fi, contacts and print, with your own colors and logo.",
+      "de": "QR-Codes für Links, WLAN, Kontakte und Druck, mit eigenen Farben und Logo."
     },
     "features": {
       "free": [
@@ -520,6 +539,10 @@
       "en": "Keep track of every subscription: what it costs per month and year, when the next charge is due and what you have paused or cancelled. Everything stays in your browser.",
       "de": "Behalte jedes Abo im Blick: was es pro Monat und Jahr kostet, wann die nächste Abbuchung fällig ist und was du pausiert oder gekündigt hast. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "People who want to see what their subscriptions really cost and when the next charge comes.",
+      "de": "Alle, die sehen wollen, was ihre Abos wirklich kosten und wann die nächste Abbuchung kommt."
+    },
     "features": {
       "free": [
         {
@@ -642,6 +665,10 @@
     "about": {
       "en": "Check a Word document against your thesis requirements before you hand it in: font, size, line spacing, margins, word and page count, and APA 7 citations against the reference list. Then fix the formatting in a corrected copy. Everything runs in your browser; your file is never uploaded.",
       "de": "Ein Word-Dokument vor der Abgabe gegen die Vorgaben deiner Arbeit prüfen: Schrift, Grösse, Zeilenabstand, Ränder, Wort- und Seitenzahl sowie APA-7-Zitate gegen das Literaturverzeichnis. Danach das Format in einer korrigierten Kopie beheben. Alles läuft in deinem Browser; deine Datei wird nie hochgeladen."
+    },
+    "audience": {
+      "en": "Students checking a paper against formatting requirements before they hand it in.",
+      "de": "Studierende, die ihre Arbeit vor der Abgabe gegen Formatvorgaben prüfen."
     },
     "features": {
       "free": [
@@ -769,6 +796,10 @@
       "en": "Turn files into other formats: images into PNG, JPG, WebP or PDF; Word, text and Markdown into PDF, Word, HTML or text; PDF into text, Word or images. Everything runs in your browser; your files are never uploaded. Conversions keep text and simple structure (headings, bold, italic, lists, tables), not the exact page layout.",
       "de": "Dateien in andere Formate umwandeln: Bilder in PNG, JPG, WebP oder PDF; Word, Text und Markdown in PDF, Word, HTML oder Text; PDF in Text, Word oder Bilder. Alles läuft in deinem Browser; deine Dateien werden nie hochgeladen. Übernommen werden Text und einfache Struktur (Überschriften, fett, kursiv, Listen, Tabellen), nicht das genaue Seitenlayout."
     },
+    "audience": {
+      "en": "Anyone who needs a quick one-off conversion between common picture and document formats without uploading files.",
+      "de": "Alle, die schnell einmal Bilder oder Dokumente umwandeln wollen, ohne Dateien hochzuladen."
+    },
     "features": {
       "free": [
         {
@@ -892,6 +923,11 @@
       "en": "Save books, films, series and articles you want to get to, mark what you are reading, rate what you finished and keep notes. Everything stays in your browser.",
       "de": "Bücher, Filme, Serien und Artikel merken, die du noch vorhast, festhalten was gerade läuft, Fertiges bewerten und Notizen führen. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "Keeping track of books, articles and anything else you want to read or have read.",
+      "de": "Bücher, Artikel und alles andere im Blick behalten, was du lesen willst oder gelesen hast."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -1012,6 +1048,11 @@
       "en": "Write one entry per day, rate your mood, sort entries with tags and look back in a calendar. Markdown works with a preview. Everything stays in your browser.",
       "de": "Pro Tag einen Eintrag schreiben, die Stimmung festhalten, mit Tags ordnen und im Kalender zurückblättern. Markdown funktioniert mit Vorschau. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "Daily writing, mood tracking and private reflection that stays on your device.",
+      "de": "Tägliches Schreiben, Stimmung festhalten und private Reflexion, die auf deinem Gerät bleibt."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -1130,6 +1171,10 @@
     "about": {
       "en": "Work on PDF files without uploading them: combine several PDFs, pull out or delete pages, rotate and reorder them with a page preview, split a PDF into parts and make a file smaller. Everything runs in your browser; your files never leave your device.",
       "de": "PDF-Dateien bearbeiten, ohne sie hochzuladen: mehrere PDFs zusammenfügen, Seiten herausziehen oder löschen, mit Seitenvorschau drehen und umsortieren, ein PDF in Teile aufteilen und Dateien verkleinern. Alles läuft in deinem Browser; deine Dateien verlassen dein Gerät nie."
+    },
+    "audience": {
+      "en": "One-off jobs on PDFs: combine, reorder, extract, compress and split, without uploading them.",
+      "de": "Einmalige Arbeiten an PDFs: zusammenfügen, ordnen, extrahieren, komprimieren und teilen, ohne sie hochzuladen."
     },
     "features": {
       "free": [
@@ -1253,6 +1298,11 @@
       "en": "Record every income and expense in seconds, sort them into categories and review each month: totals, balance and where the money went. Single bookings only; recurring subscriptions belong in the subscription tracker. Everything stays in your browser.",
       "de": "Erfasse jede Einnahme und Ausgabe in Sekunden, ordne sie Kategorien zu und behalte jeden Monat im Blick: Summen, Saldo und wohin das Geld ging. Nur einzelne Buchungen; wiederkehrende Abos gehören in den Abo-Tracker. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "Keeping a simple record of income and spending, without bank connection or account.",
+      "de": "Wer Einnahmen und Ausgaben einfach festhalten will, ohne Bankanbindung und ohne Konto."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {

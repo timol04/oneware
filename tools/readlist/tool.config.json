@@ -28,6 +28,11 @@
     "en": "Save books, films, series and articles you want to get to, mark what you are reading, rate what you finished and keep notes. Everything stays in your browser.",
     "de": "Bücher, Filme, Serien und Artikel merken, die du noch vorhast, festhalten was gerade läuft, Fertiges bewerten und Notizen führen. Alles bleibt in deinem Browser."
   },
+  "audience": {
+    "en": "Keeping track of books, articles and anything else you want to read or have read.",
+    "de": "Bücher, Artikel und alles andere im Blick behalten, was du lesen willst oder gelesen hast."
+  },
+  "countLimit": true,
   "features": {
     "free": [
       {
