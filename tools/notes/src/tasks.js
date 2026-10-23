@@ -1,4 +1,6 @@
-// Notes -> Checklists: finds Markdown tasks in a note and copies them into a new, independent checklist.
+// Notes -> Checklists: finds the tasks of a note and copies them into a new, independent checklist.
+// Tasks are the list items of the note (bulleted or numbered, as made with the editor's list buttons).
+// If the note has Markdown checkboxes ("- [ ] / - [x]"), only those count and keep their done state.
 // The note is never touched. The checklist is built with the Checklists tool's own data model.
 
 import { saveItem, getAllItems } from '../../../core/storage.js';
@@ -12,6 +14,9 @@ const MAX_TEXT = 200; // maxlength of a checklist entry
 // "- [ ] text", "* [x] text", "+ [X] text". The note editor stores Markdown marks it wrote itself with a backslash
 // ("\- \[ \] text"), so those are accepted too.
 const TASK = /^[ \t]*\\?[-*+][ \t]+\\?\[([ xX])\\?\][ \t]+(.+)$/;
+
+// Plain list items: "- text", "* text", "+ text", "1. text" (also with the backslash the editor adds to typed marks).
+const ITEM = /^[ \t]*(?:\\?[-*+]|\d+\\?[.)])[ \t]+(.+)$/;
 
 /** Removes Markdown formatting from a task text: escapes, bold, italic, code; links keep their address. */
 function plain(md) {
@@ -28,17 +33,23 @@ function plain(md) {
 
 /** Tasks of a note in order: [{ text, done }]. Empty tasks and tasks inside code blocks are ignored. */
 export function extractTasks(body) {
-  const tasks = [];
+  const checks = [];
+  const items = [];
   let fenced = false;
   for (const line of String(body ?? '').split(/\r\n|\r|\n/)) {
     if (/^\s*```/.test(line)) { fenced = !fenced; continue; }
     if (fenced) continue;
     const m = TASK.exec(line);
-    if (!m) continue;
-    const text = plain(m[2]);
-    if (text) tasks.push({ text, done: m[1] !== ' ' });
+    if (m) {
+      const text = plain(m[2]);
+      if (text) checks.push({ text, done: m[1] !== ' ' });
+      continue;
+    }
+    const li = ITEM.exec(line);
+    const text = li && plain(li[1]);
+    if (text) items.push({ text, done: false });
   }
-  return tasks;
+  return checks.length ? checks : items;
 }
 
 /** Title of the new checklist: the note title, else the first line of the note, else the fallback. */

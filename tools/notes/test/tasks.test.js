@@ -34,8 +34,16 @@ test('accepts the escaped form the note editor writes', () => {
   ]);
 });
 
-test('plain bullets, numbered lists and other text are ignored', () => {
-  assert.deepEqual(extractTasks('- milk\n* bread\n1. [ ] numbered\n[ ] no bullet\n-[ ] no space\nSome [ ] text'), []);
+test('list items of the editor count as tasks', () => {
+  assert.deepEqual(extractTasks('Shopping\n\n- Milk\n- Bread\n\n1. Call Anna\n2) Send offer\n\\- typed dash'), [
+    { text: 'Milk', done: false }, { text: 'Bread', done: false }, { text: 'Call Anna', done: false },
+    { text: 'Send offer', done: false }, { text: 'typed dash', done: false },
+  ]);
+});
+
+test('with checkboxes present only they count; plain text and malformed lines are ignored', () => {
+  assert.deepEqual(extractTasks('- milk\n- [x] real\n* bread'), [{ text: 'real', done: true }]);
+  assert.deepEqual(extractTasks('[ ] no bullet\n-[ ] no space\nSome - text\nplain line'), []);
 });
 
 test('empty tasks are ignored', () => {
@@ -56,7 +64,8 @@ test('formatting is removed, links keep their address, code blocks are skipped',
 });
 
 test('a note without tasks has none (no button)', () => {
-  assert.equal(extractTasks('Just text\n- a bullet').length, 0);
+  assert.equal(extractTasks('Just text\nmore text').length, 0);
+  assert.equal(extractTasks('- \n-   \n1. ').length, 0);
   assert.equal(extractTasks('').length, 0);
   assert.equal(extractTasks(undefined).length, 0);
 });
@@ -100,7 +109,7 @@ test('conversion stores an independent checklist and leaves the note untouched',
 
 test('new checklist appears in the dashboard Today feed (open and done)', async () => {
   const lists = await getAllItems('checklists');
-  const entries = todayEntries({ items: lists, today: new Date().toLocaleDateString('sv'), lang: 'en' });
+  const entries = todayEntries({ items: lists, today: '2026-10-22', lang: 'en' });
   assert.deepEqual(entries.map((e) => [e.title, e.state]).sort(), [['one', 'due'], ['two', 'done']]);
   assert.equal(new Set(entries.map((e) => e.id)).size, entries.length);
 });
@@ -129,7 +138,7 @@ test('free limit of Checklists is respected, Premium lifts it', async () => {
 
 test('a note without tasks creates nothing', async () => {
   const before = (await getAllItems('checklists')).length;
-  const res = await createChecklistFromNote(note('- plain'), { premium: true, fallbackTitle: 'F' });
+  const res = await createChecklistFromNote(note('plain text'), { premium: true, fallbackTitle: 'F' });
   assert.equal(res.status, 'empty');
   assert.equal((await getAllItems('checklists')).length, before);
 });
