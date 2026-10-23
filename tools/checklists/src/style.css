@@ -13,8 +13,9 @@
   .cl-back { display: none; }
 }
 
-.cl-top { display: flex; gap: var(--s-2); margin-bottom: var(--s-3); }
-.cl-search { flex: 1; min-width: 0; }
+.cl-top { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-3); }
+.cl-top .ow-btn { flex: 1 1 auto; }
+.cl-search { flex: 1 1 100%; min-width: 0; }
 .cl-top .ow-btn, .cl-add .ow-btn { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); white-space: nowrap; }
 .cl-top .ow-btn:hover, .cl-add .ow-btn:hover { filter: brightness(1.12); }
 .cl-top .ow-btn .ow-icon { vertical-align: -0.2em; }

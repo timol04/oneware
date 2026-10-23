@@ -23,8 +23,9 @@
   .nt-back { display: none; }
 }
 
-.nt-top { display: flex; gap: var(--s-2); margin-bottom: var(--s-3); }
-.nt-search { flex: 1; min-width: 0; }
+.nt-top { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-3); }
+.nt-top .ow-btn { flex: 1 1 auto; }
+.nt-search { flex: 1 1 100%; min-width: 0; }
 .nt-top .ow-btn { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); white-space: nowrap; }
 .nt-top .ow-btn:hover { filter: brightness(1.12); }
 .nt-top .ow-btn .ow-icon { vertical-align: -0.2em; }
