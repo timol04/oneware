@@ -47,6 +47,10 @@
         "de": "Ausgewählte Seiten oder einen Seitenbereich als neues PDF herausziehen"
       },
       {
+        "en": "Split into one file: cut out a page range or selected pages",
+        "de": "Teilen in eine Datei: Seitenbereich oder ausgewählte Seiten herausschneiden"
+      },
+      {
         "en": "Clear notes about what each step keeps or changes",
         "de": "Klare Hinweise, was ein Schritt übernimmt oder verändert"
       },

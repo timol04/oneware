@@ -95,7 +95,13 @@ tools.sort((a, b) =>
   (a.status === b.status ? 0 : a.status === 'live' ? -1 : 1)
   || (a.order ?? 1e6) - (b.order ?? 1e6)
   || text(a.name).localeCompare(text(b.name), 'en'));
-await writeFile(outFile, JSON.stringify(tools.map(({ source, ...cfg }) => cfg), null, 2) + '\n');
+// Tools without Premium carry no purchase data in the public registry (the source configs keep it for later).
+const publicTool = ({ source, ...cfg }) => {
+  if (cfg.hasPremium) return cfg;
+  const { price, purchaseUrl, lemonSqueezy, ...free } = cfg;
+  return free;
+};
+await writeFile(outFile, JSON.stringify(tools.map(publicTool), null, 2) + '\n');
 
 // ---- mirror every tool to its public URL /mydashboard/<slug>/ ----
 const redirect = (slug) => `<!doctype html>
@@ -134,7 +140,7 @@ function row(tool) {
   const live = tool.status === 'live';
   const style = tool.accent ? ` style="--accent-l:${tool.accent.light};--accent-d:${tool.accent.dark}"` : '';
   const free = licensing.enabled && tool.hasPremium ? `<span class="tool-card__tag">${esc(en['hub.freePlan'])}</span>` : '';
-  const priceText = licensing.enabled ? text(tool.price) : live ? en['hub.freeNow'] : '';
+  const priceText = licensing.enabled ? (tool.hasPremium ? text(tool.price) : live ? en['hub.free'] : '') : live ? en['hub.freeNow'] : '';
   const inner = `<div class="tool-card__preview">${tool.shot ? shotHtml(tool.slug) : previewHtml(tool.preview)}${priceText ? `<span class="price-tag">${esc(priceText)}</span>` : ''}</div>`
     + '<div class="tool-card__body">'
     + `<div class="tool-card__top"><span class="tool-card__no" aria-hidden="true"></span><span class="tool-card__icon">${icon(tool.icon)}</span><h4 class="tool-card__name">${esc(text(tool.name))}</h4></div>`

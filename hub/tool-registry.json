@@ -14,10 +14,6 @@
     "status": "live",
     "icon": "note",
     "preview": "list",
-    "price": {
-      "en": "$2.99 one-time",
-      "de": "2.99 USD einmalig"
-    },
     "order": 10,
     "accent": {
       "light": "#a14607",
@@ -62,10 +58,6 @@
       ],
       "premium": []
     },
-    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/9cad45ce-978b-4613-8a64-62cda23596a0",
-    "lemonSqueezy": {
-      "productId": 1456725
-    },
     "seo": {
       "title": {
         "en": "Notes app in your browser, no account – Oneware",
@@ -107,8 +99,8 @@
             "de": "Kann ich eine Aufgabenliste in eine Checkliste umwandeln?"
           },
           "a": {
-            "en": "Yes. Write a bulleted or numbered list in a note and click \"Convert tasks to checklist\". A new, separate checklist is created in Checklists and the note stays as it is. The free limit of Checklists applies.",
-            "de": "Ja. Schreibe in einer Notiz eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». In Checklists entsteht eine neue, eigenständige Checkliste, die Notiz bleibt unverändert. Es gilt das Gratis-Limit von Checklists."
+            "en": "Yes. Write a bulleted or numbered list in a note and click \"Convert tasks to checklist\". A new, separate checklist is created in Checklists and the note stays as it is.",
+            "de": "Ja. Schreibe in einer Notiz eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». In Checklists entsteht eine neue, eigenständige Checkliste, die Notiz bleibt unverändert."
           }
         },
         {
@@ -151,10 +143,6 @@
     "status": "live",
     "icon": "check-circle",
     "preview": "list",
-    "price": {
-      "en": "$2.99 one-time",
-      "de": "2.99 USD einmalig"
-    },
     "order": 20,
     "accent": {
       "light": "#4f46e5",
@@ -195,10 +183,6 @@
         }
       ],
       "premium": []
-    },
-    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/341858e9-c538-4370-bd33-ebcc79271247",
-    "lemonSqueezy": {
-      "productId": 1456719
     },
     "seo": {
       "title": {
@@ -251,8 +235,8 @@
             "de": "Kann ich Aufgaben aus meinen Notizen übernehmen?"
           },
           "a": {
-            "en": "Yes. In Notes, write a bulleted or numbered list and click \"Convert tasks to checklist\". Checklists opens with a new checklist that has one entry per task. The note stays as it is and both can be edited independently. The free limit of 10 checklists applies.",
-            "de": "Ja. Schreibe in Notes eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». Checklists öffnet sich mit einer neuen Checkliste, die pro Aufgabe einen Eintrag hat. Die Notiz bleibt unverändert, beide lassen sich unabhängig bearbeiten. Es gilt das Gratis-Limit von 10 Checklisten."
+            "en": "Yes. In Notes, write a bulleted or numbered list and click \"Convert tasks to checklist\". Checklists opens with a new checklist that has one entry per task. The note stays as it is and both can be edited independently.",
+            "de": "Ja. Schreibe in Notes eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». Checklists öffnet sich mit einer neuen Checkliste, die pro Aufgabe einen Eintrag hat. Die Notiz bleibt unverändert, beide lassen sich unabhängig bearbeiten."
           }
         },
         {
@@ -285,10 +269,6 @@
     "status": "live",
     "icon": "flame",
     "preview": "habits",
-    "price": {
-      "en": "$5.99 one-time",
-      "de": "5.99 USD einmalig"
-    },
     "order": 30,
     "accent": {
       "light": "#be3a5c",
@@ -325,10 +305,6 @@
         }
       ],
       "premium": []
-    },
-    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/3345b4a1-69a8-49ec-b9b0-55e02dc5b7a5",
-    "lemonSqueezy": {
-      "productId": 1456722
     },
     "seo": {
       "title": {
@@ -708,12 +684,20 @@
           "de": "Schrift, Grösse, Zeilenabstand und Ränder"
         },
         {
-          "en": "Word and page limits",
-          "de": "Wort- und Seitengrenzen"
+          "en": "Word and page limits, heading hierarchy, page numbers and captions",
+          "de": "Wort- und Seitengrenzen, Überschriftenhierarchie, Seitenzahlen und Beschriftungen"
         },
         {
           "en": "Presets and custom requirements",
           "de": "Vorlagen und eigene Vorgaben"
+        },
+        {
+          "en": "Save your own requirement profiles",
+          "de": "Eigene Vorgaben als Profil speichern"
+        },
+        {
+          "en": "Report as PDF (print dialog)",
+          "de": "Bericht als PDF (Druckdialog)"
         },
         {
           "en": "Plain-language fixes for every finding",
@@ -949,10 +933,6 @@
     "status": "live",
     "icon": "book",
     "preview": "list",
-    "price": {
-      "en": "$3.49 one-time",
-      "de": "3.49 USD einmalig"
-    },
     "order": 70,
     "accent": {
       "light": "#0f766e",
@@ -992,10 +972,6 @@
         }
       ],
       "premium": []
-    },
-    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/c5fa60b4-d662-46f2-a554-136e0292d00f",
-    "lemonSqueezy": {
-      "productId": 1456728
     },
     "seo": {
       "title": {
@@ -1072,10 +1048,6 @@
     "status": "live",
     "icon": "book-open",
     "preview": "list",
-    "price": {
-      "en": "$3.49 one-time",
-      "de": "3.49 USD einmalig"
-    },
     "order": 80,
     "accent": {
       "light": "#46720d",
@@ -1112,10 +1084,6 @@
         }
       ],
       "premium": []
-    },
-    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/5f13286b-d90a-4312-96ff-4287645ef181",
-    "lemonSqueezy": {
-      "productId": 1456723
     },
     "seo": {
       "title": {
@@ -1224,6 +1192,10 @@
         {
           "en": "Extract selected pages or a page range as a new PDF",
           "de": "Ausgewählte Seiten oder einen Seitenbereich als neues PDF herausziehen"
+        },
+        {
+          "en": "Split into one file: cut out a page range or selected pages",
+          "de": "Teilen in eine Datei: Seitenbereich oder ausgewählte Seiten herausschneiden"
         },
         {
           "en": "Clear notes about what each step keeps or changes",

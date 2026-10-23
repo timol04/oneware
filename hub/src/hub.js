@@ -28,7 +28,8 @@ function renderRow(tool) {
 
   const preview = el('div', 'tool-card__preview');
   preview.innerHTML = tool.shot ? shotHtml(tool.slug, siteUrl('')) : previewHtml(tool.preview); // static markup from preview.js, no user data
-  const priceText = licensing.enabled ? localize(tool.price) : live ? t('hub.freeNow') : '';
+  // Tools without Premium are plain free: no price tag with a purchase price
+  const priceText = licensing.enabled ? (tool.hasPremium ? localize(tool.price) : live ? t('hub.free') : '') : live ? t('hub.freeNow') : '';
   if (priceText) preview.append(el('span', 'price-tag', priceText));
   const icon = el('span', 'tool-card__icon');
   icon.append(createIcon(tool.icon, { size: '1.4rem' }));

@@ -36,12 +36,20 @@
         "de": "Schrift, Grösse, Zeilenabstand und Ränder"
       },
       {
-        "en": "Word and page limits",
-        "de": "Wort- und Seitengrenzen"
+        "en": "Word and page limits, heading hierarchy, page numbers and captions",
+        "de": "Wort- und Seitengrenzen, Überschriftenhierarchie, Seitenzahlen und Beschriftungen"
       },
       {
         "en": "Presets and custom requirements",
         "de": "Vorlagen und eigene Vorgaben"
+      },
+      {
+        "en": "Save your own requirement profiles",
+        "de": "Eigene Vorgaben als Profil speichern"
+      },
+      {
+        "en": "Report as PDF (print dialog)",
+        "de": "Bericht als PDF (Druckdialog)"
       },
       {
         "en": "Plain-language fixes for every finding",

@@ -45,8 +45,8 @@ View locally: run `python3 -m http.server` in the repo root, then open `http://l
      "stores": true,
      "about": { "en": "Two sentences about what it does.", "de": "…" },
      "features": {
-       "free": [{ "en": "Up to 5 subscriptions", "de": "Bis zu 5 Abos" }],
-       "premium": [{ "en": "Unlimited subscriptions", "de": "Unbegrenzt viele Abos" }]
+       "free": [{ "en": "Unlimited subscriptions", "de": "Unbegrenzt viele Abos" }],
+       "premium": [{ "en": "Cost analysis over time", "de": "Kostenanalyse über die Zeit" }]
      },
      "purchaseUrl": "https://[lemon-squeezy-link]",
      "lemonSqueezy": { "productId": 123456 }
@@ -61,8 +61,8 @@ View locally: run `python3 -m http.server` in the repo root, then open `http://l
    ```js
    import { mountToolShell } from '../../../core/tool-shell.js';
    const shell = await mountToolShell({ slug: 'sub-tracker', config, main: document.getElementById('main'), onLicenseChange: render });
-   shell.setUsage('2 of 5 free entries used');   // quiet counter
-   shell.showLimit();                             // inline "free limit reached" notice with Unlock button
+   shell.setUsage('Free: ...');                  // quiet note about what is free and what is Premium
+   shell.showLimit();                             // inline "this is a Premium function" notice with Unlock button
    ```
    Use `isPremiumUnlocked(slug)` for your own checks and `saveItem`, `getAllItems`, `updateItem`, `deleteItem` (all take the slug) for data. The shell handles license dialog, export/import, theme, language, backup reminder, storage warning and the `?purchased=1` return link.
 4. Texts: put them in `tools/[slug]/src/locales/en.js` and `de.js` and register them with `registerMessages` (see Languages below).
@@ -79,7 +79,7 @@ Wide tools: use `ow-container--wide` on `<main>` and put two panels in a `.ow-sp
 
 ### Marking Premium features
 
-Use `core/premium.js` for every feature that is (or will be) Premium: `markPremium(element, slug)` (or `{ compact: true }` for a star only), or `data-premium-badge` in markup (applied by the tool shell). Free limits go through `shell.setPremiumLimit(limitLabel, usageText)`. The badge shows during the free launch phase and for locked tools, and disappears after a license key unlocks the tool. It never locks anything: gating stays with `isPremiumUnlocked()`, which is always true while `licensing.enabled` is false.
+Use `core/premium.js` for every feature that is (or will be) Premium: `markPremium(element, slug)` (or `{ compact: true }` for a star only), or `data-premium-badge` in markup (applied by the tool shell). Product rule (Free-first): the main task of a tool is free without a limit on the amount; Premium only adds convenience, efficiency or extra functions, never a quantity cap on the core function (`shell.setPremiumLimit` exists for the demo only). A tool without Premium functions sets `"hasPremium": false`: then the site shows no price and no purchase option and the stored license key is not re-checked. The badge shows during the free launch phase and for locked tools, and disappears after a license key unlocks the tool. It never locks anything: gating stays with `isPremiumUnlocked()`, which is always true while `licensing.enabled` is false.
 
 ## License purchase flow
 

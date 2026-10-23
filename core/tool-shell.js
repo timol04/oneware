@@ -3,9 +3,9 @@
  * notices (limit, backup reminder, storage warning), "About this tool", footer.
  *
  *   const shell = await mountToolShell({ slug, config, main, onLicenseChange });
- *   shell.setUsage('2 of 3 free entries used');   // quiet counter
- *   shell.setPremiumLimit(20, '3 of 20 free notes used'); // counter; during the free launch only marks the limit as Premium
- *   shell.showLimit();                             // inline "free limit reached" notice
+ *   shell.setUsage('Free: ...');                  // quiet note about free and Premium
+ *   shell.setPremiumLimit(3, '1 of 3 free entries used'); // demo only: live tools have no quantity limits (Free-first rule)
+ *   shell.showLimit();                             // inline "this is a Premium function" notice
  *   shell.isPremium();
  *
  * The tool provides <main id="main" class="ow-container"> with its workspace.
@@ -350,9 +350,12 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
   }
 
   document.addEventListener('ow:licensechange', (e) => { if (e.detail?.toolSlug === slug) { render(); onLicenseChange?.(); } });
-  const checkLicense = () => revalidateLicense(slug).then((state) => { if (state === 'revoked') showToast(t('core.license.disabled')); }).catch(() => {});
-  checkLicense();
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) checkLicense(); });
+  // Only tools with Premium functions re-check a stored key: for a fully free tool the key changes nothing, so no "license disabled" message either (the key itself stays stored).
+  if (config.hasPremium) {
+    const checkLicense = () => revalidateLicense(slug).then((state) => { if (state === 'revoked') showToast(t('core.license.disabled')); }).catch(() => {});
+    checkLicense();
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) checkLicense(); });
+  }
   document.addEventListener('ow:langchange', () => { render(); checkData(); applyTranslations(); });
   document.addEventListener('ow:themechange', () => { if (!menu.hidden) buildMenu(); });
   render();
