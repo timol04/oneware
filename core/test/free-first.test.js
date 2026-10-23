@@ -8,15 +8,15 @@ import path from 'node:path';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const read = (...p) => readFileSync(path.join(root, ...p), 'utf8');
 const config = (slug) => JSON.parse(read('tools', slug, 'tool.config.json'));
-const FREE = ['notes', 'checklists', 'habits', 'journal', 'readlist'];
-const PREMIUM = ['expenses', 'abo-tracker', 'converter', 'pdf-toolkit', 'qr-pro-studio', 'verifyxr'];
+const FREE = ['habits', 'journal', 'readlist'];
+const PREMIUM = ['notes', 'checklists', 'expenses', 'abo-tracker', 'converter', 'pdf-toolkit', 'qr-pro-studio', 'verifyxr'];
 
 const sources = (slug) => {
   const dir = path.join(root, 'tools', slug, 'src');
   return readdirSync(dir).filter((f) => f.endsWith('.js')).map((f) => [f, read('tools', slug, 'src', f)]);
 };
 
-test('tools without Premium are exactly the five fully free tools', () => {
+test('tools without Premium are exactly the three fully free tools', () => {
   const noPremium = readdirSync(path.join(root, 'tools')).filter((d) => !d.startsWith('_') && config(d).hasPremium === false).sort();
   assert.deepEqual(noPremium, [...FREE].sort());
 });
@@ -73,6 +73,18 @@ test('QR Pro Studio: SVG and logo in the center are free, the rest stays Premium
   assert.match(app, /\$\('csv-btn'\)\.addEventListener\('click', \(\) => \{ if \(!gated\(\)\)/);
   assert.doesNotMatch(html.match(/<div class="qr-row"[^>]*>\s*<span class="qr-row__label"><span data-i18n="row\.logo"/)?.[0] ?? 'x', /data-premium/);
   assert.match(html, /<div class="qr-row" data-premium>\s*<span class="qr-row__label"><span data-i18n="row\.sticker"/);
+});
+
+test('Notes and Checklists: ready-made templates are free, saving own ones is gated and nothing has a quantity limit', () => {
+  for (const [slug, prefix] of [['notes', 'nt'], ['checklists', 'cl']]) {
+    const app = read('tools', slug, 'src/app.js');
+    assert.match(app, /\$\('tpl-save'\)\.addEventListener\('click', async \(\) => \{[\s\S]*?if \(!shell\.isPremium\(\)\) \{ shell\.openLicense\('buy'\); return; \}/, slug);
+    assert.doesNotMatch(app, /atLimit|FREE_LIMIT|showLimit|setPremiumLimit/, slug);
+    assert.match(read('tools', slug, 'tool.config.json'), /"hasPremium": true/);
+    assert.equal(config(slug).countLimit, undefined);
+    assert.ok(config(slug).features.premium.length === 1);
+    assert.match(read('tools', slug, `src/locales/en.js`), new RegExp(`'${prefix}\\.tpl\\.save'`));
+  }
 });
 
 test('shell: stored keys are only re-checked for tools with Premium functions', () => {

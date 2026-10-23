@@ -108,11 +108,50 @@ export function displayTitle(list) {
   return list.title.trim() || list.items[0]?.text.trim() || '';
 }
 
-/** Filters and sorts lists. view: 'lists' | 'archive'. Pinned first, then newest edit first. */
+// ---- Templates ----
+// A template is stored like a list with `template: true`. It never shows up in the lists, the archive or the dashboard.
+
+/** Ready-made templates (free). Titles and items are texts `cl.tpl.<id>` and `cl.tpl.<id>.<n>` (n from 1 to count). */
+export const BUILTIN_TEMPLATES = [
+  { id: 'packing', count: 8 },
+  { id: 'shopping', count: 7 },
+  { id: 'moving', count: 8 },
+  { id: 'weekly', count: 6 },
+];
+
+export const isTemplate = (list) => !!list.template;
+
+/** Own templates, sorted by title. */
+export const templatesOf = (lists) => lists.filter(isTemplate).sort((a, b) => a.title.localeCompare(b.title));
+
+/** A template (not yet stored) made from a list: same entries and repeats, nothing checked, no dates. */
+export function templateFromList(list, now = Date.now()) {
+  return {
+    title: list.title.trim() || list.items[0]?.text.trim() || '',
+    items: list.items.map((i) => ({ id: newId(), text: i.text, done: false, due: null, repeat: i.repeat ?? null, sub: i.sub.map((s) => ({ id: newId(), text: s.text, done: false })) })),
+    template: true, pinned: false, archived: false, created: now, updated: now,
+  };
+}
+
+/** A new list (not yet stored) from a template given as { title, items: [{ text, repeat?, sub?: [text] }] }; entries are due today. */
+export function listFromTemplate(template, today = isoDate(), now = Date.now()) {
+  const list = newList(now);
+  list.title = template.title;
+  list.items = template.items.map((i) => {
+    const item = newItem(i.text, today);
+    item.repeat = i.repeat ?? null;
+    item.sub = (i.sub ?? []).map((s) => newSubItem(typeof s === 'string' ? s : s.text));
+    return item;
+  });
+  return list;
+}
+
+/** Filters and sorts lists. view: 'lists' | 'archive'. Pinned first, then newest edit first. Templates are never listed. */
 export function visibleLists(lists, { view = 'lists', query = '' } = {}) {
   const q = query.trim().toLowerCase();
   const text = (l) => [l.title, ...l.items.flatMap((i) => [i.text, ...i.sub.map((s) => s.text)])].join('\n').toLowerCase();
   return lists
+    .filter((l) => !isTemplate(l))
     .filter((l) => (view === 'archive') === !!l.archived)
     .filter((l) => !q || text(l).includes(q))
     .sort((a, b) => (b.pinned - a.pinned) || b.updated - a.updated);
