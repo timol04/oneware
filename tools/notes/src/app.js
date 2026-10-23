@@ -1,15 +1,14 @@
-import { isPremiumUnlocked } from '../../../core/license.js';
 import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/storage.js';
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import { showToast } from '../../../core/ui-components.js';
+import { markPremium } from '../../../core/premium.js';
 import { mountRichEditor } from '../../../core/rich-editor.js';
-import { COLORS, FREE_LIMIT, newNote, displayTitle, snippet, normalizeTag, tagCounts, visibleNotes, atLimit } from './notes.js';
+import { COLORS, newNote, displayTitle, snippet, normalizeTag, tagCounts, visibleNotes, BUILTIN_TEMPLATES, templatesOf, templateFromNote, noteFromTemplate } from './notes.js';
 import { sendToTool } from '../../../core/handoff.js';
 import { hasText, noteFile } from './export.js';
-import { extractTasks, checklistTitle, createChecklistFromNote, CHECKLISTS } from './tasks.js';
-import { FREE_LIMIT as CHECKLIST_LIMIT } from '../../checklists/src/checklists.js';
+import { extractTasks, checklistTitle, createChecklistFromNote } from './tasks.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
 
@@ -46,7 +45,6 @@ let saveTimer;
 let deleteTimer;
 
 const selected = () => notes.find((n) => n.id === selectedId) ?? null;
-const premium = () => isPremiumUnlocked(SLUG);
 
 function chip(label, pressed, attrs = {}) {
   const b = document.createElement('button');
@@ -62,6 +60,17 @@ function iconButton(btn, icon, label) {
   btn.replaceChildren(createIcon(icon, { size: '1.15rem' }));
   btn.title = label;
   btn.setAttribute('aria-label', label);
+}
+
+function el(tag, className, attrs = {}) {
+  const e = document.createElement(tag);
+  if (className) e.className = className;
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'text') e.textContent = v;
+    else if (k in e && k !== 'type' && k !== 'list') e[k] = v;
+    else e.setAttribute(k, v);
+  }
+  return e;
 }
 
 // --- Storage ---
@@ -188,6 +197,8 @@ function renderTools(note) {
   iconButton($('pin'), 'pin', t(note.pinned ? 'nt.unpin' : 'nt.pin'));
   $('pin').setAttribute('aria-pressed', String(note.pinned));
   iconButton($('archive'), 'archive', t(note.archived ? 'nt.unarchive' : 'nt.archive'));
+  iconButton($('tpl-save'), 'note', t('nt.tpl.save'));
+  markPremium($('tpl-save'), SLUG, { compact: true });
   iconButton($('delete'), 'trash', t('nt.delete'));
   $('delete').classList.remove('is-armed');
   $('back').replaceChildren(createIcon('arrow-left', { size: '1rem' }), ` ${t('nt.back')}`);
@@ -251,28 +262,17 @@ async function convertToChecklist() {
   if (!note) return;
   const tasks = extractTasks(note.body);
   if (!tasks.length) { renderConvert(note); return; }
-  const checklistsPremium = isPremiumUnlocked(CHECKLISTS);
   const fallbackTitle = t('nt.toChecklist.fallback');
   const title = checklistTitle(note, fallbackTitle);
   const done = tasks.filter((x) => x.done).length;
   try {
-    const existing = (await getAllItems(CHECKLISTS)).length;
-    if (!checklistsPremium && existing >= CHECKLIST_LIMIT) {
-      const open = await openDialog({
-        title: t('nt.toChecklist.limitTitle'),
-        text: t('nt.toChecklist.limitText', { limit: CHECKLIST_LIMIT }),
-        actions: [[t('nt.toChecklist.cancel'), 'cancel'], [t('nt.toChecklist.openChecklists'), 'open', true]],
-      });
-      if (open === 'open') location.href = checklistsUrl();
-      return;
-    }
     const ok = await openDialog({
       title: t('nt.toChecklist.title'),
       text: t(tasks.length === 1 ? 'nt.toChecklist.text.one' : 'nt.toChecklist.text', { title, count: tasks.length, done }),
       actions: [[t('nt.toChecklist.cancel'), 'cancel'], [t('nt.toChecklist.create'), 'create', true]],
     });
     if (ok !== 'create') return;
-    const result = await createChecklistFromNote(note, { premium: checklistsPremium, fallbackTitle });
+    const result = await createChecklistFromNote(note, { fallbackTitle });
     if (result.status !== 'created') { showToast(t('nt.toChecklist.failed')); return; }
     location.href = checklistsUrl(result.list.id);
   } catch {
@@ -297,6 +297,62 @@ function renderEditor() {
   renderMeta(note);
 }
 
+// --- Templates ---
+// Ready-made templates are free. Saving and keeping your own is Premium; templates you already saved stay usable.
+let panelOpen = false;
+const builtinTemplate = (id) => ({ title: t(`nt.tpl.${id}`), body: t(`nt.tpl.${id}.body`) });
+
+function templateRow(name, key) {
+  const row = el('div', 'nt-tpl__row');
+  row.append(el('span', 'nt-tpl__name', { text: name }), el('button', 'ow-btn ow-btn--secondary ow-btn--small', { type: 'button', 'data-act': 'use', 'data-tpl': key, text: t('nt.tpl.use') }));
+  return row;
+}
+
+function renderTemplates() {
+  const toggle = $('tpl-toggle');
+  toggle.replaceChildren(createIcon('note', { size: '1.1rem' }), ` ${t('nt.tpl.open')}`);
+  toggle.setAttribute('aria-expanded', String(panelOpen));
+  const panel = $('tpl-panel');
+  panel.hidden = !panelOpen;
+  if (!panelOpen) return;
+  const own = templatesOf(notes);
+  const head = el('h3', '', { text: t('nt.tpl.own') });
+  markPremium(head, SLUG);
+  panel.replaceChildren(
+    el('h3', '', { text: t('nt.tpl.title') }),
+    el('p', 'ow-usage', { text: t('nt.tpl.builtin') }),
+    ...BUILTIN_TEMPLATES.map((id) => templateRow(t(`nt.tpl.${id}`), `builtin:${id}`)),
+    head,
+  );
+  for (const tpl of own) {
+    const row = templateRow(displayTitle(tpl) || t('nt.untitled'), `own:${tpl.id}`);
+    row.append(el('button', 'ow-btn ow-btn--secondary ow-btn--small', { type: 'button', 'data-act': 'delete', 'data-tpl': `own:${tpl.id}`, text: t('nt.tpl.delete') }));
+    panel.append(row);
+  }
+  if (!shell.isPremium()) {
+    panel.append(
+      el('p', 'nt-tpl__note ow-muted', { text: t('nt.tpl.locked') }),
+      el('button', 'ow-btn ow-btn--small', { type: 'button', 'data-act': 'unlock', text: t('nt.tpl.unlock') }),
+    );
+  } else if (!own.length) {
+    panel.append(el('p', 'nt-tpl__note ow-muted', { text: t('nt.tpl.ownHint') }));
+  }
+}
+
+async function startFrom(template) {
+  await flush();
+  view = 'notes';
+  tagFilter = null;
+  saving++;
+  let stored;
+  try { stored = await saveItem(SLUG, noteFromTemplate(template)); } finally { saving--; }
+  notes.push(stored);
+  selectedId = stored.id;
+  panelOpen = false;
+  render();
+  $('title').focus();
+}
+
 function render() {
   applyTranslations();
   editor.renderBars();
@@ -304,8 +360,8 @@ function render() {
   $('to-pdf').replaceChildren(createIcon('arrow-right', { size: '1.05rem' }), ` ${t('nt.toPdf')}`);
   $('to-word').replaceChildren(createIcon('arrow-right', { size: '1.05rem' }), ` ${t('nt.toWord')}`);
   $('to-checklist').replaceChildren(createIcon('check-circle', { size: '1.05rem' }), ` ${t('nt.toChecklist')}`);
-  shell.setPremiumLimit(t('nt.limitLabel', { limit: FREE_LIMIT }), t('nt.usage', { count: notes.length, limit: FREE_LIMIT }));
   renderViews();
+  renderTemplates();
   renderTags();
   renderList();
   renderEditor();
@@ -321,7 +377,6 @@ async function select(id) {
 
 async function createNote() {
   await flush();
-  if (atLimit(notes.length, premium())) { shell.showLimit(); return; }
   view = 'notes';
   saving++;
   let stored;
@@ -333,6 +388,41 @@ async function createNote() {
 }
 
 $('new').addEventListener('click', createNote);
+$('tpl-toggle').addEventListener('click', () => { panelOpen = !panelOpen; renderTemplates(); });
+$('tpl-panel').addEventListener('click', async (e) => {
+  const b = e.target.closest('button[data-act]');
+  if (!b) return;
+  if (b.dataset.act === 'unlock') { shell.openLicense('buy'); return; }
+  const [kind, id] = (b.dataset.tpl ?? '').split(':');
+  const own = kind === 'own' ? notes.find((n) => n.id === id && n.template) : null;
+  if (b.dataset.act === 'use') {
+    const source = kind === 'builtin' ? (BUILTIN_TEMPLATES.includes(id) ? builtinTemplate(id) : null) : own;
+    if (source) await startFrom(source);
+  } else if (b.dataset.act === 'delete' && own) {
+    if (!b.classList.contains('is-armed')) {
+      b.classList.add('is-armed');
+      b.textContent = t('nt.tpl.confirmDelete');
+      setTimeout(() => { if (b.isConnected) { b.classList.remove('is-armed'); b.textContent = t('nt.tpl.delete'); } }, 3000);
+      return;
+    }
+    saving++;
+    try { await deleteItem(SLUG, own.id); } finally { saving--; }
+    notes = notes.filter((n) => n.id !== own.id);
+    renderTemplates();
+  }
+});
+$('tpl-save').addEventListener('click', async () => {
+  const note = selected();
+  if (!note) return;
+  if (!shell.isPremium()) { shell.openLicense('buy'); return; }
+  await flush();
+  saving++;
+  let stored;
+  try { stored = await saveItem(SLUG, templateFromNote(note)); } finally { saving--; }
+  notes.push(stored);
+  showToast(t('nt.tpl.saved', { title: displayTitle(stored) || t('nt.untitled') }));
+  renderTemplates();
+});
 $('search').addEventListener('input', (e) => { query = e.target.value; renderList(); });
 $('list').addEventListener('click', (e) => {
   const item = e.target.closest('.nt-item');

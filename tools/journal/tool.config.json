@@ -22,7 +22,7 @@
     "light": "#46720d",
     "dark": "#a3d36b"
   },
-  "hasPremium": true,
+  "hasPremium": false,
   "stores": true,
   "today": true,
   "about": {
@@ -33,12 +33,11 @@
     "en": "Daily writing, mood tracking and private reflection that stays on your device.",
     "de": "Tägliches Schreiben, Stimmung festhalten und private Reflexion, die auf deinem Gerät bleibt."
   },
-  "countLimit": true,
   "features": {
     "free": [
       {
-        "en": "Up to 30 entries with all features",
-        "de": "Bis zu 30 Einträge mit allen Funktionen"
+        "en": "Unlimited entries, all features",
+        "de": "Unbegrenzt viele Einträge, alle Funktionen"
       },
       {
         "en": "Mood scale, tags and search",
@@ -53,12 +52,7 @@
         "de": "Markdown mit Vorschau, Backup-Export und -Import"
       }
     ],
-    "premium": [
-      {
-        "en": "Unlimited entries",
-        "de": "Unbegrenzt viele Einträge"
-      }
-    ]
+    "premium": []
   },
   "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/5f13286b-d90a-4312-96ff-4287645ef181",
   "lemonSqueezy": {

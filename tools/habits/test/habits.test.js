@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   newHabit, addDays, weekday, weekStart, isDue, toggleDay, setNote, weekCount, streaks, rate30, pauseFor, resume,
-  monthGrid, dayState, visibleHabits, atLimit, FREE_LIMIT,
+  monthGrid, dayState, visibleHabits,
 } from '../src/habits.js';
 
 const TODAY = '2026-10-19'; // a Monday
@@ -104,6 +104,4 @@ test('views and limit', () => {
   assert.deepEqual(visibleHabits([b, a]).map((h) => h.title), ['Read']);
   assert.deepEqual(visibleHabits([a, b], { view: 'archive' }).map((h) => h.title), ['Run']);
   assert.deepEqual(visibleHabits([a, b], { query: 'ru' }).map((h) => h.title), []);
-  assert.equal(atLimit(FREE_LIMIT, false), true);
-  assert.equal(atLimit(FREE_LIMIT, true), false);
 });

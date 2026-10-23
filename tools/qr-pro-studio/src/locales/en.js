@@ -2,7 +2,7 @@ export default {
   'qr.content': 'Content',
   'qr.type': 'Content type',
   'qr.style': 'Style',
-  'usage.free': 'Free: all content types, dot shapes, solid colors, a caption and PNG. Gradients, logo, stickers and other formats are Premium.',
+  'usage.free': 'Free: all content types, dot shapes, solid colors, a logo in the center, a caption, PNG and SVG. Gradients, logo as shape, stickers, large PNG, PDF, sticker sheets and many codes from CSV are Premium.',
 
   'type.url': 'Link',
   'type.text': 'Text',

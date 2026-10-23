@@ -32,12 +32,11 @@
     "en": "Keeping a simple record of income and spending, without bank connection or account.",
     "de": "Wer Einnahmen und Ausgaben einfach festhalten will, ohne Bankanbindung und ohne Konto."
   },
-  "countLimit": true,
   "features": {
     "free": [
       {
-        "en": "Up to 50 bookings with all features",
-        "de": "Bis zu 50 Buchungen mit allen Funktionen"
+        "en": "Unlimited bookings",
+        "de": "Unbegrenzt viele Buchungen"
       },
       {
         "en": "Monthly overview: income, expenses, balance",
@@ -53,10 +52,6 @@
       }
     ],
     "premium": [
-      {
-        "en": "Unlimited bookings",
-        "de": "Unbegrenzt viele Buchungen"
-      },
       {
         "en": "Statistics: income and expenses over 12 months",
         "de": "Statistik: Einnahmen und Ausgaben über 12 Monate"

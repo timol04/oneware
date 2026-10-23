@@ -1,11 +1,13 @@
-import { isPremiumUnlocked } from '../../../core/license.js';
 import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/storage.js';
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
+import { markPremium } from '../../../core/premium.js';
+import { showToast } from '../../../core/ui-components.js';
 import {
-  FREE_LIMIT, REPEATS, newList, newItem, newSubItem, isoDate, dueState, toggleItem, toggleSub, progress, overdueCount,
-  clearCompleted, moveItem, displayTitle, visibleLists, atLimit,
+  REPEATS, newList, newItem, newSubItem, isoDate, dueState, toggleItem, toggleSub, progress, overdueCount,
+  clearCompleted, moveItem, displayTitle, visibleLists,
+  BUILTIN_TEMPLATES, templatesOf, templateFromList, listFromTemplate,
 } from './checklists.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
@@ -30,7 +32,6 @@ let deleteTimer;
 const collapsed = new Set(); // item ids whose details are folded away (details are open by default)
 
 const selected = () => lists.find((l) => l.id === selectedId) ?? null;
-const premium = () => isPremiumUnlocked(SLUG);
 
 function el(tag, className, attrs = {}) {
   const e = document.createElement(tag);
@@ -136,6 +137,8 @@ function renderTools(list) {
   iconButton($('pin'), 'pin', t(list.pinned ? 'cl.unpin' : 'cl.pin'));
   $('pin').setAttribute('aria-pressed', String(list.pinned));
   iconButton($('archive'), 'archive', t(list.archived ? 'cl.unarchive' : 'cl.archive'));
+  iconButton($('tpl-save'), 'note', t('cl.tpl.save'));
+  markPremium($('tpl-save'), SLUG, { compact: true });
   iconButton($('delete'), 'trash', t('cl.delete'));
   $('delete').classList.remove('is-armed');
   $('back').replaceChildren(createIcon('arrow-left', { size: '1rem' }), ` ${t('cl.back')}`);
@@ -238,11 +241,69 @@ function renderEditor() {
   renderMeta(list);
 }
 
+// --- Templates ---
+// Ready-made templates are free. Saving and keeping your own is Premium; templates you already saved stay usable.
+let panelOpen = false;
+const builtinTemplate = ({ id, count }) => ({
+  title: t(`cl.tpl.${id}`),
+  items: Array.from({ length: count }, (_, n) => ({ text: t(`cl.tpl.${id}.${n + 1}`) })),
+});
+
+function templateRow(name, count, key) {
+  const row = el('div', 'cl-tpl__row');
+  const use = el('button', 'ow-btn ow-btn--secondary ow-btn--small', { type: 'button', 'data-act': 'use', 'data-tpl': key, text: t('cl.tpl.use') });
+  row.append(el('span', 'cl-tpl__name', { text: name }), el('span', 'cl-tpl__meta', { text: t('cl.tpl.items', { count }) }), use);
+  return row;
+}
+
+function renderTemplates() {
+  const toggle = $('tpl-toggle');
+  toggle.replaceChildren(createIcon('note', { size: '1.1rem' }), ` ${t('cl.tpl.open')}`);
+  toggle.setAttribute('aria-expanded', String(panelOpen));
+  const panel = $('tpl-panel');
+  panel.hidden = !panelOpen;
+  if (!panelOpen) return;
+  const own = templatesOf(lists);
+  const head = el('h3', '', { text: t('cl.tpl.own') });
+  markPremium(head, SLUG);
+  panel.replaceChildren(
+    el('h3', '', { text: t('cl.tpl.title') }),
+    el('p', 'ow-usage', { text: t('cl.tpl.builtin') }),
+    ...BUILTIN_TEMPLATES.map((b) => templateRow(t(`cl.tpl.${b.id}`), b.count, `builtin:${b.id}`)),
+    head,
+  );
+  for (const tpl of own) {
+    const row = templateRow(displayTitle(tpl) || t('cl.untitled'), tpl.items.length, `own:${tpl.id}`);
+    row.append(el('button', 'ow-btn ow-btn--secondary ow-btn--small', { type: 'button', 'data-act': 'delete', 'data-tpl': `own:${tpl.id}`, text: t('cl.tpl.delete') }));
+    panel.append(row);
+  }
+  if (!shell.isPremium()) {
+    const note = el('p', 'cl-tpl__note ow-muted', { text: t('cl.tpl.locked') });
+    const unlock = el('button', 'ow-btn ow-btn--small', { type: 'button', 'data-act': 'unlock', text: t('cl.tpl.unlock') });
+    panel.append(note, unlock);
+  } else if (!own.length) {
+    panel.append(el('p', 'cl-tpl__note ow-muted', { text: t('cl.tpl.ownHint') }));
+  }
+}
+
+async function startFrom(template) {
+  await flush();
+  view = 'lists';
+  saving++;
+  let stored;
+  try { stored = await saveItem(SLUG, listFromTemplate(template)); } finally { saving--; }
+  lists.push(stored);
+  selectedId = stored.id;
+  panelOpen = false;
+  render();
+  $('title').focus();
+}
+
 function render() {
   applyTranslations();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('cl.new')}`);
-  shell.setPremiumLimit(t('cl.limitLabel', { limit: FREE_LIMIT }), t('cl.usage', { count: lists.length, limit: FREE_LIMIT }));
   renderViews();
+  renderTemplates();
   renderList();
   renderEditor();
 }
@@ -257,7 +318,6 @@ async function select(id) {
 
 async function createList() {
   await flush();
-  if (atLimit(lists.length, premium())) { shell.showLimit(); return; }
   view = 'lists';
   saving++;
   let stored;
@@ -269,6 +329,42 @@ async function createList() {
 }
 
 $('new').addEventListener('click', createList);
+$('tpl-toggle').addEventListener('click', () => { panelOpen = !panelOpen; renderTemplates(); });
+$('tpl-panel').addEventListener('click', async (e) => {
+  const b = e.target.closest('button[data-act]');
+  if (!b) return;
+  if (b.dataset.act === 'unlock') { shell.openLicense('buy'); return; }
+  const [kind, id] = (b.dataset.tpl ?? '').split(':');
+  const own = kind === 'own' ? lists.find((l) => l.id === id && l.template) : null;
+  if (b.dataset.act === 'use') {
+    const builtin = BUILTIN_TEMPLATES.find((x) => x.id === id);
+    const source = kind === 'builtin' ? (builtin && builtinTemplate(builtin)) : own;
+    if (source) await startFrom(source);
+  } else if (b.dataset.act === 'delete' && own) {
+    if (!b.classList.contains('is-armed')) {
+      b.classList.add('is-armed');
+      b.textContent = t('cl.tpl.confirmDelete');
+      setTimeout(() => { if (b.isConnected) { b.classList.remove('is-armed'); b.textContent = t('cl.tpl.delete'); } }, 3000);
+      return;
+    }
+    saving++;
+    try { await deleteItem(SLUG, own.id); } finally { saving--; }
+    lists = lists.filter((l) => l.id !== own.id);
+    renderTemplates();
+  }
+});
+$('tpl-save').addEventListener('click', async () => {
+  const list = selected();
+  if (!list) return;
+  if (!shell.isPremium()) { shell.openLicense('buy'); return; }
+  await flush();
+  saving++;
+  let stored;
+  try { stored = await saveItem(SLUG, templateFromList(list)); } finally { saving--; }
+  lists.push(stored);
+  showToast(t('cl.tpl.saved', { title: displayTitle(stored) || t('cl.untitled') }));
+  renderTemplates();
+});
 $('search').addEventListener('input', (e) => { query = e.target.value; renderList(); });
 $('list').addEventListener('click', (e) => {
   const card = e.target.closest('.cl-item-card');

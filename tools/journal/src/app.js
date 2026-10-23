@@ -1,11 +1,10 @@
-import { isPremiumUnlocked } from '../../../core/license.js';
 import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/storage.js';
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import {
-  FREE_LIMIT, MOODS, newEntry, isoDate, parseDay, addDays, displayTitle, snippet, parseTags, normalizeTag, tagCounts,
-  entryOn, hasContent, visibleEntries, streaks, averageMood, monthGrid, atLimit,
+  MOODS, newEntry, isoDate, parseDay, addDays, displayTitle, snippet, parseTags, normalizeTag, tagCounts,
+  entryOn, hasContent, visibleEntries, streaks, averageMood, monthGrid,
 } from './journal.js';
 import { mountRichEditor } from '../../../core/rich-editor.js';
 import en from './locales/en.js';
@@ -45,7 +44,6 @@ const editor = mountRichEditor({
     touch(e);
   },
 });
-const premium = () => isPremiumUnlocked(SLUG);
 const today = () => isoDate();
 
 function el(tagName, className, attrs = {}) {
@@ -265,19 +263,17 @@ function render() {
   applyTranslations();
   editor.renderBars();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('jr.new')}`);
-  shell.setPremiumLimit(t('jr.limitLabel', { limit: FREE_LIMIT }), t('jr.usage', { count: entries.filter(hasContent).length, limit: FREE_LIMIT }));
   renderViews();
   renderSide();
   renderEditor();
 }
 
 // --- Actions ---
-/** Opens the entry of a day; creates it if the day is empty (respecting the free limit). */
+/** Opens the entry of a day; creates it if the day is empty. */
 async function openDay(date) {
   await leave();
   let entry = entryOn(entries, date);
   if (!entry) {
-    if (atLimit(entries.filter(hasContent).length, premium())) { selectedId = null; render(); shell.showLimit(); return; }
     saving++;
     try { entry = await saveItem(SLUG, newEntry(date)); } finally { saving--; }
     entries.push(entry);

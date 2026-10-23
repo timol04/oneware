@@ -21,14 +21,14 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 const shell = await mountToolShell({ slug: SLUG, config, main: $('main'), onLicenseChange: onLicense });
 
-// Free: every content type, soft dots, plain black, caption, PNG. Premium: the rest.
-const FREE_FORMATS = ['png'];
+// Free: every content type, dot shapes, solid colors, caption, logo in the center, PNG and SVG. Premium: gradients, logo as shape, stickers, large PNG, PDF, sticker sheet, CSV batch.
+const FREE_FORMATS = ['png', 'svg'];
 const FORMAT_IDS = ['png', 'png-large', 'svg', 'pdf', 'sheet'];
 const SHEET_SIZES = [30, 40, 50, 60];
 const LABEL_PRESETS = ['scan', 'menu', 'wifi'];
 const PREVIEW_W = 560;
 
-const style = { color: '#000000', logo: null, logoMode: 'shape', logoStrength: 0.5, dots: 'rounded', shape: 'square', label: '', sheetMm: 40 };
+const style = { color: '#000000', logo: null, logoMode: 'center', logoStrength: 0.5, dots: 'rounded', shape: 'square', label: '', sheetMm: 40 };
 const values = Object.fromEntries(TYPE_IDS.map((id) => [id, {}]));
 let kind = 'url';
 let format = 'png';
@@ -39,7 +39,7 @@ let landed = false;
 
 const isPremium = () => shell.isPremium();
 // Locked styling never reaches the preview or the export.
-const activeStyle = () => (isPremium() ? { ...style } : { dots: style.dots, label: style.label, color: Array.isArray(style.color) ? '#000000' : style.color });
+const activeStyle = () => (isPremium() ? { ...style } : { dots: style.dots, label: style.label, logo: style.logo, logoMode: 'center', color: Array.isArray(style.color) ? '#000000' : style.color });
 const has = (key) => t(key) !== key;
 
 /** Returns true (and opens the license dialog) when the feature is locked. */
@@ -191,7 +191,7 @@ $('label-presets').addEventListener('click', (e) => {
 // --- Logo ---
 const LOGO_MAX_BYTES = 2 * 1024 * 1024;
 const logoFile = $('logo-file');
-$('logo-btn').addEventListener('click', () => { if (!gated()) logoFile.click(); });
+$('logo-btn').addEventListener('click', () => logoFile.click());
 function setLogo(url) {
   style.logo = url;
   $('logo-thumb').hidden = !url;
@@ -218,6 +218,7 @@ $('logo-strength').addEventListener('input', (e) => { style.logoStrength = Numbe
 $('logo-modes').addEventListener('click', (e) => {
   const b = e.target.closest('.qr-chip');
   if (!b) return;
+  if (b.dataset.logomode === 'shape' && gated()) return;
   style.logoMode = b.dataset.logomode;
   press($('logo-modes'), b);
   syncStrength();
@@ -348,8 +349,11 @@ function syncLocks() {
   document.querySelectorAll('[data-premium]').forEach((row) => row.classList.toggle('is-locked', !premium));
   // Premium markers (visible in the free launch phase too; see core/premium.js)
   document.querySelectorAll('[data-premium] .qr-row__label').forEach((l) => markPremium(l, SLUG, { compact: true }));
-  document.querySelectorAll('.qr-chip[data-format]:not([data-format="png"])').forEach((c) => markPremium(c, SLUG, { compact: true }));
+  document.querySelectorAll('.qr-chip[data-format]:not([data-format="png"]):not([data-format="svg"])').forEach((c) => markPremium(c, SLUG, { compact: true }));
   markPremium($('csv-btn'), SLUG, { compact: true });
+  const shapeMode = document.querySelector('[data-logomode="shape"]');
+  markPremium(shapeMode, SLUG, { compact: true });
+  shapeMode.classList.toggle('is-locked', !premium);
   document.querySelectorAll('.qr-chip[data-format], #csv-btn').forEach((b) => {
     b.classList.toggle('is-locked', !premium && !FREE_FORMATS.includes(b.dataset.format ?? ''));
   });

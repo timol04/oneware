@@ -53,7 +53,5 @@ export default {
   'rl.stats': 'Finished in {year}',
   'rl.stats.none': 'Nothing finished in {year} yet',
   'rl.stats.average': 'Avg {value} stars',
-  'rl.usage': '{count} of {limit} free entries used',
-  'rl.limitLabel': '{limit} entries',
   'rl.qr': 'Make a QR code of this link',
 };

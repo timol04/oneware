@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   newList, newItem, newSubItem, nextDue, dueState, toggleItem, toggleSub, progress, overdueCount, clearCompleted,
-  moveItem, displayTitle, visibleLists, atLimit, FREE_LIMIT,
+  moveItem, displayTitle, visibleLists,
 } from '../src/checklists.js';
 
 const TODAY = '2026-10-19';
@@ -78,6 +78,40 @@ test('titles, filtering and limit', () => {
   assert.deepEqual(visibleLists([a, b, c]).map(displayTitle), ['Call dentist', 'Groceries']);
   assert.deepEqual(visibleLists([a, b, c], { view: 'archive' }).map(displayTitle), ['Old']);
   assert.deepEqual(visibleLists([a, b, c], { query: 'oat' }).map(displayTitle), ['Groceries']);
-  assert.equal(atLimit(FREE_LIMIT, false), true);
-  assert.equal(atLimit(FREE_LIMIT, true), false);
+});
+
+test('templates: made from a list, never listed, new list starts fresh', async () => {
+  const { templateFromList, listFromTemplate, templatesOf, isTemplate, BUILTIN_TEMPLATES } = await import('../src/checklists.js');
+  const list = newList();
+  list.title = 'Trip';
+  const a = newItem('Passport', '2026-01-01');
+  a.done = true;
+  a.repeat = 'weekly';
+  a.sub = [{ ...newSubItem('Copy'), done: true }];
+  list.items = [a, newItem('Charger', '2026-01-01')];
+  const tpl = templateFromList(list);
+  assert.equal(isTemplate(tpl), true);
+  assert.deepEqual(tpl.items.map((i) => [i.text, i.done, i.due, i.repeat]), [['Passport', false, null, 'weekly'], ['Charger', false, null, null]]);
+  assert.equal(tpl.items[0].sub[0].done, false);
+  assert.notEqual(tpl.items[0].id, a.id);
+  assert.equal(visibleLists([tpl, list], { view: 'lists' }).length, 1);
+  assert.equal(visibleLists([tpl], { view: 'archive' }).length, 0);
+  assert.deepEqual(templatesOf([list, tpl]), [tpl]);
+  const fresh = listFromTemplate(tpl, '2026-02-02');
+  assert.equal(fresh.template, undefined);
+  assert.equal(fresh.title, 'Trip');
+  assert.deepEqual(fresh.items.map((i) => [i.text, i.done, i.due, i.repeat]), [['Passport', false, '2026-02-02', 'weekly'], ['Charger', false, '2026-02-02', null]]);
+  assert.equal(fresh.items[0].sub.length, 1);
+  assert.ok(BUILTIN_TEMPLATES.every((b) => b.count > 0));
+});
+
+test('dashboard Today ignores templates', async () => {
+  const { todayEntries } = await import('../src/today.js');
+  const { templateFromList } = await import('../src/checklists.js');
+  const list = newList();
+  list.items = [newItem('Due today', '2026-10-19')];
+  const tpl = templateFromList(list);
+  tpl.items[0].due = '2026-10-19';
+  const out = todayEntries({ items: [tpl], today: '2026-10-19', lang: 'en' });
+  assert.equal(out.length, 0);
 });

@@ -44,8 +44,12 @@
         "de": "Live-Vorschau mit Scan-Test"
       },
       {
-        "en": "PNG export",
-        "de": "PNG-Export"
+        "en": "PNG and SVG export",
+        "de": "PNG- und SVG-Export"
+      },
+      {
+        "en": "Logo in the center of the code",
+        "de": "Logo in der Mitte des Codes"
       },
       {
         "en": "Make a QR code from a Readlist or Subscription Tracker link",
@@ -58,16 +62,16 @@
         "de": "Farbverläufe"
       },
       {
-        "en": "Logo in the center or as the code shape",
-        "de": "Logo in der Mitte oder als Form des Codes"
+        "en": "Logo as the shape of the code",
+        "de": "Logo als Form des Codes"
       },
       {
         "en": "Sticker shapes and printable A4 sheet",
         "de": "Stickerformen und druckfertiger A4-Bogen"
       },
       {
-        "en": "SVG, PDF and large PNG",
-        "de": "SVG, PDF und grosses PNG"
+        "en": "PDF and large PNG",
+        "de": "PDF und grosses PNG"
       },
       {
         "en": "Many codes at once from a CSV file",
@@ -129,8 +133,8 @@
           "de": "Welche Formate kann ich exportieren?"
         },
         "a": {
-          "en": "PNG is part of the free features. SVG, PDF and large PNG for print are part of the premium unlock.",
-          "de": "PNG gehört zu den kostenlosen Funktionen. SVG, PDF und großes PNG für den Druck gehören zur Premium-Freischaltung."
+          "en": "PNG and SVG are part of the free features. PDF and large PNG for print are part of the premium unlock.",
+          "de": "PNG und SVG gehören zu den kostenlosen Funktionen. PDF und großes PNG für den Druck gehören zur Premium-Freischaltung."
         }
       }
     ]

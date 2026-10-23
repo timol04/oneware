@@ -2,7 +2,7 @@ export default {
   'qr.content': 'Inhalt',
   'qr.type': 'Art des Inhalts',
   'qr.style': 'Gestaltung',
-  'usage.free': 'Gratis: alle Inhaltsarten, Punktformen, einfarbige Farben, Beschriftung und PNG. Verläufe, Logo, Sticker und weitere Formate sind Premium.',
+  'usage.free': 'Gratis: alle Inhaltsarten, Punktformen, einfarbige Farben, Logo in der Mitte, Beschriftung, PNG und SVG. Verläufe, Logo als Form, Sticker, grosses PNG, PDF, Stickerbögen und viele Codes aus CSV sind Premium.',
 
   'type.url': 'Link',
   'type.text': 'Text',

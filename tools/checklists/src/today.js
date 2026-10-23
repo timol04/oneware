@@ -7,7 +7,7 @@ const OVERDUE = { en: 'Overdue', de: 'Überfällig' };
 export function todayEntries({ items, today, lang }) {
   const out = [];
   for (const list of items) {
-    if (list.archived) continue;
+    if (list.archived || list.template) continue;
     for (const item of list.items) {
       const state = item.done ? (item.due === today ? 'done' : null) : dueState(item, today);
       if (!state || state === 'later' || state === 'soon') continue;

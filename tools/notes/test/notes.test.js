@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { renderMarkdown } from '../../../core/markdown.js';
-import { newNote, displayTitle, snippet, parseTags, tagCounts, visibleNotes, atLimit, FREE_LIMIT } from '../src/notes.js';
+import { newNote, displayTitle, snippet, parseTags, tagCounts, visibleNotes } from '../src/notes.js';
 
 test('markdown escapes HTML', () => {
   assert.equal(renderMarkdown('<script>alert(1)</script>'), '<p>&lt;script&gt;alert(1)&lt;/script&gt;</p>');
@@ -50,8 +50,27 @@ test('visibleNotes filters, searches and sorts pinned first', () => {
   assert.deepEqual(visibleNotes(all, { query: 'BET' }).map((n) => n.id), ['b']);
 });
 
-test('free limit', () => {
-  assert.equal(atLimit(FREE_LIMIT, false), true);
-  assert.equal(atLimit(FREE_LIMIT - 1, false), false);
-  assert.equal(atLimit(500, true), false);
+
+test('templates: made from a note, never listed, new note starts fresh', async () => {
+  const { templateFromNote, noteFromTemplate, templatesOf, isTemplate, tagCounts, BUILTIN_TEMPLATES } = await import('../src/notes.js');
+  const n = newNote();
+  n.title = 'Meeting';
+  n.body = '## Goal\n';
+  n.tags = ['work'];
+  n.color = 'red';
+  n.pinned = true;
+  const tpl = templateFromNote(n);
+  assert.equal(isTemplate(tpl), true);
+  assert.equal(tpl.color, null);
+  assert.equal(tpl.pinned, false);
+  assert.deepEqual(tpl.tags, ['work']);
+  assert.equal(visibleNotes([tpl, n], { view: 'notes' }).length, 1);
+  assert.equal(visibleNotes([tpl], { view: 'archive' }).length, 0);
+  assert.deepEqual(tagCounts([tpl]), []);
+  assert.deepEqual(templatesOf([n, tpl]), [tpl]);
+  const fresh = noteFromTemplate(tpl);
+  assert.equal(fresh.template, undefined);
+  assert.deepEqual([fresh.title, fresh.body, fresh.tags], ['Meeting', '## Goal\n', ['work']]);
+  assert.notEqual(fresh.tags, tpl.tags);
+  assert.ok(BUILTIN_TEMPLATES.length >= 3);
 });

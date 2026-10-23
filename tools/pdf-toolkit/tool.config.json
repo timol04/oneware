@@ -47,18 +47,26 @@
         "de": "Ausgewählte Seiten oder einen Seitenbereich als neues PDF herausziehen"
       },
       {
+        "en": "Split into one file: cut out a page range or selected pages",
+        "de": "Teilen in eine Datei: Seitenbereich oder ausgewählte Seiten herausschneiden"
+      },
+      {
         "en": "Clear notes about what each step keeps or changes",
         "de": "Klare Hinweise, was ein Schritt übernimmt oder verändert"
       },
       {
         "en": "Continue with the Converter, and open PDFs from it",
         "de": "Im Converter weiterarbeiten und PDFs von dort übernehmen"
+      },
+      {
+        "en": "Lossless compress: repack the file without changing text or quality",
+        "de": "Verlustfrei komprimieren: Datei neu verpacken, ohne Text oder Qualität zu ändern"
       }
     ],
     "premium": [
       {
-        "en": "Compress: lossless repacking and strong compression for scans and photo PDFs",
-        "de": "Komprimieren: verlustfreies Neu-Verpacken und starke Komprimierung für Scans und Foto-PDFs"
+        "en": "Strong compression for scans and photo PDFs (pages redrawn as pictures)",
+        "de": "Starke Komprimierung für Scans und Foto-PDFs (Seiten als Bilder neu gezeichnet)"
       },
       {
         "en": "Split into several files at once (by ranges or every N pages) and download them as one ZIP",
@@ -120,8 +128,8 @@
           "de": "Kann ich ein PDF verkleinern?"
         },
         "a": {
-          "en": "Yes. Compress repacks the file without loss or compresses strongly for scans and photo PDFs. It is part of the premium unlock.",
-          "de": "Ja. Komprimieren packt die Datei verlustfrei neu oder komprimiert stark bei Scans und Foto-PDFs. Es gehört zur Premium-Freischaltung."
+          "en": "Yes. Lossless compressing repacks the file and is free. Strong compression for scans and photo PDFs is part of the premium unlock.",
+          "de": "Ja. Verlustfreies Komprimieren verpackt die Datei neu und ist gratis. Starke Komprimierung für Scans und Foto-PDFs gehört zur Premium-Freischaltung."
         }
       }
     ]

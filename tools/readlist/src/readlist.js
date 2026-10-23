@@ -1,6 +1,5 @@
 // Pure reading-list logic: entries, status, progress, rating, tags, filtering, stats. No DOM, no storage.
 
-export const FREE_LIMIT = 30;
 export const TYPES = ['book', 'film', 'series', 'article'];
 export const STATUSES = ['todo', 'doing', 'done'];
 export const TYPE_ICONS = { book: 'book', film: 'film', series: 'tv', article: 'note' };
@@ -120,4 +119,3 @@ export function safeLink(url) {
   } catch { return ''; }
 }
 
-export const atLimit = (count, premium) => !premium && count >= FREE_LIMIT;
