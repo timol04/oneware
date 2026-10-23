@@ -285,7 +285,7 @@ export default {
   "legal.privacy.s1.h": "Kurz gesagt",
   "legal.privacy.s1.p": "Oneware hat kein Tracking, keine Werbe-Cookies und keine Benutzerkonten. Deine Einträge bleiben in deinem Browser.",
   "legal.privacy.s2.h": "Was auf deinem Gerät gespeichert wird",
-  "legal.privacy.s2.p": "Deine Einträge (IndexedDB), deine Lizenzschlüssel, deine Design- und Sprachwahl sowie Backup-Erinnerungen (localStorage). Deine Einträge und Dateien bleiben auf deinem Gerät. Nur ein Lizenzschlüssel, den du eingibst, wird zur Prüfung versendet (siehe Lizenzprüfung).",
+  "legal.privacy.s2.p": "Deine Einträge (IndexedDB), deine Lizenzschlüssel, deine Design- und Sprachwahl sowie Backup-Erinnerungen (localStorage). Deine Einträge und Dateien bleiben auf deinem Gerät. Nur ein Lizenzschlüssel, den du eingibst, wird zur Prüfung versendet (siehe Lizenzprüfung). Wenn du eine Datei in einem anderen Oneware-Tool weiterverwendest («Weiter mit ...»), liegt sie kurz im selben Browser-Speicher auf deinem Gerät, bis das nächste Tool sie abgeholt hat, höchstens eine Stunde. Sie wird nirgendwohin gesendet.",
   "legal.privacy.s3.h": "Hosting",
   "legal.privacy.s3.p": "Die Website wird als statische Dateien über GitHub Pages ausgeliefert. Beim Aufruf einer Seite kann der Hosting-Anbieter technische Daten wie deine IP-Adresse in Server-Logs verarbeiten, auch in den USA. Links zu anderen Seiten, etwa zu unserem YouTube-Kanal, sind einfache Links: Von dort wird nichts geladen, bevor du sie anklickst.",
   "legal.privacy.s4.h": "Zahlungen",
