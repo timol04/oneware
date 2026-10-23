@@ -1,7 +1,6 @@
 // Pure bookkeeping logic: bookings, month totals, category split, 12-month series. No DOM, no storage.
 // Dates are ISO strings (YYYY-MM-DD), months are "YYYY-MM". Amounts are positive; `type` says in or out.
 
-export const FREE_LIMIT = 50;
 export const TYPES = ['expense', 'income'];
 export const CURRENCIES = ['CHF', 'EUR', 'USD', 'GBP'];
 export const CATEGORIES = {
@@ -31,7 +30,6 @@ export function newEntry(now = Date.now(), today = todayISO()) {
   return { type: 'expense', amount: 0, category: 'other', date: today, note: '', created: now, updated: now };
 }
 
-export const atLimit = (count, premium) => !premium && count >= FREE_LIMIT;
 
 /** Accepts "12.90" and "12,90"; returns null for anything else, zero or a negative number. */
 export function parseAmount(text) {

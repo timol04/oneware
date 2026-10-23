@@ -22,7 +22,7 @@
     "light": "#0f766e",
     "dark": "#5fc9bd"
   },
-  "hasPremium": true,
+  "hasPremium": false,
   "stores": true,
   "about": {
     "en": "Save books, films, series and articles you want to get to, mark what you are reading, rate what you finished and keep notes. Everything stays in your browser. A saved link can be turned into a QR code with one click.",
@@ -32,12 +32,11 @@
     "en": "Keeping track of books, articles and anything else you want to read or have read.",
     "de": "Bücher, Artikel und alles andere im Blick behalten, was du lesen willst oder gelesen hast."
   },
-  "countLimit": true,
   "features": {
     "free": [
       {
-        "en": "Up to 30 entries with all features",
-        "de": "Bis zu 30 Einträge mit allen Funktionen"
+        "en": "Unlimited entries, all features",
+        "de": "Unbegrenzt viele Einträge, alle Funktionen"
       },
       {
         "en": "Status, progress, rating, notes and tags",
@@ -56,12 +55,7 @@
         "de": "QR-Code für einen gespeicherten Link"
       }
     ],
-    "premium": [
-      {
-        "en": "Unlimited entries",
-        "de": "Unbegrenzt viele Einträge"
-      }
-    ]
+    "premium": []
   },
   "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/c5fa60b4-d662-46f2-a554-136e0292d00f",
   "lemonSqueezy": {

@@ -3,7 +3,7 @@ export default {
   'pt.task': 'Was möchtest du tun?',
   'pt.pages': 'Seiten',
   'pt.limits': 'Was du erwarten kannst',
-  'usage.free': 'Gratis: Zusammenfügen, Umsortieren, Drehen, Löschen und Herausziehen von Seiten. Komprimieren und Teilen in mehrere Dateien auf einmal sind Premium.',
+  'usage.free': 'Gratis: Zusammenfügen, Umsortieren, Drehen, Löschen und Herausziehen von Seiten. Verlustfreies Komprimieren ist gratis. Starkes Komprimieren (Seiten als Bilder) und Teilen in mehrere Dateien auf einmal sind Premium.',
 
   'drop.title': 'PDF-Dateien hierher ziehen',
   'drop.sub': 'oder zum Auswählen klicken. Mehrere hinzufügen, um sie zusammenzufügen.',

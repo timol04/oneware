@@ -3,7 +3,7 @@
 // Which features are Premium. They are marked with the Premium badge today and gated once licensing is
 // switched on (core/site-config.js). Change a value here to move a feature between Free and Premium.
 export const PREMIUM_FEATURES = {
-  compress: true, // make a PDF smaller
+  compressStrong: true, // make a PDF much smaller by redrawing pages as pictures (lossless repacking is free)
   splitMany: true, // split into several files at once, with ZIP download
 };
 

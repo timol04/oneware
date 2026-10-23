@@ -35,6 +35,4 @@ export default {
   'jr.unit.day': '{count} Tag',
   'jr.unit.days': '{count} Tage',
   'jr.meta': 'Zuletzt bearbeitet am {date}',
-  'jr.limitLabel': '{limit} Einträge',
-  'jr.usage': '{count} von {limit} kostenlosen Einträgen genutzt',
 };

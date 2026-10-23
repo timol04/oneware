@@ -1,12 +1,11 @@
-import { isPremiumUnlocked } from '../../../core/license.js';
 import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/storage.js';
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import {
-  FREE_LIMIT, SCHEDULES, PAUSE_DAYS, ALL_DAYS, newHabit, isoDate, parseDay, addDays, isDue, isPaused, activePause,
+  SCHEDULES, PAUSE_DAYS, ALL_DAYS, newHabit, isoDate, parseDay, addDays, isDue, isPaused, activePause,
   toggleDay, setNote, weekCount, streaks, rate30, totalDone, pauseFor, resume, monthGrid, dayState, visibleHabits,
-  displayTitle, atLimit,
+  displayTitle,
 } from './habits.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
@@ -32,7 +31,6 @@ let saveTimer;
 let deleteTimer;
 
 const selected = () => habits.find((h) => h.id === selectedId) ?? null;
-const premium = () => isPremiumUnlocked(SLUG);
 const today = () => isoDate();
 
 function el(tag, className, attrs = {}) {
@@ -288,7 +286,6 @@ function renderEditor() {
 function render() {
   applyTranslations();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('hb.new')}`);
-  shell.setPremiumLimit(t('hb.limitLabel', { limit: FREE_LIMIT }), t('hb.usage', { count: habits.length, limit: FREE_LIMIT }));
   renderViews();
   renderList();
   renderEditor();
@@ -311,7 +308,6 @@ async function select(id) {
 
 async function createHabit() {
   await flush();
-  if (atLimit(habits.length, premium())) { shell.showLimit(); return; }
   view = view === 'archive' ? 'all' : view;
   saving++;
   let stored;

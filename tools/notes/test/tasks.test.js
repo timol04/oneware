@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { extractTasks, checklistTitle, buildChecklist, createChecklistFromNote } from '../src/tasks.js';
 import { newNote } from '../src/notes.js';
 import { saveItem, getAllItems, buildExport, importData } from '../../../core/storage.js';
-import { progress, visibleLists, displayTitle, FREE_LIMIT, newList } from '../../checklists/src/checklists.js';
+import { progress, visibleLists, displayTitle, newList } from '../../checklists/src/checklists.js';
 import { todayEntries } from '../../checklists/src/today.js';
 import { registerMessages, setLang, t } from '../../../core/i18n.js';
 import en from '../src/locales/en.js';
@@ -93,7 +93,7 @@ test('built checklist uses the Checklists data model', () => {
 test('conversion stores an independent checklist and leaves the note untouched', async () => {
   const n = await saveItem('notes', note('Intro\n- [ ] one\n- [x] two', 'Meeting'));
   const before = JSON.stringify(await getAllItems('notes'));
-  const res = await createChecklistFromNote(n, { premium: false, fallbackTitle: 'F', today: '2026-10-22' });
+  const res = await createChecklistFromNote(n, { fallbackTitle: 'F', today: '2026-10-22' });
   assert.equal(res.status, 'created');
   assert.equal(JSON.stringify(await getAllItems('notes')), before);
   const lists = await getAllItems('checklists');
@@ -124,21 +124,9 @@ test('export and import of the new checklist keeps it intact', async () => {
   assert.equal((await getAllItems('checklists')).length, 1);
 });
 
-test('free limit of Checklists is respected, Premium lifts it', async () => {
-  const have = (await getAllItems('checklists')).length;
-  for (let i = have; i < FREE_LIMIT; i++) await saveItem('checklists', { ...newList(), title: `L${i}` });
-  const n = note('- [ ] over limit', 'Extra');
-  const blocked = await createChecklistFromNote(n, { premium: false, fallbackTitle: 'F' });
-  assert.equal(blocked.status, 'limit');
-  assert.equal((await getAllItems('checklists')).length, FREE_LIMIT);
-  const ok = await createChecklistFromNote(n, { premium: true, fallbackTitle: 'F' });
-  assert.equal(ok.status, 'created');
-  assert.equal((await getAllItems('checklists')).length, FREE_LIMIT + 1);
-});
-
 test('a note without tasks creates nothing', async () => {
   const before = (await getAllItems('checklists')).length;
-  const res = await createChecklistFromNote(note('plain text'), { premium: true, fallbackTitle: 'F' });
+  const res = await createChecklistFromNote(note('plain text'), { fallbackTitle: 'F' });
   assert.equal(res.status, 'empty');
   assert.equal((await getAllItems('checklists')).length, before);
 });
@@ -148,13 +136,12 @@ test('English and German texts exist and fill their placeholders', () => {
   registerMessages('de', de);
   for (const lang of ['en', 'de']) {
     setLang(lang);
-    for (const key of ['nt.toChecklist', 'nt.toChecklist.title', 'nt.toChecklist.create', 'nt.toChecklist.limitTitle', 'nt.toChecklist.failed']) {
+    for (const key of ['nt.toChecklist', 'nt.toChecklist.title', 'nt.toChecklist.create', 'nt.toChecklist.failed']) {
       assert.notEqual(t(key), key, `${lang}:${key}`);
     }
     const text = t('nt.toChecklist.text', { title: 'Plan', count: 3, done: 1 });
     assert.ok(text.includes('Plan') && text.includes('3') && !text.includes('{'), `${lang}: ${text}`);
     assert.ok(!t('nt.toChecklist.text.one', { title: 'Plan', done: 0 }).includes('{'));
-    assert.ok(!t('nt.toChecklist.limitText', { limit: 10 }).includes('{'));
   }
   assert.equal(t('nt.toChecklist'), 'Aufgaben in Checkliste umwandeln');
   setLang('en');

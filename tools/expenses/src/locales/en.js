@@ -16,8 +16,6 @@ export default {
   'ex.empty': 'No bookings this month. Add the first one.',
   'ex.emptyFiltered': 'No bookings match.',
   'ex.untitled': 'No note',
-  'ex.limitLabel': '{limit} bookings',
-  'ex.usage': '{count} of {limit} free bookings used',
   'ex.form.add': 'New booking',
   'ex.form.edit': 'Edit booking',
   'ex.form.type': 'Type',

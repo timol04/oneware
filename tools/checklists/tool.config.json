@@ -22,7 +22,7 @@
     "light": "#4f46e5",
     "dark": "#a5a0f5"
   },
-  "hasPremium": true,
+  "hasPremium": false,
   "stores": true,
   "today": true,
   "about": {
@@ -33,12 +33,11 @@
     "en": "Packing lists, shopping lists and small projects with due dates and repeating tasks.",
     "de": "Packlisten, Einkaufslisten und kleine Projekte mit Fälligkeiten und wiederkehrenden Aufgaben."
   },
-  "countLimit": true,
   "features": {
     "free": [
       {
-        "en": "Up to 10 checklists with all features",
-        "de": "Bis zu 10 Checklisten mit allen Funktionen"
+        "en": "Unlimited checklists, all features",
+        "de": "Unbegrenzt viele Checklisten, alle Funktionen"
       },
       {
         "en": "Sub-items, due dates and repeating tasks",
@@ -57,12 +56,7 @@
         "de": "Backup-Export und -Import"
       }
     ],
-    "premium": [
-      {
-        "en": "Unlimited checklists",
-        "de": "Unbegrenzt viele Checklisten"
-      }
-    ]
+    "premium": []
   },
   "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/341858e9-c538-4370-bd33-ebcc79271247",
   "lemonSqueezy": {

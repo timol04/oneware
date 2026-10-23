@@ -23,7 +23,7 @@
       "light": "#a14607",
       "dark": "#e0a458"
     },
-    "hasPremium": true,
+    "hasPremium": false,
     "stores": true,
     "about": {
       "en": "Capture quick notes in a simple editor with headings, lists, links and quotes. Sort them with tags and colors, pin what matters and turn a list of tasks into a checklist with a few clicks. Everything stays in your browser. A note can also go straight to the Converter as a PDF or Word file.",
@@ -33,12 +33,11 @@
       "en": "Quick private notes with tags, lists and a one-click way to turn tasks into a checklist, no account needed.",
       "de": "Schnelle private Notizen mit Tags, Listen und einem Klick von der Aufgabenliste zur Checkliste, ohne Konto."
     },
-    "countLimit": true,
     "features": {
       "free": [
         {
-          "en": "Up to 20 notes with all features",
-          "de": "Bis zu 20 Notizen mit allen Funktionen"
+          "en": "Unlimited notes, all features",
+          "de": "Unbegrenzt viele Notizen, alle Funktionen"
         },
         {
           "en": "Tags, colors, pinning, archive and search",
@@ -61,12 +60,7 @@
           "de": "Notiz im Converter in PDF oder Word umwandeln"
         }
       ],
-      "premium": [
-        {
-          "en": "Unlimited notes",
-          "de": "Unbegrenzt viele Notizen"
-        }
-      ]
+      "premium": []
     },
     "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/9cad45ce-978b-4613-8a64-62cda23596a0",
     "lemonSqueezy": {
@@ -166,7 +160,7 @@
       "light": "#4f46e5",
       "dark": "#a5a0f5"
     },
-    "hasPremium": true,
+    "hasPremium": false,
     "stores": true,
     "today": true,
     "about": {
@@ -177,12 +171,11 @@
       "en": "Packing lists, shopping lists and small projects with due dates and repeating tasks.",
       "de": "Packlisten, Einkaufslisten und kleine Projekte mit Fälligkeiten und wiederkehrenden Aufgaben."
     },
-    "countLimit": true,
     "features": {
       "free": [
         {
-          "en": "Up to 10 checklists with all features",
-          "de": "Bis zu 10 Checklisten mit allen Funktionen"
+          "en": "Unlimited checklists, all features",
+          "de": "Unbegrenzt viele Checklisten, alle Funktionen"
         },
         {
           "en": "Sub-items, due dates and repeating tasks",
@@ -201,12 +194,7 @@
           "de": "Backup-Export und -Import"
         }
       ],
-      "premium": [
-        {
-          "en": "Unlimited checklists",
-          "de": "Unbegrenzt viele Checklisten"
-        }
-      ]
+      "premium": []
     },
     "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/341858e9-c538-4370-bd33-ebcc79271247",
     "lemonSqueezy": {
@@ -306,7 +294,7 @@
       "light": "#be3a5c",
       "dark": "#ee8aa5"
     },
-    "hasPremium": true,
+    "hasPremium": false,
     "stores": true,
     "today": true,
     "about": {
@@ -317,12 +305,11 @@
       "en": "People who build routines day by day and want streaks and weekly goals.",
       "de": "Wer Routinen Tag für Tag aufbaut und Serien und Wochenziele will."
     },
-    "countLimit": true,
     "features": {
       "free": [
         {
-          "en": "Up to 5 habits with all features",
-          "de": "Bis zu 5 Gewohnheiten mit allen Funktionen"
+          "en": "Unlimited habits, all features",
+          "de": "Unbegrenzt viele Gewohnheiten, alle Funktionen"
         },
         {
           "en": "Daily, weekday and weekly-goal schedules",
@@ -337,12 +324,7 @@
           "de": "Pausen, Archiv sowie Backup-Export und -Import"
         }
       ],
-      "premium": [
-        {
-          "en": "Unlimited habits",
-          "de": "Unbegrenzt viele Gewohnheiten"
-        }
-      ]
+      "premium": []
     },
     "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/3345b4a1-69a8-49ec-b9b0-55e02dc5b7a5",
     "lemonSqueezy": {
@@ -454,8 +436,12 @@
           "de": "Live-Vorschau mit Scan-Test"
         },
         {
-          "en": "PNG export",
-          "de": "PNG-Export"
+          "en": "PNG and SVG export",
+          "de": "PNG- und SVG-Export"
+        },
+        {
+          "en": "Logo in the center of the code",
+          "de": "Logo in der Mitte des Codes"
         },
         {
           "en": "Make a QR code from a Readlist or Subscription Tracker link",
@@ -468,16 +454,16 @@
           "de": "Farbverläufe"
         },
         {
-          "en": "Logo in the center or as the code shape",
-          "de": "Logo in der Mitte oder als Form des Codes"
+          "en": "Logo as the shape of the code",
+          "de": "Logo als Form des Codes"
         },
         {
           "en": "Sticker shapes and printable A4 sheet",
           "de": "Stickerformen und druckfertiger A4-Bogen"
         },
         {
-          "en": "SVG, PDF and large PNG",
-          "de": "SVG, PDF und grosses PNG"
+          "en": "PDF and large PNG",
+          "de": "PDF und grosses PNG"
         },
         {
           "en": "Many codes at once from a CSV file",
@@ -539,8 +525,8 @@
             "de": "Welche Formate kann ich exportieren?"
           },
           "a": {
-            "en": "PNG is part of the free features. SVG, PDF and large PNG for print are part of the premium unlock.",
-            "de": "PNG gehört zu den kostenlosen Funktionen. SVG, PDF und großes PNG für den Druck gehören zur Premium-Freischaltung."
+            "en": "PNG and SVG are part of the free features. PDF and large PNG for print are part of the premium unlock.",
+            "de": "PNG und SVG gehören zu den kostenlosen Funktionen. PDF und großes PNG für den Druck gehören zur Premium-Freischaltung."
           }
         }
       ]
@@ -972,7 +958,7 @@
       "light": "#0f766e",
       "dark": "#5fc9bd"
     },
-    "hasPremium": true,
+    "hasPremium": false,
     "stores": true,
     "about": {
       "en": "Save books, films, series and articles you want to get to, mark what you are reading, rate what you finished and keep notes. Everything stays in your browser. A saved link can be turned into a QR code with one click.",
@@ -982,12 +968,11 @@
       "en": "Keeping track of books, articles and anything else you want to read or have read.",
       "de": "Bücher, Artikel und alles andere im Blick behalten, was du lesen willst oder gelesen hast."
     },
-    "countLimit": true,
     "features": {
       "free": [
         {
-          "en": "Up to 30 entries with all features",
-          "de": "Bis zu 30 Einträge mit allen Funktionen"
+          "en": "Unlimited entries, all features",
+          "de": "Unbegrenzt viele Einträge, alle Funktionen"
         },
         {
           "en": "Status, progress, rating, notes and tags",
@@ -1006,12 +991,7 @@
           "de": "QR-Code für einen gespeicherten Link"
         }
       ],
-      "premium": [
-        {
-          "en": "Unlimited entries",
-          "de": "Unbegrenzt viele Einträge"
-        }
-      ]
+      "premium": []
     },
     "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/c5fa60b4-d662-46f2-a554-136e0292d00f",
     "lemonSqueezy": {
@@ -1101,7 +1081,7 @@
       "light": "#46720d",
       "dark": "#a3d36b"
     },
-    "hasPremium": true,
+    "hasPremium": false,
     "stores": true,
     "today": true,
     "about": {
@@ -1112,12 +1092,11 @@
       "en": "Daily writing, mood tracking and private reflection that stays on your device.",
       "de": "Tägliches Schreiben, Stimmung festhalten und private Reflexion, die auf deinem Gerät bleibt."
     },
-    "countLimit": true,
     "features": {
       "free": [
         {
-          "en": "Up to 30 entries with all features",
-          "de": "Bis zu 30 Einträge mit allen Funktionen"
+          "en": "Unlimited entries, all features",
+          "de": "Unbegrenzt viele Einträge, alle Funktionen"
         },
         {
           "en": "Mood scale, tags and search",
@@ -1132,12 +1111,7 @@
           "de": "Markdown mit Vorschau, Backup-Export und -Import"
         }
       ],
-      "premium": [
-        {
-          "en": "Unlimited entries",
-          "de": "Unbegrenzt viele Einträge"
-        }
-      ]
+      "premium": []
     },
     "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/5f13286b-d90a-4312-96ff-4287645ef181",
     "lemonSqueezy": {
@@ -1258,12 +1232,16 @@
         {
           "en": "Continue with the Converter, and open PDFs from it",
           "de": "Im Converter weiterarbeiten und PDFs von dort übernehmen"
+        },
+        {
+          "en": "Lossless compress: repack the file without changing text or quality",
+          "de": "Verlustfrei komprimieren: Datei neu verpacken, ohne Text oder Qualität zu ändern"
         }
       ],
       "premium": [
         {
-          "en": "Compress: lossless repacking and strong compression for scans and photo PDFs",
-          "de": "Komprimieren: verlustfreies Neu-Verpacken und starke Komprimierung für Scans und Foto-PDFs"
+          "en": "Strong compression for scans and photo PDFs (pages redrawn as pictures)",
+          "de": "Starke Komprimierung für Scans und Foto-PDFs (Seiten als Bilder neu gezeichnet)"
         },
         {
           "en": "Split into several files at once (by ranges or every N pages) and download them as one ZIP",
@@ -1325,8 +1303,8 @@
             "de": "Kann ich ein PDF verkleinern?"
           },
           "a": {
-            "en": "Yes. Compress repacks the file without loss or compresses strongly for scans and photo PDFs. It is part of the premium unlock.",
-            "de": "Ja. Komprimieren packt die Datei verlustfrei neu oder komprimiert stark bei Scans und Foto-PDFs. Es gehört zur Premium-Freischaltung."
+            "en": "Yes. Lossless compressing repacks the file and is free. Strong compression for scans and photo PDFs is part of the premium unlock.",
+            "de": "Ja. Verlustfreies Komprimieren verpackt die Datei neu und ist gratis. Starke Komprimierung für Scans und Foto-PDFs gehört zur Premium-Freischaltung."
           }
         }
       ]
@@ -1368,12 +1346,11 @@
       "en": "Keeping a simple record of income and spending, without bank connection or account.",
       "de": "Wer Einnahmen und Ausgaben einfach festhalten will, ohne Bankanbindung und ohne Konto."
     },
-    "countLimit": true,
     "features": {
       "free": [
         {
-          "en": "Up to 50 bookings with all features",
-          "de": "Bis zu 50 Buchungen mit allen Funktionen"
+          "en": "Unlimited bookings",
+          "de": "Unbegrenzt viele Buchungen"
         },
         {
           "en": "Monthly overview: income, expenses, balance",
@@ -1389,10 +1366,6 @@
         }
       ],
       "premium": [
-        {
-          "en": "Unlimited bookings",
-          "de": "Unbegrenzt viele Buchungen"
-        },
         {
           "en": "Statistics: income and expenses over 12 months",
           "de": "Statistik: Einnahmen und Ausgaben über 12 Monate"

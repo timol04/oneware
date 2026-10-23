@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   newList, newItem, newSubItem, nextDue, dueState, toggleItem, toggleSub, progress, overdueCount, clearCompleted,
-  moveItem, displayTitle, visibleLists, atLimit, FREE_LIMIT,
+  moveItem, displayTitle, visibleLists,
 } from '../src/checklists.js';
 
 const TODAY = '2026-10-19';
@@ -78,6 +78,4 @@ test('titles, filtering and limit', () => {
   assert.deepEqual(visibleLists([a, b, c]).map(displayTitle), ['Call dentist', 'Groceries']);
   assert.deepEqual(visibleLists([a, b, c], { view: 'archive' }).map(displayTitle), ['Old']);
   assert.deepEqual(visibleLists([a, b, c], { query: 'oat' }).map(displayTitle), ['Groceries']);
-  assert.equal(atLimit(FREE_LIMIT, false), true);
-  assert.equal(atLimit(FREE_LIMIT, true), false);
 });

@@ -5,7 +5,7 @@ import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import { monthsChart, categoryChart } from './charts.js';
 import {
-  FREE_LIMIT, TYPES, CATEGORIES, CURRENCIES, newEntry, todayISO, isISODate, parseAmount, categoryFor, atLimit,
+  TYPES, CATEGORIES, CURRENCIES, newEntry, todayISO, isISODate, parseAmount, categoryFor,
   monthOf, shiftMonth, listMonth, groupByDay, monthTotals, byCategory, monthlySeries, averages,
 } from './expenses.js';
 import en from './locales/en.js';
@@ -173,7 +173,6 @@ function render() {
   $('add').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('ex.add')}`);
   $('currency').title = t('ex.currency');
   $('currency').replaceChildren(...CURRENCIES.map((c) => new Option(c, c, false, c === currency)));
-  shell.setPremiumLimit(t('ex.limitLabel', { limit: FREE_LIMIT }), t('ex.usage', { count: entries.length, limit: FREE_LIMIT }));
   renderSummary();
   renderViews();
   renderList();
@@ -251,7 +250,6 @@ async function submit(e) {
 }
 
 $('add').addEventListener('click', () => {
-  if (atLimit(entries.length, premium())) { shell.showLimit(); return; }
   openSheet(null);
 });
 $('form').addEventListener('submit', submit);
@@ -276,7 +274,6 @@ $('delete').addEventListener('click', async () => {
   saving++;
   try { await deleteItem(SLUG, id); } finally { saving--; }
   entries = entries.filter((x) => x.id !== id);
-  shell.clearLimit();
   sheet.close();
   render();
 });

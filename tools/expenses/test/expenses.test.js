@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  newEntry, parseAmount, isISODate, shiftMonth, monthOf, categoryFor, atLimit, FREE_LIMIT, listMonth, groupByDay,
+  newEntry, parseAmount, isISODate, shiftMonth, monthOf, categoryFor, listMonth, groupByDay,
   monthTotals, byCategory, monthlySeries, averages, latestMonth, todayISO,
 } from '../src/expenses.js';
 
@@ -33,12 +33,6 @@ test('category follows the type', () => {
   assert.equal(categoryFor('income', 'groceries'), 'otherIn');
   assert.equal(categoryFor('expense', 'salary'), 'other');
   assert.equal(categoryFor('expense', 'eating'), 'eating');
-});
-
-test('free limit applies only without premium', () => {
-  assert.ok(!atLimit(FREE_LIMIT - 1, false));
-  assert.ok(atLimit(FREE_LIMIT, false));
-  assert.ok(!atLimit(FREE_LIMIT * 10, true));
 });
 
 test('month totals and balance', () => {

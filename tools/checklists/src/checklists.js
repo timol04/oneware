@@ -1,6 +1,5 @@
 // Pure checklist logic: items, progress, due dates, repeats, filtering. No DOM, no storage.
 
-export const FREE_LIMIT = 10;
 export const REPEATS = ['daily', 'weekly', 'monthly'];
 
 let counter = 0;
@@ -119,4 +118,3 @@ export function visibleLists(lists, { view = 'lists', query = '' } = {}) {
     .sort((a, b) => (b.pinned - a.pinned) || b.updated - a.updated);
 }
 
-export const atLimit = (count, premium) => !premium && count >= FREE_LIMIT;
