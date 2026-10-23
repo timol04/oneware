@@ -5,8 +5,8 @@
     "de": "Notizen"
   },
   "shortDescription": {
-    "en": "Quick notes with tags and colors.",
-    "de": "Schnelle Notizen mit Tags und Farben."
+    "en": "Quick notes with tags and colors. Turn lists into checklists.",
+    "de": "Schnelle Notizen mit Tags und Farben. Listen werden zu Checklisten."
   },
   "category": "notes",
   "kind": "app",
@@ -25,12 +25,12 @@
   "hasPremium": true,
   "stores": true,
   "about": {
-    "en": "Capture quick notes, sort them with tags and colors, pin what matters and write in Markdown with a preview. Everything stays in your browser.",
-    "de": "Schnelle Notizen festhalten, mit Tags und Farben ordnen, Wichtiges anpinnen und in Markdown mit Vorschau schreiben. Alles bleibt in deinem Browser."
+    "en": "Capture quick notes in a simple editor with headings, lists, links and quotes. Sort them with tags and colors, pin what matters and turn a list of tasks into a checklist with a few clicks. Everything stays in your browser.",
+    "de": "Schnelle Notizen in einem einfachen Editor mit Überschriften, Listen, Links und Zitaten festhalten. Mit Tags und Farben ordnen, Wichtiges anpinnen und eine Liste von Aufgaben mit wenigen Klicks in eine Checkliste umwandeln. Alles bleibt in deinem Browser."
   },
   "audience": {
-    "en": "Quick private notes with tags and Markdown, no account needed.",
-    "de": "Schnelle private Notizen mit Tags und Markdown, ohne Konto."
+    "en": "Quick private notes with tags, lists and a one-click way to turn tasks into a checklist, no account needed.",
+    "de": "Schnelle private Notizen mit Tags, Listen und einem Klick von der Aufgabenliste zur Checkliste, ohne Konto."
   },
   "countLimit": true,
   "features": {
@@ -44,8 +44,12 @@
         "de": "Tags, Farben, Anpinnen, Archiv und Suche"
       },
       {
-        "en": "Markdown with preview",
-        "de": "Markdown mit Vorschau"
+        "en": "Simple editor: headings, lists, bold, links, quotes and code",
+        "de": "Einfacher Editor: Überschriften, Listen, Fett, Links, Zitate und Code"
+      },
+      {
+        "en": "Turn a list of tasks into a checklist in Checklists",
+        "de": "Eine Aufgabenliste in Checklists in eine Checkliste umwandeln"
       },
       {
         "en": "Backup export and import",
@@ -69,8 +73,8 @@
       "de": "Notizen-App im Browser, ohne Konto – Oneware"
     },
     "description": {
-      "en": "Quick notes with tags, colors and Markdown preview. Stored locally in your browser: no account, no cloud, no subscription.",
-      "de": "Schnelle Notizen mit Tags, Farben und Markdown-Vorschau. Lokal im Browser gespeichert: ohne Konto, ohne Cloud, ohne Abo."
+      "en": "Quick notes with tags, colors and lists, and a one-click way to turn tasks into a checklist. Stored locally in your browser: no account, no cloud, no subscription.",
+      "de": "Schnelle Notizen mit Tags, Farben und Listen, dazu ein Klick von der Aufgabenliste zur Checkliste. Lokal im Browser gespeichert: ohne Konto, ohne Cloud, ohne Abo."
     },
     "related": [
       "journal",
@@ -90,12 +94,22 @@
       },
       {
         "q": {
-          "en": "Can I write notes in Markdown?",
-          "de": "Kann ich Notizen in Markdown schreiben?"
+          "en": "How do I format my notes?",
+          "de": "Wie formatiere ich meine Notizen?"
         },
         "a": {
-          "en": "Yes. Write headings, lists, bold text and links in Markdown and switch to the preview to see the result.",
-          "de": "Ja. Schreibe Überschriften, Listen, fetten Text und Links in Markdown und wechsle zur Vorschau, um das Ergebnis zu sehen."
+          "en": "Use the buttons above the text for bold, italic, headings, lists, quotes, code and links. You see the result while you write. Behind the scenes notes are stored as Markdown, so backups stay readable.",
+          "de": "Nutze die Knöpfe über dem Text für Fett, Kursiv, Überschriften, Listen, Zitate, Code und Links. Du siehst das Ergebnis beim Schreiben. Im Hintergrund werden Notizen als Markdown gespeichert, deshalb bleiben Backups lesbar."
+        }
+      },
+      {
+        "q": {
+          "en": "Can I turn a list of tasks into a checklist?",
+          "de": "Kann ich eine Aufgabenliste in eine Checkliste umwandeln?"
+        },
+        "a": {
+          "en": "Yes. Write a bulleted or numbered list in a note and click \"Convert tasks to checklist\". A new, separate checklist is created in Checklists and the note stays as it is. The free limit of Checklists applies.",
+          "de": "Ja. Schreibe in einer Notiz eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». In Checklists entsteht eine neue, eigenständige Checkliste, die Notiz bleibt unverändert. Es gilt das Gratis-Limit von Checklists."
         }
       },
       {
