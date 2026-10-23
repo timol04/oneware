@@ -22,7 +22,7 @@
     "light": "#a14607",
     "dark": "#e0a458"
   },
-  "hasPremium": false,
+  "hasPremium": true,
   "stores": true,
   "about": {
     "en": "Capture quick notes in a simple editor with headings, lists, links and quotes. Sort them with tags and colors, pin what matters and turn a list of tasks into a checklist with a few clicks. Everything stays in your browser. A note can also go straight to the Converter as a PDF or Word file.",
@@ -57,9 +57,18 @@
       {
         "en": "Convert a note to PDF or Word in the Converter",
         "de": "Notiz im Converter in PDF oder Word umwandeln"
+      },
+      {
+        "en": "Ready-made templates: meeting notes, weekly plan, project outline",
+        "de": "Fertige Vorlagen: Sitzungsnotiz, Wochenplan, Projektskizze"
       }
     ],
-    "premium": []
+    "premium": [
+      {
+        "en": "Save your own notes as templates and start new notes from them with one click",
+        "de": "Eigene Notizen als Vorlagen speichern und daraus mit einem Klick neue Notizen starten"
+      }
+    ]
   },
   "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/9cad45ce-978b-4613-8a64-62cda23596a0",
   "lemonSqueezy": {
@@ -106,8 +115,8 @@
           "de": "Kann ich eine Aufgabenliste in eine Checkliste umwandeln?"
         },
         "a": {
-          "en": "Yes. Write a bulleted or numbered list in a note and click \"Convert tasks to checklist\". A new, separate checklist is created in Checklists and the note stays as it is. The free limit of Checklists applies.",
-          "de": "Ja. Schreibe in einer Notiz eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». In Checklists entsteht eine neue, eigenständige Checkliste, die Notiz bleibt unverändert. Es gilt das Gratis-Limit von Checklists."
+          "en": "Yes. Write a bulleted or numbered list in a note and click \"Convert tasks to checklist\". A new, separate checklist is created in Checklists and the note stays as it is.",
+          "de": "Ja. Schreibe in einer Notiz eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». In Checklists entsteht eine neue, eigenständige Checkliste, die Notiz bleibt unverändert."
         }
       },
       {
@@ -128,6 +137,16 @@
         "a": {
           "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
           "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+        }
+      },
+      {
+        "q": {
+          "en": "Can I use templates for notes?",
+          "de": "Kann ich Vorlagen für Notizen nutzen?"
+        },
+        "a": {
+          "en": "Yes. Ready-made templates (meeting notes, weekly plan, project outline) are free. Saving your own notes as templates is part of the premium unlock.",
+          "de": "Ja. Fertige Vorlagen (Sitzungsnotiz, Wochenplan, Projektskizze) sind gratis. Eigene Notizen als Vorlagen zu speichern gehört zur Premium-Freischaltung."
         }
       }
     ]

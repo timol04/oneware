@@ -22,7 +22,7 @@
     "light": "#4f46e5",
     "dark": "#a5a0f5"
   },
-  "hasPremium": false,
+  "hasPremium": true,
   "stores": true,
   "today": true,
   "about": {
@@ -54,9 +54,18 @@
       {
         "en": "Backup export and import",
         "de": "Backup-Export und -Import"
+      },
+      {
+        "en": "Ready-made templates: packing list, groceries, moving, weekly reset",
+        "de": "Fertige Vorlagen: Packliste, Wocheneinkauf, Umzug, Wochenstart"
       }
     ],
-    "premium": []
+    "premium": [
+      {
+        "en": "Save your own checklists as templates and start new ones from them with one click",
+        "de": "Eigene Checklisten als Vorlagen speichern und daraus mit einem Klick neue starten"
+      }
+    ]
   },
   "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/341858e9-c538-4370-bd33-ebcc79271247",
   "lemonSqueezy": {
@@ -113,8 +122,8 @@
           "de": "Kann ich Aufgaben aus meinen Notizen übernehmen?"
         },
         "a": {
-          "en": "Yes. In Notes, write a bulleted or numbered list and click \"Convert tasks to checklist\". Checklists opens with a new checklist that has one entry per task. The note stays as it is and both can be edited independently. The free limit of 10 checklists applies.",
-          "de": "Ja. Schreibe in Notes eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». Checklists öffnet sich mit einer neuen Checkliste, die pro Aufgabe einen Eintrag hat. Die Notiz bleibt unverändert, beide lassen sich unabhängig bearbeiten. Es gilt das Gratis-Limit von 10 Checklisten."
+          "en": "Yes. In Notes, write a bulleted or numbered list and click \"Convert tasks to checklist\". Checklists opens with a new checklist that has one entry per task. The note stays as it is and both can be edited independently.",
+          "de": "Ja. Schreibe in Notes eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». Checklists öffnet sich mit einer neuen Checkliste, die pro Aufgabe einen Eintrag hat. Die Notiz bleibt unverändert, beide lassen sich unabhängig bearbeiten."
         }
       },
       {
@@ -125,6 +134,16 @@
         "a": {
           "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
           "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+        }
+      },
+      {
+        "q": {
+          "en": "Can I reuse a checklist?",
+          "de": "Kann ich eine Checkliste wiederverwenden?"
+        },
+        "a": {
+          "en": "Yes. Ready-made templates (packing list, groceries, moving, weekly reset) are free. Saving your own checklists as templates is part of the premium unlock. Repeating tasks inside a list are free.",
+          "de": "Ja. Fertige Vorlagen (Packliste, Wocheneinkauf, Umzug, Wochenstart) sind gratis. Eigene Checklisten als Vorlagen zu speichern gehört zur Premium-Freischaltung. Wiederkehrende Aufgaben in einer Liste sind gratis."
         }
       }
     ]

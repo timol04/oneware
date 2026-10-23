@@ -27,7 +27,9 @@
             <input id="search" class="ow-input" type="search" autocomplete="off" data-i18n-attr="placeholder:cl.search">
           </label>
           <button type="button" id="new" class="ow-btn"></button>
+          <button type="button" id="tpl-toggle" class="ow-btn ow-btn--secondary" aria-expanded="false" aria-controls="tpl-panel"></button>
         </div>
+        <div id="tpl-panel" class="cl-tpl" hidden></div>
         <div id="views" class="cl-chips" role="group" data-i18n-attr="aria-label:cl.views"></div>
         <ul id="list" class="cl-list"></ul>
         <p id="empty" class="cl-empty ow-muted" hidden></p>
@@ -40,6 +42,7 @@
           <div class="cl-bar">
             <button type="button" id="back" class="ow-btn ow-btn--secondary ow-btn--small cl-back"></button>
             <div class="cl-bar__tools">
+              <button type="button" id="tpl-save" class="ow-iconbtn cl-tool"></button>
               <button type="button" id="pin" class="ow-iconbtn cl-tool" aria-pressed="false"></button>
               <button type="button" id="archive" class="ow-iconbtn cl-tool"></button>
               <button type="button" id="delete" class="ow-iconbtn cl-tool"></button>

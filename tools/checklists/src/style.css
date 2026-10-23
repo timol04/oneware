@@ -13,8 +13,9 @@
   .cl-back { display: none; }
 }
 
-.cl-top { display: flex; gap: var(--s-2); margin-bottom: var(--s-3); }
-.cl-search { flex: 1; min-width: 0; }
+.cl-top { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-3); }
+.cl-top .ow-btn { flex: 1 1 auto; }
+.cl-search { flex: 1 1 100%; min-width: 0; }
 .cl-top .ow-btn, .cl-add .ow-btn { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); white-space: nowrap; }
 .cl-top .ow-btn:hover, .cl-add .ow-btn:hover { filter: brightness(1.12); }
 .cl-top .ow-btn .ow-icon { vertical-align: -0.2em; }
@@ -112,3 +113,14 @@
 .cl-add__field { flex: 1; min-width: 0; }
 .cl-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); margin-top: var(--s-4); }
 .cl-foot .ow-usage { margin: 0; }
+
+/* Templates */
+.cl-top .ow-btn--secondary { background: transparent; color: var(--text); border-color: var(--border); }
+.cl-top .ow-btn--secondary:hover { filter: none; border-color: var(--accent); color: var(--accent); }
+.cl-tpl { margin: 0 0 var(--s-3); padding: var(--s-3); border: 1px solid var(--border); border-radius: var(--r-md, .75rem); display: grid; gap: var(--s-2); }
+.cl-tpl h3 { margin: 0; font-size: .9rem; display: flex; align-items: center; gap: var(--s-2); }
+.cl-tpl__row { display: flex; align-items: center; gap: var(--s-2); }
+.cl-tpl__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-tpl__meta { color: var(--text-muted); font-size: .8rem; white-space: nowrap; }
+.cl-tpl__note { margin: 0; font-size: .85rem; }
+.cl-tpl .is-armed { background: var(--danger); border-color: var(--danger); color: #fff; }

@@ -31,20 +31,42 @@ export function parseTags(text) {
   return [...new Set(text.split(/[,\n]/).map(normalizeTag).filter(Boolean))];
 }
 
-/** All tags with counts, most used first (archived notes do not count). */
+// ---- Templates ----
+// A template is stored like a note with `template: true`. It never shows up in the notes, the archive or the tags.
+
+/** Ready-made templates (free). Title and text are `nt.tpl.<id>` and `nt.tpl.<id>.body`. */
+export const BUILTIN_TEMPLATES = ['meeting', 'weekly', 'project'];
+
+export const isTemplate = (note) => !!note.template;
+
+/** Own templates, sorted by title. */
+export const templatesOf = (notes) => notes.filter(isTemplate).sort((a, b) => displayTitle(a).localeCompare(displayTitle(b)));
+
+/** A template (not yet stored) made from a note: title, text and tags, without color or pin. */
+export function templateFromNote(note, now = Date.now()) {
+  return { title: note.title, body: note.body, tags: [...note.tags], color: null, pinned: false, archived: false, template: true, created: now, updated: now };
+}
+
+/** A new note (not yet stored) from a template given as { title, body, tags? }. */
+export function noteFromTemplate(template, now = Date.now()) {
+  return { ...newNote(now), title: template.title, body: template.body, tags: [...(template.tags ?? [])] };
+}
+
+/** All tags with counts, most used first (archived notes and templates do not count). */
 export function tagCounts(notes) {
   const counts = new Map();
-  for (const n of notes) if (!n.archived) for (const t of n.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+  for (const n of notes) if (!n.archived && !n.template) for (const t of n.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
   return [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 }
 
 /**
- * Filters and sorts notes. view: 'notes' | 'archive'; tag: null or a tag; query: free text.
+ * Filters and sorts notes (never templates). view: 'notes' | 'archive'; tag: null or a tag; query: free text.
  * Pinned notes come first, then newest edit first.
  */
 export function visibleNotes(notes, { view = 'notes', tag = null, query = '' } = {}) {
   const q = query.trim().toLowerCase();
   return notes
+    .filter((n) => !isTemplate(n))
     .filter((n) => (view === 'archive') === !!n.archived)
     .filter((n) => !tag || n.tags.includes(tag))
     .filter((n) => !q || `${n.title}\n${n.body}\n${n.tags.join(' ')}`.toLowerCase().includes(q))

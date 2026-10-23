@@ -21,7 +21,7 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
 const shell = await mountToolShell({ slug: SLUG, config, main: $('main'), onLicenseChange: onLicense });
 
-// Free: every content type, soft dots, plain black, caption, PNG. Premium: the rest.
+// Free: every content type, dot shapes, solid colors, caption, logo in the center, PNG and SVG. Premium: gradients, logo as shape, stickers, large PNG, PDF, sticker sheet, CSV batch.
 const FREE_FORMATS = ['png', 'svg'];
 const FORMAT_IDS = ['png', 'png-large', 'svg', 'pdf', 'sheet'];
 const SHEET_SIZES = [30, 40, 50, 60];

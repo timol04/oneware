@@ -23,7 +23,7 @@
       "light": "#a14607",
       "dark": "#e0a458"
     },
-    "hasPremium": false,
+    "hasPremium": true,
     "stores": true,
     "about": {
       "en": "Capture quick notes in a simple editor with headings, lists, links and quotes. Sort them with tags and colors, pin what matters and turn a list of tasks into a checklist with a few clicks. Everything stays in your browser. A note can also go straight to the Converter as a PDF or Word file.",
@@ -58,9 +58,18 @@
         {
           "en": "Convert a note to PDF or Word in the Converter",
           "de": "Notiz im Converter in PDF oder Word umwandeln"
+        },
+        {
+          "en": "Ready-made templates: meeting notes, weekly plan, project outline",
+          "de": "Fertige Vorlagen: Sitzungsnotiz, Wochenplan, Projektskizze"
         }
       ],
-      "premium": []
+      "premium": [
+        {
+          "en": "Save your own notes as templates and start new notes from them with one click",
+          "de": "Eigene Notizen als Vorlagen speichern und daraus mit einem Klick neue Notizen starten"
+        }
+      ]
     },
     "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/9cad45ce-978b-4613-8a64-62cda23596a0",
     "lemonSqueezy": {
@@ -107,8 +116,8 @@
             "de": "Kann ich eine Aufgabenliste in eine Checkliste umwandeln?"
           },
           "a": {
-            "en": "Yes. Write a bulleted or numbered list in a note and click \"Convert tasks to checklist\". A new, separate checklist is created in Checklists and the note stays as it is. The free limit of Checklists applies.",
-            "de": "Ja. Schreibe in einer Notiz eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». In Checklists entsteht eine neue, eigenständige Checkliste, die Notiz bleibt unverändert. Es gilt das Gratis-Limit von Checklists."
+            "en": "Yes. Write a bulleted or numbered list in a note and click \"Convert tasks to checklist\". A new, separate checklist is created in Checklists and the note stays as it is.",
+            "de": "Ja. Schreibe in einer Notiz eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». In Checklists entsteht eine neue, eigenständige Checkliste, die Notiz bleibt unverändert."
           }
         },
         {
@@ -129,6 +138,16 @@
           "a": {
             "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
             "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I use templates for notes?",
+            "de": "Kann ich Vorlagen für Notizen nutzen?"
+          },
+          "a": {
+            "en": "Yes. Ready-made templates (meeting notes, weekly plan, project outline) are free. Saving your own notes as templates is part of the premium unlock.",
+            "de": "Ja. Fertige Vorlagen (Sitzungsnotiz, Wochenplan, Projektskizze) sind gratis. Eigene Notizen als Vorlagen zu speichern gehört zur Premium-Freischaltung."
           }
         }
       ]
@@ -160,7 +179,7 @@
       "light": "#4f46e5",
       "dark": "#a5a0f5"
     },
-    "hasPremium": false,
+    "hasPremium": true,
     "stores": true,
     "today": true,
     "about": {
@@ -192,9 +211,18 @@
         {
           "en": "Backup export and import",
           "de": "Backup-Export und -Import"
+        },
+        {
+          "en": "Ready-made templates: packing list, groceries, moving, weekly reset",
+          "de": "Fertige Vorlagen: Packliste, Wocheneinkauf, Umzug, Wochenstart"
         }
       ],
-      "premium": []
+      "premium": [
+        {
+          "en": "Save your own checklists as templates and start new ones from them with one click",
+          "de": "Eigene Checklisten als Vorlagen speichern und daraus mit einem Klick neue starten"
+        }
+      ]
     },
     "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/341858e9-c538-4370-bd33-ebcc79271247",
     "lemonSqueezy": {
@@ -251,8 +279,8 @@
             "de": "Kann ich Aufgaben aus meinen Notizen übernehmen?"
           },
           "a": {
-            "en": "Yes. In Notes, write a bulleted or numbered list and click \"Convert tasks to checklist\". Checklists opens with a new checklist that has one entry per task. The note stays as it is and both can be edited independently. The free limit of 10 checklists applies.",
-            "de": "Ja. Schreibe in Notes eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». Checklists öffnet sich mit einer neuen Checkliste, die pro Aufgabe einen Eintrag hat. Die Notiz bleibt unverändert, beide lassen sich unabhängig bearbeiten. Es gilt das Gratis-Limit von 10 Checklisten."
+            "en": "Yes. In Notes, write a bulleted or numbered list and click \"Convert tasks to checklist\". Checklists opens with a new checklist that has one entry per task. The note stays as it is and both can be edited independently.",
+            "de": "Ja. Schreibe in Notes eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». Checklists öffnet sich mit einer neuen Checkliste, die pro Aufgabe einen Eintrag hat. Die Notiz bleibt unverändert, beide lassen sich unabhängig bearbeiten."
           }
         },
         {
@@ -263,6 +291,16 @@
           "a": {
             "en": "Export a backup file in the tool and import it on the other device. On desktop Chrome, Edge and Opera you can also connect a cloud folder that keeps a backup in your own cloud.",
             "de": "Exportiere im Tool eine Backup-Datei und importiere sie auf dem anderen Gerät. In Chrome, Edge und Opera am Computer kannst du außerdem einen Cloud-Ordner verbinden, der ein Backup in deiner eigenen Cloud hält."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I reuse a checklist?",
+            "de": "Kann ich eine Checkliste wiederverwenden?"
+          },
+          "a": {
+            "en": "Yes. Ready-made templates (packing list, groceries, moving, weekly reset) are free. Saving your own checklists as templates is part of the premium unlock. Repeating tasks inside a list are free.",
+            "de": "Ja. Fertige Vorlagen (Packliste, Wocheneinkauf, Umzug, Wochenstart) sind gratis. Eigene Checklisten als Vorlagen zu speichern gehört zur Premium-Freischaltung. Wiederkehrende Aufgaben in einer Liste sind gratis."
           }
         }
       ]
@@ -285,10 +323,6 @@
     "status": "live",
     "icon": "flame",
     "preview": "habits",
-    "price": {
-      "en": "$5.99 one-time",
-      "de": "5.99 USD einmalig"
-    },
     "order": 30,
     "accent": {
       "light": "#be3a5c",
@@ -325,10 +359,6 @@
         }
       ],
       "premium": []
-    },
-    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/3345b4a1-69a8-49ec-b9b0-55e02dc5b7a5",
-    "lemonSqueezy": {
-      "productId": 1456722
     },
     "seo": {
       "title": {
@@ -708,12 +738,20 @@
           "de": "Schrift, Grösse, Zeilenabstand und Ränder"
         },
         {
-          "en": "Word and page limits",
-          "de": "Wort- und Seitengrenzen"
+          "en": "Word and page limits, heading hierarchy, page numbers and captions",
+          "de": "Wort- und Seitengrenzen, Überschriftenhierarchie, Seitenzahlen und Beschriftungen"
         },
         {
           "en": "Presets and custom requirements",
           "de": "Vorlagen und eigene Vorgaben"
+        },
+        {
+          "en": "Save your own requirement profiles",
+          "de": "Eigene Vorgaben als Profil speichern"
+        },
+        {
+          "en": "Report as PDF (print dialog)",
+          "de": "Bericht als PDF (Druckdialog)"
         },
         {
           "en": "Plain-language fixes for every finding",
@@ -949,10 +987,6 @@
     "status": "live",
     "icon": "book",
     "preview": "list",
-    "price": {
-      "en": "$3.49 one-time",
-      "de": "3.49 USD einmalig"
-    },
     "order": 70,
     "accent": {
       "light": "#0f766e",
@@ -992,10 +1026,6 @@
         }
       ],
       "premium": []
-    },
-    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/c5fa60b4-d662-46f2-a554-136e0292d00f",
-    "lemonSqueezy": {
-      "productId": 1456728
     },
     "seo": {
       "title": {
@@ -1072,10 +1102,6 @@
     "status": "live",
     "icon": "book-open",
     "preview": "list",
-    "price": {
-      "en": "$3.49 one-time",
-      "de": "3.49 USD einmalig"
-    },
     "order": 80,
     "accent": {
       "light": "#46720d",
@@ -1112,10 +1138,6 @@
         }
       ],
       "premium": []
-    },
-    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/5f13286b-d90a-4312-96ff-4287645ef181",
-    "lemonSqueezy": {
-      "productId": 1456723
     },
     "seo": {
       "title": {
@@ -1224,6 +1246,10 @@
         {
           "en": "Extract selected pages or a page range as a new PDF",
           "de": "Ausgewählte Seiten oder einen Seitenbereich als neues PDF herausziehen"
+        },
+        {
+          "en": "Split into one file: cut out a page range or selected pages",
+          "de": "Teilen in eine Datei: Seitenbereich oder ausgewählte Seiten herausschneiden"
         },
         {
           "en": "Clear notes about what each step keeps or changes",
