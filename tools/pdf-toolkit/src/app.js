@@ -3,6 +3,7 @@ import { markPremium } from '../../../core/premium.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import { showToast } from '../../../core/ui-components.js';
+import { receiveFiles, continueButton } from '../../../core/handoff.js';
 import { PREMIUM_FEATURES, MAX_BYTES, MAX_FILES, LEVELS } from './config.js';
 import { loadPdf, buildPdf, parseRanges, everyN, repack, picturesToPdf } from './pdf-ops.js';
 import { openForDrawing, closeDrawing, drawPage, pagesToJpeg } from './raster.js';
@@ -471,6 +472,7 @@ function renderResults(errors, notes) {
     btn.append(createIcon('download', { size: '1em' }), ` ${t('go.download')}`);
     btn.addEventListener('click', () => download(o.data, o.name, o.mime));
     li.append(name, size, btn);
+    if (o.mime === PDF) li.append(continueButton({ tool: 'converter', label: t('core.handoff.converter'), onFail: showToast, getFiles: () => [{ name: o.name, type: o.mime, data: o.data }] }));
     ul.append(li);
   }
   for (const msg of errors) {
@@ -538,3 +540,6 @@ function renderAll() {
 
 onLangChange(() => { clearResults(); renderAll(); });
 renderAll();
+// PDFs handed over from another tool
+const handed = await receiveFiles();
+if (handed) addFiles(handed.files);

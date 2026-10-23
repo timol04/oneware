@@ -78,4 +78,5 @@ export default {
   'ab.chart.pricesHint': 'Subscriptions whose price has changed.',
   'ab.chart.noPrices': 'No price changes yet. Change a price in a subscription and it shows up here.',
   'ab.chart.priceChange': '{from} to {to}',
+  'ab.form.qr': 'QR code',
 };

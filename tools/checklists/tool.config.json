@@ -5,8 +5,8 @@
     "de": "Checklisten"
   },
   "shortDescription": {
-    "en": "Checklists with sub-items, due dates and repeats.",
-    "de": "Checklisten mit Unterpunkten, Fälligkeiten und Wiederholungen."
+    "en": "Checklists with sub-items, due dates and repeats. Import tasks from Notes.",
+    "de": "Checklisten mit Unterpunkten, Fälligkeiten und Wiederholungen. Aufgaben aus Notes übernehmen."
   },
   "category": "productivity",
   "kind": "app",
@@ -26,9 +26,14 @@
   "stores": true,
   "today": true,
   "about": {
-    "en": "Keep several checklists, break tasks into sub-items, set due dates and let recurring tasks come back on their own. Everything stays in your browser.",
-    "de": "Mehrere Checklisten führen, Aufgaben in Unterpunkte gliedern, Fälligkeiten setzen und wiederkehrende Aufgaben von selbst zurückkehren lassen. Alles bleibt in deinem Browser."
+    "en": "Keep several checklists, break tasks into sub-items, set due dates and let recurring tasks come back on their own. Tasks you wrote in a note can be turned into a checklist from Notes, as a separate copy. Everything stays in your browser.",
+    "de": "Mehrere Checklisten führen, Aufgaben in Unterpunkte gliedern, Fälligkeiten setzen und wiederkehrende Aufgaben von selbst zurückkehren lassen. Aufgaben aus einer Notiz lassen sich in Notes als eigene Kopie in eine Checkliste umwandeln. Alles bleibt in deinem Browser."
   },
+  "audience": {
+    "en": "Packing lists, shopping lists and small projects with due dates and repeating tasks.",
+    "de": "Packlisten, Einkaufslisten und kleine Projekte mit Fälligkeiten und wiederkehrenden Aufgaben."
+  },
+  "countLimit": true,
   "features": {
     "free": [
       {
@@ -38,6 +43,10 @@
       {
         "en": "Sub-items, due dates and repeating tasks",
         "de": "Unterpunkte, Fälligkeiten und wiederkehrende Aufgaben"
+      },
+      {
+        "en": "Import tasks from a note in Notes (as a separate checklist)",
+        "de": "Aufgaben aus einer Notiz in Notes übernehmen (als eigene Checkliste)"
       },
       {
         "en": "Progress, search, pinning and archive",
@@ -65,8 +74,8 @@
       "de": "Checklisten-App mit Unterpunkten und Fristen – Oneware"
     },
     "description": {
-      "en": "Checklists with sub-items, due dates and repeating tasks. Runs in your browser and stores everything locally. No account needed.",
-      "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben. Läuft im Browser, alles bleibt lokal. Ohne Konto."
+      "en": "Checklists with sub-items, due dates and repeating tasks, and a way to import tasks from your notes. Runs in your browser and stores everything locally. No account needed.",
+      "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben, dazu Aufgaben aus deinen Notizen übernehmen. Läuft im Browser, alles bleibt lokal. Ohne Konto."
     },
     "related": [
       "notes",
@@ -102,6 +111,16 @@
         "a": {
           "en": "Yes. Give a task a repeat schedule and it comes back on its own when it is due again. You can also set due dates.",
           "de": "Ja. Gib einer Aufgabe einen Wiederholungsplan, dann kommt sie von selbst zurück, wenn sie wieder fällig ist. Fälligkeitsdaten kannst du ebenfalls setzen."
+        }
+      },
+      {
+        "q": {
+          "en": "Can I import tasks from my notes?",
+          "de": "Kann ich Aufgaben aus meinen Notizen übernehmen?"
+        },
+        "a": {
+          "en": "Yes. In Notes, write a bulleted or numbered list and click \"Convert tasks to checklist\". Checklists opens with a new checklist that has one entry per task. The note stays as it is and both can be edited independently. The free limit of 10 checklists applies.",
+          "de": "Ja. Schreibe in Notes eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». Checklists öffnet sich mit einer neuen Checkliste, die pro Aufgabe einen Eintrag hat. Die Notiz bleibt unverändert, beide lassen sich unabhängig bearbeiten. Es gilt das Gratis-Limit von 10 Checklisten."
         }
       },
       {

@@ -28,3 +28,12 @@ export function previewHtml(kind = 'list') {
     + '<div class="pv-form"><i class="pv-input"></i><i class="pv-btn"></i></div>'
     + `<ul class="pv-list">${rows}</ul></div>`;
 }
+
+/**
+ * Real screen of a tool inside a small window frame (screenshots from scripts/capture-previews.mjs).
+ * `base` is the path to the site root ('' on the home page); both themes are in the markup, CSS shows the matching one.
+ */
+export function shotHtml(slug, base = '') {
+  const img = (theme) => `<img class="shot shot--${theme}" src="${base}hub/assets/previews/${slug}-${theme}.webp" alt="" width="960" height="600" loading="lazy" decoding="async">`;
+  return `<span class="win"><span class="win__bar"><span class="win__path">mydashboard/${slug}</span></span>${img('light')}${img('dark')}</span>`;
+}

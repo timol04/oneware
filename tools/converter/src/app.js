@@ -3,8 +3,9 @@ import { markPremium } from '../../../core/premium.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import { showToast } from '../../../core/ui-components.js';
+import { receiveFiles, continueButton } from '../../../core/handoff.js';
 import { PREMIUM_FEATURES, MAX_BYTES, MAX_FILES } from './config.js';
-import { kindOf, commonTargets, MIME } from './formats.js';
+import { kindOf, commonTargets, extOf, MIME } from './formats.js';
 import { convertFile, imagesToOnePdf } from './convert.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
@@ -23,6 +24,8 @@ let files = [];     // [{ file, name, kind }]
 let target = '';
 let running = false;
 let current = [];   // outputs of the last run: [{ name, data, mime }]
+// Where a result can go on: a PDF to the PDF Toolkit, a Word file to Verifyxr.
+const NEXT_TOOL = { pdf: 'pdf-toolkit', docx: 'verifyxr' };
 
 const formatSize = (n) => (n >= 1048576 ? `${(n / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1024))} KB`);
 const isImageToPdf = () => target === 'pdf' && files.length > 0 && files.every((f) => f.kind === 'image');
@@ -201,6 +204,11 @@ function renderResults(errors, notes) {
     btn.append(createIcon('download', { size: '1em' }), ` ${t('go.download')}`);
     btn.addEventListener('click', () => download(o.data, o.name, o.mime));
     li.append(name, size, btn);
+    const next = NEXT_TOOL[extOf(o.name)];
+    if (next) li.append(continueButton({
+      tool: next, label: t(`core.handoff.${next === 'pdf-toolkit' ? 'pdf' : next}`), onFail: showToast,
+      getFiles: () => [{ name: o.name, type: o.mime, data: o.data }],
+    }));
     ul.append(li);
   }
   for (const msg of errors) {
@@ -288,3 +296,9 @@ function renderAll() {
 
 onLangChange(() => { clearResults(); renderAll(); });
 renderAll();
+// Files handed over from another tool (and the format they should become)
+const handed = await receiveFiles();
+if (handed) {
+  if (handed.params.target) target = handed.params.target;
+  addFiles(handed.files);
+}

@@ -25,8 +25,12 @@
   "hasPremium": true,
   "stores": false,
   "about": {
-    "en": "Work on PDF files without uploading them: combine several PDFs, pull out or delete pages, rotate and reorder them with a page preview, split a PDF into parts and make a file smaller. Everything runs in your browser; your files never leave your device.",
-    "de": "PDF-Dateien bearbeiten, ohne sie hochzuladen: mehrere PDFs zusammenfügen, Seiten herausziehen oder löschen, mit Seitenvorschau drehen und umsortieren, ein PDF in Teile aufteilen und Dateien verkleinern. Alles läuft in deinem Browser; deine Dateien verlassen dein Gerät nie."
+    "en": "Work on PDF files without uploading them: combine several PDFs, pull out or delete pages, rotate and reorder them with a page preview, split a PDF into parts and make a file smaller. Everything runs in your browser; your files never leave your device. A finished PDF can go straight to the Converter, and PDFs from the Converter open here without a download.",
+    "de": "PDF-Dateien bearbeiten, ohne sie hochzuladen: mehrere PDFs zusammenfügen, Seiten herausziehen oder löschen, mit Seitenvorschau drehen und umsortieren, ein PDF in Teile aufteilen und Dateien verkleinern. Alles läuft in deinem Browser; deine Dateien verlassen dein Gerät nie. Ein fertiges PDF lässt sich direkt im Converter weiterverarbeiten, und PDFs aus dem Converter öffnen sich hier ohne Download."
+  },
+  "audience": {
+    "en": "One-off jobs on PDFs: combine, reorder, extract, compress and split, without uploading them.",
+    "de": "Einmalige Arbeiten an PDFs: zusammenfügen, ordnen, extrahieren, komprimieren und teilen, ohne sie hochzuladen."
   },
   "features": {
     "free": [
@@ -45,6 +49,10 @@
       {
         "en": "Clear notes about what each step keeps or changes",
         "de": "Klare Hinweise, was ein Schritt übernimmt oder verändert"
+      },
+      {
+        "en": "Continue with the Converter, and open PDFs from it",
+        "de": "Im Converter weiterarbeiten und PDFs von dort übernehmen"
       }
     ],
     "premium": [

@@ -15,18 +15,19 @@
   <link rel="stylesheet" href="../hub/src/hub.css">
   <link rel="stylesheet" href="dashboard.css">
 </head>
-<body>
+<body class="home">
   <main id="main" class="ow-container">
-    <h1 class="ow-page-title" data-i18n="dash.h1">My Dashboard</h1>
+    <h1 class="ow-page-title" data-i18n="dash.headline">My Dashboard</h1>
     <p class="ow-muted dash__intro" data-i18n="dash.intro">Your tools, all in one place. Read from your browser, stored on your device.</p>
     <p class="dash__trust"><span data-icon="lock" data-icon-size="1rem"></span><span data-i18n="dash.trust">Stored locally · No account · No subscription</span></p>
+    <div class="dash__ruler" aria-hidden="true"><span data-i18n="dash.ruler">On this device</span></div>
     <div class="dash__layout">
     <div class="dash__main">
     <section id="dash-today-section" aria-labelledby="dash-today-h" class="dash__section" hidden>
       <h2 id="dash-today-h" data-i18n="dash.today">Today</h2>
       <ul id="dash-today" class="today" aria-live="polite"></ul>
     </section>
-    <section aria-labelledby="dash-tools-h" class="dash__section">
+    <section aria-labelledby="dash-tools-h" class="dash__section dash__section--tools">
       <div class="dash__bar"><h2 id="dash-tools-h" data-i18n="dash.tools">Your tools</h2><button type="button" id="dash-edit" class="ow-btn" hidden></button></div>
       <p id="dash-hint" class="ow-muted dash__hint" hidden></p>
       <div id="dash-searchbar" class="dash__search" hidden><span data-icon="search" data-icon-size="1.1rem"></span><input id="dash-search" type="search" class="ow-input" data-i18n-attr="placeholder:dash.search;aria-label:dash.search" placeholder="Search your tools" autocomplete="off"></div>

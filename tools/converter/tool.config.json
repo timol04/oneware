@@ -25,8 +25,12 @@
   "hasPremium": true,
   "stores": false,
   "about": {
-    "en": "Turn files into other formats: images into PNG, JPG, WebP or PDF; Word, text and Markdown into PDF, Word, HTML or text; PDF into text, Word or images. Everything runs in your browser; your files are never uploaded. Conversions keep text and simple structure (headings, bold, italic, lists, tables), not the exact page layout.",
-    "de": "Dateien in andere Formate umwandeln: Bilder in PNG, JPG, WebP oder PDF; Word, Text und Markdown in PDF, Word, HTML oder Text; PDF in Text, Word oder Bilder. Alles läuft in deinem Browser; deine Dateien werden nie hochgeladen. Übernommen werden Text und einfache Struktur (Überschriften, fett, kursiv, Listen, Tabellen), nicht das genaue Seitenlayout."
+    "en": "Turn files into other formats: images into PNG, JPG, WebP or PDF; Word, text and Markdown into PDF, Word, HTML or text; PDF into text, Word or images. Everything runs in your browser; your files are never uploaded. Conversions keep text and simple structure (headings, bold, italic, lists, tables), not the exact page layout. Files can come over from Notes, the PDF Toolkit or Verifyxr without a download in between, and results can go on to the PDF Toolkit or Verifyxr. The file stays in your browser the whole time.",
+    "de": "Dateien in andere Formate umwandeln: Bilder in PNG, JPG, WebP oder PDF; Word, Text und Markdown in PDF, Word, HTML oder Text; PDF in Text, Word oder Bilder. Alles läuft in deinem Browser; deine Dateien werden nie hochgeladen. Übernommen werden Text und einfache Struktur (Überschriften, fett, kursiv, Listen, Tabellen), nicht das genaue Seitenlayout. Dateien kommen ohne Umweg über einen Download aus Notes, dem PDF-Werkzeug oder Verifyxr, und Ergebnisse gehen weiter ins PDF-Werkzeug oder zu Verifyxr. Die Datei bleibt die ganze Zeit in deinem Browser."
+  },
+  "audience": {
+    "en": "Anyone who needs a quick one-off conversion between common picture and document formats without uploading files.",
+    "de": "Alle, die schnell einmal Bilder oder Dokumente umwandeln wollen, ohne Dateien hochzuladen."
   },
   "features": {
     "free": [
@@ -45,6 +49,10 @@
       {
         "en": "Clear notes about what a conversion cannot keep",
         "de": "Klare Hinweise, was eine Umwandlung nicht übernehmen kann"
+      },
+      {
+        "en": "Hand files over to and from Notes, the PDF Toolkit and Verifyxr",
+        "de": "Dateien an Notes, das PDF-Werkzeug und Verifyxr übergeben und von dort übernehmen"
       }
     ],
     "premium": [

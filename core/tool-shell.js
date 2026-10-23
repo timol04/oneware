@@ -229,7 +229,8 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
 
   // ---- about section ----
   const about = el('details', 'ow-about');
-  const aboutWrap = el('div', 'ow-container ow-container--tool');
+  const aboutWrap = el('section', 'ow-container ow-container--tool');
+  aboutWrap.setAttribute('aria-label', t('shell.about.title'));
   aboutWrap.append(about);
   main.after(aboutWrap);
   if (isDesktop()) about.open = true;
@@ -263,6 +264,10 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
       }
       body.append(cmp);
     }
+    const audience = localize(config.audience);
+    if (audience) body.append(el('h3', '', t('shell.about.audience')), el('p', '', audience));
+    body.append(el('h3', '', t('shell.about.data')), el('p', '', t(stores ? 'shell.about.data.stores' : 'shell.about.data.files')));
+    if (config.countLimit && config.hasPremium) body.append(el('h3', '', t('shell.about.limit')), el('p', '', t('shell.about.limit.text')));
     const faq = config.seo?.faq ?? [];
     if (faq.length) {
       const sec = el('div', 'ow-faq');

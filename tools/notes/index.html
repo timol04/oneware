@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#eef0ee" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#121416" media="(prefers-color-scheme: dark)">
   <title>Notes – oneware</title>
-  <meta name="description" content="Quick notes with tags, colors and Markdown. Stored in your browser, no account.">
+  <meta name="description" content="Quick notes with tags, colors and lists, turn tasks into a checklist. Stored in your browser, no account.">
   <meta property="og:title" content="Notes – oneware">
-  <meta property="og:description" content="Quick notes with tags, colors and Markdown. Stored in your browser, no account.">
+  <meta property="og:description" content="Quick notes with tags, colors and lists, turn tasks into a checklist. Stored in your browser, no account.">
   <meta property="og:image" content="https://oneware.page/core/og.png">
   <link rel="icon" type="image/svg+xml" href="../../core/favicon.svg">
   <script src="../../core/theme-init.js"></script>
@@ -57,6 +57,15 @@
           <div class="nt-bodywrap">
             <div id="body" class="nt-body nt-md" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" data-i18n-attr="data-placeholder:nt.bodyPh;aria-label:nt.bodyLabel"></div>
             <div id="float" class="nt-float" role="toolbar" hidden></div>
+          </div>
+          <div class="nt-actions">
+            <div id="export" class="nt-convert" hidden>
+              <button type="button" id="to-pdf" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+              <button type="button" id="to-word" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+            </div>
+            <div id="convert" class="nt-convert" hidden>
+              <button type="button" id="to-checklist" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+            </div>
           </div>
           <p id="meta" class="ow-usage"></p>
         </div>

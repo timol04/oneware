@@ -416,4 +416,15 @@ addEventListener('pagehide', () => { flush(); });
 
 onLangChange(render);
 await load();
+// Deep link used by Notes ("?list=<id>"): open that checklist right away
+{
+  const params = new URLSearchParams(location.search);
+  const wanted = params.get('list');
+  if (wanted) {
+    const target = lists.find((l) => l.id === wanted);
+    if (target) { view = target.archived ? 'archive' : 'lists'; selectedId = target.id; }
+    params.delete('list');
+    history.replaceState(null, '', location.pathname + (params.size ? `?${params}` : '') + location.hash);
+  }
+}
 render();

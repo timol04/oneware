@@ -67,6 +67,7 @@ function renderTypes() {
   $('types').replaceChildren(...TYPE_IDS.map((id) => {
     const b = chip(t(`type.${id}`), id === kind, { kind: id });
     b.setAttribute('role', 'radio');
+    b.removeAttribute('aria-pressed'); // radios use aria-checked
     b.setAttribute('aria-checked', String(id === kind));
     return b;
   }));
@@ -368,6 +369,17 @@ function renderAll() {
   syncLocks();
   $('status').textContent = describe();
   refresh();
+}
+
+// A link handed over from another tool (e.g. Readlist) fills the web address field
+{
+  const params = new URLSearchParams(location.search);
+  const link = params.get('url');
+  if (link && /^https?:\/\/\S+$/i.test(link)) { kind = 'url'; values.url.url = link; }
+  if (params.has('url')) {
+    params.delete('url');
+    history.replaceState(null, '', location.pathname + (params.size ? `?${params}` : '') + location.hash);
+  }
 }
 
 onLangChange(renderAll);

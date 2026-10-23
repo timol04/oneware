@@ -18,7 +18,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { ICONS, ICON_NAMES } from '../core/icons.js';
 import { LOCALES } from '../core/locales/index.js';
-import { previewHtml, PREVIEW_KINDS } from '../hub/src/preview.js';
+import { previewHtml, shotHtml, PREVIEW_KINDS } from '../hub/src/preview.js';
 import { licensing } from '../core/site-config.js';
 import { KINDS, groupTools } from '../hub/src/groups.js';
 import { injectToolSeo, sitemapXml, fillI18n, noscriptNav } from './seo.js';
@@ -82,7 +82,8 @@ for (const entry of await readdir(toolsDir, { withFileTypes: true })) {
       else fail('purchaseUrl is still a placeholder');
     }
   }
-  tools.push({ ...cfg, path: `mydashboard/${entry.name}/`, source: `tools/${entry.name}/` });
+  const shot = existsSync(path.join(root, 'hub', 'assets', 'previews', `${entry.name}-dark.webp`)) && existsSync(path.join(root, 'hub', 'assets', 'previews', `${entry.name}-light.webp`));
+  tools.push({ ...cfg, shot, path: `mydashboard/${entry.name}/`, source: `tools/${entry.name}/` });
 }
 
 if (errors.length) {
@@ -132,17 +133,19 @@ const icon = (name) => `<svg class="ow-icon" viewBox="0 0 24 24" width="1.4rem" 
 function row(tool) {
   const live = tool.status === 'live';
   const style = tool.accent ? ` style="--accent-l:${tool.accent.light};--accent-d:${tool.accent.dark}"` : '';
-  const inner = `<div class="tool-card__preview">${previewHtml(tool.preview)}</div>`
+  const free = licensing.enabled && tool.hasPremium ? `<span class="tool-card__tag">${esc(en['hub.freePlan'])}</span>` : '';
+  const priceText = licensing.enabled ? text(tool.price) : live ? en['hub.freeNow'] : '';
+  const inner = `<div class="tool-card__preview">${tool.shot ? shotHtml(tool.slug) : previewHtml(tool.preview)}${priceText ? `<span class="price-tag">${esc(priceText)}</span>` : ''}</div>`
     + '<div class="tool-card__body">'
-    + `<div class="tool-card__top"><span class="tool-card__icon">${icon(tool.icon)}</span><h4 class="tool-card__name">${esc(text(tool.name))}</h4></div>`
+    + `<div class="tool-card__top"><span class="tool-card__no" aria-hidden="true"></span><span class="tool-card__icon">${icon(tool.icon)}</span><h4 class="tool-card__name">${esc(text(tool.name))}</h4></div>`
     + `<p class="tool-card__desc">${esc(text(tool.shortDescription))}</p>`
-    + `<div class="tool-card__meta"><span class="tool-card__price">${esc(licensing.enabled ? text(tool.price) : live ? en['hub.freeNow'] : '')}</span>`
+    + `<div class="tool-card__meta">${free || '<span></span>'}`
     + `<span class="ow-status ow-status--${live ? 'green' : 'yellow'}">${esc(live ? en['hub.live'] : en['hub.soon'])}</span></div></div>`;
-  return `        <li class="tool-card${live ? '' : ' tool-card--soon'}" data-category="${esc(tool.category)}"${style}>`
+  return `        <li class="tool-card${live ? '' : ' tool-card--soon'}" data-kind="${esc(tool.kind ?? 'app')}" data-category="${esc(tool.category)}"${style}>`
     + (live ? `<a class="tool-card__link" href="${esc(tool.path)}">${inner}</a>` : `<div class="tool-card__link">${inner}</div>`) + '</li>';
 }
 const html = await readFile(indexFile, 'utf8');
-const group = (g) => `        <section class="group"><div class="group__head"><h3 class="group__title">${esc(en[`hub.group.${g.kind}`])}</h3><p class="group__desc">${esc(en[`hub.group.${g.kind}.desc`])}</p></div>\n`
+const group = (g) => `        <section class="group" data-kind="${g.kind}"><div class="group__head"><h3 class="group__title">${esc(en[`hub.group.${g.kind}`])}</h3><p class="group__desc">${esc(en[`hub.group.${g.kind}.desc`])}</p></div>\n`
   + `        <ul class="catalog">\n${g.items.map(row).join('\n')}\n        </ul></section>`;
 const rows = tools.length ? groupTools(tools).map(group).join('\n') : `        <p class="catalog__msg ow-muted">${esc(en['hub.empty'])}</p>`;
 const next = html.replace(/(<!-- catalog:start -->)[\s\S]*?(<!-- catalog:end -->)/, (_, start, end) => `${start}\n${rows}\n        ${end}`);

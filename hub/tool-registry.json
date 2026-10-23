@@ -6,8 +6,8 @@
       "de": "Notizen"
     },
     "shortDescription": {
-      "en": "Quick notes with tags and colors.",
-      "de": "Schnelle Notizen mit Tags und Farben."
+      "en": "Quick notes with tags and colors. Turn lists into checklists.",
+      "de": "Schnelle Notizen mit Tags und Farben. Listen werden zu Checklisten."
     },
     "category": "notes",
     "kind": "app",
@@ -20,15 +20,20 @@
     },
     "order": 10,
     "accent": {
-      "light": "#b45309",
+      "light": "#a14607",
       "dark": "#e0a458"
     },
     "hasPremium": true,
     "stores": true,
     "about": {
-      "en": "Capture quick notes, sort them with tags and colors, pin what matters and write in Markdown with a preview. Everything stays in your browser.",
-      "de": "Schnelle Notizen festhalten, mit Tags und Farben ordnen, Wichtiges anpinnen und in Markdown mit Vorschau schreiben. Alles bleibt in deinem Browser."
+      "en": "Capture quick notes in a simple editor with headings, lists, links and quotes. Sort them with tags and colors, pin what matters and turn a list of tasks into a checklist with a few clicks. Everything stays in your browser. A note can also go straight to the Converter as a PDF or Word file.",
+      "de": "Schnelle Notizen in einem einfachen Editor mit Überschriften, Listen, Links und Zitaten festhalten. Mit Tags und Farben ordnen, Wichtiges anpinnen und eine Liste von Aufgaben mit wenigen Klicks in eine Checkliste umwandeln. Alles bleibt in deinem Browser. Eine Notiz lässt sich außerdem direkt im Converter in eine PDF- oder Word-Datei umwandeln."
     },
+    "audience": {
+      "en": "Quick private notes with tags, lists and a one-click way to turn tasks into a checklist, no account needed.",
+      "de": "Schnelle private Notizen mit Tags, Listen und einem Klick von der Aufgabenliste zur Checkliste, ohne Konto."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -40,12 +45,20 @@
           "de": "Tags, Farben, Anpinnen, Archiv und Suche"
         },
         {
-          "en": "Markdown with preview",
-          "de": "Markdown mit Vorschau"
+          "en": "Simple editor: headings, lists, bold, links, quotes and code",
+          "de": "Einfacher Editor: Überschriften, Listen, Fett, Links, Zitate und Code"
+        },
+        {
+          "en": "Turn a list of tasks into a checklist in Checklists",
+          "de": "Eine Aufgabenliste in Checklists in eine Checkliste umwandeln"
         },
         {
           "en": "Backup export and import",
           "de": "Backup-Export und -Import"
+        },
+        {
+          "en": "Convert a note to PDF or Word in the Converter",
+          "de": "Notiz im Converter in PDF oder Word umwandeln"
         }
       ],
       "premium": [
@@ -65,8 +78,8 @@
         "de": "Notizen-App im Browser, ohne Konto – Oneware"
       },
       "description": {
-        "en": "Quick notes with tags, colors and Markdown preview. Stored locally in your browser: no account, no cloud, no subscription.",
-        "de": "Schnelle Notizen mit Tags, Farben und Markdown-Vorschau. Lokal im Browser gespeichert: ohne Konto, ohne Cloud, ohne Abo."
+        "en": "Quick notes with tags, colors and lists, and a one-click way to turn tasks into a checklist. Stored locally in your browser: no account, no cloud, no subscription.",
+        "de": "Schnelle Notizen mit Tags, Farben und Listen, dazu ein Klick von der Aufgabenliste zur Checkliste. Lokal im Browser gespeichert: ohne Konto, ohne Cloud, ohne Abo."
       },
       "related": [
         "journal",
@@ -86,12 +99,22 @@
         },
         {
           "q": {
-            "en": "Can I write notes in Markdown?",
-            "de": "Kann ich Notizen in Markdown schreiben?"
+            "en": "How do I format my notes?",
+            "de": "Wie formatiere ich meine Notizen?"
           },
           "a": {
-            "en": "Yes. Write headings, lists, bold text and links in Markdown and switch to the preview to see the result.",
-            "de": "Ja. Schreibe Überschriften, Listen, fetten Text und Links in Markdown und wechsle zur Vorschau, um das Ergebnis zu sehen."
+            "en": "Use the buttons above the text for bold, italic, headings, lists, quotes, code and links. You see the result while you write. Behind the scenes notes are stored as Markdown, so backups stay readable.",
+            "de": "Nutze die Knöpfe über dem Text für Fett, Kursiv, Überschriften, Listen, Zitate, Code und Links. Du siehst das Ergebnis beim Schreiben. Im Hintergrund werden Notizen als Markdown gespeichert, deshalb bleiben Backups lesbar."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I turn a list of tasks into a checklist?",
+            "de": "Kann ich eine Aufgabenliste in eine Checkliste umwandeln?"
+          },
+          "a": {
+            "en": "Yes. Write a bulleted or numbered list in a note and click \"Convert tasks to checklist\". A new, separate checklist is created in Checklists and the note stays as it is. The free limit of Checklists applies.",
+            "de": "Ja. Schreibe in einer Notiz eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». In Checklists entsteht eine neue, eigenständige Checkliste, die Notiz bleibt unverändert. Es gilt das Gratis-Limit von Checklists."
           }
         },
         {
@@ -116,6 +139,7 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/notes/"
   },
   {
@@ -125,8 +149,8 @@
       "de": "Checklisten"
     },
     "shortDescription": {
-      "en": "Checklists with sub-items, due dates and repeats.",
-      "de": "Checklisten mit Unterpunkten, Fälligkeiten und Wiederholungen."
+      "en": "Checklists with sub-items, due dates and repeats. Import tasks from Notes.",
+      "de": "Checklisten mit Unterpunkten, Fälligkeiten und Wiederholungen. Aufgaben aus Notes übernehmen."
     },
     "category": "productivity",
     "kind": "app",
@@ -146,9 +170,14 @@
     "stores": true,
     "today": true,
     "about": {
-      "en": "Keep several checklists, break tasks into sub-items, set due dates and let recurring tasks come back on their own. Everything stays in your browser.",
-      "de": "Mehrere Checklisten führen, Aufgaben in Unterpunkte gliedern, Fälligkeiten setzen und wiederkehrende Aufgaben von selbst zurückkehren lassen. Alles bleibt in deinem Browser."
+      "en": "Keep several checklists, break tasks into sub-items, set due dates and let recurring tasks come back on their own. Tasks you wrote in a note can be turned into a checklist from Notes, as a separate copy. Everything stays in your browser.",
+      "de": "Mehrere Checklisten führen, Aufgaben in Unterpunkte gliedern, Fälligkeiten setzen und wiederkehrende Aufgaben von selbst zurückkehren lassen. Aufgaben aus einer Notiz lassen sich in Notes als eigene Kopie in eine Checkliste umwandeln. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "Packing lists, shopping lists and small projects with due dates and repeating tasks.",
+      "de": "Packlisten, Einkaufslisten und kleine Projekte mit Fälligkeiten und wiederkehrenden Aufgaben."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -158,6 +187,10 @@
         {
           "en": "Sub-items, due dates and repeating tasks",
           "de": "Unterpunkte, Fälligkeiten und wiederkehrende Aufgaben"
+        },
+        {
+          "en": "Import tasks from a note in Notes (as a separate checklist)",
+          "de": "Aufgaben aus einer Notiz in Notes übernehmen (als eigene Checkliste)"
         },
         {
           "en": "Progress, search, pinning and archive",
@@ -185,8 +218,8 @@
         "de": "Checklisten-App mit Unterpunkten und Fristen – Oneware"
       },
       "description": {
-        "en": "Checklists with sub-items, due dates and repeating tasks. Runs in your browser and stores everything locally. No account needed.",
-        "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben. Läuft im Browser, alles bleibt lokal. Ohne Konto."
+        "en": "Checklists with sub-items, due dates and repeating tasks, and a way to import tasks from your notes. Runs in your browser and stores everything locally. No account needed.",
+        "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben, dazu Aufgaben aus deinen Notizen übernehmen. Läuft im Browser, alles bleibt lokal. Ohne Konto."
       },
       "related": [
         "notes",
@@ -226,6 +259,16 @@
         },
         {
           "q": {
+            "en": "Can I import tasks from my notes?",
+            "de": "Kann ich Aufgaben aus meinen Notizen übernehmen?"
+          },
+          "a": {
+            "en": "Yes. In Notes, write a bulleted or numbered list and click \"Convert tasks to checklist\". Checklists opens with a new checklist that has one entry per task. The note stays as it is and both can be edited independently. The free limit of 10 checklists applies.",
+            "de": "Ja. Schreibe in Notes eine Aufzählung oder nummerierte Liste und klicke auf «Aufgaben in Checkliste umwandeln». Checklists öffnet sich mit einer neuen Checkliste, die pro Aufgabe einen Eintrag hat. Die Notiz bleibt unverändert, beide lassen sich unabhängig bearbeiten. Es gilt das Gratis-Limit von 10 Checklisten."
+          }
+        },
+        {
+          "q": {
             "en": "How do I back up my checklists or move it to another device?",
             "de": "Wie sichere ich meine Checklisten oder nehme sie auf ein anderes Gerät mit?"
           },
@@ -236,6 +279,7 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/checklists/"
   },
   {
@@ -269,6 +313,11 @@
       "en": "Track daily habits and weekly goals, keep your streaks, see a calendar of every day and add a note when something is worth remembering. Everything stays in your browser.",
       "de": "Tägliche Gewohnheiten und Wochenziele verfolgen, Serien halten, jeden Tag im Kalender sehen und eine Notiz festhalten, wenn etwas erwähnenswert ist. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "People who build routines day by day and want streaks and weekly goals.",
+      "de": "Wer Routinen Tag für Tag aufbaut und Serien und Wochenziele will."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -356,6 +405,7 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/habits/"
   },
   {
@@ -377,13 +427,17 @@
     "order": 50,
     "accent": {
       "light": "#2f6070",
-      "dark": "#467986"
+      "dark": "#6ba1af"
     },
     "hasPremium": true,
     "stores": false,
     "about": {
-      "en": "Create QR codes for links, Wi-Fi, contacts, events and more. Style them, add a logo, check that they scan and export for print or web. Everything runs in your browser.",
-      "de": "QR-Codes für Links, WLAN, Kontakte, Termine und mehr erstellen. Gestalten, Logo einfügen, Scanbarkeit prüfen und für Druck oder Web exportieren. Alles läuft in deinem Browser."
+      "en": "Create QR codes for links, Wi-Fi, contacts, events and more. Style them, add a logo, check that they scan and export for print or web. Everything runs in your browser. A link from your Readlist or Subscription Tracker opens here as a ready QR code.",
+      "de": "QR-Codes für Links, WLAN, Kontakte, Termine und mehr erstellen. Gestalten, Logo einfügen, Scanbarkeit prüfen und für Druck oder Web exportieren. Alles läuft in deinem Browser. Ein Link aus deiner Readlist oder dem Abo-Tracker öffnet sich hier als fertiger QR-Code."
+    },
+    "audience": {
+      "en": "Making QR codes for links, Wi-Fi, contacts and print, with your own colors and logo.",
+      "de": "QR-Codes für Links, WLAN, Kontakte und Druck, mit eigenen Farben und Logo."
     },
     "features": {
       "free": [
@@ -402,6 +456,10 @@
         {
           "en": "PNG export",
           "de": "PNG-Export"
+        },
+        {
+          "en": "Make a QR code from a Readlist or Subscription Tracker link",
+          "de": "QR-Code aus einem Link der Readlist oder des Abo-Trackers erstellen"
         }
       ],
       "premium": [
@@ -487,6 +545,7 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/qr-pro-studio/"
   },
   {
@@ -517,8 +576,12 @@
     "stores": true,
     "today": true,
     "about": {
-      "en": "Keep track of every subscription: what it costs per month and year, when the next charge is due and what you have paused or cancelled. Everything stays in your browser.",
-      "de": "Behalte jedes Abo im Blick: was es pro Monat und Jahr kostet, wann die nächste Abbuchung fällig ist und was du pausiert oder gekündigt hast. Alles bleibt in deinem Browser."
+      "en": "Keep track of every subscription: what it costs per month and year, when the next charge is due and what you have paused or cancelled. Everything stays in your browser. The account link of a subscription can be turned into a QR code with one click.",
+      "de": "Behalte jedes Abo im Blick: was es pro Monat und Jahr kostet, wann die nächste Abbuchung fällig ist und was du pausiert oder gekündigt hast. Alles bleibt in deinem Browser. Der Konto-Link eines Abos lässt sich mit einem Klick in einen QR-Code umwandeln."
+    },
+    "audience": {
+      "en": "People who want to see what their subscriptions really cost and when the next charge comes.",
+      "de": "Alle, die sehen wollen, was ihre Abos wirklich kosten und wann die nächste Abbuchung kommt."
     },
     "features": {
       "free": [
@@ -537,6 +600,10 @@
         {
           "en": "Backup export and import",
           "de": "Backup-Export und -Import"
+        },
+        {
+          "en": "QR code for an account link",
+          "de": "QR-Code für einen Konto-Link"
         }
       ],
       "premium": [
@@ -614,7 +681,140 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/abo-tracker/"
+  },
+  {
+    "slug": "verifyxr",
+    "name": "Verifyxr",
+    "shortDescription": {
+      "en": "Verify a thesis document against its format requirements and fix it.",
+      "de": "Abschlussarbeit auf Formatvorgaben prüfen und das Format beheben."
+    },
+    "category": "study",
+    "kind": "utility",
+    "status": "live",
+    "icon": "file-check",
+    "preview": "check",
+    "price": {
+      "en": "$11.99 one-time",
+      "de": "11.99 USD einmalig"
+    },
+    "order": 60,
+    "accent": {
+      "light": "#7a3a85",
+      "dark": "#b97fc4"
+    },
+    "hasPremium": true,
+    "stores": true,
+    "about": {
+      "en": "Check a Word document against your thesis requirements before you hand it in: font, size, line spacing, margins, word and page count, and APA 7 citations against the reference list. Then fix the formatting in a corrected copy. Everything runs in your browser; your file is never uploaded. A checked document, or its corrected copy, can go on to the Converter, for example to make a PDF, and Word files from the Converter open here to be checked.",
+      "de": "Ein Word-Dokument vor der Abgabe gegen die Vorgaben deiner Arbeit prüfen: Schrift, Grösse, Zeilenabstand, Ränder, Wort- und Seitenzahl sowie APA-7-Zitate gegen das Literaturverzeichnis. Danach das Format in einer korrigierten Kopie beheben. Alles läuft in deinem Browser; deine Datei wird nie hochgeladen. Ein geprüftes Dokument oder seine korrigierte Kopie kann an den Converter weitergegeben werden, zum Beispiel für ein PDF, und Word-Dateien aus dem Converter lassen sich hier prüfen."
+    },
+    "audience": {
+      "en": "Students checking a paper against formatting requirements before they hand it in.",
+      "de": "Studierende, die ihre Arbeit vor der Abgabe gegen Formatvorgaben prüfen."
+    },
+    "features": {
+      "free": [
+        {
+          "en": "Font, size, line spacing and margins",
+          "de": "Schrift, Grösse, Zeilenabstand und Ränder"
+        },
+        {
+          "en": "Word and page limits",
+          "de": "Wort- und Seitengrenzen"
+        },
+        {
+          "en": "Presets and custom requirements",
+          "de": "Vorlagen und eigene Vorgaben"
+        },
+        {
+          "en": "Plain-language fixes for every finding",
+          "de": "Verständliche Lösungshinweise zu jedem Befund"
+        },
+        {
+          "en": "Continue with the Converter and check Word files from it",
+          "de": "Im Converter weiterarbeiten und Word-Dateien von dort prüfen"
+        }
+      ],
+      "premium": [
+        {
+          "en": "APA 7: citations against the reference list, DOI, italics and title case",
+          "de": "APA 7: Zitate gegen das Literaturverzeichnis, DOI, Kursivschrift und Titelschreibweise"
+        },
+        {
+          "en": "Fix the formatting in a corrected copy of your document",
+          "de": "Format in einer korrigierten Kopie deines Dokuments beheben"
+        },
+        {
+          "en": "Check several files at once",
+          "de": "Mehrere Dateien auf einmal prüfen"
+        }
+      ]
+    },
+    "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/3fa3d217-cd87-4805-94a4-37137e2bd270",
+    "lemonSqueezy": {
+      "productId": 1456730
+    },
+    "seo": {
+      "title": {
+        "en": "Thesis format checker for Word documents – Oneware",
+        "de": "Formatprüfung für Abschlussarbeiten (Word) – Oneware"
+      },
+      "description": {
+        "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
+        "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
+      },
+      "related": [
+        "converter",
+        "pdf-toolkit"
+      ],
+      "faq": [
+        {
+          "q": {
+            "en": "Is my thesis uploaded anywhere?",
+            "de": "Wird meine Arbeit irgendwohin hochgeladen?"
+          },
+          "a": {
+            "en": "No. Everything runs in your browser on your device, so your files never leave it.",
+            "de": "Nein. Alles läuft in deinem Browser auf deinem Gerät, deine Dateien verlassen es nie."
+          }
+        },
+        {
+          "q": {
+            "en": "What does Verifyxr check?",
+            "de": "Was prüft Verifyxr?"
+          },
+          "a": {
+            "en": "Font, size, line spacing and margins, word and page limits, and with the APA 7 check your citations against the reference list.",
+            "de": "Schrift, Größe, Zeilenabstand und Ränder, Wort- und Seitenlimits und mit der APA-7-Prüfung deine Zitate gegen das Literaturverzeichnis."
+          }
+        },
+        {
+          "q": {
+            "en": "Does it change my original document?",
+            "de": "Verändert es mein Originaldokument?"
+          },
+          "a": {
+            "en": "No. Formatting fixes are made in a corrected copy and your original file stays as it is.",
+            "de": "Nein. Formatierungskorrekturen entstehen in einer korrigierten Kopie, deine Originaldatei bleibt unverändert."
+          }
+        },
+        {
+          "q": {
+            "en": "Which files does it accept?",
+            "de": "Welche Dateien akzeptiert es?"
+          },
+          "a": {
+            "en": "Word documents in the .docx format.",
+            "de": "Word-Dokumente im Format .docx."
+          }
+        }
+      ]
+    },
+    "shot": true,
+    "path": "mydashboard/verifyxr/"
   },
   {
     "slug": "converter",
@@ -643,8 +843,12 @@
     "hasPremium": true,
     "stores": false,
     "about": {
-      "en": "Turn files into other formats: images into PNG, JPG, WebP or PDF; Word, text and Markdown into PDF, Word, HTML or text; PDF into text, Word or images. Everything runs in your browser; your files are never uploaded. Conversions keep text and simple structure (headings, bold, italic, lists, tables), not the exact page layout.",
-      "de": "Dateien in andere Formate umwandeln: Bilder in PNG, JPG, WebP oder PDF; Word, Text und Markdown in PDF, Word, HTML oder Text; PDF in Text, Word oder Bilder. Alles läuft in deinem Browser; deine Dateien werden nie hochgeladen. Übernommen werden Text und einfache Struktur (Überschriften, fett, kursiv, Listen, Tabellen), nicht das genaue Seitenlayout."
+      "en": "Turn files into other formats: images into PNG, JPG, WebP or PDF; Word, text and Markdown into PDF, Word, HTML or text; PDF into text, Word or images. Everything runs in your browser; your files are never uploaded. Conversions keep text and simple structure (headings, bold, italic, lists, tables), not the exact page layout. Files can come over from Notes, the PDF Toolkit or Verifyxr without a download in between, and results can go on to the PDF Toolkit or Verifyxr. The file stays in your browser the whole time.",
+      "de": "Dateien in andere Formate umwandeln: Bilder in PNG, JPG, WebP oder PDF; Word, Text und Markdown in PDF, Word, HTML oder Text; PDF in Text, Word oder Bilder. Alles läuft in deinem Browser; deine Dateien werden nie hochgeladen. Übernommen werden Text und einfache Struktur (Überschriften, fett, kursiv, Listen, Tabellen), nicht das genaue Seitenlayout. Dateien kommen ohne Umweg über einen Download aus Notes, dem PDF-Werkzeug oder Verifyxr, und Ergebnisse gehen weiter ins PDF-Werkzeug oder zu Verifyxr. Die Datei bleibt die ganze Zeit in deinem Browser."
+    },
+    "audience": {
+      "en": "Anyone who needs a quick one-off conversion between common picture and document formats without uploading files.",
+      "de": "Alle, die schnell einmal Bilder oder Dokumente umwandeln wollen, ohne Dateien hochzuladen."
     },
     "features": {
       "free": [
@@ -663,6 +867,10 @@
         {
           "en": "Clear notes about what a conversion cannot keep",
           "de": "Klare Hinweise, was eine Umwandlung nicht übernehmen kann"
+        },
+        {
+          "en": "Hand files over to and from Notes, the PDF Toolkit and Verifyxr",
+          "de": "Dateien an Notes, das PDF-Werkzeug und Verifyxr übergeben und von dort übernehmen"
         }
       ],
       "premium": [
@@ -737,6 +945,7 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/converter/"
   },
   {
@@ -766,9 +975,14 @@
     "hasPremium": true,
     "stores": true,
     "about": {
-      "en": "Save books, films, series and articles you want to get to, mark what you are reading, rate what you finished and keep notes. Everything stays in your browser.",
-      "de": "Bücher, Filme, Serien und Artikel merken, die du noch vorhast, festhalten was gerade läuft, Fertiges bewerten und Notizen führen. Alles bleibt in deinem Browser."
+      "en": "Save books, films, series and articles you want to get to, mark what you are reading, rate what you finished and keep notes. Everything stays in your browser. A saved link can be turned into a QR code with one click.",
+      "de": "Bücher, Filme, Serien und Artikel merken, die du noch vorhast, festhalten was gerade läuft, Fertiges bewerten und Notizen führen. Alles bleibt in deinem Browser. Ein gespeicherter Link lässt sich mit einem Klick in einen QR-Code umwandeln."
     },
+    "audience": {
+      "en": "Keeping track of books, articles and anything else you want to read or have read.",
+      "de": "Bücher, Artikel und alles andere im Blick behalten, was du lesen willst oder gelesen hast."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -786,6 +1000,10 @@
         {
           "en": "Backup export and import",
           "de": "Backup-Export und -Import"
+        },
+        {
+          "en": "QR code for a saved link",
+          "de": "QR-Code für einen gespeicherten Link"
         }
       ],
       "premium": [
@@ -856,6 +1074,7 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/readlist/"
   },
   {
@@ -879,7 +1098,7 @@
     },
     "order": 80,
     "accent": {
-      "light": "#4d7c0f",
+      "light": "#46720d",
       "dark": "#a3d36b"
     },
     "hasPremium": true,
@@ -889,6 +1108,11 @@
       "en": "Write one entry per day, rate your mood, sort entries with tags and look back in a calendar. Markdown works with a preview. Everything stays in your browser.",
       "de": "Pro Tag einen Eintrag schreiben, die Stimmung festhalten, mit Tags ordnen und im Kalender zurückblättern. Markdown funktioniert mit Vorschau. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "Daily writing, mood tracking and private reflection that stays on your device.",
+      "de": "Tägliches Schreiben, Stimmung festhalten und private Reflexion, die auf deinem Gerät bleibt."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -976,6 +1200,7 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/journal/"
   },
   {
@@ -1005,8 +1230,12 @@
     "hasPremium": true,
     "stores": false,
     "about": {
-      "en": "Work on PDF files without uploading them: combine several PDFs, pull out or delete pages, rotate and reorder them with a page preview, split a PDF into parts and make a file smaller. Everything runs in your browser; your files never leave your device.",
-      "de": "PDF-Dateien bearbeiten, ohne sie hochzuladen: mehrere PDFs zusammenfügen, Seiten herausziehen oder löschen, mit Seitenvorschau drehen und umsortieren, ein PDF in Teile aufteilen und Dateien verkleinern. Alles läuft in deinem Browser; deine Dateien verlassen dein Gerät nie."
+      "en": "Work on PDF files without uploading them: combine several PDFs, pull out or delete pages, rotate and reorder them with a page preview, split a PDF into parts and make a file smaller. Everything runs in your browser; your files never leave your device. A finished PDF can go straight to the Converter, and PDFs from the Converter open here without a download.",
+      "de": "PDF-Dateien bearbeiten, ohne sie hochzuladen: mehrere PDFs zusammenfügen, Seiten herausziehen oder löschen, mit Seitenvorschau drehen und umsortieren, ein PDF in Teile aufteilen und Dateien verkleinern. Alles läuft in deinem Browser; deine Dateien verlassen dein Gerät nie. Ein fertiges PDF lässt sich direkt im Converter weiterverarbeiten, und PDFs aus dem Converter öffnen sich hier ohne Download."
+    },
+    "audience": {
+      "en": "One-off jobs on PDFs: combine, reorder, extract, compress and split, without uploading them.",
+      "de": "Einmalige Arbeiten an PDFs: zusammenfügen, ordnen, extrahieren, komprimieren und teilen, ohne sie hochzuladen."
     },
     "features": {
       "free": [
@@ -1025,6 +1254,10 @@
         {
           "en": "Clear notes about what each step keeps or changes",
           "de": "Klare Hinweise, was ein Schritt übernimmt oder verändert"
+        },
+        {
+          "en": "Continue with the Converter, and open PDFs from it",
+          "de": "Im Converter weiterarbeiten und PDFs von dort übernehmen"
         }
       ],
       "premium": [
@@ -1098,6 +1331,7 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/pdf-toolkit/"
   },
   {
@@ -1121,7 +1355,7 @@
     },
     "order": 90,
     "accent": {
-      "light": "#b45309",
+      "light": "#a14607",
       "dark": "#f0b45a"
     },
     "hasPremium": true,
@@ -1130,6 +1364,11 @@
       "en": "Record every income and expense in seconds, sort them into categories and review each month: totals, balance and where the money went. Single bookings only; recurring subscriptions belong in the subscription tracker. Everything stays in your browser.",
       "de": "Erfasse jede Einnahme und Ausgabe in Sekunden, ordne sie Kategorien zu und behalte jeden Monat im Blick: Summen, Saldo und wohin das Geld ging. Nur einzelne Buchungen; wiederkehrende Abos gehören in den Abo-Tracker. Alles bleibt in deinem Browser."
     },
+    "audience": {
+      "en": "Keeping a simple record of income and spending, without bank connection or account.",
+      "de": "Wer Einnahmen und Ausgaben einfach festhalten will, ohne Bankanbindung und ohne Konto."
+    },
+    "countLimit": true,
     "features": {
       "free": [
         {
@@ -1224,129 +1463,7 @@
         }
       ]
     },
+    "shot": true,
     "path": "mydashboard/expenses/"
-  },
-  {
-    "slug": "verifyxr",
-    "name": "Verifyxr",
-    "shortDescription": {
-      "en": "Verify a thesis document against its format requirements and fix it.",
-      "de": "Abschlussarbeit auf Formatvorgaben prüfen und das Format beheben."
-    },
-    "category": "study",
-    "kind": "utility",
-    "status": "coming-soon",
-    "icon": "file-check",
-    "preview": "check",
-    "price": {
-      "en": "$11.99 one-time",
-      "de": "11.99 USD einmalig"
-    },
-    "order": 60,
-    "accent": {
-      "light": "#7a3a85",
-      "dark": "#b97fc4"
-    },
-    "hasPremium": true,
-    "stores": true,
-    "about": {
-      "en": "Check a Word document against your thesis requirements before you hand it in: font, size, line spacing, margins, word and page count, and APA 7 citations against the reference list. Then fix the formatting in a corrected copy. Everything runs in your browser; your file is never uploaded.",
-      "de": "Ein Word-Dokument vor der Abgabe gegen die Vorgaben deiner Arbeit prüfen: Schrift, Grösse, Zeilenabstand, Ränder, Wort- und Seitenzahl sowie APA-7-Zitate gegen das Literaturverzeichnis. Danach das Format in einer korrigierten Kopie beheben. Alles läuft in deinem Browser; deine Datei wird nie hochgeladen."
-    },
-    "features": {
-      "free": [
-        {
-          "en": "Font, size, line spacing and margins",
-          "de": "Schrift, Grösse, Zeilenabstand und Ränder"
-        },
-        {
-          "en": "Word and page limits",
-          "de": "Wort- und Seitengrenzen"
-        },
-        {
-          "en": "Presets and custom requirements",
-          "de": "Vorlagen und eigene Vorgaben"
-        },
-        {
-          "en": "Plain-language fixes for every finding",
-          "de": "Verständliche Lösungshinweise zu jedem Befund"
-        }
-      ],
-      "premium": [
-        {
-          "en": "APA 7: citations against the reference list, DOI, italics and title case",
-          "de": "APA 7: Zitate gegen das Literaturverzeichnis, DOI, Kursivschrift und Titelschreibweise"
-        },
-        {
-          "en": "Fix the formatting in a corrected copy of your document",
-          "de": "Format in einer korrigierten Kopie deines Dokuments beheben"
-        },
-        {
-          "en": "Check several files at once",
-          "de": "Mehrere Dateien auf einmal prüfen"
-        }
-      ]
-    },
-    "_purchaseUrl_paused": "https://oneware.lemonsqueezy.com/checkout/buy/3fa3d217-cd87-4805-94a4-37137e2bd270",
-    "lemonSqueezy": {
-      "productId": 1456730
-    },
-    "seo": {
-      "title": {
-        "en": "Thesis format checker for Word documents – Oneware",
-        "de": "Formatprüfung für Abschlussarbeiten (Word) – Oneware"
-      },
-      "description": {
-        "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
-        "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
-      },
-      "related": [
-        "converter",
-        "pdf-toolkit"
-      ],
-      "faq": [
-        {
-          "q": {
-            "en": "Is my thesis uploaded anywhere?",
-            "de": "Wird meine Arbeit irgendwohin hochgeladen?"
-          },
-          "a": {
-            "en": "No. Everything runs in your browser on your device, so your files never leave it.",
-            "de": "Nein. Alles läuft in deinem Browser auf deinem Gerät, deine Dateien verlassen es nie."
-          }
-        },
-        {
-          "q": {
-            "en": "What does Verifyxr check?",
-            "de": "Was prüft Verifyxr?"
-          },
-          "a": {
-            "en": "Font, size, line spacing and margins, word and page limits, and with the APA 7 check your citations against the reference list.",
-            "de": "Schrift, Größe, Zeilenabstand und Ränder, Wort- und Seitenlimits und mit der APA-7-Prüfung deine Zitate gegen das Literaturverzeichnis."
-          }
-        },
-        {
-          "q": {
-            "en": "Does it change my original document?",
-            "de": "Verändert es mein Originaldokument?"
-          },
-          "a": {
-            "en": "No. Formatting fixes are made in a corrected copy and your original file stays as it is.",
-            "de": "Nein. Formatierungskorrekturen entstehen in einer korrigierten Kopie, deine Originaldatei bleibt unverändert."
-          }
-        },
-        {
-          "q": {
-            "en": "Which files does it accept?",
-            "de": "Welche Dateien akzeptiert es?"
-          },
-          "a": {
-            "en": "Word documents in the .docx format.",
-            "de": "Word-Dokumente im Format .docx."
-          }
-        }
-      ]
-    },
-    "path": "mydashboard/verifyxr/"
   }
 ]

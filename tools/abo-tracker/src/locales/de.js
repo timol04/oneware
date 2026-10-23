@@ -78,4 +78,5 @@ export default {
   'ab.chart.pricesHint': 'Abos, deren Preis sich geändert hat.',
   'ab.chart.noPrices': 'Noch keine Preisänderungen. Ändere in einem Abo den Preis, dann erscheint er hier.',
   'ab.chart.priceChange': '{from} auf {to}',
+  'ab.form.qr': 'QR-Code',
 };
