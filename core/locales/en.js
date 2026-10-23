@@ -359,4 +359,6 @@ export default {
   'core.handoff.converter': 'Converter',
   'core.handoff.pdf': 'PDF Toolkit',
   'core.handoff.verifyxr': 'Verifyxr',
+  "hub.privacy.text": "Private by design: your entries and files stay on your device.",
+  "hub.privacy.link": "Privacy",
 };

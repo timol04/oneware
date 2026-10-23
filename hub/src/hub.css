@@ -151,3 +151,6 @@ a.tool-card__link:hover .price-tag { transform: rotate(-5deg); }
   a.tool-card__link:hover, a.tool-card__link:hover .tool-card__preview .win { transform: none; }
   a.tool-card__link:hover .price-tag { transform: rotate(3deg); }
 }
+.hero__privacy { display: flex; align-items: flex-start; gap: var(--s-2); margin: var(--s-4) 0 0; font-size: var(--fs-small); color: var(--text-muted); max-width: 30rem; }
+.hero__privacy .ow-icon { flex: none; margin-top: .1em; color: var(--accent, currentColor); }
+.hero__privacy a { color: inherit; text-decoration: underline; text-underline-offset: .15em; }
