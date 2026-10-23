@@ -116,4 +116,5 @@
 .nt-float .nt-fmt__btn { width: 2rem; height: 2rem; border-color: transparent; }
 .nt-float .nt-fmt__btn:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
 
-.nt-convert { margin: var(--s-3) 0 var(--s-2); }
+.nt-actions { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: var(--s-3) 0 var(--s-2); }
+.nt-convert { display: contents; }

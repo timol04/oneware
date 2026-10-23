@@ -6,6 +6,8 @@ import { createIcon } from '../../../core/icons.js';
 import { showToast } from '../../../core/ui-components.js';
 import { mountRichEditor } from '../../../core/rich-editor.js';
 import { COLORS, FREE_LIMIT, newNote, displayTitle, snippet, normalizeTag, tagCounts, visibleNotes, atLimit } from './notes.js';
+import { sendToTool } from '../../../core/handoff.js';
+import { hasText, noteFile } from './export.js';
 import { extractTasks, checklistTitle, createChecklistFromNote, CHECKLISTS } from './tasks.js';
 import { FREE_LIMIT as CHECKLIST_LIMIT } from '../../checklists/src/checklists.js';
 import en from './locales/en.js';
@@ -199,7 +201,18 @@ function renderMeta(note) {
 /** The button shows only while the open note contains at least one task. */
 function renderConvert(note) {
   $('convert').hidden = !note || !extractTasks(note.body).length;
+  $('export').hidden = !hasText(note);
 }
+
+/** Opens the Converter with this note as a Markdown file, set to the wanted format. */
+async function sendNote(target) {
+  await flush();
+  const note = selected();
+  if (!note || !hasText(note)) return;
+  if (!(await sendToTool('converter', [noteFile(note, t('nt.untitled'))], { target }))) showToast(t('core.handoff.failed'));
+}
+$('to-pdf').addEventListener('click', () => sendNote('pdf'));
+$('to-word').addEventListener('click', () => sendNote('docx'));
 
 function openDialog({ title, text, actions }) {
   const dialog = document.createElement('dialog');
@@ -288,6 +301,8 @@ function render() {
   applyTranslations();
   editor.renderBars();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('nt.new')}`);
+  $('to-pdf').replaceChildren(createIcon('arrow-right', { size: '1.05rem' }), ` ${t('nt.toPdf')}`);
+  $('to-word').replaceChildren(createIcon('arrow-right', { size: '1.05rem' }), ` ${t('nt.toWord')}`);
   $('to-checklist').replaceChildren(createIcon('check-circle', { size: '1.05rem' }), ` ${t('nt.toChecklist')}`);
   shell.setPremiumLimit(t('nt.limitLabel', { limit: FREE_LIMIT }), t('nt.usage', { count: notes.length, limit: FREE_LIMIT }));
   renderViews();

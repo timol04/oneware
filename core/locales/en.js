@@ -353,4 +353,10 @@ export default {
   "core.license.limit": "This key is already used on the maximum number of devices.",
   "core.license.disabled": "This license is no longer active.",
   "core.license.wrongProduct": "This key belongs to a different tool.",
+
+  'core.handoff.continue': 'Continue with {tool}',
+  'core.handoff.failed': 'The file could not be handed over. Download it instead.',
+  'core.handoff.converter': 'Converter',
+  'core.handoff.pdf': 'PDF Toolkit',
+  'core.handoff.verifyxr': 'Verifyxr',
 };

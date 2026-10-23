@@ -48,4 +48,6 @@ export default {
   'nt.toChecklist.limitText': 'You already have {limit} free checklists, so no new one can be created. Your note stays as it is. Delete a checklist or unlock Premium in Checklists to continue.',
   'nt.toChecklist.openChecklists': 'Open Checklists',
   'nt.toChecklist.failed': 'The checklist could not be created. Please try again.',
+  'nt.toPdf': 'Convert to PDF',
+  'nt.toWord': 'Convert to Word',
 };

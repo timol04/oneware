@@ -3,6 +3,7 @@ import { markPremium } from '../../../core/premium.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import { showToast } from '../../../core/ui-components.js';
+import { receiveFiles, continueButton } from '../../../core/handoff.js';
 import { PREMIUM_FEATURES, MAX_BYTES } from './config.js';
 import { parseDocx } from './docx.js';
 import { checkDocument } from './checker.js';
@@ -20,6 +21,7 @@ registerMessages('en', en);
 registerMessages('de', de);
 
 const SLUG = 'verifyxr';
+const DOCX = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 const config = await (await fetch('tool.config.json')).json();
 const $ = (id) => document.getElementById(id);
 
@@ -231,6 +233,19 @@ function render() {
       if (entry?.fixed) download(entry.fixed.bytes, `${entry.name.replace(/\.docx$/i, '')}-fixed.docx`);
     });
   });
+  // One checked document can go on to the Converter (the corrected copy if there is one)
+  $('actions').querySelector('.vx-continue')?.remove();
+  const only = computed.length === 1 && !computed[0].error ? entries[0] : null;
+  if (only) {
+    const next = continueButton({
+      tool: 'converter', label: t('core.handoff.converter'), onFail: showToast, params: { target: 'pdf' },
+      getFiles: () => [only.fixed
+        ? { name: `${only.name.replace(/\.docx$/i, '')}-fixed.docx`, type: DOCX, data: only.fixed.bytes }
+        : { name: only.name, type: DOCX, data: only.buffer }],
+    });
+    next.classList.add('vx-continue');
+    $('actions').append(next);
+  }
   const printBtn = $('print');
   printBtn.classList.toggle('is-locked', !!locked('pdf'));
   if (PREMIUM_FEATURES.pdf) markPremium(printBtn, SLUG, { compact: true });
@@ -365,3 +380,6 @@ function renderAll() {
 writeRules(PRESETS[DEFAULT_PRESET]);
 onLangChange(renderAll);
 renderAll();
+// A Word file handed over from another tool is checked right away
+const handed = await receiveFiles();
+if (handed) handleFiles(handed.files);

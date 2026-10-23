@@ -371,5 +371,16 @@ function renderAll() {
   refresh();
 }
 
+// A link handed over from another tool (e.g. Readlist) fills the web address field
+{
+  const params = new URLSearchParams(location.search);
+  const link = params.get('url');
+  if (link && /^https?:\/\/\S+$/i.test(link)) { kind = 'url'; values.url.url = link; }
+  if (params.has('url')) {
+    params.delete('url');
+    history.replaceState(null, '', location.pathname + (params.size ? `?${params}` : '') + location.hash);
+  }
+}
+
 onLangChange(renderAll);
 renderAll();

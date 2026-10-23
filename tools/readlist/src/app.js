@@ -209,6 +209,9 @@ function renderLink(entry) {
   const a = $('open');
   a.hidden = !href;
   if (href) { a.href = href; iconButton(a, 'link', t('rl.open')); }
+  const qr = $('qr');
+  qr.hidden = !href;
+  if (href) { qr.href = `../qr-pro-studio/?url=${encodeURIComponent(href)}`; iconButton(qr, 'grid', t('rl.qr')); }
 }
 
 function renderMeta(entry) {

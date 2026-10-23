@@ -26,8 +26,8 @@
   "stores": true,
   "today": true,
   "about": {
-    "en": "Keep track of every subscription: what it costs per month and year, when the next charge is due and what you have paused or cancelled. Everything stays in your browser.",
-    "de": "Behalte jedes Abo im Blick: was es pro Monat und Jahr kostet, wann die nächste Abbuchung fällig ist und was du pausiert oder gekündigt hast. Alles bleibt in deinem Browser."
+    "en": "Keep track of every subscription: what it costs per month and year, when the next charge is due and what you have paused or cancelled. Everything stays in your browser. The account link of a subscription can be turned into a QR code with one click.",
+    "de": "Behalte jedes Abo im Blick: was es pro Monat und Jahr kostet, wann die nächste Abbuchung fällig ist und was du pausiert oder gekündigt hast. Alles bleibt in deinem Browser. Der Konto-Link eines Abos lässt sich mit einem Klick in einen QR-Code umwandeln."
   },
   "audience": {
     "en": "People who want to see what their subscriptions really cost and when the next charge comes.",
@@ -50,6 +50,10 @@
       {
         "en": "Backup export and import",
         "de": "Backup-Export und -Import"
+      },
+      {
+        "en": "QR code for an account link",
+        "de": "QR-Code für einen Konto-Link"
       }
     ],
     "premium": [

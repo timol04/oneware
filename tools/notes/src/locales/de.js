@@ -48,4 +48,6 @@ export default {
   'nt.toChecklist.limitText': 'Du hast bereits {limit} Gratis-Checklisten, deshalb kann keine neue erstellt werden. Deine Notiz bleibt unverändert. Lösche eine Checkliste oder schalte Premium in Checklists frei, um weiterzumachen.',
   'nt.toChecklist.openChecklists': 'Checklists öffnen',
   'nt.toChecklist.failed': 'Die Checkliste konnte nicht erstellt werden. Bitte versuche es erneut.',
+  'nt.toPdf': 'In PDF umwandeln',
+  'nt.toWord': 'In Word umwandeln',
 };

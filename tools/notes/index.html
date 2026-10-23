@@ -58,8 +58,14 @@
             <div id="body" class="nt-body nt-md" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true" data-i18n-attr="data-placeholder:nt.bodyPh;aria-label:nt.bodyLabel"></div>
             <div id="float" class="nt-float" role="toolbar" hidden></div>
           </div>
-          <div id="convert" class="nt-convert" hidden>
-            <button type="button" id="to-checklist" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+          <div class="nt-actions">
+            <div id="export" class="nt-convert" hidden>
+              <button type="button" id="to-pdf" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+              <button type="button" id="to-word" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+            </div>
+            <div id="convert" class="nt-convert" hidden>
+              <button type="button" id="to-checklist" class="ow-btn ow-btn--secondary ow-btn--small"></button>
+            </div>
           </div>
           <p id="meta" class="ow-usage"></p>
         </div>

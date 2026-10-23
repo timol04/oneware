@@ -22,8 +22,8 @@
   "hasPremium": true,
   "stores": false,
   "about": {
-    "en": "Create QR codes for links, Wi-Fi, contacts, events and more. Style them, add a logo, check that they scan and export for print or web. Everything runs in your browser.",
-    "de": "QR-Codes für Links, WLAN, Kontakte, Termine und mehr erstellen. Gestalten, Logo einfügen, Scanbarkeit prüfen und für Druck oder Web exportieren. Alles läuft in deinem Browser."
+    "en": "Create QR codes for links, Wi-Fi, contacts, events and more. Style them, add a logo, check that they scan and export for print or web. Everything runs in your browser. A link from your Readlist or Subscription Tracker opens here as a ready QR code.",
+    "de": "QR-Codes für Links, WLAN, Kontakte, Termine und mehr erstellen. Gestalten, Logo einfügen, Scanbarkeit prüfen und für Druck oder Web exportieren. Alles läuft in deinem Browser. Ein Link aus deiner Readlist oder dem Abo-Tracker öffnet sich hier als fertiger QR-Code."
   },
   "audience": {
     "en": "Making QR codes for links, Wi-Fi, contacts and print, with your own colors and logo.",
@@ -46,6 +46,10 @@
       {
         "en": "PNG export",
         "de": "PNG-Export"
+      },
+      {
+        "en": "Make a QR code from a Readlist or Subscription Tracker link",
+        "de": "QR-Code aus einem Link der Readlist oder des Abo-Trackers erstellen"
       }
     ],
     "premium": [

@@ -55,4 +55,5 @@ export default {
   'rl.stats.average': 'Ø {value} Sterne',
   'rl.usage': '{count} von {limit} Gratis-Einträgen genutzt',
   'rl.limitLabel': '{limit} Einträge',
+  'rl.qr': 'QR-Code zu diesem Link erstellen',
 };

@@ -353,4 +353,10 @@ export default {
   "core.license.limit": "Dieser Schlüssel wird bereits auf der maximalen Anzahl Geräte genutzt.",
   "core.license.disabled": "Diese Lizenz ist nicht mehr aktiv.",
   "core.license.wrongProduct": "Dieser Schlüssel gehört zu einem anderen Tool.",
+
+  'core.handoff.continue': 'Weiter mit {tool}',
+  'core.handoff.failed': 'Die Datei konnte nicht übergeben werden. Lade sie stattdessen herunter.',
+  'core.handoff.converter': 'Converter',
+  'core.handoff.pdf': 'PDF-Werkzeug',
+  'core.handoff.verifyxr': 'Verifyxr',
 };

@@ -232,9 +232,13 @@ function renderStateActions() {
 
 function updateOpenLink() {
   const link = $('open-url');
+  const qr = $('qr-url');
   const url = normalizeUrl($('f-url').value);
   link.hidden = !url;
+  qr.hidden = !url;
   if (!url) return;
+  qr.href = `../qr-pro-studio/?url=${encodeURIComponent(url)}`;
+  qr.replaceChildren(createIcon('grid', { size: '1rem' }), ` ${t('ab.form.qr')}`);
   link.href = url;
   link.replaceChildren(createIcon('link', { size: '1rem' }), ` ${t('ab.form.openUrl')}`);
 }
