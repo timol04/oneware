@@ -1,11 +1,10 @@
-import { isPremiumUnlocked } from '../../../core/license.js';
 import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/storage.js';
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import {
-  FREE_LIMIT, REPEATS, newList, newItem, newSubItem, isoDate, dueState, toggleItem, toggleSub, progress, overdueCount,
-  clearCompleted, moveItem, displayTitle, visibleLists, atLimit,
+  REPEATS, newList, newItem, newSubItem, isoDate, dueState, toggleItem, toggleSub, progress, overdueCount,
+  clearCompleted, moveItem, displayTitle, visibleLists,
 } from './checklists.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
@@ -30,7 +29,6 @@ let deleteTimer;
 const collapsed = new Set(); // item ids whose details are folded away (details are open by default)
 
 const selected = () => lists.find((l) => l.id === selectedId) ?? null;
-const premium = () => isPremiumUnlocked(SLUG);
 
 function el(tag, className, attrs = {}) {
   const e = document.createElement(tag);
@@ -241,7 +239,6 @@ function renderEditor() {
 function render() {
   applyTranslations();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('cl.new')}`);
-  shell.setPremiumLimit(t('cl.limitLabel', { limit: FREE_LIMIT }), t('cl.usage', { count: lists.length, limit: FREE_LIMIT }));
   renderViews();
   renderList();
   renderEditor();
@@ -257,7 +254,6 @@ async function select(id) {
 
 async function createList() {
   await flush();
-  if (atLimit(lists.length, premium())) { shell.showLimit(); return; }
   view = 'lists';
   saving++;
   let stored;

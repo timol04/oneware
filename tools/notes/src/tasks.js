@@ -3,8 +3,8 @@
 // If the note has Markdown checkboxes ("- [ ] / - [x]"), only those count and keep their done state.
 // The note is never touched. The checklist is built with the Checklists tool's own data model.
 
-import { saveItem, getAllItems } from '../../../core/storage.js';
-import { newList, newItem, isoDate, atLimit } from '../../checklists/src/checklists.js';
+import { saveItem } from '../../../core/storage.js';
+import { newList, newItem, isoDate } from '../../checklists/src/checklists.js';
 import { displayTitle } from './notes.js';
 
 export const CHECKLISTS = 'checklists';
@@ -65,20 +65,13 @@ export function buildChecklist(note, tasks, { fallbackTitle, now = Date.now(), t
   return list;
 }
 
-/** Number of checklists that count against the free limit (all of them, archived ones included). */
-export async function checklistCount() {
-  return (await getAllItems(CHECKLISTS)).length;
-}
-
 /**
  * Copies the tasks of a note into a new checklist.
- * Returns { status: 'created', list } or { status: 'limit' } (free limit of Checklists reached, nothing stored)
- * or { status: 'empty' } when the note has no tasks. `premium` is the Checklists license state.
+ * Returns { status: 'created', list } or { status: 'empty' } when the note has no tasks.
  */
-export async function createChecklistFromNote(note, { premium, fallbackTitle, now, today } = {}) {
+export async function createChecklistFromNote(note, { fallbackTitle, now, today } = {}) {
   const tasks = extractTasks(note.body);
   if (!tasks.length) return { status: 'empty' };
-  if (atLimit(await checklistCount(), premium)) return { status: 'limit' };
   const list = await saveItem(CHECKLISTS, buildChecklist(note, tasks, { fallbackTitle, now, today }));
   return { status: 'created', list };
 }

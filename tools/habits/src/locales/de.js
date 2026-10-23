@@ -63,6 +63,4 @@ export default {
   'hb.notePh': 'Notiz für diesen Tag hinzufügen',
   'hb.futureDay': 'Dieser Tag ist noch nicht da.',
   'hb.created': 'Begonnen am {date}',
-  'hb.usage': '{count} von {limit} kostenlosen Gewohnheiten genutzt',
-  'hb.limitLabel': '{limit} Gewohnheiten',
 };

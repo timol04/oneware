@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { renderMarkdown } from '../../../core/markdown.js';
-import { newNote, displayTitle, snippet, parseTags, tagCounts, visibleNotes, atLimit, FREE_LIMIT } from '../src/notes.js';
+import { newNote, displayTitle, snippet, parseTags, tagCounts, visibleNotes } from '../src/notes.js';
 
 test('markdown escapes HTML', () => {
   assert.equal(renderMarkdown('<script>alert(1)</script>'), '<p>&lt;script&gt;alert(1)&lt;/script&gt;</p>');
@@ -50,8 +50,3 @@ test('visibleNotes filters, searches and sorts pinned first', () => {
   assert.deepEqual(visibleNotes(all, { query: 'BET' }).map((n) => n.id), ['b']);
 });
 
-test('free limit', () => {
-  assert.equal(atLimit(FREE_LIMIT, false), true);
-  assert.equal(atLimit(FREE_LIMIT - 1, false), false);
-  assert.equal(atLimit(500, true), false);
-});

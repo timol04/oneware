@@ -1,15 +1,13 @@
-import { isPremiumUnlocked } from '../../../core/license.js';
 import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/storage.js';
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import { showToast } from '../../../core/ui-components.js';
 import { mountRichEditor } from '../../../core/rich-editor.js';
-import { COLORS, FREE_LIMIT, newNote, displayTitle, snippet, normalizeTag, tagCounts, visibleNotes, atLimit } from './notes.js';
+import { COLORS, newNote, displayTitle, snippet, normalizeTag, tagCounts, visibleNotes } from './notes.js';
 import { sendToTool } from '../../../core/handoff.js';
 import { hasText, noteFile } from './export.js';
-import { extractTasks, checklistTitle, createChecklistFromNote, CHECKLISTS } from './tasks.js';
-import { FREE_LIMIT as CHECKLIST_LIMIT } from '../../checklists/src/checklists.js';
+import { extractTasks, checklistTitle, createChecklistFromNote } from './tasks.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
 
@@ -46,7 +44,6 @@ let saveTimer;
 let deleteTimer;
 
 const selected = () => notes.find((n) => n.id === selectedId) ?? null;
-const premium = () => isPremiumUnlocked(SLUG);
 
 function chip(label, pressed, attrs = {}) {
   const b = document.createElement('button');
@@ -251,28 +248,17 @@ async function convertToChecklist() {
   if (!note) return;
   const tasks = extractTasks(note.body);
   if (!tasks.length) { renderConvert(note); return; }
-  const checklistsPremium = isPremiumUnlocked(CHECKLISTS);
   const fallbackTitle = t('nt.toChecklist.fallback');
   const title = checklistTitle(note, fallbackTitle);
   const done = tasks.filter((x) => x.done).length;
   try {
-    const existing = (await getAllItems(CHECKLISTS)).length;
-    if (!checklistsPremium && existing >= CHECKLIST_LIMIT) {
-      const open = await openDialog({
-        title: t('nt.toChecklist.limitTitle'),
-        text: t('nt.toChecklist.limitText', { limit: CHECKLIST_LIMIT }),
-        actions: [[t('nt.toChecklist.cancel'), 'cancel'], [t('nt.toChecklist.openChecklists'), 'open', true]],
-      });
-      if (open === 'open') location.href = checklistsUrl();
-      return;
-    }
     const ok = await openDialog({
       title: t('nt.toChecklist.title'),
       text: t(tasks.length === 1 ? 'nt.toChecklist.text.one' : 'nt.toChecklist.text', { title, count: tasks.length, done }),
       actions: [[t('nt.toChecklist.cancel'), 'cancel'], [t('nt.toChecklist.create'), 'create', true]],
     });
     if (ok !== 'create') return;
-    const result = await createChecklistFromNote(note, { premium: checklistsPremium, fallbackTitle });
+    const result = await createChecklistFromNote(note, { fallbackTitle });
     if (result.status !== 'created') { showToast(t('nt.toChecklist.failed')); return; }
     location.href = checklistsUrl(result.list.id);
   } catch {
@@ -304,7 +290,6 @@ function render() {
   $('to-pdf').replaceChildren(createIcon('arrow-right', { size: '1.05rem' }), ` ${t('nt.toPdf')}`);
   $('to-word').replaceChildren(createIcon('arrow-right', { size: '1.05rem' }), ` ${t('nt.toWord')}`);
   $('to-checklist').replaceChildren(createIcon('check-circle', { size: '1.05rem' }), ` ${t('nt.toChecklist')}`);
-  shell.setPremiumLimit(t('nt.limitLabel', { limit: FREE_LIMIT }), t('nt.usage', { count: notes.length, limit: FREE_LIMIT }));
   renderViews();
   renderTags();
   renderList();
@@ -321,7 +306,6 @@ async function select(id) {
 
 async function createNote() {
   await flush();
-  if (atLimit(notes.length, premium())) { shell.showLimit(); return; }
   view = 'notes';
   saving++;
   let stored;

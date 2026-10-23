@@ -3,7 +3,7 @@ export default {
   'pt.task': 'What do you want to do?',
   'pt.pages': 'Pages',
   'pt.limits': 'What to expect',
-  'usage.free': 'Free: combine, reorder, rotate, delete and extract pages. Compressing and splitting into several files at once are Premium.',
+  'usage.free': 'Free: combine, reorder, rotate, delete and extract pages. Lossless compressing is free. Strong compressing (pages as pictures) and splitting into several files at once are Premium.',
 
   'drop.title': 'Drop PDF files here',
   'drop.sub': 'or click to choose. Add several to combine them.',

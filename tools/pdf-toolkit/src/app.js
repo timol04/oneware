@@ -287,7 +287,6 @@ function renderModes() {
     b.setAttribute('role', 'radio');
     b.setAttribute('aria-checked', String(mode === id));
     b.append(t(`mode.${id}`));
-    if (id === 'compress' && PREMIUM_FEATURES.compress) markPremium(b, SLUG, { compact: true });
     if (id === 'split' && PREMIUM_FEATURES.splitMany) markPremium(b, SLUG, { compact: true });
     return b;
   }));
@@ -302,6 +301,10 @@ function renderModes() {
   else if (!$('only-selected').dataset.touched) $('only-selected').checked = true;
   $('row-ranges').hidden = $('split-by').value !== 'ranges';
   $('row-every').hidden = $('split-by').value !== 'every';
+  for (const o of $('level').options) {
+    const key = o.dataset.i18n;
+    o.textContent = o.value !== 'lossless' && PREMIUM_FEATURES.compressStrong && !shell.isPremium() ? `${t(key)} (${t('shell.premium')})` : t(key);
+  }
   const lossy = $('level').value !== 'lossless';
   $('cmp-warn').hidden = !lossy;
   $('cmp-warn').textContent = lossy ? t('cmp.warn') : '';
@@ -406,7 +409,7 @@ async function compressOne(src) {
 }
 
 async function runCompress() {
-  if (locked('compress')) { shell.showLimit(); throw new Error('locked'); }
+  if ($('level').value !== 'lossless' && locked('compressStrong')) { shell.showLimit(); throw new Error('locked'); }
   const outputs = [];
   const notes = [];
   for (const src of sources) {

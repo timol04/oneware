@@ -1,6 +1,5 @@
 // Pure note logic: titles, filtering, sorting, tags. No DOM, no storage.
 
-export const FREE_LIMIT = 20;
 export const COLORS = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
 
 export function newNote(now = Date.now()) {
@@ -52,4 +51,3 @@ export function visibleNotes(notes, { view = 'notes', tag = null, query = '' } =
     .sort((a, b) => (b.pinned - a.pinned) || b.updated - a.updated);
 }
 
-export const atLimit = (count, premium) => !premium && count >= FREE_LIMIT;

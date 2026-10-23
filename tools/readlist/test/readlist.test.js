@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  newEntry, setStatus, percent, setProgress, parseTags, allTags, visibleEntries, yearStats, counts, safeLink, atLimit, FREE_LIMIT, displayTitle,
+  newEntry, setStatus, percent, setProgress, parseTags, allTags, visibleEntries, yearStats, counts, safeLink, displayTitle,
 } from '../src/readlist.js';
 
 const TODAY = '2026-10-19';
@@ -77,8 +77,3 @@ test('links allow only http(s)', () => {
   assert.equal(safeLink('  '), '');
 });
 
-test('free limit', () => {
-  assert.equal(atLimit(FREE_LIMIT, false), true);
-  assert.equal(atLimit(FREE_LIMIT - 1, false), false);
-  assert.equal(atLimit(500, true), false);
-});

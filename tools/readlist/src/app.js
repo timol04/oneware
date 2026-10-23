@@ -1,11 +1,10 @@
-import { isPremiumUnlocked } from '../../../core/license.js';
 import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/storage.js';
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
 import {
-  FREE_LIMIT, TYPES, STATUSES, TYPE_ICONS, newEntry, setStatus, setProgress, percent, progressUnit, parseTags, allTags,
-  displayTitle, visibleEntries, yearStats, counts, safeLink, atLimit, isoDate,
+  TYPES, STATUSES, TYPE_ICONS, newEntry, setStatus, setProgress, percent, progressUnit, parseTags, allTags,
+  displayTitle, visibleEntries, yearStats, counts, safeLink, isoDate,
 } from './readlist.js';
 import en from './locales/en.js';
 import de from './locales/de.js';
@@ -32,7 +31,6 @@ let saveTimer;
 let deleteTimer;
 
 const selected = () => entries.find((e) => e.id === selectedId) ?? null;
-const premium = () => isPremiumUnlocked(SLUG);
 
 function el(tag, className, attrs = {}) {
   const e = document.createElement(tag);
@@ -249,7 +247,6 @@ function renderEditor() {
 function render() {
   applyTranslations();
   $('new').replaceChildren(createIcon('plus', { size: '1.1rem' }), ` ${t('rl.new')}`);
-  shell.setPremiumLimit(t('rl.limitLabel', { limit: FREE_LIMIT }), t('rl.usage', { count: entries.length, limit: FREE_LIMIT }));
   renderFilters();
   renderList();
   renderEditor();
@@ -265,7 +262,6 @@ async function select(id) {
 
 async function createEntry() {
   await flush();
-  if (atLimit(entries.length, premium())) { shell.showLimit(); return; }
   view = 'list';
   saving++;
   let stored;

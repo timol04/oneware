@@ -22,7 +22,7 @@
     "light": "#be3a5c",
     "dark": "#ee8aa5"
   },
-  "hasPremium": true,
+  "hasPremium": false,
   "stores": true,
   "today": true,
   "about": {
@@ -33,12 +33,11 @@
     "en": "People who build routines day by day and want streaks and weekly goals.",
     "de": "Wer Routinen Tag für Tag aufbaut und Serien und Wochenziele will."
   },
-  "countLimit": true,
   "features": {
     "free": [
       {
-        "en": "Up to 5 habits with all features",
-        "de": "Bis zu 5 Gewohnheiten mit allen Funktionen"
+        "en": "Unlimited habits, all features",
+        "de": "Unbegrenzt viele Gewohnheiten, alle Funktionen"
       },
       {
         "en": "Daily, weekday and weekly-goal schedules",
@@ -53,12 +52,7 @@
         "de": "Pausen, Archiv sowie Backup-Export und -Import"
       }
     ],
-    "premium": [
-      {
-        "en": "Unlimited habits",
-        "de": "Unbegrenzt viele Gewohnheiten"
-      }
-    ]
+    "premium": []
   },
   "purchaseUrl": "https://oneware.lemonsqueezy.com/checkout/buy/3345b4a1-69a8-49ec-b9b0-55e02dc5b7a5",
   "lemonSqueezy": {

@@ -63,6 +63,4 @@ export default {
   'hb.notePh': 'Add a note for this day',
   'hb.futureDay': 'This day has not come yet.',
   'hb.created': 'Started {date}',
-  'hb.usage': '{count} of {limit} free habits used',
-  'hb.limitLabel': '{limit} habits',
 };

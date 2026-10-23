@@ -1,7 +1,6 @@
 // Pure habit logic: schedules, streaks, pauses, rates, filtering. No DOM, no storage.
 // Weekdays count from Monday (0) to Sunday (6). Dates are local YYYY-MM-DD strings.
 
-export const FREE_LIMIT = 5;
 export const SCHEDULES = ['daily', 'days', 'weekly'];
 export const PAUSE_DAYS = [3, 7, 14, 30];
 export const ALL_DAYS = [0, 1, 2, 3, 4, 5, 6];
@@ -204,4 +203,3 @@ export function visibleHabits(habits, { view = 'today', query = '' } = {}) {
     .sort((a, b) => a.created - b.created);
 }
 
-export const atLimit = (count, premium) => !premium && count >= FREE_LIMIT;

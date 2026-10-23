@@ -48,6 +48,4 @@ export default {
   'cl.due.overdue': 'Überfällig · {date}',
   'cl.due.today': 'Heute',
   'cl.due.other': '{date}',
-  'cl.usage': '{count} von {limit} Gratis-Checklisten genutzt',
-  'cl.limitLabel': '{limit} Checklisten',
 };

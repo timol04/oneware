@@ -35,6 +35,4 @@ export default {
   'jr.unit.day': '{count} day',
   'jr.unit.days': '{count} days',
   'jr.meta': 'Last edited {date}',
-  'jr.limitLabel': '{limit} entries',
-  'jr.usage': '{count} of {limit} free entries used',
 };

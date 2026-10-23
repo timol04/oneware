@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  newEntry, addDays, displayTitle, snippet, parseTags, tagCounts, visibleEntries, streaks, averageMood, monthGrid, atLimit, FREE_LIMIT,
+  newEntry, addDays, displayTitle, snippet, parseTags, tagCounts, visibleEntries, streaks, averageMood, monthGrid,
 } from '../src/journal.js';
 
 const TODAY = '2026-10-19';
@@ -49,7 +49,3 @@ test('month grid starts on Monday and covers the month', () => {
   assert.equal(addDays('2026-10-31', 1), '2026-11-01');
 });
 
-test('free limit', () => {
-  assert.equal(atLimit(FREE_LIMIT, false), true);
-  assert.equal(atLimit(FREE_LIMIT, true), false);
-});

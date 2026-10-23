@@ -16,8 +16,6 @@ export default {
   'ex.empty': 'Keine Buchungen in diesem Monat. Füge die erste hinzu.',
   'ex.emptyFiltered': 'Keine passenden Buchungen.',
   'ex.untitled': 'Ohne Notiz',
-  'ex.limitLabel': '{limit} Buchungen',
-  'ex.usage': '{count} von {limit} gratis Buchungen genutzt',
   'ex.form.add': 'Neue Buchung',
   'ex.form.edit': 'Buchung bearbeiten',
   'ex.form.type': 'Art',

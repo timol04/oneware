@@ -1,7 +1,6 @@
 // Pure journal logic: entries per day, mood, tags, streaks, calendar, filtering. No DOM, no storage.
 // Dates are local YYYY-MM-DD strings; weeks start on Monday.
 
-export const FREE_LIMIT = 30;
 export const MOODS = [1, 2, 3, 4, 5];
 
 export function newEntry(date, now = Date.now()) {
@@ -105,4 +104,3 @@ export function monthGrid(year, month) {
   return weeks;
 }
 
-export const atLimit = (count, premium) => !premium && count >= FREE_LIMIT;
