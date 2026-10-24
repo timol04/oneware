@@ -24,8 +24,8 @@ let files = [];     // [{ file, name, kind }]
 let target = '';
 let running = false;
 let current = [];   // outputs of the last run: [{ name, data, mime }]
-// Where a result can go on: a PDF to the PDF Toolkit. (Word files go to Verifyxr again once it is live: add docx: 'verifyxr'.)
-const NEXT_TOOL = { pdf: 'pdf-toolkit' };
+// Where a result can go on: a PDF to the PDF Toolkit, a Word file to Verifyxr.
+const NEXT_TOOL = { pdf: 'pdf-toolkit', docx: 'verifyxr' };
 
 const formatSize = (n) => (n >= 1048576 ? `${(n / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1024))} KB`);
 const isImageToPdf = () => target === 'pdf' && files.length > 0 && files.every((f) => f.kind === 'image');
