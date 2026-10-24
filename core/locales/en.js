@@ -260,6 +260,8 @@ export default {
   "hub.stage.caption": "Real screens: Habits, Expenses and QR Pro Studio.",
   "hub.free": "Completely free",
   "hub.freePlan": "Free plan",
+  "hub.freeStart": "Free to start",
+  "hub.premiumOptional": "Optional Premium {price}, once",
   "how.faq4.q": "What happens to my license in the long run?",
   "how.faq4.a": "Per our terms a license is valid permanently for that tool, including its updates, for as long as the tool is offered. The tool checks your key with Lemon Squeezy about once a day. It stops only if the key was refunded or deactivated. If the check cannot run, for example because you are offline, the tool keeps working.",
   "how.faq5.q": "Do the tools work offline, and what if the website disappears?",
