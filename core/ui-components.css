@@ -296,3 +296,7 @@ main#main.ow-container--wide { padding-top: var(--s-5); }
 /* Brand motif: a price tag (pointed end, punched hole) in front of the wordmark */
 .ow-wordmark { display: inline-flex; align-items: center; gap: .45em; }
 .ow-wordmark::before { content: ""; width: .95em; height: .68em; background: radial-gradient(circle at 24% 50%, var(--bg) 0 .1em, transparent .11em), var(--tag); clip-path: polygon(30% 0, 100% 0, 100% 100%, 30% 100%, 0 50%); }
+
+/* Icon button carrying a compact Premium badge: grow to fit instead of overflowing the fixed square */
+.ow-iconbtn:has(> .ow-premium:not([hidden])) { width: auto; min-width: 2.5rem; padding: 0 .55em; gap: .35em; }
+.ow-iconbtn > .ow-premium { margin-left: 0; padding: 0; border: 0; background: none; }
