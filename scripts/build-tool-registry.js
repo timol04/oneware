@@ -139,8 +139,8 @@ const icon = (name) => `<svg class="ow-icon" viewBox="0 0 24 24" width="1.4rem" 
 function row(tool) {
   const live = tool.status === 'live';
   const style = tool.accent ? ` style="--accent-l:${tool.accent.light};--accent-d:${tool.accent.dark}"` : '';
-  const free = licensing.enabled && tool.hasPremium ? `<span class="tool-card__tag">${esc(en['hub.freePlan'])}</span>` : '';
-  const priceText = licensing.enabled ? (tool.hasPremium ? text(tool.price) : live ? en['hub.free'] : '') : live ? en['hub.freeNow'] : '';
+  const free = licensing.enabled && tool.hasPremium && live ? `<span class="tool-card__tag">${esc(en['hub.premiumOptional'].replace('{price}', text(tool.price).replace(/\s*(one-time|einmalig)\s*/, '')))}</span>` : '';
+  const priceText = licensing.enabled ? (tool.hasPremium ? (live ? en['hub.freeStart'] : '') : live ? en['hub.free'] : '') : live ? en['hub.freeNow'] : '';
   const inner = `<div class="tool-card__preview">${tool.shot ? shotHtml(tool.slug) : previewHtml(tool.preview)}${priceText ? `<span class="price-tag">${esc(priceText)}</span>` : ''}</div>`
     + '<div class="tool-card__body">'
     + `<div class="tool-card__top"><span class="tool-card__no" aria-hidden="true"></span><span class="tool-card__icon">${icon(tool.icon)}</span><h4 class="tool-card__name">${esc(text(tool.name))}</h4></div>`
