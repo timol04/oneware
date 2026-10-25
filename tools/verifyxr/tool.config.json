@@ -81,12 +81,12 @@
   },
   "seo": {
     "title": {
-      "en": "Thesis format checker for Word documents – Oneware",
-      "de": "Formatprüfung für Abschlussarbeiten (Word) – Oneware"
+      "en": "Thesis and paper format checker for Word files – Oneware",
+      "de": "Formatprüfung für Abschlussarbeiten und Papers (Word) – Oneware"
     },
     "description": {
-      "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
-      "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
+      "en": "Check a Word document against thesis or paper format rules: font, line spacing, margins, length. APA 7 citation check is Premium. Your file stays in your browser.",
+      "de": "Ein Word-Dokument gegen Formatvorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang. Die APA-7-Zitatprüfung ist Premium. Deine Datei bleibt im Browser."
     },
     "related": [
       "converter",

@@ -80,12 +80,12 @@
   },
   "seo": {
     "title": {
-      "en": "PDF tools in your browser: merge, split, compress – Oneware",
-      "de": "PDF-Tools im Browser: zusammenfügen, teilen – Oneware"
+      "en": "Merge, split and compress PDFs free in your browser – Oneware",
+      "de": "PDFs zusammenfügen, teilen, komprimieren: gratis im Browser – Oneware"
     },
     "description": {
-      "en": "Merge, split, rotate, reorder and compress PDFs. Everything runs in your browser, your files are never uploaded.",
-      "de": "PDFs zusammenfügen, teilen, drehen, sortieren und komprimieren. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
+      "en": "Merge PDF files, rearrange, rotate or delete pages and split a PDF. Free to start, runs in your browser, your files are never uploaded.",
+      "de": "PDFs zusammenfügen, Seiten umsortieren, drehen oder löschen und ein PDF teilen. Gratis zum Start, läuft im Browser, deine Dateien werden nie hochgeladen."
     },
     "related": [
       "converter",

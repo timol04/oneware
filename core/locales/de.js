@@ -27,8 +27,8 @@ export default {
   'status.yellow': 'Bald',
   'status.red': 'Überfällig',
 
-  'hub.title': 'Oneware – kleine private Tools für den Browser, einmal zahlen',
-  'hub.desc': 'Kleine private Tools, die in deinem Browser laufen: Notizen, Gewohnheiten, Ausgaben, QR-Codes, PDF-Tools und mehr. Gratis zum Start, einmal zahlen, kein Abo, kein Konto.',
+  'hub.title': 'Oneware – gratis Browser-Tools für PDF, QR-Codes, Notizen und mehr',
+  'hub.desc': 'Eine Sammlung kleiner Browser-Tools: PDF-Werkzeuge, QR-Codes, Konverter, Notizen, Gewohnheiten, Ausgaben und mehr. Gratis zum Start, läuft auf deinem Gerät, kein Konto. Einmal zahlen für optionales Premium.',
   'hub.headline.1': 'Einmal zahlen.',
   'hub.headline.2': 'Behalten.',
   'hub.subline': 'Notizen, Gewohnheiten, PDF-Werkzeuge, QR-Codes und mehr, gratis zum Start. Läuft in deinem Browser, deine Daten und Dateien bleiben auf deinem Gerät. Kein Abo, kein Konto.',

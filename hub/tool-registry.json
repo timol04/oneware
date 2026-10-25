@@ -81,7 +81,7 @@
         "de": "Notizen-App im Browser, ohne Konto – Oneware"
       },
       "description": {
-        "en": "Quick notes with tags, colors and lists, and a one-click way to turn tasks into a checklist. Stored locally in your browser: no account, no cloud, no subscription.",
+        "en": "Quick notes with tags, colors and lists, and a one-click way to turn tasks into a checklist. Stored locally in your browser: no account, no subscription.",
         "de": "Schnelle Notizen mit Tags, Farben und Listen, dazu ein Klick von der Aufgabenliste zur Checkliste. Lokal im Browser gespeichert: ohne Konto, ohne Cloud, ohne Abo."
       },
       "related": [
@@ -234,8 +234,8 @@
         "de": "Checklisten-App mit Unterpunkten und Fristen – Oneware"
       },
       "description": {
-        "en": "Checklists with sub-items, due dates and repeating tasks, and a way to import tasks from your notes. Runs in your browser and stores everything locally. No account needed.",
-        "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben, dazu Aufgaben aus deinen Notizen übernehmen. Läuft im Browser, alles bleibt lokal. Ohne Konto."
+        "en": "Checklists with sub-items, due dates and repeating tasks, plus an import of tasks from your notes. Stored locally in your browser, no account needed.",
+        "de": "Checklisten mit Unteraufgaben, Fälligkeiten und Wiederholungen, dazu Aufgaben aus deinen Notizen übernehmen. Lokal im Browser gespeichert, kein Konto nötig."
       },
       "related": [
         "notes",
@@ -507,12 +507,12 @@
     },
     "seo": {
       "title": {
-        "en": "QR code generator with logo and colors – Oneware",
-        "de": "QR-Code-Generator mit Logo und Farben – Oneware"
+        "en": "Free QR code generator with logo, PNG and SVG – Oneware",
+        "de": "Gratis QR-Code-Generator mit Logo, PNG und SVG – Oneware"
       },
       "description": {
-        "en": "Create QR codes for links, Wi-Fi and contacts. Add colors and a logo, export PNG, SVG or PDF. Runs in your browser, nothing is uploaded.",
-        "de": "QR-Codes für Links, WLAN und Kontakte erstellen. Mit Farben und Logo, Export als PNG, SVG oder PDF. Läuft im Browser, nichts wird hochgeladen."
+        "en": "Create QR codes for links, Wi-Fi, contacts and more. Add colors and a logo and export PNG or SVG for free. Runs in your browser, nothing is uploaded.",
+        "de": "QR-Codes für Links, WLAN, Kontakte und mehr erstellen. Farben und Logo hinzufügen, PNG und SVG gratis exportieren. Läuft im Browser, nichts wird hochgeladen."
       },
       "related": [
         "pdf-toolkit",
@@ -783,12 +783,12 @@
     },
     "seo": {
       "title": {
-        "en": "Thesis format checker for Word documents – Oneware",
-        "de": "Formatprüfung für Abschlussarbeiten (Word) – Oneware"
+        "en": "Thesis and paper format checker for Word files – Oneware",
+        "de": "Formatprüfung für Abschlussarbeiten und Papers (Word) – Oneware"
       },
       "description": {
-        "en": "Check a Word thesis against your requirements: font, spacing, margins, length and APA 7 citations. Your document stays in your browser.",
-        "de": "Word-Arbeit gegen die Vorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang und APA-7-Zitate. Dein Dokument verlässt den Browser nie."
+        "en": "Check a Word document against thesis or paper format rules: font, line spacing, margins, length. APA 7 citation check is Premium. Your file stays in your browser.",
+        "de": "Ein Word-Dokument gegen Formatvorgaben prüfen: Schrift, Zeilenabstand, Ränder, Umfang. Die APA-7-Zitatprüfung ist Premium. Deine Datei bleibt im Browser."
       },
       "related": [
         "converter",
@@ -914,12 +914,12 @@
     },
     "seo": {
       "title": {
-        "en": "Document converter: PDF, Word, text, images – Oneware",
-        "de": "Dokumente umwandeln: PDF, Word, Text, Bilder – Oneware"
+        "en": "Convert images to PDF, Word to PDF and more – Oneware",
+        "de": "Bilder in PDF, Word in PDF und mehr umwandeln – Oneware"
       },
       "description": {
-        "en": "Convert PDF, Word, text, Markdown and images into other formats. Runs entirely in your browser, your files are never uploaded.",
-        "de": "PDF, Word, Text, Markdown und Bilder in andere Formate umwandeln. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
+        "en": "Convert images to PDF, Word, text or Markdown to PDF, and PDF to text, Word or images. Free to start, runs in your browser, your files are never uploaded.",
+        "de": "Bilder in PDF, Word, Text oder Markdown in PDF und PDF in Text, Word oder Bilder umwandeln. Gratis zum Start, läuft im Browser, deine Dateien werden nie hochgeladen."
       },
       "related": [
         "pdf-toolkit",
@@ -1281,12 +1281,12 @@
     },
     "seo": {
       "title": {
-        "en": "PDF tools in your browser: merge, split, compress – Oneware",
-        "de": "PDF-Tools im Browser: zusammenfügen, teilen – Oneware"
+        "en": "Merge, split and compress PDFs free in your browser – Oneware",
+        "de": "PDFs zusammenfügen, teilen, komprimieren: gratis im Browser – Oneware"
       },
       "description": {
-        "en": "Merge, split, rotate, reorder and compress PDFs. Everything runs in your browser, your files are never uploaded.",
-        "de": "PDFs zusammenfügen, teilen, drehen, sortieren und komprimieren. Läuft komplett im Browser, deine Dateien werden nie hochgeladen."
+        "en": "Merge PDF files, rearrange, rotate or delete pages and split a PDF. Free to start, runs in your browser, your files are never uploaded.",
+        "de": "PDFs zusammenfügen, Seiten umsortieren, drehen oder löschen und ein PDF teilen. Gratis zum Start, läuft im Browser, deine Dateien werden nie hochgeladen."
       },
       "related": [
         "converter",

@@ -77,8 +77,8 @@
       "de": "Checklisten-App mit Unterpunkten und Fristen – Oneware"
     },
     "description": {
-      "en": "Checklists with sub-items, due dates and repeating tasks, and a way to import tasks from your notes. Runs in your browser and stores everything locally. No account needed.",
-      "de": "Checklisten mit Unterpunkten, Fälligkeitsdaten und wiederkehrenden Aufgaben, dazu Aufgaben aus deinen Notizen übernehmen. Läuft im Browser, alles bleibt lokal. Ohne Konto."
+      "en": "Checklists with sub-items, due dates and repeating tasks, plus an import of tasks from your notes. Stored locally in your browser, no account needed.",
+      "de": "Checklisten mit Unteraufgaben, Fälligkeiten und Wiederholungen, dazu Aufgaben aus deinen Notizen übernehmen. Lokal im Browser gespeichert, kein Konto nötig."
     },
     "related": [
       "notes",
