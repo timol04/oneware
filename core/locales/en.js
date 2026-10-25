@@ -27,8 +27,8 @@ export default {
   'status.yellow': 'Soon',
   'status.red': 'Overdue',
 
-  'hub.title': 'Oneware – small private tools for your browser, pay once',
-  'hub.desc': 'Small private tools that run in your browser: notes, habits, expenses, QR codes, PDF tools and more. Free to start, pay once, no subscription, no account.',
+  'hub.title': 'Oneware – free browser tools for PDF, QR codes, notes and more',
+  'hub.desc': 'A collection of small browser tools: PDF tools, QR codes, document converter, notes, habits, expenses and more. Free to start, runs on your device, no account. Pay once for optional Premium.',
   'hub.headline.1': 'Pay once.',
   'hub.headline.2': 'Keep it.',
   'hub.subline': 'Notes, habits, PDF tools, QR codes and more, free to start. Runs in your browser, your data and files stay on your device. No subscription, no account.',

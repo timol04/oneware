@@ -85,12 +85,12 @@
   },
   "seo": {
     "title": {
-      "en": "QR code generator with logo and colors – Oneware",
-      "de": "QR-Code-Generator mit Logo und Farben – Oneware"
+      "en": "Free QR code generator with logo, PNG and SVG – Oneware",
+      "de": "Gratis QR-Code-Generator mit Logo, PNG und SVG – Oneware"
     },
     "description": {
-      "en": "Create QR codes for links, Wi-Fi and contacts. Add colors and a logo, export PNG, SVG or PDF. Runs in your browser, nothing is uploaded.",
-      "de": "QR-Codes für Links, WLAN und Kontakte erstellen. Mit Farben und Logo, Export als PNG, SVG oder PDF. Läuft im Browser, nichts wird hochgeladen."
+      "en": "Create QR codes for links, Wi-Fi, contacts and more. Add colors and a logo and export PNG or SVG for free. Runs in your browser, nothing is uploaded.",
+      "de": "QR-Codes für Links, WLAN, Kontakte und mehr erstellen. Farben und Logo hinzufügen, PNG und SVG gratis exportieren. Läuft im Browser, nichts wird hochgeladen."
     },
     "related": [
       "pdf-toolkit",
