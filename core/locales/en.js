@@ -263,7 +263,7 @@ export default {
   "how.faq4.q": "What happens to my license in the long run?",
   "how.faq4.a": "Per our terms a license is valid permanently for that tool, including its updates, for as long as the tool is offered. The tool checks your key with Lemon Squeezy about once a day. It stops only if the key was refunded or deactivated. If the check cannot run, for example because you are offline, the tool keeps working.",
   "how.faq5.q": "Do the tools work offline, and what if the website disappears?",
-  "how.faq5.a": "A tool needs a connection to open. Your entries are stored on your device, and a backup is a plain JSON file you can keep anywhere. Oneware is a small independent business, and no website can be promised forever. That is why regular backups matter: the file is yours, whatever happens.",
+  "how.faq5.a": "Yes, once you have opened Oneware online, the tools are kept in your browser and open without a connection. Online, you always get the current version. Your entries are stored on your device, and a backup is a plain JSON file you can keep anywhere. Oneware is a small independent business, and no website can be promised forever. That is why regular backups matter: the file is yours, whatever happens.",
   "shell.about.audience": "Good for",
   "shell.about.data": "Your data",
   "shell.about.data.stores": "Entries are saved in this browser on your device. Nothing is uploaded and we keep no copy. Clearing browser data or switching devices removes them, so export a backup from the menu now and then. The backup is a plain JSON file you can import again.",
