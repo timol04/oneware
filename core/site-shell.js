@@ -4,6 +4,7 @@
  */
 import { t, applyTranslations } from './i18n.js';
 import { initTheme } from './theme.js';
+import { initAnalytics } from './analytics.js';
 import { createThemeToggle, createLanguageSwitcher } from './ui-components.js';
 
 /** Root URL of the site (the folder that contains core/), independent of the hosting path. */
@@ -87,6 +88,7 @@ export function createSiteFooter() {
 /** Mounts skip link, header and footer. `active`: 'tools' | 'how' | undefined. */
 export function mountSiteShell({ active } = {}) {
   initTheme();
+  initAnalytics();
 
   const skip = el('a', 'ow-skip', 'shell.skip');
   skip.href = '#main';
