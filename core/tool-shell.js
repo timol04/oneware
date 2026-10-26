@@ -11,6 +11,7 @@
  * The tool provides <main id="main" class="ow-container"> with its workspace.
  */
 import { t, localize, availableLanguages, languageName, getLang, setLang, applyTranslations } from './i18n.js';
+import { initAnalytics } from './analytics.js';
 import { initTheme, getTheme, toggleTheme } from './theme.js';
 import { createIcon } from './icons.js';
 import { licensing } from './site-config.js';
@@ -39,6 +40,7 @@ const isDesktop = () => matchMedia('(min-width: 721px)').matches;
 export async function mountToolShell({ slug, config, main, onLicenseChange } = {}) {
   if (!slug || !config || !main) throw new Error('slug, config and main are required');
   initTheme();
+  initAnalytics();
   if (config.accent) {
     document.documentElement.style.setProperty('--accent-l', config.accent.light);
     document.documentElement.style.setProperty('--accent-d', config.accent.dark);
