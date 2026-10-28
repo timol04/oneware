@@ -21,6 +21,7 @@ import { LOCALES } from '../core/locales/index.js';
 import { previewHtml, shotHtml, PREVIEW_KINDS } from '../hub/src/preview.js';
 import { licensing } from '../core/site-config.js';
 import { KINDS, groupTools } from '../hub/src/groups.js';
+import { buildSw } from './build-sw.js';
 import { injectToolSeo, sitemapXml, fillI18n, noscriptNav } from './seo.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -156,6 +157,10 @@ const group = (g) => `        <section class="group" data-kind="${g.kind}"><div 
 const rows = tools.length ? groupTools(tools).map(group).join('\n') : `        <p class="catalog__msg ow-muted">${esc(en['hub.empty'])}</p>`;
 const next = html.replace(/(<!-- catalog:start -->)[\s\S]*?(<!-- catalog:end -->)/, (_, start, end) => `${start}\n${rows}\n        ${end}`);
 if (next !== html) await writeFile(indexFile, next);
+
+// ---- service worker (offline use) ----
+const sw = await buildSw(root, tools.filter((t) => existsSync(path.join(root, t.path, 'index.html'))).map((t) => path.basename(t.path)));
+console.log(`sw.js ${sw.version}: ${sw.core} core file(s), ${Object.keys(sw.tools).length} tool(s) for offline use`);
 
 for (const w of warnings) console.warn(`warning: ${w}`);
 console.log(`${tools.length} tool(s) written to hub/tool-registry.json`);

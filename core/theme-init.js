@@ -28,3 +28,22 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
+
+/* Offline use: registers /sw.js (generated at build time) and, once the page is idle, asks it to store all tools for offline use
+ * (skipped when the browser asks to save data). Failure is harmless: the site works online exactly as before. */
+(function () {
+  if (!('serviceWorker' in navigator) || !/^https?:$/.test(location.protocol)) return;
+  var src = document.currentScript && document.currentScript.src;
+  if (!src) return;
+  var url = new URL('../sw.js', src).href;
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register(url).then(function (reg) {
+      var c = navigator.connection;
+      if (c && c.saveData) return;
+      return navigator.serviceWorker.ready.then(function (r) {
+        var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 2000); };
+        idle(function () { if (r.active) r.active.postMessage({ type: 'warm' }); });
+      });
+    }).catch(function () {});
+  });
+})();

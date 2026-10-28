@@ -128,10 +128,11 @@ function renderList(today) {
     when$.dataset.soon = String(soon);
     b.append(span('ab-item__name', sub.name || t('ab.untitled')), span('ab-item__price', money(price)), span('ab-item__meta', meta), when$);
     li.append(b);
-    if (sub.url) {
+    const safeUrl = sub.url ? normalizeUrl(sub.url) : '';
+    if (safeUrl) { // a link from an imported backup is re-checked: only http(s) is ever opened
       const a = document.createElement('a');
       a.className = 'ab-item__link';
-      a.href = sub.url;
+      a.href = safeUrl;
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
       a.title = t('ab.form.openUrl');

@@ -112,10 +112,9 @@
 .dash__cloud-btn:disabled { opacity: .5; cursor: not-allowed; }
 
 /* Workshop wall, dosed: pegboard dots, ruler, small technical labels. No pins, ledges or tilted tags here. */
-.ow-page-title { font-size: clamp(2.75rem, 7vw, 5rem); letter-spacing: -0.06em; line-height: .92; }
+.ow-page-title { font-size: clamp(2.4rem, 6vw, 4.4rem); letter-spacing: -0.06em; line-height: .92; }
 .dash__trust { font-size: var(--fs-small); margin-bottom: var(--s-5); }
-.dash__ruler { display: flex; align-items: flex-end; gap: var(--s-3); margin: 0 0 var(--s-7); color: var(--text-muted); font: 500 .72rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
-.dash__ruler::after { content: ""; flex: 1; height: .7rem; background: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 8px) 0 100% / 100% 45% no-repeat, repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 40px) 0 100% / 100% 100% no-repeat; opacity: .55; }
+.dash__intro { margin-bottom: var(--s-2); }
 .dash__section h2 { display: flex; align-items: center; gap: .4em; letter-spacing: -0.04em; }
 .dash__section--tools h2::before, #dash-today-h::before { content: ""; flex: none; width: .75em; height: .55em; background: radial-gradient(circle at 24% 50%, var(--bg) 0 .08em, transparent .09em), var(--tag); clip-path: polygon(30% 0, 100% 0, 100% 100%, 30% 100%, 0 50%); }
 /* tools: the work surface, narrower column than the home page so cards stay even */
@@ -140,3 +139,20 @@
 .dash__aside .dash__section > h2, .dash__aside h2 { font-size: var(--fs-h3); color: var(--text-muted); }
 .dash__aside h2::before { display: none; }
 .dash__main .groups { counter-reset: tool; }
+
+/* Calmer dashboard: tighter header, one toolbar, even card grid, quiet plan label */
+.ow-page-title { margin-bottom: var(--s-3); }
+.dash__trust { margin-bottom: var(--s-6); }
+.dash__section { margin-bottom: var(--s-6); }
+.dash__toolbar { display: flex; align-items: center; gap: var(--s-3); margin: 0 0 var(--s-5); }
+.dash__toolbar .dash__search { flex: 1 1 auto; max-width: 24rem; margin: 0; }
+.dash__toolbar #dash-edit { flex: none; }
+.dash__main .catalog { grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); align-items: stretch; }
+.dash__main .tool-card { min-height: 9.5rem; }
+.dash__plan { color: var(--text-muted); font-size: .78rem; }
+.dash__plan--on { color: var(--text); font-weight: 600; }
+#dash-today { margin-top: var(--s-3); gap: var(--s-3); }
+.today__card { padding: var(--s-4); gap: var(--s-2); }
+.today__empty { padding: var(--s-2) var(--s-3); border-width: 1px; }
+#dash-today-section { margin-bottom: var(--s-5); }
+.dash__main .tool-card { counter-increment: tool; }

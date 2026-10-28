@@ -170,7 +170,7 @@ function toolRow({ tool, live, count, premium }) {
   if (!live) meta.append(createStatusBadge('yellow', t('dash.soon')));
   else {
     meta.append(el('span', 'ow-muted', tool.stores !== false ? (count === 1 ? t('dash.entriesOne') : t('dash.entries', { count })) : ''));
-    meta.append(tool.hasPremium && licensing.enabled ? createStatusBadge(premium ? 'green' : 'yellow', t(premium ? 'dash.premium' : 'dash.free')) : '');
+    meta.append(tool.hasPremium && licensing.enabled ? el('span', `dash__plan${premium ? ' dash__plan--on' : ''}`, t(premium ? 'dash.premium' : 'dash.free')) : '');
   }
   const body = el('div', 'tool-card__body');
   body.append(top, el('p', 'tool-card__desc', localize(tool.shortDescription)), meta);
@@ -178,7 +178,7 @@ function toolRow({ tool, live, count, premium }) {
     const b = button(t(on ? 'dash.remove' : 'dash.add'), () => setOn(tool.slug, !on), on ? 'ow-btn ow-btn--secondary dash__cta' : 'ow-btn dash__cta');
     b.setAttribute('aria-pressed', String(on));
     body.append(b);
-  } else if (live && licensing.enabled && tool.hasPremium && !premium) body.append(el('span', 'ow-btn ow-btn--secondary dash__cta', t('dash.unlock')));
+  }
   if (editing) link.append(preview);
   link.append(body);
   li.append(link);
