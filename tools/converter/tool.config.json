@@ -51,8 +51,8 @@
         "de": "Klare Hinweise, was eine Umwandlung nicht übernehmen kann"
       },
       {
-        "en": "Hand files over to and from Notes, the PDF Toolkit and Verifyxr",
-        "de": "Dateien an Notes, das PDF-Werkzeug und Verifyxr übergeben und von dort übernehmen"
+        "en": "Hand files over to and from Notes and the PDF Toolkit",
+        "de": "Dateien an Notes und das PDF-Werkzeug übergeben und von dort übernehmen"
       }
     ],
     "premium": [
@@ -81,7 +81,6 @@
     },
     "related": [
       "pdf-toolkit",
-      "verifyxr",
       "qr-pro-studio"
     ],
     "faq": [
