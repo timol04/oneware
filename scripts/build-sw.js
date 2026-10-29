@@ -3,6 +3,7 @@
  * Called at the end of build-tool-registry.js, so every build (GitHub Pages, Cloudflare preview) produces it.
  *   core  = shell pages, core/, hub/, legal, how-it-works, dashboard: stored when the service worker installs
  *   tools = mydashboard/<slug>/ per tool: stored in the background after the first visit (they are large)
+ *   lazy  = folders inside a tool that are not stored in the background (the receipt-scan engine, ~7 MB); they are kept offline once used
  * The version is a hash over all listed files, so any change to the site updates the worker.
  */
 import { readdir, readFile, writeFile } from 'node:fs/promises';
@@ -25,12 +26,16 @@ async function walk(root, dir = '') {
 // a page file maps to its folder URL (index.html -> dir/), everything else to its own path
 const urlOf = (rel) => (rel === 'index.html' ? './' : rel.endsWith('/index.html') ? rel.slice(0, -'index.html'.length) : rel);
 
+// big optional engines: fetched when first used (the service worker caches them then), not in the background warm-up
+export const LAZY = ['vendor/ocr/'];
+const isLazy = (rel) => LAZY.some((dir) => rel.includes(`/${dir}`));
+
 export async function buildSw(root, slugs) {
   const files = (await walk(root)).filter((f) => !f.startsWith('mydashboard/') || f === 'mydashboard/index.html' || /^mydashboard\/(dashboard\.(js|css))$/.test(f));
   const core = files.sort();
   const tools = {};
   for (const slug of [...slugs].sort()) {
-    tools[slug] = (await walk(root, `mydashboard/${slug}`)).sort().map(urlOf);
+    tools[slug] = (await walk(root, `mydashboard/${slug}`)).filter((f) => !isLazy(f)).sort().map(urlOf);
   }
   const hash = createHash('sha256');
   for (const f of [...core, ...Object.values(tools).flat().map((u) => (u.endsWith('/') ? u + 'index.html' : u))]) {
@@ -39,7 +44,7 @@ export async function buildSw(root, slugs) {
   const template = await readFile(path.join(root, 'scripts', 'sw-template.js'), 'utf8');
   hash.update(template);
   const version = hash.digest('hex').slice(0, 12);
-  const manifest = { core: core.map(urlOf), tools };
+  const manifest = { core: core.map(urlOf), tools, lazy: LAZY };
   const out = template.replace('__VERSION__', version).replace('__MANIFEST__', () => JSON.stringify(manifest));
   await writeFile(path.join(root, 'sw.js'), out);
   return { version, core: manifest.core.length, tools: Object.fromEntries(Object.entries(tools).map(([k, v]) => [k, v.length])) };

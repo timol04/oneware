@@ -34,8 +34,10 @@ self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
     // entries that are no longer part of the site are dropped on update
+    // (files of the lazy folders were stored when first used, so they stay)
     const keep = new Set([...allUrls(), abs(WARM_KEY)]);
-    for (const req of await cache.keys()) if (!keep.has(req.url)) await cache.delete(req);
+    const lazy = (url) => (MANIFEST.lazy || []).some((dir) => url.includes('/' + dir));
+    for (const req of await cache.keys()) if (!keep.has(req.url) && !lazy(req.url)) await cache.delete(req);
     await self.clients.claim();
   })());
 });
