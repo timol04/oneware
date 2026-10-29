@@ -301,7 +301,7 @@ export default {
   "legal.terms.title": "Terms – Oneware",
   "legal.terms.desc": "Terms of use, licenses and refunds for Oneware tools.",
   "legal.terms.h1": "Terms",
-  "legal.terms.intro": "These terms apply to using the Oneware website and tools and to buying licenses. Version of 19 October 2026.",
+  "legal.terms.intro": "These terms apply to using the Oneware website and tools and to buying licenses. Version of 29 October 2026.",
   "legal.terms.s1.h": "Provider",
   "legal.terms.s1.p": "Timo Lanter, sole proprietorship Oneware (Switzerland). Contact: oneware.contact@gmail.com.",
   "legal.terms.s2.h": "Free use and Premium",
