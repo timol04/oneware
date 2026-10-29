@@ -301,7 +301,7 @@ export default {
   "legal.terms.title": "Bedingungen – Oneware",
   "legal.terms.desc": "Nutzungsbedingungen, Lizenzen und Rückerstattung für die Tools von Oneware.",
   "legal.terms.h1": "Bedingungen",
-  "legal.terms.intro": "Diese Bedingungen gelten für die Nutzung der Oneware-Website und -Tools und für den Kauf von Lizenzen. Stand: 19. Oktober 2026.",
+  "legal.terms.intro": "Diese Bedingungen gelten für die Nutzung der Oneware-Website und -Tools und für den Kauf von Lizenzen. Stand: 29. Oktober 2026.",
   "legal.terms.s1.h": "Anbieter",
   "legal.terms.s1.p": "Timo Lanter, Einzelunternehmen Oneware (Schweiz). Kontakt: oneware.contact@gmail.com.",
   "legal.terms.s2.h": "Gratis-Nutzung und Premium",
