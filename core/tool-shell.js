@@ -137,6 +137,7 @@ export async function mountToolShell({ slug, config, main, onLicenseChange } = {
     const file = fileInput.files[0];
     fileInput.value = '';
     if (!file) return;
+    if (!confirm(t('shell.importConfirm'))) return;
     try { showToast(t('shell.imported', { count: await importData(slug, file) })); onLicenseChange?.(); }
     catch (e) { showToast(t('shell.importFailed', { reason: e.message })); }
   });

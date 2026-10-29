@@ -244,6 +244,7 @@ function renderData() {
   file.addEventListener('change', async () => {
     const f = file.files[0]; file.value = '';
     if (!f) return;
+    if (!confirm(t('shell.importConfirm'))) return;
     try { showToast(t('shell.imported', { count: await importAll(slugs, f) })); refresh(); }
     catch (e) { showToast(t('shell.importFailed', { reason: e.message })); }
   });
