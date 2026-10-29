@@ -32,3 +32,12 @@ test('sw version changes with any listed file', async () => {
   await put('mydashboard/notes/src/app.js', 'changed');
   assert.notEqual((await buildSw(root, ['notes'])).version, a);
 });
+
+test('sw manifest: the receipt-scan engine is lazy, not part of the background warm-up', async () => {
+  const { root, put } = await site();
+  await put('mydashboard/notes/vendor/ocr/engine.wasm');
+  await buildSw(root, ['notes']);
+  const manifest = JSON.parse((await readFile(path.join(root, 'sw.js'), 'utf8')).match(/MANIFEST = (.*);/)[1]);
+  assert.ok(!manifest.tools.notes.some((u) => u.includes('vendor/ocr')));
+  assert.deepEqual(manifest.lazy, ['vendor/ocr/']);
+});

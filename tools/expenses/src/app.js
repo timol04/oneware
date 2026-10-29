@@ -3,6 +3,8 @@ import { saveItem, getAllItems, updateItem, deleteItem } from '../../../core/sto
 import { registerMessages, t, getLang, applyTranslations, onLangChange } from '../../../core/i18n.js';
 import { mountToolShell } from '../../../core/tool-shell.js';
 import { createIcon } from '../../../core/icons.js';
+import { readReceipt, ocrSupported } from './ocr.js';
+import { parseReceipt } from './receipt.js';
 import { monthsChart, categoryChart } from './charts.js';
 import {
   TYPES, CATEGORIES, CURRENCIES, newEntry, todayISO, isISODate, parseAmount, categoryFor,
@@ -220,9 +222,65 @@ function openSheet(entry) {
   for (const f of ['amount', 'date']) showError(f, null);
   $('delete').hidden = !entry;
   resetDelete();
+  resetScan(!entry);
   applyTranslations(sheet);
   sheet.showModal();
   if (!entry) $('f-amount').focus();
+}
+
+// --- Receipt scan (Premium): photo or image file, read on the device, fills the form for the user to check ---
+let scanId = 0; // a closed sheet or a newer scan makes a running one obsolete
+
+function scanStatus(text, progress = null) {
+  $('scan-status').textContent = text;
+  $('scan-bar').hidden = progress === null;
+  if (progress !== null) $('scan-bar').value = progress;
+}
+
+function resetScan(show) {
+  scanId++;
+  $('scan').hidden = !show;
+  scanStatus(show && !ocrSupported() ? t('ex.scan.unsupported') : '');
+  for (const [id, icon, key] of [['scan-camera', 'camera', 'ex.scan.camera'], ['scan-file', 'upload', 'ex.scan.file']]) {
+    const b = $(id);
+    b.replaceChildren(createIcon(icon, { size: '1.1rem' }), ` ${t(key)}`);
+    b.disabled = !ocrSupported();
+  }
+}
+
+function fillFromReceipt(r) {
+  const found = [];
+  if (r.amount !== null) { $('f-amount').value = String(r.amount).replace('.', getLang() === 'de' ? ',' : '.'); showError('amount', null); found.push(t('ex.form.amount')); }
+  if (r.date) { $('f-date').value = r.date; showError('date', null); found.push(t('ex.form.date')); }
+  setFormType('expense', r.category ?? $('f-cat').value);
+  if (r.category) found.push(t('ex.form.category'));
+  if (r.merchant && !$('f-note').value.trim()) { $('f-note').value = r.merchant; found.push(t('ex.form.note')); }
+  const note = r.currency && r.currency !== currency ? ` ${t('ex.scan.currency', { currency: r.currency })}` : '';
+  scanStatus(found.length ? `${t('ex.scan.done', { fields: found.join(', ') })}${note}` : t('ex.scan.none'));
+}
+
+async function scan(file) {
+  if (!file) return;
+  if (!premium()) { shell.openLicense('buy'); return; }
+  const id = ++scanId;
+  const busy = ['scan-camera', 'scan-file'];
+  busy.forEach((b) => { $(b).disabled = true; });
+  scanStatus(t('ex.scan.reading'), 0);
+  try {
+    const lang = getLang() === 'de' ? ['deu', 'eng'] : ['eng', 'deu'];
+    const text = await readReceipt(file, lang, (p) => { if (id === scanId) scanStatus(t('ex.scan.reading'), p); });
+    if (id === scanId) fillFromReceipt(parseReceipt(text));
+  } catch {
+    if (id === scanId) scanStatus(t('ex.scan.error'));
+  } finally {
+    if (id === scanId) busy.forEach((b) => { $(b).disabled = !ocrSupported(); });
+    if (id === scanId) $('scan-bar').hidden = true;
+  }
+}
+
+for (const [btn, input] of [['scan-camera', 'scan-in-camera'], ['scan-file', 'scan-in-file']]) {
+  $(btn).addEventListener('click', () => (premium() ? $(input).click() : shell.openLicense('buy')));
+  $(input).addEventListener('change', (e) => { const [file] = e.target.files; e.target.value = ''; scan(file); });
 }
 
 async function submit(e) {
@@ -255,7 +313,7 @@ $('add').addEventListener('click', () => {
 $('form').addEventListener('submit', submit);
 $('close').addEventListener('click', () => sheet.close());
 sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); });
-sheet.addEventListener('close', () => { editing = null; resetDelete(); });
+sheet.addEventListener('close', () => { editing = null; scanId++; resetDelete(); });
 $('f-type').addEventListener('click', (e) => {
   const b = e.target.closest('.ex-chip');
   if (b) setFormType(b.dataset.type);

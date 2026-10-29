@@ -1399,6 +1399,10 @@
         {
           "en": "Spending by category over the year",
           "de": "Ausgaben nach Kategorie über das Jahr"
+        },
+        {
+          "en": "Receipt scan: photo or image fills in amount, date and merchant on your device",
+          "de": "Quittungs-Scan: Foto oder Bild füllt Betrag, Datum und Händler auf deinem Gerät aus"
         }
       ]
     },
@@ -1438,6 +1442,16 @@
           "a": {
             "en": "Recurring subscriptions belong in the subscription tracker. Expenses is for single bookings.",
             "de": "Wiederkehrende Abos gehören in den Abo-Tracker. Ausgaben ist für einzelne Buchungen."
+          }
+        },
+        {
+          "q": {
+            "en": "Can I scan a receipt?",
+            "de": "Kann ich eine Quittung scannen?"
+          },
+          "a": {
+            "en": "Yes, with Premium. Take a photo or choose an image of the receipt and the tool reads the amount, date and merchant on your device. The photo is not saved and never leaves your device. Always check the values before saving, as reading is not perfect, especially with crumpled or faded receipts.",
+            "de": "Ja, mit Premium. Fotografiere die Quittung oder wähle ein Bild, und das Tool liest Betrag, Datum und Händler auf deinem Gerät. Das Foto wird nicht gespeichert und verlässt dein Gerät nie. Prüfe die Werte immer vor dem Speichern, denn das Lesen ist nicht perfekt, besonders bei zerknitterten oder verblassten Quittungen."
           }
         },
         {
