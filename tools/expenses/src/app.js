@@ -228,7 +228,7 @@ function openSheet(entry) {
   if (!entry) $('f-amount').focus();
 }
 
-// --- Receipt scan (Premium): photo or image file, read on the device, fills the form for the user to check ---
+// --- Receipt scan (free): photo or image file, read on the device, fills the form for the user to check ---
 let scanId = 0; // a closed sheet or a newer scan makes a running one obsolete
 
 function scanStatus(text, progress = null) {
@@ -261,7 +261,6 @@ function fillFromReceipt(r) {
 
 async function scan(file) {
   if (!file) return;
-  if (!premium()) { shell.openLicense('buy'); return; }
   const id = ++scanId;
   const busy = ['scan-camera', 'scan-file'];
   busy.forEach((b) => { $(b).disabled = true; });
@@ -279,7 +278,7 @@ async function scan(file) {
 }
 
 for (const [btn, input] of [['scan-camera', 'scan-in-camera'], ['scan-file', 'scan-in-file']]) {
-  $(btn).addEventListener('click', () => (premium() ? $(input).click() : shell.openLicense('buy')));
+  $(btn).addEventListener('click', () => $(input).click());
   $(input).addEventListener('change', (e) => { const [file] = e.target.files; e.target.value = ''; scan(file); });
 }
 
