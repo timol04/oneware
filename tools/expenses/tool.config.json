@@ -49,6 +49,10 @@
       {
         "en": "Backup export and import",
         "de": "Backup-Export und -Import"
+      },
+      {
+        "en": "Receipt scan: photo or image fills in amount, date and merchant on your device",
+        "de": "Quittungs-Scan: Foto oder Bild füllt Betrag, Datum und Händler auf deinem Gerät aus"
       }
     ],
     "premium": [
@@ -98,6 +102,16 @@
         "a": {
           "en": "Recurring subscriptions belong in the subscription tracker. Expenses is for single bookings.",
           "de": "Wiederkehrende Abos gehören in den Abo-Tracker. Ausgaben ist für einzelne Buchungen."
+        }
+      },
+      {
+        "q": {
+          "en": "Can I scan a receipt?",
+          "de": "Kann ich eine Quittung scannen?"
+        },
+        "a": {
+          "en": "Yes, and it is free. Take a photo or choose an image of the receipt and the tool reads the amount, date and merchant on your device. The photo is not saved and never leaves your device. Always check the values before saving, as reading is not perfect, especially with crumpled or faded receipts.",
+          "de": "Ja, und es ist gratis. Fotografiere die Quittung oder wähle ein Bild, und das Tool liest Betrag, Datum und Händler auf deinem Gerät. Das Foto wird nicht gespeichert und verlässt dein Gerät nie. Prüfe die Werte immer vor dem Speichern, denn das Lesen ist nicht perfekt, besonders bei zerknitterten oder verblassten Quittungen."
         }
       },
       {

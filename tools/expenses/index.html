@@ -66,6 +66,16 @@
         <h2 id="sheet-title"></h2>
         <button type="button" id="close" class="ow-iconbtn"></button>
       </div>
+      <div id="scan" class="ex-scan" hidden>
+        <div class="ex-scan__btns">
+          <button type="button" id="scan-camera" class="ow-btn ow-btn--secondary"></button>
+          <button type="button" id="scan-file" class="ow-btn ow-btn--secondary"></button>
+        </div>
+        <input id="scan-in-camera" type="file" accept="image/*" capture="environment" hidden>
+        <input id="scan-in-file" type="file" accept="image/*" hidden>
+        <p id="scan-status" class="ex-scan__status ow-muted" role="status" aria-live="polite"></p>
+        <progress id="scan-bar" class="ex-scan__bar" max="1" hidden></progress>
+      </div>
       <div id="f-type" class="ex-types" role="group" data-i18n-attr="aria-label:ex.form.type"></div>
       <div class="ex-two">
         <div class="ow-field">
